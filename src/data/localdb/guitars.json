@@ -1,0 +1,51 @@
+[
+    {
+        "id": 10000,
+        "name": "Ibanez Artcore AK80-BS-12-02",
+        "description": "",
+        "purchaseDate": "",
+        "purchaseStore": "Amazon",
+        "make": "Ibanez",
+        "model": "AK80",
+        "series": "Artcore",
+        "serialNumber": "S123456789",
+        "serialNumberLocation": "Body",
+        "bodyStyle": "Hollowbody",
+        "color": "Sunburst",
+        "pickups": [
+            {
+                "id": 10010,
+                "name": "Ibanez Neck",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "Factory",
+                "position": "Neck",
+                "type": "Humbucker",
+                "output": ""
+            },
+            {
+                "id": 10011,
+                "name": "Ibanez Bridge",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "Factory",
+                "position": "Bridge",
+                "type": "Humbucker",
+                "output": ""
+            }
+        ],
+        "strings": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+        "case": {
+            "id": 10100,
+            "name": "TKL Artcore Case",
+            "description": "",
+            "purchaseDate": "",
+            "purchaseStore": "Guitar Center",
+            "caseStyle": "Arched"
+        },
+        "picture": "http://www.chorder.com/images/reviews-articles/546-desktop.jpg",
+        "modifications": [
+            "Removed pickguard", "Added chrome knobs"
+        ]
+    }
+]

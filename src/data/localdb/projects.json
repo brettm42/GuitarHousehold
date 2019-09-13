@@ -1,0 +1,54 @@
+[
+    {
+        "id": 100000,
+        "name": "Project Natural Jazzmaster",
+        "description": "",
+        "projectStart": "12/6/2015",
+        "projectComplete": "1/8/2016",
+        "purchaseStore": "GuitarFetish",
+        "serialNumber": "ICS123456789",
+        "serialNumberLocation": "Neck",
+        "bodyStyle": "Jazzmaster",
+        "body": "XGP Offset Body Double Bound Flamed Maple Vintage Natural",
+        "neck": "Squier Vintage Modified Jazzmaster Neck",
+        "pickguard": "XGP 3 Ply White Offset Pickguard- 2 Jazzmaster pickups",
+        "color": "Natural",
+        "pickups": [
+            {
+                "id": 100010,
+                "name": "GFS JM90 Vintage Wound Jazzmaster Neck",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "GuitarFetish",
+                "position": "Neck",
+                "type": "Jazzmaster",
+                "output": ""
+            },
+            {
+                "id": 100011,
+                "name": "GFS JM90 Vintage Wound Jazzmaster Bridge",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "GuitarFetish",
+                "position": "Bridge",
+                "type": "Jazzmaster",
+                "output": ""
+            }
+        ],
+        "scale": "25.5\"",
+        "strings": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+        "scale": "",
+        "case": {
+            "id": 100100,
+            "name": "Douglas EGC-200 SJM Case",
+            "description": "",
+            "purchaseDate": "",
+            "purchaseStore": "Rondo Music",
+            "caseStyle": "Flat"
+        },
+        "picture": "",
+        "modifications": [
+            "Wired up as (but with a 4-throw rotary switch instead of blade) - https://dl.dropboxusercontent.com/u/7440801/Guitar%20Wiring/Tele%204-Way%20Dual%202.jpg"
+        ]
+    }
+]
