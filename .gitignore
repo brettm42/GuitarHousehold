@@ -1,4 +1,8 @@
 
 .vs
 BlazorPages
+
+src/npm-debug.log
 src/node_modules
+src/data/localdb/guitars.json
+src/data/localdb/projects.json

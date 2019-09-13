@@ -15,6 +15,7 @@ yarn
 yarn dev
 ```
 
+npm install --save next react react-dom
 
 ## TypeScript
 
