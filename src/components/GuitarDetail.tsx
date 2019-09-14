@@ -15,9 +15,8 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 }) => (
   <div>
     <h1>{guitar.name}</h1>
-    <p>json: {JSON.stringify(guitar)}</p>
     {guitar.description
-      ? <p>Description: {guitar.description}</p>
+      ? <p>{guitar.description}</p>
       : null}
     <p>Make: {guitar.make}</p>
     <p>Model: {guitar.model}</p>
@@ -51,6 +50,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
     {guitar.picture
       ? <img src={guitar.picture} alt={guitar.name} />
       : null}
+    <div className="json">
+      <pre>{JSON.stringify(guitar, undefined, 2)}</pre>
+    </div>
   </div>
 );
 

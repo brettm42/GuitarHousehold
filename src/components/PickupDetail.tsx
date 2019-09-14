@@ -12,9 +12,8 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 }) => (
   <div>
     <h4>{pickup.name}</h4>
-    <p>json: {JSON.stringify(pickup)}</p>
     {pickup.description 
-      ? <p>Description: {pickup.description}</p> 
+      ? <p>{pickup.description}</p> 
       : null}
     <p>Position: {pickup.position}</p>
     <p>Type: {pickup.type}</p>
@@ -30,6 +29,9 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
     {pickup.productUrl
       ? <p>Product Link: <a href={pickup.productUrl}>{pickup.productUrl}</a></p>
       : null}
+    <div className="json">
+      <pre>{JSON.stringify(pickup, undefined, 2)}</pre>
+    </div>
   </div>
 );
 

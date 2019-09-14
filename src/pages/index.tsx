@@ -27,6 +27,11 @@ const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
           <a>About</a>
         </Link>
       </div>
+      <style jsx global>{`
+        .json {
+          background: lightgrey
+        }
+    `}</style>
     </Layout>
   );
 }

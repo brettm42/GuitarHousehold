@@ -12,9 +12,8 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
 }) => (
   <div>
     <h4>{guitarCase.name}</h4>
-    <p>json: {JSON.stringify(guitarCase)}</p>
     {guitarCase.description 
-      ? <p>Description: {guitarCase.description}</p> 
+      ? <p>{guitarCase.description}</p> 
       : null}
     <p>Case Style: {guitarCase.caseStyle}</p>
     {guitarCase.purchaseDate 
@@ -24,6 +23,9 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
     {guitarCase.productUrl
       ? <p>Product Link: <a href={guitarCase.productUrl}>{guitarCase.productUrl}</a></p>
       : null}
+    <div className="json">
+      <pre>{JSON.stringify(guitarCase, undefined, 2)}</pre>
+    </div>
   </div>
 );
 
