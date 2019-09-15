@@ -1,25 +1,37 @@
 import * as React from 'react';
 import Link from 'next/link';
+
 import Layout from '../components/Layout';
 import Summary from '../components/Summary';
-import { NextPage } from 'next';
+import HouseholdGridList from '../components/HouseholdGridList';
 
+import { NextPage } from 'next';
 import { Guitar } from '../interfaces/models/guitar';
 import { Project } from '../interfaces/models/project';
 import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarservice';
 
 type Props = {
-  guitars: Guitar[]
+  guitars: Guitar[],
   projects: Project[]
 }
 
+
+
 const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
+const data = [...guitars, ...projects];
+
   return (
     <Layout title="GuitarHousehold | Home">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+
       <h1>GuitarHousehold 👋</h1>
-      
+
       <div>
-        <Summary guitars={guitars} projects={projects} />
+        <Summary data={data} />
+      </div>
+
+      <div>
+        <HouseholdGridList data={data} />
       </div>
 
       <div>

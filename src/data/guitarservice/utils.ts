@@ -1,6 +1,11 @@
 
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
+import { Project } from '../../interfaces/models/project';
+
+export function isProject(guitar: any): guitar is Project {
+    return guitar.projectStart !== undefined;
+}
 
 export function hasCase(guitar: Guitar): boolean {
     return guitar.case
