@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: 15,
-      height: 220,
-      width: 350,
+      minHeight: 220,
+      width: 400,
     },
     control: {
       padding: theme.spacing(2),
@@ -94,36 +94,37 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   const [spacing] = React.useState<GridSpacing>(2);
   const classes = useStyles();
 
-  return (<div>
-    <h3>{guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)</h3>
+  return (
+    <div>
+      <h3>{guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)</h3>
 
-    <Grid container className={classes.root} spacing={2}>
-      <Grid item xs={"auto"}>
-        <Grid container justify="center" spacing={spacing}>
-          <Grid key={'popular'} item>
-            <Paper className={classes.paper}>
-              <MostPopular data={guitars} />
-            </Paper>
-          </Grid>
-          <Grid key={'cases'} item>
-            <Paper className={classes.paper}>
-              <MissingCase data={guitars} />
-            </Paper>
-          </Grid>
-          <Grid key={'outliers'} item>
-            <Paper className={classes.paper}>
-              <Outliers data={guitars} />
-            </Paper>
-          </Grid>
-          <Grid key={'values'} item>
-            <Paper className={classes.paper}>
-              <Values data={guitars} />
-            </Paper>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={"auto"}>
+          <Grid container justify="flex-start" spacing={spacing}>
+            <Grid key={'popular'} item>
+              <Paper className={classes.paper}>
+                <MostPopular data={guitars} />
+              </Paper>
+            </Grid>
+            <Grid key={'cases'} item>
+              <Paper className={classes.paper}>
+                <MissingCase data={guitars} />
+              </Paper>
+            </Grid>
+            <Grid key={'outliers'} item>
+              <Paper className={classes.paper}>
+                <Outliers data={guitars} />
+              </Paper>
+            </Grid>
+            <Grid key={'values'} item>
+              <Paper className={classes.paper}>
+                <Values data={guitars} />
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
-  </div>);
+    </div>);
 };
 
 export default Summary;
