@@ -35,7 +35,7 @@ export function mostPickups(guitars: Guitar[]): Guitar | undefined {
             continue;
         }
 
-        if (max.pickups.length < guitar.pickups.length) {
+        if ((max.pickups || []).length < guitar.pickups.length) {
             max = guitar;
         }
     }
@@ -65,7 +65,7 @@ export function mostModifications(guitars: Guitar[]): Guitar | undefined {
             continue;
         }
 
-        if (max.modifications.length < guitar.modifications.length) {
+        if ((max.modifications || []).length < guitar.modifications.length) {
             max = guitar;
         }
     }
@@ -155,7 +155,7 @@ export function newestGuitar(guitars: Guitar[]): Guitar | undefined {
             continue;
         }
 
-        if (Date.parse(min.purchaseDate as String || Date.now().toString()) > Date.parse(guitar.purchaseDate)) {
+        if (Date.parse(min.purchaseDate || Date.now().toString()) > Date.parse(guitar.purchaseDate)) {
             min = guitar;
         }
     }
