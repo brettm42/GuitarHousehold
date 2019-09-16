@@ -178,8 +178,8 @@ export function longestProject(guitars: Guitar[]): Guitar | undefined {
         if (!max) {
             max = guitar;
             maxLength = 
-                Date.parse(max.projectComplete || Date.now().toString()) 
-                - Date.parse(max.projectStart);
+                Date.parse(guitar.projectComplete || Date.now().toString()) 
+                - Date.parse(guitar.projectStart);
             continue;
         }
 
@@ -210,8 +210,8 @@ export function shortestProject(guitars: Guitar[]): Guitar | undefined {
         if (!min) {
             min = guitar;
             minLength = 
-                Date.parse(min.projectComplete || Date.now().toString()) 
-                - Date.parse(min.projectStart);
+                Date.parse(guitar.projectComplete || Date.now().toString()) 
+                - Date.parse(guitar.projectStart);
             continue;
         }
 
