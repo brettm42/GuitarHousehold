@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: 15,
-      minHeight: 220,
+      minHeight: 230,
       width: 400,
     },
     control: {
@@ -43,6 +43,7 @@ const MostPopular: React.FunctionComponent<SummaryProps> = ({
       <li>Scale length: {GuitarUtils.mostCommonScale(guitars)}</li>
       <li>Pickup: {GuitarUtils.mostCommonPickupType(guitars)}</li>
       <li>Number of Pickups: {GuitarUtils.mostCommonPickupNumber(guitars)}</li>
+      <li>Store: {GuitarUtils.mostCommonStore(guitars)}</li>
     </ul>
   </div>
 );

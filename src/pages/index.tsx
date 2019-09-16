@@ -15,8 +15,6 @@ type Props = {
   projects: Project[]
 }
 
-
-
 const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
 const data = [...guitars, ...projects];
 
@@ -39,11 +37,6 @@ const data = [...guitars, ...projects];
           <a>About</a>
         </Link>
       </div>
-      <style jsx global>{`
-        .json {
-          background: lightgrey
-        }
-    `}</style>
     </Layout>
   );
 }

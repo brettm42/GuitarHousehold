@@ -13,6 +13,8 @@ type GuitarDetailProps = {
   item: Guitar
 }
 
+const maxWidth = 500;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -21,15 +23,20 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: 15,
       minHeight: 220,
-      width: 400,
+      width: maxWidth,
     },
     control: {
       padding: theme.spacing(2),
     },
     img: {
-      maxWidth: 500,
+      maxWidth: maxWidth,
       display: 'block',
       margin: '0 auto'
+    },
+    json: {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     }
   }),
 );

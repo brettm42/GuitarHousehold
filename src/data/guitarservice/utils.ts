@@ -103,6 +103,12 @@ export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
     return mostCommonString(makes);
 }
 
+export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
+    const makes = guitars.map(g => g.purchaseStore);
+
+    return mostCommonString(makes);
+}
+
 export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
     const bodies = guitars.map(g => g.bodyStyle);
 
