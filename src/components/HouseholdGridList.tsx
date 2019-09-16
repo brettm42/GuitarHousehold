@@ -30,6 +30,11 @@ const useStyles = makeStyles((theme: Theme) =>
     icon: {
       color: 'rgba(255, 255, 255, 0.54)',
     },
+    img: {
+      height: 250,
+      display: 'block',
+      margin: '0 auto'
+    }
   }),
 );
 
@@ -40,7 +45,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={350} cols={3} className={classes.gridList}>
+      <GridList cellHeight={300} cols={3} className={classes.gridList}>
         <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
           <ListSubheader component="div" />
         </GridListTile>
@@ -48,7 +53,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
           <GridListTile key={guitar.name}>
             <Link href={`/detail?id=${guitar.id}`}>
               <a>
-                <img src={guitar.picture} alt={guitar.name} />
+                <img className={classes.img} src={guitar.picture} alt={guitar.name} />
                 <GridListTileBar
                   title={guitar.name}
                   subtitle={

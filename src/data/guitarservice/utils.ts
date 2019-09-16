@@ -19,10 +19,58 @@ export function hasPickups(guitar: Guitar): boolean {
         : false;
 }
 
+export function mostPickups(guitars: Guitar[]): Guitar | undefined {
+    if (guitars.length < 1) {
+        return undefined;
+    }
+
+    var max;
+    for (let guitar of guitars) {
+        if (!guitar.pickups) {
+            continue;
+        }
+
+        if (!max) {
+            max = guitar;
+            continue;
+        }
+
+        if (max.pickups.length < guitar.pickups.length) {
+            max = guitar;
+        }
+    }
+
+    return max;
+}
+
 export function hasModifications(guitar: Guitar): boolean {
     return guitar.modifications
         ? guitar.modifications.length > 0
         : false;
+}
+
+export function mostModifications(guitars: Guitar[]): Guitar | undefined {
+    if (guitars.length < 1) {
+        return undefined;
+    }
+
+    var max;
+    for (let guitar of guitars) {
+        if (!guitar.modifications) {
+            continue;
+        }
+
+        if (!max) {
+            max = guitar;
+            continue;
+        }
+
+        if (max.modifications.length < guitar.modifications.length) {
+            max = guitar;
+        }
+    }
+
+    return max;
 }
 
 export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
@@ -67,6 +115,118 @@ export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
     return mostCommonString(pickups);
 }
 
+export function oldestGuitar(guitars: Guitar[]): Guitar | undefined {
+    if (guitars.length < 1) {
+        return undefined;
+    }
+
+    var max;
+    for (let guitar of guitars) {
+        if (!guitar.purchaseDate) {
+            continue;
+        }
+
+        if (!max) {
+            max = guitar;
+            continue;
+        }
+
+        if (Date.parse(max.purchaseDate || Date.now().toString()) < Date.parse(guitar.purchaseDate)) {
+            max = guitar;
+        }
+    }
+
+    return max;
+}
+
+export function newestGuitar(guitars: Guitar[]): Guitar | undefined {
+    if (guitars.length < 1) {
+        return undefined;
+    }
+
+    var min;
+    for (let guitar of guitars) {
+        if (!guitar.purchaseDate) {
+            continue;
+        }
+
+        if (!min) {
+            min = guitar;
+            continue;
+        }
+
+        if (Date.parse(min.purchaseDate as String || Date.now().toString()) > Date.parse(guitar.purchaseDate)) {
+            min = guitar;
+        }
+    }
+
+    return min;
+}
+
+export function longestProject(guitars: Guitar[]): Guitar | undefined {
+    if (guitars.length < 1) {
+        return undefined;
+    }
+
+    var max;
+    var maxLength = 0;
+    for (let guitar of guitars) {
+        if (!isProject(guitar) || !guitar.projectStart) {
+            continue;
+        }
+
+        if (!max) {
+            max = guitar;
+            maxLength = 
+                Date.parse(max.projectComplete || Date.now().toString()) 
+                - Date.parse(max.projectStart);
+            continue;
+        }
+
+        var projectLength = 
+            Date.parse(guitar.projectComplete || Date.now().toString()) 
+            - Date.parse(guitar.projectStart);
+        if (maxLength < projectLength) {
+            max = guitar;
+            maxLength = projectLength;
+        }
+    }
+
+    return max;
+}
+
+export function shortestProject(guitars: Guitar[]): Guitar | undefined {
+    if (guitars.length < 1) {
+        return undefined;
+    }
+
+    var min;
+    var minLength = 99999999;
+    for (let guitar of guitars) {
+        if (!isProject(guitar) || !guitar.projectStart) {
+            continue;
+        }
+
+        if (!min) {
+            min = guitar;
+            minLength = 
+                Date.parse(min.projectComplete || Date.now().toString()) 
+                - Date.parse(min.projectStart);
+            continue;
+        }
+
+        var projectLength = 
+            Date.parse(guitar.projectComplete || Date.now().toString()) 
+            - Date.parse(guitar.projectStart);
+        if (minLength > projectLength) {
+            min = guitar;
+            minLength = projectLength;
+        }
+    }
+
+    return min;
+}
+
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
     if (items.length === 0) {
         return "None";
@@ -93,8 +253,6 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
             maxCount = modeMap[elem];
         }
     }
-
-    console.log(modeMap);
 
     return maxElement || "Standard";
 }
