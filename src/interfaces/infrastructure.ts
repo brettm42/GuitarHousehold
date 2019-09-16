@@ -7,6 +7,7 @@ export interface Entry {
 
 export interface RetailItem extends Entry {
   readonly purchaseDate?: string;
+  readonly purchasePrice?: string;
   readonly purchaseStore?: string;
   readonly productUrl?: string;
 }

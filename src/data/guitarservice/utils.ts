@@ -3,6 +3,8 @@ import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
 
+const defaultString = 'None';
+
 export function isProject(guitar: any): guitar is Project {
     return guitar.projectStart !== undefined;
 }
@@ -19,9 +21,9 @@ export function hasPickups(guitar: Guitar): boolean {
         : false;
 }
 
-export function mostPickups(guitars: Guitar[]): Guitar | undefined {
+export function mostPickups(guitars: Guitar[]): string {
     if (guitars.length < 1) {
-        return undefined;
+        return defaultString;
     }
 
     var max;
@@ -40,7 +42,9 @@ export function mostPickups(guitars: Guitar[]): Guitar | undefined {
         }
     }
 
-    return max;
+    return max 
+        ? `${max.name} (${max.pickups.length} pickups)`
+        : defaultString;
 }
 
 export function hasModifications(guitar: Guitar): boolean {
@@ -49,9 +53,9 @@ export function hasModifications(guitar: Guitar): boolean {
         : false;
 }
 
-export function mostModifications(guitars: Guitar[]): Guitar | undefined {
+export function mostModifications(guitars: Guitar[]): string {
     if (guitars.length < 1) {
-        return undefined;
+        return defaultString;
     }
 
     var max;
@@ -70,7 +74,9 @@ export function mostModifications(guitars: Guitar[]): Guitar | undefined {
         }
     }
 
-    return max;
+    return max && max.modifications 
+        ? `${max.name} (${max.modifications.length} modifications)`
+        : defaultString;
 }
 
 export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
@@ -115,9 +121,9 @@ export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
     return mostCommonString(pickups);
 }
 
-export function oldestGuitar(guitars: Guitar[]): Guitar | undefined {
+export function oldestGuitar(guitars: Guitar[]): string {
     if (guitars.length < 1) {
-        return undefined;
+        return defaultString;
     }
 
     var max;
@@ -131,17 +137,19 @@ export function oldestGuitar(guitars: Guitar[]): Guitar | undefined {
             continue;
         }
 
-        if (Date.parse(max.purchaseDate || Date.now().toString()) < Date.parse(guitar.purchaseDate)) {
+        if (Date.parse(max.purchaseDate || Date.now().toString()) > Date.parse(guitar.purchaseDate)) {
             max = guitar;
         }
     }
 
-    return max;
+    return max 
+        ? `${max.name} (bought ${max.purchaseDate})`
+        : defaultString;
 }
 
-export function newestGuitar(guitars: Guitar[]): Guitar | undefined {
+export function newestGuitar(guitars: Guitar[]): string {
     if (guitars.length < 1) {
-        return undefined;
+        return defaultString;
     }
 
     var min;
@@ -155,17 +163,19 @@ export function newestGuitar(guitars: Guitar[]): Guitar | undefined {
             continue;
         }
 
-        if (Date.parse(min.purchaseDate || Date.now().toString()) > Date.parse(guitar.purchaseDate)) {
+        if (Date.parse(min.purchaseDate || Date.now().toString()) < Date.parse(guitar.purchaseDate)) {
             min = guitar;
         }
     }
 
-    return min;
+    return min
+        ? `${min.name} (bought ${min.purchaseDate})`
+        : defaultString;
 }
 
-export function longestProject(guitars: Guitar[]): Guitar | undefined {
+export function longestProject(guitars: Guitar[]): string {
     if (guitars.length < 1) {
-        return undefined;
+        return defaultString;
     }
 
     var max;
@@ -192,12 +202,14 @@ export function longestProject(guitars: Guitar[]): Guitar | undefined {
         }
     }
 
-    return max;
+    return max 
+        ? `${max.name} (started ${max.projectStart}, lasted ${maxLength})`
+        : defaultString;
 }
 
-export function shortestProject(guitars: Guitar[]): Guitar | undefined {
+export function shortestProject(guitars: Guitar[]): string {
     if (guitars.length < 1) {
-        return undefined;
+        return defaultString;
     }
 
     var min;
@@ -224,7 +236,9 @@ export function shortestProject(guitars: Guitar[]): Guitar | undefined {
         }
     }
 
-    return min;
+    return min 
+        ? `${min.name} (started ${min.projectStart}, lasted ${minLength})`
+        : defaultString;
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
