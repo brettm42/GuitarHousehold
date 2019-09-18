@@ -76,15 +76,15 @@ const Outliers: React.FunctionComponent<SummaryProps> = ({
 );
 
 const Values: React.FunctionComponent<SummaryProps> = ({
-  // data: guitars
+  data: guitars
 }) => (
   <div>
     <h3>Values:</h3>
     <ul>
-      <li>Cheapest: $ (with case $)</li>
-      <li>Most expensive: $ (with case $)</li>
-      <li>Highest case vs. cost: $</li>
-      <li>Household: $ (with cases $)</li>
+      <li>Cheapest: {GuitarUtils.cheapest(guitars)} (with case {GuitarUtils.cheapestWithCase(guitars)})</li>
+      <li>Most expensive: {GuitarUtils.mostExpensive(guitars)} (with case {GuitarUtils.mostExpensiveWithCase(guitars)})</li>
+      <li>Highest case vs. cost: </li>
+      <li>Household: {GuitarUtils.totalCost(guitars)} (with cases {GuitarUtils.totalCostWithCases(guitars)})</li>
     </ul>
   </div>
 );

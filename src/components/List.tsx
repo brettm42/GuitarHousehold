@@ -2,7 +2,7 @@
 import * as React from 'react';
 import ListItem from './ListItem';
 
-import { Entry } from '../interfaces/infrastructure';
+import { Entry } from '../interfaces/entry';
 
 type Props = {
   items: Entry[]
