@@ -365,9 +365,9 @@ export function mostExpensiveWithCase(guitars: Guitar[]): string {
     return max ? `${max.name} (\$${price})` : defaultString;
 }
 
-export function totalCost(guitars: Guitar[]): string {
+function getTotalCost(guitars: Guitar[]): number {
     if (guitars.length < 1) {
-        return defaultString;
+        return 0;
     }
 
     var price = 0;
@@ -377,9 +377,23 @@ export function totalCost(guitars: Guitar[]): string {
         }
 
         price += Number.parseFloat(guitar.purchasePrice);
+
+        if (guitar.pickups && guitar.pickups.length > 0) {
+            for (let pickup of guitar.pickups) {
+                if (pickup.purchasePrice) {
+                    price += Number.parseFloat(pickup.purchasePrice);
+                }
+            }
+        } 
     }
 
-    return price ? `\$${Math.round(price * 100) / 100}` : defaultString;
+    return price;
+}
+
+export function totalCost(guitars: Guitar[]): string {
+    const price = getTotalCost(guitars);
+
+    return price || price < 1 ? `\$${Math.round(price * 100) / 100}` : defaultString;
 }
 
 export function totalCostWithCases(guitars: Guitar[]): string {
@@ -387,14 +401,9 @@ export function totalCostWithCases(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var price = 0;
+    var price = getTotalCost(guitars);
+
     for (let guitar of guitars) {
-        if (!guitar.purchasePrice) {
-            continue;
-        }
-
-        price += Number.parseFloat(guitar.purchasePrice);
-
         if (!guitar.case || !guitar.case.purchasePrice) {
             continue;
         }
@@ -402,7 +411,7 @@ export function totalCostWithCases(guitars: Guitar[]): string {
         price += Number.parseFloat(guitar.case.purchasePrice);
     }
 
-    return price ? `\$${Math.round(price * 100) / 100}` : defaultString;
+    return price || price < 1 ? `\$${Math.round(price * 100) / 100}` : defaultString;
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
