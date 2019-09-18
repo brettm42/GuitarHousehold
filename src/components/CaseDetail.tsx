@@ -20,6 +20,9 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
       ? <p>Purchased {guitarCase.purchaseDate}</p> 
       : null}
     <p>Purchase Store: {guitarCase.purchaseStore}</p>
+    {guitarCase.purchasePrice
+        ? <p>Purchase price: ${guitarCase.purchasePrice}</p>
+        : null}
     {guitarCase.productUrl
       ? <p>Product Link: <a href={guitarCase.productUrl}>{guitarCase.productUrl}</a></p>
       : null}

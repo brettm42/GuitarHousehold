@@ -61,6 +61,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
       <p>Color: {guitar.color}</p>
       <p>s/n: {guitar.serialNumber} (location: {guitar.serialNumberLocation})</p>
       <p>Purchased {guitar.purchaseDate} from {guitar.purchaseStore}</p>
+      {guitar.purchasePrice
+        ? <p>Purchase price: ${guitar.purchasePrice}</p>
+        : null}
       <p>Strings: {guitar.strings}</p>
       {guitar.scale
         ? <p>Neck Scale: {guitar.scale}</p>

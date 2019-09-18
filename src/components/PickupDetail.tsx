@@ -23,6 +23,9 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
     {pickup.purchaseDate 
       ? <p>Purchase Date: {pickup.purchaseDate}</p> 
       : null}
+      {pickup.purchasePrice
+        ? <p>Purchase price: ${pickup.purchasePrice}</p>
+        : null}
     {pickup.purchaseStore 
       ? <p>Purchase Store: {pickup.purchaseStore}</p> 
       : null}

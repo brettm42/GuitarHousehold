@@ -379,7 +379,7 @@ export function totalCost(guitars: Guitar[]): string {
         price += Number.parseFloat(guitar.purchasePrice);
     }
 
-    return price ? `\$${price}` : defaultString;
+    return price ? `\$${Math.round(price * 100) / 100}` : defaultString;
 }
 
 export function totalCostWithCases(guitars: Guitar[]): string {
@@ -402,7 +402,7 @@ export function totalCostWithCases(guitars: Guitar[]): string {
         price += Number.parseFloat(guitar.case.purchasePrice);
     }
 
-    return price ? `\$${price}` : defaultString;
+    return price ? `\$${Math.round(price * 100) / 100}` : defaultString;
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
