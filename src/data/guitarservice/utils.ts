@@ -100,7 +100,7 @@ export function mostCommonScale(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
-    const makes = guitars.map(g => g.make);
+    const makes = guitars.filter(g => !isProject(g)).map(g => g.make);
 
     return mostCommonString(makes);
 }
