@@ -3,7 +3,7 @@ import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
 
-import { millisecondsToFriendlyString } from '../../infrastructure/utils';
+import { millisecondsToFriendlyString, roundToHundredths } from '../../infrastructure/utils';
 
 const defaultString = 'None';
 
@@ -393,7 +393,7 @@ function getTotalCost(guitars: Guitar[]): number {
 export function totalCost(guitars: Guitar[]): string {
     const price = getTotalCost(guitars);
 
-    return price || price < 1 ? `\$${Math.round(price * 100) / 100}` : defaultString;
+    return price || price < 1 ? `\$${roundToHundredths(price)}` : defaultString;
 }
 
 export function totalCostWithCases(guitars: Guitar[]): string {
@@ -411,7 +411,36 @@ export function totalCostWithCases(guitars: Guitar[]): string {
         price += Number.parseFloat(guitar.case.purchasePrice);
     }
 
-    return price || price < 1 ? `\$${Math.round(price * 100) / 100}` : defaultString;
+    return price || price < 1 ? `\$${roundToHundredths(price)}` : defaultString;
+}
+
+export function averageCost(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const purchases = guitars.filter(g => g.purchasePrice);
+    const averagePrice = 
+        purchases.reduce((avg, g) => avg 
+            + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0), 
+            0) / purchases.length;
+
+    return averagePrice ? `\$${roundToHundredths(averagePrice)}` : defaultString;
+}
+
+export function averageCostWithCase(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const purchases = guitars.filter(g => g.purchasePrice);
+    const averagePrice = 
+        purchases.reduce((avg, g) => avg 
+            + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0) 
+            + (g.case && g.case.purchasePrice ? Number.parseFloat(g.case.purchasePrice) : 0), 
+            0) / purchases.length;
+
+    return averagePrice ? `\$${roundToHundredths(averagePrice)}` : defaultString;
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {

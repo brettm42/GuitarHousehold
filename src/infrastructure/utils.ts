@@ -23,3 +23,7 @@ export function millisecondsToFriendlyString(duration: number): string {
 
     return `${Math.round(duration / oneYear)} years`;
 }
+
+export function roundToHundredths(value: number): number {
+    return Math.round(value * 100) / 100;
+}
