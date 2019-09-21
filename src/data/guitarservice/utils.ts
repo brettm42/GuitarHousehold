@@ -81,6 +81,15 @@ export function mostModifications(guitars: Guitar[]): string {
         : defaultString;
 }
 
+export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
+    const cases = guitars.map(g => {
+        if (g.case) {
+            return g.case.caseStyle;
+        }});
+
+    return mostCommonString(cases);
+}
+
 export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
     const colors = guitars.map(g => getColorMapping(g.color));
 

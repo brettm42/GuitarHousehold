@@ -39,23 +39,23 @@ class InitialPropsDetail extends React.Component<Props> {
     }
 
     function isGuitar(arg: any): arg is Guitar {
-      console.log(arg);
+      console.log(`Guitar ${arg.id}`);
       return arg.make !== undefined;
     }
 
     function isProject(arg: any): arg is Project {
-      console.log(arg);
+      console.log(`Project ${arg.id}`);
       return arg.body !== undefined;
     }
 
     return (
       <Layout
-        title={`${item ? item.name : 'Detail'} | Next.js + TypeScript Example`}
+        title={`${item ? item.name : 'Detail'}`}
       >
-        { isGuitar(item)
-          ? item && <GuitarDetail item={item} />
-          : isProject(item)
-            ? item && <ProjectDetail item={item} />
+        { isProject(item)
+          ? item && <ProjectDetail item={item} />
+          : isGuitar(item)
+            ? item && <GuitarDetail item={item} />
             : item && <ListDetail item={item} /> }
       </Layout>
     );

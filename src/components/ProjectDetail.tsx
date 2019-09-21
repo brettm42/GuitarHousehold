@@ -55,17 +55,16 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       {guitar.series
         ? <p>Series: {guitar.series}</p>
         : null}
+      <p>Project Started {guitar.projectStart}</p>
+      <p>Project Completed {guitar.projectComplete}</p>
+      <p>Body: {guitar.body}{guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}</p>
       <p>Body Style: {guitar.bodyStyle}</p>
       <p>Color: {guitar.color}</p>
-      <p>s/n: {guitar.serialNumber} (location: {guitar.serialNumberLocation})</p>
-      <p>Purchased {guitar.purchaseDate} from {guitar.purchaseStore}</p>
       {guitar.purchasePrice
         ? <p>Purchase price: ${guitar.purchasePrice}</p>
         : null}
-      <p>Project Started {guitar.projectStart}</p>
-      <p>Project Completed {guitar.projectComplete}</p>
-      <p>Body: {guitar.body}</p>
       <p>Neck: {guitar.neck}</p>
+      <p>s/n: {guitar.serialNumber} (location: {guitar.serialNumberLocation})</p>
       {guitar.pickguard
         ? <p>Pickguard: {guitar.pickguard}</p>
         : null}

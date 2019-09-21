@@ -43,6 +43,7 @@ const MostPopular: React.FunctionComponent<SummaryProps> = ({
       <li>Scale Length: {GuitarUtils.mostCommonScale(guitars)}</li>
       <li>Pickup: {GuitarUtils.mostCommonPickupType(guitars)}</li>
       <li>Number of Pickups: {GuitarUtils.mostCommonPickupNumber(guitars)}</li>
+      <li>Case Style: {GuitarUtils.mostCommonCaseStyle(guitars)}</li>
       <li>Store: {GuitarUtils.mostCommonStore(guitars)}</li>
     </ul>
   </div>
