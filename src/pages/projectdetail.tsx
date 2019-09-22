@@ -1,10 +1,12 @@
-
 import * as React from 'react';
-import { NextPageContext } from 'next';
+
 import Layout from '../components/Layout';
+import ProjectDetail from '../components/ProjectDetail';
+
+import { NextPageContext } from 'next';
+
 import { Project } from '../interfaces/models/project';
 import { findProject } from '../data/guitarservice/guitarservice';
-import ProjectDetail from '../components/ProjectDetail';
 
 type Props = {
   item?: Project
@@ -28,7 +30,7 @@ class ProjectDetailPage extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`Error | Next.js + TypeScript Example`}>
+        <Layout title={`Error | GuitarHousehold`}>
           <p>
             <span style={{ color: 'red' }}>Error:</span> {errors}
           </p>
@@ -38,7 +40,7 @@ class ProjectDetailPage extends React.Component<Props> {
 
     return (
       <Layout
-        title={`${item ? item.name : 'Detail'} | Next.js + TypeScript Example`}
+        title={`${item ? item.name : 'Detail'} | GuitarHousehold`}
       >
         {item && <ProjectDetail item={item} />}
       </Layout>

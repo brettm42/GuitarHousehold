@@ -1,13 +1,15 @@
-
 import * as React from 'react';
-import { NextPageContext } from 'next';
+
 import Layout from '../components/Layout';
-import { Guitar } from '../interfaces/models/guitar';
-import { Project } from '../interfaces/models/project';
-import { findGuitar } from '../data/guitarservice/guitarservice';
 import ListDetail from '../components/ListDetail';
 import GuitarDetail from '../components/GuitarDetail';
 import ProjectDetail from '../components/ProjectDetail';
+
+import { NextPageContext } from 'next';
+
+import { Guitar } from '../interfaces/models/guitar';
+import { Project } from '../interfaces/models/project';
+import { findGuitar } from '../data/guitarservice/guitarservice';
 
 type Props = {
   item?: Guitar
@@ -30,7 +32,7 @@ class InitialPropsDetail extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`Error | Next.js + TypeScript Example`}>
+        <Layout title={`Error | GuitarHousehold`}>
           <p>
             <span style={{ color: 'red' }}>Error:</span> {errors}
           </p>

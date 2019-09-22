@@ -1,13 +1,12 @@
-
 import * as React from 'react';
-import Link from 'next/link';
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Link from 'next/link';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { Guitar } from '../interfaces/models/guitar';
 
@@ -23,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-around',
       overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
+      padding: 15
     },
     gridList: {
       width: 500

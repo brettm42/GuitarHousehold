@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 
 import { Case } from '../interfaces/models/case';

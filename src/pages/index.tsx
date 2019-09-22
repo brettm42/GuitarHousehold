@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Link from 'next/link';
 
 import Layout from '../components/Layout';
@@ -23,7 +24,6 @@ const data = [...guitars, ...projects];
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
       <h1>GuitarHousehold 👋</h1>
-
       <div>
         <Summary data={data} />
       </div>

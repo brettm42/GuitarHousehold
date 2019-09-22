@@ -1,7 +1,9 @@
-import { NextPage } from 'next';
 import Link from 'next/link';
+import { NextPage } from 'next';
+
 import Layout from '../components/Layout';
 import List from '../components/List';
+
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllGuitars } from '../data/guitarservice/guitarservice';
 

@@ -1,7 +1,9 @@
-import { NextPage } from 'next';
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import List from '../components/List';
+
+import { NextPage } from 'next';
+
 import { Project } from '../interfaces/models/project';
 import { findAllProjects } from '../data/guitarservice/guitarservice';
 

@@ -1,11 +1,10 @@
-
 import * as React from 'react';
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Grid, { GridSpacing } from '@material-ui/core/Grid';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import List from '../components/List';
+import { MissingCasesComponent, MostCommonComponent, OutliersComponent, ValuesComponent } from './SummaryComponents';
 
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/utils';
@@ -26,70 +25,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     control: {
       padding: theme.spacing(2),
-    },
+    }
   }),
-);
-
-const MostPopular: React.FunctionComponent<SummaryProps> = ({
-  data: guitars
-}) => (
-  <div>
-    <h3>Most Common...</h3>
-    <ul>
-      <li>Make: {GuitarUtils.mostCommonMake(guitars)}</li>
-      <li>Body: {GuitarUtils.mostCommonBody(guitars)}</li>
-      <li>Color: {GuitarUtils.mostCommonColor(guitars)}</li>
-      <li>Tuning: {GuitarUtils.mostCommonTuning(guitars)}</li>
-      <li>Scale Length: {GuitarUtils.mostCommonScale(guitars)}</li>
-      <li>Pickup: {GuitarUtils.mostCommonPickupType(guitars)}</li>
-      <li>Number of Pickups: {GuitarUtils.mostCommonPickupNumber(guitars)}</li>
-      <li>Case Style: {GuitarUtils.mostCommonCaseStyle(guitars)}</li>
-      <li>Store: {GuitarUtils.mostCommonStore(guitars)}</li>
-    </ul>
-  </div>
-);
-
-const MissingCase: React.FunctionComponent<SummaryProps> = ({
-  data: guitars
-}) => (
-  <div>
-    <h3>Guitars Missing Cases:</h3>
-    <List items={guitars.filter((i: Guitar) => !GuitarUtils.hasCase(i))} />
-  </div>
-);
-
-const Outliers: React.FunctionComponent<SummaryProps> = ({
-  data: guitars
-}) => (
-  <div>
-    <h3>Outliers:</h3>
-    <ul>
-      <li>Oldest: {GuitarUtils.oldestGuitar(guitars)}</li>
-      <li>Newest: {GuitarUtils.newestGuitar(guitars)}</li>
-      <li>Most Pickups: {GuitarUtils.mostPickups(guitars)}</li>
-      <li>Most Modifications: {GuitarUtils.mostModifications(guitars)}</li>
-      <li>Longest Scale: n/a</li>
-      <li>Shortest Scale: n/a</li>
-      <li>Longest Project: {GuitarUtils.longestProject(guitars)}</li>
-      <li>Shortest Project: {GuitarUtils.shortestProject(guitars)}</li>
-    </ul>
-  </div>
-);
-
-const Values: React.FunctionComponent<SummaryProps> = ({
-  data: guitars
-}) => (
-  <div>
-    <h3>Values:</h3>
-    <ul>
-      <li>Cheapest: {GuitarUtils.cheapest(guitars)} (with case {GuitarUtils.cheapestWithCase(guitars)})</li>
-      <li>Most Expensive: {GuitarUtils.mostExpensive(guitars)} (with case {GuitarUtils.mostExpensiveWithCase(guitars)})</li>
-      <li>Average Cost: {GuitarUtils.averageCost(guitars)} (average plus case {GuitarUtils.averageCostWithCase(guitars)})</li>
-      <li>Lowest Case vs. Cost: </li>
-      <li>Highest Case vs. Cost: </li>
-      <li>Household: {GuitarUtils.totalCost(guitars)} (with cases {GuitarUtils.totalCostWithCases(guitars)})</li>
-    </ul>
-  </div>
 );
 
 const Summary: React.FunctionComponent<SummaryProps> = ({
@@ -107,22 +44,22 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Grid container justify="flex-start" spacing={spacing}>
             <Grid key={'popular'} item>
               <Paper className={classes.paper}>
-                <MostPopular data={guitars} />
+                <MostCommonComponent data={guitars} />
               </Paper>
             </Grid>
             <Grid key={'cases'} item>
               <Paper className={classes.paper}>
-                <MissingCase data={guitars} />
+                <MissingCasesComponent data={guitars} />
               </Paper>
             </Grid>
             <Grid key={'outliers'} item>
               <Paper className={classes.paper}>
-                <Outliers data={guitars} />
+                <OutliersComponent data={guitars} />
               </Paper>
             </Grid>
             <Grid key={'values'} item>
               <Paper className={classes.paper}>
-                <Values data={guitars} />
+                <ValuesComponent data={guitars} />
               </Paper>
             </Grid>
           </Grid>
