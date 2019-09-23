@@ -47,8 +47,8 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentProps> = ({
       <li>Newest: {GuitarUtils.newestGuitar(guitars)}</li>
       <li>Most Pickups: {GuitarUtils.mostPickups(guitars)}</li>
       <li>Most Modifications: {GuitarUtils.mostModifications(guitars)}</li>
-      <li>Longest Scale: n/a</li>
-      <li>Shortest Scale: n/a</li>
+      {/* <li>Longest Scale: n/a</li>
+      <li>Shortest Scale: n/a</li> */}
       <li>Longest Project: {GuitarUtils.longestProject(guitars)}</li>
       <li>Shortest Project: {GuitarUtils.shortestProject(guitars)}</li>
     </ul>
@@ -64,8 +64,8 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentProps> = ({
       <li>Cheapest: {GuitarUtils.cheapest(guitars)} (with case {GuitarUtils.cheapestWithCase(guitars)})</li>
       <li>Most Expensive: {GuitarUtils.mostExpensive(guitars)} (with case {GuitarUtils.mostExpensiveWithCase(guitars)})</li>
       <li>Average Cost: {GuitarUtils.averageCost(guitars)} (average plus case {GuitarUtils.averageCostWithCase(guitars)})</li>
-      <li>Lowest Case vs. Cost: </li>
-      <li>Highest Case vs. Cost: </li>
+      {/* <li>Lowest Case vs. Cost: </li>
+      <li>Highest Case vs. Cost: </li> */}
       <li>Household: {GuitarUtils.totalCost(guitars)} (with cases {GuitarUtils.totalCostWithCases(guitars)})</li>
     </ul>
   </div>
