@@ -2,11 +2,12 @@ import * as React from 'react';
 
 import Link from 'next/link';
 
+import HouseholdGridList from '../components/HouseholdGridList';
 import Layout from '../components/Layout';
 import Summary from '../components/Summary';
-import HouseholdGridList from '../components/HouseholdGridList';
 
 import { NextPage } from 'next';
+
 import { Guitar } from '../interfaces/models/guitar';
 import { Project } from '../interfaces/models/project';
 import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarservice';

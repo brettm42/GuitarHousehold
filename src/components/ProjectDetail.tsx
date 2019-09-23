@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
+
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import { Project } from '../interfaces/models/project';
 import * as GuitarUtils from '../data/guitarservice/utils';
