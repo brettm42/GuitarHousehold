@@ -17,9 +17,8 @@ type SummaryProps = {
 
 const gridPaperStyle = {
   padding: 10,
-  minHeight: 300,
-  minWidth: 300,
-  maxWidth: 420
+  minHeight: 270,
+  width: 420
 };
 
 const useStyles = makeStyles((theme: Theme) =>

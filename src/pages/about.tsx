@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Layout from '../components/Layout';
 
 const AboutPage: React.FunctionComponent = () => (
-  <Layout title="About | GuitarHousehold">
+  <Layout title="About | GuitarHousehold 🎸">
     <Typography variant='h3' gutterBottom>
       About
     </Typography>

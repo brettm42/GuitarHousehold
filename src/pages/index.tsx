@@ -40,12 +40,12 @@ const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
   const classes = useStyles();
 
   return (
-    <Layout title="GuitarHousehold | Home">
+    <Layout title="GuitarHousehold 🎸| Home">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
       <div className={classes.title}>
         <Typography variant="h2" gutterBottom>
-          GuitarHousehold 👋
+          GuitarHousehold 🎸
         </Typography> 
       </div>
 

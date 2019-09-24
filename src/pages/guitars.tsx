@@ -13,7 +13,7 @@ type Props = {
 }
 
 const Guitars: NextPage<Props> = ({ items, pathname }) => (
-  <Layout title="Guitar List | GuitarHousehold">
+  <Layout title="Guitar List | GuitarHousehold 🎸">
     <Typography variant='h4' gutterBottom>
       Guitar List
     </Typography>

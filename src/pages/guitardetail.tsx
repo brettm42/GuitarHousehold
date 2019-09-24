@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import GuitarDetail from '../components/GuitarDetail';
 
 import { NextPageContext } from 'next';
+import { Typography } from '@material-ui/core';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { findGuitar } from '../data/guitarservice/guitarservice';
@@ -30,18 +31,18 @@ class GuitarDetailPage extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`Error | GuitarHousehold`}>
-          <p>
-            <span style={{ color: 'red' }}>Error:</span> {errors}
-          </p>
+        <Layout title={`Error | GuitarHousehold 🎸`}>
+          <Typography>
+            <p>
+              <span style={{ color: 'red' }}>Error:</span> {errors}
+            </p>
+          </Typography>
         </Layout>
       );
     }
 
     return (
-      <Layout
-        title={`${item ? item.name : 'Detail'} | GuitarHousehold`}
-      >
+      <Layout title={`${item ? item.name : 'Detail'} | GuitarHousehold 🎸`}>
         {item && <GuitarDetail item={item} />}
       </Layout>
     );

@@ -13,7 +13,7 @@ type HouseholdGridListProps = {
   data: Guitar[]
 }
 
-const imgHeight = 320;
+const imgHeight = 340;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +49,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={imgHeight} cols={4} className={classes.gridList}>
+      <GridList cellHeight={imgHeight} cols={3} className={classes.gridList}>
         {guitars.map(guitar => (
           <GridListTile key={guitar.name} className={classes.gridListTile}>
             <Link href={`/detail?id=${guitar.id}`}>

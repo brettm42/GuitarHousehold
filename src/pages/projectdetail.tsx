@@ -30,7 +30,7 @@ class ProjectDetailPage extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`Error | GuitarHousehold`}>
+        <Layout title={`Error | GuitarHousehold 🎸`}>
           <p>
             <span style={{ color: 'red' }}>Error:</span> {errors}
           </p>
@@ -39,9 +39,7 @@ class ProjectDetailPage extends React.Component<Props> {
     }
 
     return (
-      <Layout
-        title={`${item ? item.name : 'Detail'} | GuitarHousehold`}
-      >
+      <Layout title={`${item ? item.name : 'Detail'} | GuitarHousehold 🎸`}>
         {item && <ProjectDetail item={item} />}
       </Layout>
     );

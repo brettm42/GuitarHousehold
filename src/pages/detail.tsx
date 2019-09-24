@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import Typography from '@material-ui/core/Typography';
+
 import Layout from '../components/Layout';
 import ListDetail from '../components/ListDetail';
 import GuitarDetail from '../components/GuitarDetail';
@@ -21,6 +23,7 @@ class InitialPropsDetail extends React.Component<Props> {
     try {
       const { id } = query;
       const item = await findGuitar(Array.isArray(id) ? id[0] : id);
+
       return { item };
     } catch (err) {
       return { errors: err.message };
@@ -32,10 +35,12 @@ class InitialPropsDetail extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`Error | GuitarHousehold`}>
-          <p>
-            <span style={{ color: 'red' }}>Error:</span> {errors}
-          </p>
+        <Layout title={`Error | GuitarHousehold 🎸`}>
+          <Typography>
+            <p>
+              <span style={{ color: 'red' }}>Error:</span> {errors}
+            </p>
+          </Typography>
         </Layout>
       );
     }
@@ -51,14 +56,12 @@ class InitialPropsDetail extends React.Component<Props> {
     }
 
     return (
-      <Layout
-        title={`${item ? item.name : 'Detail'}`}
-      >
-        { isProject(item)
+      <Layout title={`${item ? item.name : 'Detail'}`}>
+        {isProject(item)
           ? item && <ProjectDetail item={item} />
           : isGuitar(item)
             ? item && <GuitarDetail item={item} />
-            : item && <ListDetail item={item} /> }
+            : item && <ListDetail item={item} />}
       </Layout>
     );
   };
