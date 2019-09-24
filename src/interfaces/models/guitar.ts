@@ -1,8 +1,7 @@
-
-import { Case } from "./case";
-import { Pickup } from "./pickup";
-import { BodyStyle, SerialNumberLocation, StringType } from "./components";
-import { RetailItem } from "../entry";
+import { Case } from './case';
+import { Pickup } from './pickup';
+import { BodyStyle, SerialNumberLocation, StringType } from './components';
+import { RetailItem } from '../entry';
 
 export interface Guitar extends RetailItem {
     readonly make?: string;

@@ -61,12 +61,8 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
                   <img className={classes.img} src={guitar.picture} alt={guitar.name} />
                   <GridListTileBar
                     title={guitar.name}
-                    subtitle={
-                      <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
-                    }
-                    actionIcon={
-                      <IconButton aria-label={`info about ${guitar.name}`} className={classes.icon} />
-                    }
+                    subtitle={<span>{`${guitar.make} ${guitar.bodyStyle}`}</span>}
+                    actionIcon={<IconButton aria-label={`info about ${guitar.name}`} className={classes.icon} />}
                   />
                 </a>
               </Link>

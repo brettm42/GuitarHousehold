@@ -1,4 +1,3 @@
-
 export type SerialNumberLocation = typeof serialNumberLocations[number];
 const serialNumberLocations = [
     'Neck',

@@ -1,4 +1,3 @@
-
 type Result<T> = T | Error;
 
 export type Type<T> = Result<T>;

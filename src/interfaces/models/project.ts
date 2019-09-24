@@ -1,5 +1,4 @@
-
-import { Guitar } from "./guitar";
+import { Guitar } from './guitar';
 
 export interface Project extends Guitar {
     readonly projectStart?: string;

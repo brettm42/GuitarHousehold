@@ -1,4 +1,3 @@
-
 export interface Entry {
   readonly id: number;
   readonly name: string;

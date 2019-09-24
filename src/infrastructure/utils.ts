@@ -1,4 +1,3 @@
-
 export function millisecondsToFriendlyString(duration: number): string {
     const oneDay =   86400000;
     const oneWeek =  604800000;
