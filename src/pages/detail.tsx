@@ -25,7 +25,7 @@ class InitialPropsDetail extends React.Component<Props> {
     } catch (err) {
       return { errors: err.message };
     }
-  }
+  };
 
   render() {
     const { item, errors } = this.props;
@@ -61,7 +61,7 @@ class InitialPropsDetail extends React.Component<Props> {
             : item && <ListDetail item={item} /> }
       </Layout>
     );
-  }
+  };
 }
 
 export default InitialPropsDetail;

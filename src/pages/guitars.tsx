@@ -40,6 +40,6 @@ Guitars.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = await findAllGuitars();
 
   return { items, pathname };
-}
+};
 
 export default Guitars;

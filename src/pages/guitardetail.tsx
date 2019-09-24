@@ -23,7 +23,7 @@ class GuitarDetailPage extends React.Component<Props> {
     } catch (err) {
       return { errors: err.message };
     }
-  }
+  };
 
   render() {
     const { item, errors } = this.props;
@@ -45,7 +45,7 @@ class GuitarDetailPage extends React.Component<Props> {
         {item && <GuitarDetail item={item} />}
       </Layout>
     );
-  }
+  };
 }
 
 export default GuitarDetailPage;

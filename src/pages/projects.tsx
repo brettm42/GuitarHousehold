@@ -41,6 +41,6 @@ Projects.getInitialProps = async ({ pathname }) => {
   const items: Project[] = await findAllProjects();
 
   return { items, pathname };
-}
+};
 
 export default Projects;

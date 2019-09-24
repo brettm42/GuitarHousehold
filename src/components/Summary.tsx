@@ -1,7 +1,9 @@
 import * as React from 'react';
 
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import { MissingCasesComponent, MostCommonComponent, OutliersComponent, ValuesComponent } from './SummaryComponents';
@@ -20,8 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: 10,
-      minHeight: 220,
-      width: 480,
+      minHeight: 300,
+      minWidth: 250,
+      maxWidth: 400
     },
     control: {
       padding: theme.spacing(2),
@@ -32,16 +35,17 @@ const useStyles = makeStyles((theme: Theme) =>
 const Summary: React.FunctionComponent<SummaryProps> = ({
   data: guitars
 }) => {
-  const [spacing] = React.useState<GridSpacing>(2);
   const classes = useStyles();
 
   return (
     <div>
-      <h3>{guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)</h3>
+      <Typography variant='h5' gutterBottom>
+        {guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)
+      </Typography>
 
-      <Grid container className={classes.root} spacing={2}>
+      <Grid container className={classes.root} spacing={3}>
         <Grid item xs={"auto"}>
-          <Grid container justify="flex-start" spacing={spacing}>
+          <Grid container justify="flex-start" spacing={3}>
             <Grid key={'popular'} item>
               <Paper className={classes.paper}>
                 <MostCommonComponent data={guitars} />
@@ -65,7 +69,8 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </Grid>
         </Grid>
       </Grid>
-    </div>);
+    </div>
+  );
 };
 
 export default Summary;

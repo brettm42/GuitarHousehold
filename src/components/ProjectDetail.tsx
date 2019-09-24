@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     }
-  }),
+  })
 );
 
 const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
@@ -94,6 +94,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
         <pre>{JSON.stringify(guitar, undefined, 2)}</pre>
       </div>
     </div>
-)};
+  );
+};
 
 export default ProjectDetail;

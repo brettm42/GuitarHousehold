@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
       margin: '0 auto'
     }
-  }),
+  })
 );
 
 const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
@@ -76,6 +76,6 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
       </Grid>
     </div>
   );
-}
+};
 
 export default HouseholdGrid;

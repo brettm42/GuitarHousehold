@@ -23,7 +23,7 @@ class ProjectDetailPage extends React.Component<Props> {
     } catch (err) {
       return { errors: err.message };
     }
-  }
+  };
 
   render() {
     const { item, errors } = this.props;
@@ -45,7 +45,7 @@ class ProjectDetailPage extends React.Component<Props> {
         {item && <ProjectDetail item={item} />}
       </Layout>
     );
-  }
+  };
 }
 
 export default ProjectDetailPage;

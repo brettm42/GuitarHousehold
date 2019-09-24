@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     background: {
       background: 'lightgrey'
     }
-  }),
+  })
 );
 
 const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
@@ -63,6 +63,6 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
       </GridList>
     </div>
   );
-}
+};
 
 export default HouseholdGridList;

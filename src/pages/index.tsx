@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     about: {
       paddingTop: theme.spacing(4)
     }
-  }),
+  })
 );
 
 const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
@@ -64,13 +64,13 @@ const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
       </div>
     </Layout>
   );
-}
+};
 
 IndexPage.getInitialProps = async () => {
   const guitars: Guitar[] = await findAllGuitars();
   const projects: Project[] = await findAllProjects();
 
   return { guitars, projects };
-}
+};
 
 export default IndexPage;

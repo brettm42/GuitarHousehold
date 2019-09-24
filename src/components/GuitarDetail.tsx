@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     }
-  }),
+  })
 );
 
 const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({

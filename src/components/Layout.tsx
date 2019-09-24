@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       margin: theme.spacing(2),
     }
-  }),
+  })
 );
 
 const Layout: React.FunctionComponent<Props> = ({
@@ -89,6 +89,7 @@ const Layout: React.FunctionComponent<Props> = ({
         </span>
       </footer>
     </div>
-  )};
+  );
+};
 
 export default Layout;
