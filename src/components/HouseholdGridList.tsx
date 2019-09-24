@@ -13,6 +13,8 @@ type HouseholdGridListProps = {
   data: Guitar[]
 }
 
+const imgHeight = 320;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -26,8 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
     gridList: {
       width: 'flex'
     },
+    gridListTile: {
+      padding: theme.spacing(2)
+    },
     img: {
-      height: 300,
+      height: imgHeight,
       display: 'block',
       margin: '0 auto'
     },
@@ -44,9 +49,9 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={300} cols={5} className={classes.gridList}>
+      <GridList cellHeight={imgHeight} cols={4} className={classes.gridList}>
         {guitars.map(guitar => (
-          <GridListTile key={guitar.name}>
+          <GridListTile key={guitar.name} className={classes.gridListTile}>
             <Link href={`/detail?id=${guitar.id}`}>
               <a>
                 <div className={classes.background} aria-label={guitar.name}>

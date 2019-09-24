@@ -23,6 +23,9 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    title: {
+      padding: theme.spacing(2),
+    },
     divider: {
       margin: theme.spacing(4, 2),
     },
@@ -40,9 +43,12 @@ const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
     <Layout title="GuitarHousehold | Home">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
-      <Typography variant="h2" gutterBottom>
-        GuitarHousehold 👋
-      </Typography>
+      <div className={classes.title}>
+        <Typography variant="h2" gutterBottom>
+          GuitarHousehold 👋
+        </Typography> 
+      </div>
+
       <div>
         <Summary data={data} />
       </div>

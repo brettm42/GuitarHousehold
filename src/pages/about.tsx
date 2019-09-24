@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import Link from 'next/link';
 import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
@@ -11,17 +10,8 @@ const AboutPage: React.FunctionComponent = () => (
       About
     </Typography>
     <Typography variant='body2' gutterBottom>
-      This is the about page
+      This is the about page...
     </Typography>
-    <p>
-      <Link href="/">
-        <a>
-          <Typography variant='button' gutterBottom>
-            Go home
-          </Typography>
-        </a>
-      </Link>
-    </p>
   </Layout>
 );
 

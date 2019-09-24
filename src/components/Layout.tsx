@@ -24,14 +24,18 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(-2),
       marginBottom: theme.spacing(2),
       '& svg': {
-        margin: theme.spacing(2),
+        margin: theme.spacing(2)
       },
       '& hr': {
-        margin: theme.spacing(0, 1),
+        margin: theme.spacing(0, 1)
       },
+      textTransform: 'capitalize'
     },
     divider: {
       margin: theme.spacing(2),
+    },
+    footer: {
+      padding: theme.spacing(2)
     }
   })
 );
@@ -81,12 +85,12 @@ const Layout: React.FunctionComponent<Props> = ({
       {children}
 
       <footer>
-        <Divider className={classes.divider} />
-        <span>
+        <div className={classes.footer}>
+          <Divider className={classes.divider} />
           <Typography variant='body2' gutterBottom>
             I'm here to stay (Footer)
           </Typography>
-        </span>
+        </div>
       </footer>
     </div>
   );

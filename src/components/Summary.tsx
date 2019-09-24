@@ -15,21 +15,38 @@ type SummaryProps = {
   data: Guitar[]
 }
 
+const gridPaperStyle = {
+  padding: 10,
+  minHeight: 300,
+  minWidth: 300,
+  maxWidth: 420
+};
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
     },
-    paper: {
-      padding: 10,
-      minHeight: 300,
-      minWidth: 250,
-      maxWidth: 400
+    paper0: {
+      ...gridPaperStyle,
+      background: 'lightblue'
+    },
+    paper1: {
+      ...gridPaperStyle,
+      background: 'lightgreen'
+    },
+    paper2: {
+      ...gridPaperStyle,
+      background: 'lightpink'
+    },
+    paper3: {
+      ...gridPaperStyle,
+      background: 'orange'
     },
     control: {
       padding: theme.spacing(2),
     }
-  }),
+  })
 );
 
 const Summary: React.FunctionComponent<SummaryProps> = ({
@@ -43,32 +60,34 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         {guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)
       </Typography>
 
-      <Grid container className={classes.root} spacing={3}>
-        <Grid item xs={"auto"}>
-          <Grid container justify="flex-start" spacing={3}>
-            <Grid key={'popular'} item>
-              <Paper className={classes.paper}>
-                <MostCommonComponent data={guitars} />
-              </Paper>
-            </Grid>
-            <Grid key={'cases'} item>
-              <Paper className={classes.paper}>
-                <MissingCasesComponent data={guitars} />
-              </Paper>
-            </Grid>
-            <Grid key={'outliers'} item>
-              <Paper className={classes.paper}>
-                <OutliersComponent data={guitars} />
-              </Paper>
-            </Grid>
-            <Grid key={'values'} item>
-              <Paper className={classes.paper}>
-                <ValuesComponent data={guitars} />
-              </Paper>
+      <Typography>
+        <Grid container className={classes.root} spacing={3}>
+          <Grid item xs={"auto"}>
+            <Grid container justify="flex-start" spacing={3}>
+              <Grid key={'popular'} item>
+                <Paper className={classes.paper0}>
+                  <MostCommonComponent data={guitars} />
+                </Paper>
+              </Grid>
+              <Grid key={'cases'} item>
+                <Paper className={classes.paper1}>
+                  <MissingCasesComponent data={guitars} />
+                </Paper>
+              </Grid>
+              <Grid key={'outliers'} item>
+                <Paper className={classes.paper2}>
+                  <OutliersComponent data={guitars} />
+                </Paper>
+              </Grid>
+              <Grid key={'values'} item>
+                <Paper className={classes.paper3}>
+                  <ValuesComponent data={guitars} />
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Typography>
     </div>
   );
 };
