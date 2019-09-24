@@ -1,16 +1,25 @@
 import * as React from 'react';
 
 import Link from 'next/link';
+import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
 
 const AboutPage: React.FunctionComponent = () => (
   <Layout title="About | GuitarHousehold">
-    <h1>About</h1>
-    <p>This is the about page</p>
+    <Typography variant='h3' gutterBottom>
+      About
+    </Typography>
+    <Typography variant='body2' gutterBottom>
+      This is the about page
+    </Typography>
     <p>
       <Link href="/">
-        <a>Go home</a>
+        <a>
+          <Typography variant='button' gutterBottom>
+            Go home
+          </Typography>
+        </a>
       </Link>
     </p>
   </Layout>

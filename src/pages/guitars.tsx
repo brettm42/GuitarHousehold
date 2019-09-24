@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import Layout from '../components/Layout';
 import List from '../components/List';
+import Typography from '@material-ui/core/Typography';
 
 import { NextPage } from 'next';
 
@@ -14,13 +15,22 @@ type Props = {
 }
 
 const Guitars: NextPage<Props> = ({ items, pathname }) => (
-  <Layout title="GuitarHousehold | Guitar List">
-    <h1>Guitar Household</h1>
-    <p>You are currently on: {pathname}</p>
+  <Layout title="Guitar List | GuitarHousehold">
+    <Typography variant='h4' gutterBottom>
+      Guitar List
+    </Typography>
+    <Typography variant='body2' gutterBottom>
+      You are currently on: {pathname}
+    </Typography>
+
     <List items={items} />
     <p>
       <Link href="/">
-        <a>Go home</a>
+        <a>
+          <Typography variant='button' gutterBottom>
+            Go home
+          </Typography>
+        </a>
       </Link>
     </p>
   </Layout>

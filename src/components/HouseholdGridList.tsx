@@ -4,8 +4,7 @@ import Link from 'next/link';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
+
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { Guitar } from '../interfaces/models/guitar';
@@ -17,23 +16,23 @@ type HouseholdGridListProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: 'inline-flex',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
       overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
-      padding: 15
+      paddingLeft: 15
     },
     gridList: {
-      width: 500
-    },
-    icon: {
-      color: 'rgba(255, 255, 255, 0.54)',
+      width: 'flex'
     },
     img: {
-      height: 250,
+      height: 300,
       display: 'block',
       margin: '0 auto'
+    },
+    background: {
+      background: 'lightgrey'
     }
   }),
 );
@@ -45,24 +44,18 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={300} cols={3} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-          <ListSubheader component="div" />
-        </GridListTile>
+      <GridList cellHeight={300} cols={5} className={classes.gridList}>
         {guitars.map(guitar => (
           <GridListTile key={guitar.name}>
             <Link href={`/detail?id=${guitar.id}`}>
               <a>
-                <img className={classes.img} src={guitar.picture} alt={guitar.name} />
-                <GridListTileBar
-                  title={guitar.name}
-                  subtitle={
-                    <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
-                  }
-                  actionIcon={
-                    <IconButton aria-label={`info about ${guitar.name}`} className={classes.icon} />
-                  }
-                />
+                <div className={classes.background} aria-label={guitar.name}>
+                  <img className={classes.img} src={guitar.picture} alt={guitar.name} />
+                  <GridListTileBar
+                    title={guitar.name}
+                    subtitle={<span>{`${guitar.make} ${guitar.bodyStyle}`}</span>}
+                  />
+                </div>
               </a>
             </Link>
           </GridListTile>
