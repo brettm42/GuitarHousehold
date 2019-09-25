@@ -147,8 +147,6 @@ export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
     const avgOutput = 
         pickups.reduce((avg, pickup) => avg + Number.parseFloat(pickup.output.split('K')[0]), 0) / pickups.length;
 
-    console.log(pickups);
-
     return avgOutput ? `${avgOutput}K` : defaultString;
 }
 
