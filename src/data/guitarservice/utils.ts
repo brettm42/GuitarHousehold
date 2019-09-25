@@ -505,7 +505,8 @@ function getColorMapping(color: string): string {
         'Old Army Green': 'Green',
         'Purple Haze Metalflake': 'Purple',
         'Aztec Gold Metalflake': 'Gold',
-        'Olympic White': 'White' 
+        'Olympic White': 'White',
+        'TV Yellow': 'Yellow'
     };
     
     if (color in mapping) {

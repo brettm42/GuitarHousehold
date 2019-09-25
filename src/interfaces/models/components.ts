@@ -2,6 +2,8 @@ export type SerialNumberLocation = typeof serialNumberLocations[number];
 const serialNumberLocations = [
     'Neck',
     'Body',
+    'Neck Heel',
+    'Neck Plate',
     'None'
 ] as const;
 
@@ -13,6 +15,7 @@ const bodyStyles = [
     'Jaguar',
     'Mustang',
     'Les Paul',
+    'SG',
     'Offset',
     'Hollowbody',
     'Semi-Hollowbody',

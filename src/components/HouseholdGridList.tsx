@@ -36,6 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
       margin: '0 auto'
     },
+    imgPlaceholder: {
+      height: imgHeight,
+      display: 'flex',
+      margin: '0 auto',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
     background: {
       background: 'lightgrey'
     }
@@ -55,7 +62,9 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
             <Link href={`/detail?id=${guitar.id}`}>
               <a>
                 <div className={classes.background} aria-label={guitar.name}>
-                  <img className={classes.img} src={guitar.picture} alt={guitar.name} />
+                  {guitar.picture 
+                    ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
+                    : <div className={classes.imgPlaceholder}>🎸</div>}
                   <GridListTileBar
                     title={guitar.name}
                     subtitle={<span>{`${guitar.make} ${guitar.bodyStyle}`}</span>}
