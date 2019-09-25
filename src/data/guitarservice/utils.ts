@@ -125,6 +125,20 @@ export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
     return mostCommonString(bodies);
 }
 
+export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
+    let electric = 0;
+    let acoustic = 0;
+    for (let guitar of guitars) {
+        if (isElectric(guitar)) {
+            electric += 1;
+        } else if (isAcoustic(guitar)) {
+            acoustic += 1;
+        }
+    }
+
+    return `${acoustic} vs. ${electric}`;
+}
+
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups = guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[]);
 
@@ -472,7 +486,9 @@ function getTotalCost(guitars: Guitar[]): number {
 export function totalCost(guitars: Guitar[]): string {
     const price = getTotalCost(guitars);
 
-    return price || price < 1 ? `\$${roundToHundredths(price)}` : defaultString;
+    return price || price < 1 
+        ? `\$${roundToHundredths(price)}` 
+        : defaultString;
 }
 
 export function totalCostWithCases(guitars: Guitar[]): string {
@@ -504,7 +520,9 @@ export function averageCost(guitars: Guitar[]): string {
             + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0), 
             0) / purchases.length;
 
-    return averagePrice ? `\$${roundToHundredths(averagePrice)}` : defaultString;
+    return averagePrice 
+        ? `\$${roundToHundredths(averagePrice)}` 
+        : defaultString;
 }
 
 export function averageCostWithCase(guitars: Guitar[]): string {
@@ -519,7 +537,9 @@ export function averageCostWithCase(guitars: Guitar[]): string {
             + (g.case && g.case.purchasePrice ? Number.parseFloat(g.case.purchasePrice) : 0), 
             0) / purchases.length;
 
-    return averagePrice ? `\$${roundToHundredths(averagePrice)}` : defaultString;
+    return averagePrice 
+        ? `\$${roundToHundredths(averagePrice)}` 
+        : defaultString;
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
@@ -585,4 +605,14 @@ function getColorMapping(color: string): string {
     }
 
     return color;
+}
+
+function isAcoustic(guitar: Guitar): boolean {
+    const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
+    
+    return acousticStyle.includes(guitar.bodyStyle);
+}
+
+function isElectric(guitar: Guitar): boolean {
+    return !isAcoustic(guitar);
 }

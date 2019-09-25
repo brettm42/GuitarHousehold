@@ -55,6 +55,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentProps> = ({
         <li>Number of Pickups: {GuitarUtils.mostCommonPickupNumber(guitars)}</li>
         <li>Case Style: {GuitarUtils.mostCommonCaseStyle(guitars)}</li>
         <li>Store: {GuitarUtils.mostCommonStore(guitars)}</li>
+        <li>Acoustics vs. Electrics: {GuitarUtils.acousticVsElectric(guitars)}</li>
       </ul>
     </div>
   );

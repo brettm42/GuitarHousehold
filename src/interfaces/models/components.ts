@@ -17,6 +17,7 @@ const bodyStyles = [
     'Les Paul',
     'SG',
     'Offset',
+    'Archtop',
     'Hollowbody',
     'Semi-Hollowbody',
     'Starcaster',
