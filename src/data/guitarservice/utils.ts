@@ -137,6 +137,79 @@ export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
     return mostCommonString(pickups);
 }
 
+export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
+    const pickups = 
+        guitars
+            .filter(g => g.pickups)
+            .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[])
+            .filter(p => p.output);
+
+    const avgOutput = 
+        pickups.reduce((avg, pickup) => avg + Number.parseFloat(pickup.output.split('K')[0]), 0) / pickups.length;
+
+    console.log(pickups);
+
+    return avgOutput ? `${avgOutput}K` : defaultString;
+}
+
+export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
+    let max = 0;
+    let maxPickup = null;
+    let maxGuitar = null;
+    for (let guitar of guitars) 
+    {
+        if (!guitar.pickups) {
+            continue;
+        }
+
+        for (let pickup of guitar.pickups) {
+            if (!pickup.output) {
+                continue;
+            }
+
+            var output = Number.parseFloat(pickup.output.split('K')[0]);
+            if (output > max) {
+                max = output;
+                maxPickup = pickup;
+                maxGuitar = guitar;
+            }
+        }
+    }
+
+    return max > 0 && maxPickup && maxGuitar
+        ? `${maxPickup.output} - ${maxPickup.name} - ${maxPickup.position} (on ${maxGuitar.name})`
+        : defaultString;
+}
+
+export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
+    let min = 999999;
+    let minPickup = null;
+    let minGuitar = null;
+    for (let guitar of guitars) 
+    {
+        if (!guitar.pickups) {
+            continue;
+        }
+
+        for (let pickup of guitar.pickups) {
+            if (!pickup.output) {
+                continue;
+            }
+
+            var output = Number.parseFloat(pickup.output.split('K')[0]);
+            if (output < min) {
+                min = output;
+                minPickup = pickup;
+                minGuitar = guitar;
+            }
+        }
+    }
+
+    return min > 0 && minPickup && minGuitar
+        ? `${minPickup.output} - ${minPickup.name} - ${minPickup.position} (on ${minGuitar.name})`
+        : defaultString;
+}
+
 export function oldestGuitar(guitars: Guitar[]): string {
     if (guitars.length < 1) {
         return defaultString;

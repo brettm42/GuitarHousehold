@@ -28,6 +28,9 @@ const useStyles = makeStyles(() =>
     },
     values: {
       
+    },
+    pickups: {
+
     }
   })
 );
@@ -118,4 +121,23 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentProps> = ({
   );
 };
 
-export { MissingCasesComponent, ValuesComponent, OutliersComponent, MostCommonComponent };
+const PickupsComponent: React.FunctionComponent<SummaryComponentProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+  
+  return (
+    <div className={classes.values}>
+      <Typography variant='subtitle2' gutterBottom>
+        Pickups:
+      </Typography>
+      <ul>
+        <li>Average Output: <br />{GuitarUtils.averagePickup(guitars)}</li>
+        <li>Highest Output: <br />{GuitarUtils.highestPickup(guitars)}</li>
+        <li>Lowest Output: <br />{GuitarUtils.lowestPickup(guitars)}</li>
+      </ul>
+    </div>
+  );
+};
+
+export { MissingCasesComponent, ValuesComponent, OutliersComponent, MostCommonComponent, PickupsComponent };
