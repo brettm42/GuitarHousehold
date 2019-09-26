@@ -46,12 +46,18 @@ class InitialPropsDetail extends React.Component<Props> {
     }
 
     function isGuitar(arg: any): arg is Guitar {
-      console.log(`Guitar ${arg.id}`);
+      if (arg.make !== undefined) {
+        console.log(`Guitar ${arg.id}`);
+      }
+
       return arg.make !== undefined;
     }
 
     function isProject(arg: any): arg is Project {
-      console.log(`Project ${arg.id}`);
+      if (arg.body !== undefined) {
+        console.log(`Project ${arg.id}`);
+      }
+      
       return arg.body !== undefined;
     }
 
