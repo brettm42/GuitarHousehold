@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
     },
+    jsonExpander: {
+      marginLeft: 'auto',
+      marginRight: 0
+    },
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
@@ -65,7 +69,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
           </Typography>
         </Grid>
 
-        <Grid item>
+        <Grid item className={classes.jsonExpander}>
           <ExpansionPanel>
             <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
               <Typography className={classes.heading}>Case JSON Data</Typography>

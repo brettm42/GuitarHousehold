@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex-start',
       margin: '0 auto'
     },
+    jsonExpander: {
+      margin: theme.spacing(2, 4)
+    },
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
@@ -102,26 +105,26 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 </Typography>  
               </div>
             : null}
-          </Typography>
         </Typography>
+      </Typography>
         
-        {guitar.picture
-          ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
-          : null}
+      {guitar.picture
+        ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
+        : null}
 
-        <ExpansionPanel>
-          <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
-            <Typography className={classes.heading}>Guitar JSON Data</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <div className={classes.json}>
-              <Divider />
-              <Typography variant='subtitle1'>
-                <pre>{JSON.stringify(guitar, undefined, 2)}</pre>
-              </Typography>
-            </div>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+      <ExpansionPanel className={classes.jsonExpander}>
+        <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
+          <Typography className={classes.heading}>Guitar JSON Data</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <div className={classes.json}>
+            <Divider />
+            <Typography variant='subtitle1'>
+              <pre>{JSON.stringify(guitar, undefined, 2)}</pre>
+            </Typography>
+          </div>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     </div>
   );
 };

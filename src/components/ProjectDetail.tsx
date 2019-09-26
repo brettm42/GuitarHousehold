@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex-start',
       margin: '0 auto'
     },
+    jsonExpander: {
+      margin: theme.spacing(2, 4)
+    },
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
@@ -113,7 +116,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
         ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
         : null}
       
-      <ExpansionPanel>
+      <ExpansionPanel className={classes.jsonExpander}>
         <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
