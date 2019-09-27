@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 0
     },
     jsonExpander: {
-      margin: theme.spacing(2, 4)
+      margin: theme.spacing(2)
     },
     json: {
       whiteSpace: 'nowrap',
