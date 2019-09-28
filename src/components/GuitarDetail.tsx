@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 220,
       width: 500,
     },
+    description: {
+      maxWidth: '50%'
+    },
     control: {
       padding: theme.spacing(2),
     },
