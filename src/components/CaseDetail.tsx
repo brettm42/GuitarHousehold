@@ -51,22 +51,27 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
             {guitarCase.name}
           </Typography>
 
-          <Typography>
-          {guitarCase.description 
-            ? <p>{guitarCase.description}</p> 
-            : null}
-          <p>Case Style: {guitarCase.caseStyle}</p>
-          {guitarCase.purchaseDate 
-            ? <p>Purchased {guitarCase.purchaseDate}</p> 
-            : null}
-          <p>Purchase Store: {guitarCase.purchaseStore}</p>
-          {guitarCase.purchasePrice
-              ? <p>Purchase price: ${guitarCase.purchasePrice}</p>
-              : null}
-          {guitarCase.productUrl
-            ? <p>Product Link: <a href={guitarCase.productUrl}>{guitarCase.productUrl}</a></p>
-            : null}
-          </Typography>
+          <div>
+            {[
+              guitarCase.description,
+              `Case Style: ${guitarCase.caseStyle}`,
+              guitarCase.purchaseDate 
+                ? `Purchased ${guitarCase.purchaseDate}`
+                : null,
+              `Purchase Store: ${guitarCase.purchaseStore}`,
+              guitarCase.purchasePrice
+                  ? `Purchase price: \$${guitarCase.purchasePrice}`
+                  : null,
+              guitarCase.productUrl
+                ? `Product Link: <a href=${guitarCase.productUrl}>${guitarCase.productUrl}</a>`
+                : null
+            ]
+            .map((text, idx) => (
+              <Typography key={idx} gutterBottom>
+                {text}
+              </Typography>
+            ))}
+          </div>
         </Grid>
 
         <Grid item className={classes.jsonExpander}>

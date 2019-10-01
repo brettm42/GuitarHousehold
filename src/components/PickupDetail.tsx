@@ -50,28 +50,33 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
             {pickup.name}
           </Typography>
 
-          <Typography>
-            {pickup.description 
-              ? <p>{pickup.description}</p> 
-              : null}
-            <p>Position: {pickup.position}</p>
-            <p>Type: {pickup.type}</p>
-            {pickup.output 
-              ? <p>Output: {pickup.output}</p> 
-              : null}
-            {pickup.purchaseDate 
-              ? <p>Purchase Date: {pickup.purchaseDate}</p> 
-              : null}
-              {pickup.purchasePrice
-                ? <p>Purchase price: ${pickup.purchasePrice}</p>
-                : null}
-            {pickup.purchaseStore 
-              ? <p>Purchase Store: {pickup.purchaseStore}</p> 
-              : null}
-            {pickup.productUrl
-              ? <p>Product Link: <a href={pickup.productUrl}>{pickup.productUrl}</a></p>
-              : null}
-          </Typography>
+          <div>
+            {[
+              pickup.description,
+              `Position: ${pickup.position}`,
+              `Type: ${pickup.type}`,
+              pickup.output 
+                ? `Output: ${pickup.output}`
+                : null,
+              pickup.purchaseDate 
+                ? `Purchase Date: ${pickup.purchaseDate}`
+                : null,
+              pickup.purchasePrice
+                  ? `Purchase price: \$${pickup.purchasePrice}`
+                  : null,
+              pickup.purchaseStore 
+                ? `Purchase Store: ${pickup.purchaseStore}`
+                : null,
+              pickup.productUrl
+                ? `Product Link: <a href=${pickup.productUrl}>${pickup.productUrl}</a>`
+                : null
+              ]
+              .map((text, idx) => (
+                <Typography key={idx} gutterBottom>
+                  {text}
+                </Typography>
+              ))}
+          </div>
         </Grid>
 
         <Grid item className={classes.jsonExpander}>

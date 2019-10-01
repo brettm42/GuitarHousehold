@@ -67,35 +67,40 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
             {guitar.name}
           </Typography>
 
-          <Typography>
-            {guitar.description
-              ? <p>{guitar.description}</p>
-              : null}
-            {guitar.series
-              ? <p>Series: {guitar.series}</p>
-              : null}
-            <p>Project Started {guitar.projectStart}</p>
-            <p>Project Completed {guitar.projectComplete}</p>
-            <p>Body: {guitar.body}{guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}</p>
-            <p>Body Style: {guitar.bodyStyle}</p>
-            <p>Color: {guitar.color}</p>
-            {guitar.purchasePrice
-              ? <p>Purchase price: ${guitar.purchasePrice}</p>
-              : null}
-            <p>Neck: {guitar.neck}</p>
-            <p>s/n: {guitar.serialNumber} (location: {guitar.serialNumberLocation})</p>
-            {guitar.pickguard
-              ? <p>Pickguard: {guitar.pickguard}</p>
-              : null}
-            <p>Strings: {guitar.strings}</p>
-            {guitar.scale
-              ? <p>Neck Scale: {guitar.scale}</p>
-              : null}
-            <p>Tuning: {guitar.tuning ? guitar.tuning : 'Standard'}</p>
-            {guitar.productUrl
-              ? <p>Product Link: <a href={guitar.productUrl}>{guitar.productUrl}</a></p>
-              : null}
-          </Typography>
+          <div>
+            {[
+              guitar.description,
+              guitar.series
+                ? `Series: ${guitar.series}`
+                : null,
+              `Project Started ${guitar.projectStart}`,
+              `Project Completed ${guitar.projectComplete}`,
+              `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`,
+              `Body Style: ${guitar.bodyStyle}`,
+              `Color: ${guitar.color}`,
+              guitar.purchasePrice
+                ? `Purchase price: \$${guitar.purchasePrice}`
+                : null,
+              `Neck: ${guitar.neck}`,
+              `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`,
+              guitar.pickguard
+                ? `Pickguard: ${guitar.pickguard}`
+                : null,
+              `Strings: ${guitar.strings}`,
+              guitar.scale
+                ? `Neck Scale: ${guitar.scale}`
+                : null,
+              `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
+              guitar.productUrl
+                ? `Product Link: ${<a href={guitar.productUrl}>{guitar.productUrl}</a>}`
+                : null
+            ]
+            .map((text, idx) => (
+              <Typography key={idx} gutterBottom>
+                {text}
+              </Typography>
+            ))}
+          </div>
         </Grid>
 
         <Grid item>
@@ -108,19 +113,39 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       <Divider variant='middle' />
       <Typography variant='h5'>
         {guitar.pickups && GuitarUtils.hasPickups(guitar)
-          ? <div><p>Pickups:</p>
-            <ul>{guitar.pickups.map(i => <li key={i.id}><PickupDetail item={i} /></li>)}</ul></div>
+          ? <div>
+              <p>Pickups:</p>
+              <ul>
+                {guitar.pickups.map(i => 
+                  <li key={i.id}>
+                    <PickupDetail item={i} />
+                  </li>)}
+              </ul>
+            </div>
           : null}
         {GuitarUtils.hasCase(guitar)
-          ? <div><p>Case:</p>
-            <ul>{guitar.case ? <li key={guitar.case.id}><CaseDetail item={guitar.case} /></li> : null}</ul></div>
+          ? <div>
+              <p>Case:</p>
+              <ul>
+                {guitar.case 
+                  ? <li key={guitar.case.id}>
+                      <CaseDetail item={guitar.case} />
+                    </li> 
+                  : null}
+              </ul>
+            </div>
           : null}
         {guitar.modifications && GuitarUtils.hasModifications(guitar)
           ? <div>
               <p>Modifications:</p>
-              <Typography>
-                <ul>{guitar.modifications.map(i => <li key={i.length}>{i}</li>)}</ul>
-              </Typography>
+                <ul>
+                  {guitar.modifications.map(i => 
+                    <li key={i.length}>
+                      <Typography>
+                        {i}
+                      </Typography>
+                    </li>)}
+                </ul>
             </div>
           : null}
       </Typography>
