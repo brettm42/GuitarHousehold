@@ -23,16 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      width: '100%'
+      width: '100%',
+      padding: theme.spacing(2)
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
-    },
-    paper: {
-      padding: 15,
-      minHeight: 220,
-      width: 500,
     },
     control: {
       padding: theme.spacing(2),
