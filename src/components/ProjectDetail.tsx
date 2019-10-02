@@ -69,8 +69,8 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.series
                 ? `Series: ${guitar.series}`
                 : null,
-              `Project Started ${guitar.projectStart}`,
-              `Project Completed ${guitar.projectComplete}`,
+              `Project Started: ${guitar.projectStart}`,
+              `Project Completed: ${guitar.projectComplete}`,
               `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`,
               `Body Style: ${guitar.bodyStyle}`,
               `Color: ${guitar.color}`,
