@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import Link from 'next/link';
-
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
@@ -18,29 +16,27 @@ import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarser
 
 type Props = {
   guitars: Guitar[],
-  projects: Project[]
+  projects: Project[],
+  pathname: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(4, 2),
     },
     divider: {
       margin: theme.spacing(4, 2),
-    },
-    about: {
-      paddingTop: theme.spacing(4)
     }
   })
 );
 
-const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
+const IndexPage: NextPage<Props> = ({ guitars, projects, pathname }) => {
   const data = [...guitars, ...projects];
   const classes = useStyles();
 
   return (
-    <Layout title="GuitarHousehold 🎸| Home">
+    <Layout title="GuitarHousehold 🎸| Home" pathname={pathname}>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 
       <div className={classes.title}>
@@ -58,25 +54,15 @@ const IndexPage: NextPage<Props> = ({ guitars, projects }) => {
       <div>
         <HouseholdGridList data={data} />
       </div>
-
-      <div className={classes.about}>
-        <Link href="/about">
-          <a>
-            <Typography variant='button' gutterBottom>
-              About
-            </Typography>
-          </a>
-        </Link>
-      </div>
     </Layout>
   );
 };
 
-IndexPage.getInitialProps = async () => {
+IndexPage.getInitialProps = async ({ pathname }) => {
   const guitars: Guitar[] = await findAllGuitars();
   const projects: Project[] = await findAllProjects();
 
-  return { guitars, projects };
+  return { guitars, projects, pathname };
 };
 
 export default IndexPage;
