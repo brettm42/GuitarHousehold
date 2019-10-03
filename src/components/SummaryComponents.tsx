@@ -141,6 +141,7 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         `Most Expensive: ${GuitarUtils.mostExpensive(guitars)} (with case ${GuitarUtils.mostExpensiveWithCase(guitars)})`,
         `Average Cost: ${GuitarUtils.averageCost(guitars)} (average plus case ${GuitarUtils.averageCostWithCase(guitars)})`,
         `Average Case Cost: ${GuitarUtils.averageCaseCost(guitars)}`,
+        `Average Pickup Cost: ${GuitarUtils.averagePickupCost(guitars)}`,
         `Household: ${GuitarUtils.totalCost(guitars)} (with cases ${GuitarUtils.totalCostWithCases(guitars)})`,
       ]}
       style={classes.values} />

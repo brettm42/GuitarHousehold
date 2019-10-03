@@ -229,7 +229,7 @@ export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
     const avgOutput = 
         pickups.reduce((avg, pickup) => avg + Number.parseFloat(pickup.output.split('K')[0]), 0) / pickups.length;
 
-    return avgOutput ? `${avgOutput}K` : defaultString;
+    return avgOutput ? `${roundToHundredths(avgOutput)}K` : defaultString;
 }
 
 export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
@@ -620,6 +620,25 @@ export function averageCostWithCase(guitars: Guitar[]): string {
             + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0) 
             + (g.case && g.case.purchasePrice ? Number.parseFloat(g.case.purchasePrice) : 0), 
             0) / purchases.length;
+
+    return averagePrice 
+        ? `\$${roundToHundredths(averagePrice)}` 
+        : defaultString;
+}
+
+export function averagePickupCost(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const pickups = guitars
+        .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[])
+        .filter(p => p.purchasePrice);
+
+    const averagePrice = 
+        pickups.reduce((avg, p) => avg 
+            + (p && p.purchasePrice ? Number.parseFloat(p.purchasePrice) : 0), 
+            0) / pickups.length;
 
     return averagePrice 
         ? `\$${roundToHundredths(averagePrice)}` 
