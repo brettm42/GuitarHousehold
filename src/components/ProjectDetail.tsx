@@ -30,12 +30,16 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
     },
-    control: {
-      padding: theme.spacing(2),
+    description: {
+      maxWidth: 550
     },
     img: {
       maxWidth: 500,
       display: 'flex',
+      marginLeft: 'auto',
+      marginRight: 0
+    },
+    imgGrid: {
       marginLeft: 'auto',
       marginRight: 0
     },
@@ -45,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
-      textOverflow: 'ellipsis',
+      textOverflow: 'ellipsis'
     }
   })
 );
@@ -58,7 +62,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item>
+        <Grid item className={classes.description}>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
           </Typography>
@@ -102,7 +106,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item>
+        <Grid item className={classes.imgGrid}>
           {guitar.picture
             ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
             : null}
@@ -135,16 +139,16 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
             </div>
           : null}
         {guitar.modifications && GuitarUtils.hasModifications(guitar)
-          ? <div>
+          ? <div className={classes.description}>
               <p>Modifications:</p>
-                <ul>
-                  {guitar.modifications.map(i => 
-                    <li key={i.length}>
-                      <Typography>
-                        {i}
-                      </Typography>
-                    </li>)}
-                </ul>
+              <ul>
+                {guitar.modifications.map(i => 
+                  <li key={i.length}>
+                    <Typography>
+                      {i}
+                    </Typography>
+                  </li>)}
+              </ul>
             </div>
           : null}
       </Typography>

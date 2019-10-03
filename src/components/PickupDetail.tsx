@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightRegular
     },
     jsonExpander: {
-      margin: theme.spacing(2)
+      marginLeft: 'auto',
+      marginRight: 0
     },
     json: {
       whiteSpace: 'nowrap',
