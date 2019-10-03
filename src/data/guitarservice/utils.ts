@@ -48,6 +48,74 @@ export function mostPickups(guitars: Guitar[]): string {
         : defaultString;
 }
 
+export function mostFrets(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    var max;
+    for (let guitar of guitars) {
+        if (!guitar.numberOfFrets) {
+            continue;
+        }
+
+        if (!max) {
+            max = guitar;
+            continue;
+        }
+
+        if ((max.numberOfFrets || 0) < guitar.numberOfFrets) {
+            max = guitar;
+        }
+    }
+
+    return max 
+        ? `${max.name} (${max.numberOfFrets} frets)`
+        : defaultString;
+}
+
+export function leastFrets(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    var min;
+    for (let guitar of guitars) {
+        if (!guitar.numberOfFrets) {
+            continue;
+        }
+
+        if (!min) {
+            min = guitar;
+            continue;
+        }
+
+        if ((min.numberOfFrets || 999999) > guitar.numberOfFrets) {
+            min = guitar;
+        }
+    }
+
+    return min 
+        ? `${min.name} (${min.numberOfFrets} frets)`
+        : defaultString;
+}
+
+export function averageFrets(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const items = guitars.filter(c => c.numberOfFrets);
+    const averageFrets = 
+        items.reduce((avg, g) => 
+            avg + (g.numberOfFrets || 0),
+            0) / items.length;
+
+    return averageFrets 
+        ? `${Math.round(averageFrets)}` 
+        : defaultString;
+}
+
 export function hasModifications(guitar: Guitar): boolean {
     return guitar.modifications
         ? guitar.modifications.length > 0
@@ -519,6 +587,22 @@ export function averageCost(guitars: Guitar[]): string {
         purchases.reduce((avg, g) => avg 
             + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0), 
             0) / purchases.length;
+
+    return averagePrice 
+        ? `\$${roundToHundredths(averagePrice)}` 
+        : defaultString;
+}
+
+export function averageCaseCost(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const cases = guitars.filter(c => c.case).map(g => g.case);
+    const averagePrice = 
+        cases.reduce((avg, c) => avg 
+            + (c && c.purchasePrice ? Number.parseFloat(c.purchasePrice) : 0), 
+            0) / cases.length;
 
     return averagePrice 
         ? `\$${roundToHundredths(averagePrice)}` 

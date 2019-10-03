@@ -15,6 +15,7 @@ export interface Guitar extends RetailItem {
     readonly strings: StringType;
     readonly case?: Case;
     readonly scale?: string;
+    readonly numberOfFrets?: number;
     readonly tuning?: string;
     readonly picture?: string;
     readonly modifications?: ReadonlyArray<string>;

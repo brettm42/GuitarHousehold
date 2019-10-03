@@ -85,6 +85,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               guitar.scale
                 ? `Neck Scale: ${guitar.scale}`
                 : null,
+              guitar.numberOfFrets
+                ? `Number of Frets: ${guitar.numberOfFrets}`
+                : null,
               `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
               guitar.productUrl
                 ? `Product Link: ${<a href={guitar.productUrl}>{guitar.productUrl}</a>}`

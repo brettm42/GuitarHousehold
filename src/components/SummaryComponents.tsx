@@ -78,6 +78,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         `Color: ${GuitarUtils.mostCommonColor(guitars)}`,
         `Tuning: ${GuitarUtils.mostCommonTuning(guitars)}`,
         `Scale Length: ${GuitarUtils.mostCommonScale(guitars)}`,
+        `Frets: ${GuitarUtils.averageFrets(guitars)}`,
         `Pickup: ${GuitarUtils.mostCommonPickupType(guitars)}`,
         `Number of Pickups: ${GuitarUtils.mostCommonPickupNumber(guitars)}`,
         `Case Style: ${GuitarUtils.mostCommonCaseStyle(guitars)}`,
@@ -118,6 +119,8 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         `Most Modifications: ${GuitarUtils.mostModifications(guitars)}`,
         `Longest Scale: n/a`,
         `Shortest Scale: n/a`,
+        `Most Frets: ${GuitarUtils.mostFrets(guitars)}`,
+        `Least Frets: ${GuitarUtils.leastFrets(guitars)}`,
         `Longest Project: ${GuitarUtils.longestProject(guitars)}`,
         `Shortest Project: ${GuitarUtils.shortestProject(guitars)}`
       ]}
@@ -137,8 +140,7 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         `Cheapest: ${GuitarUtils.cheapest(guitars)} (with case ${GuitarUtils.cheapestWithCase(guitars)})`,
         `Most Expensive: ${GuitarUtils.mostExpensive(guitars)} (with case ${GuitarUtils.mostExpensiveWithCase(guitars)})`,
         `Average Cost: ${GuitarUtils.averageCost(guitars)} (average plus case ${GuitarUtils.averageCostWithCase(guitars)})`,
-        `Lowest Case vs. Cost: n/a`,
-        `Highest Case vs. Cost: n/a`,
+        `Average Case Cost: ${GuitarUtils.averageCaseCost(guitars)}`,
         `Household: ${GuitarUtils.totalCost(guitars)} (with cases ${GuitarUtils.totalCostWithCases(guitars)})`,
       ]}
       style={classes.values} />
