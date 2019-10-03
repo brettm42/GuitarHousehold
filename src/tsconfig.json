@@ -2,6 +2,8 @@
   "compilerOptions": {
     "allowJs": true,
     "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,

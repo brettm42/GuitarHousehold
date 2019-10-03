@@ -152,7 +152,10 @@ export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
     const cases = guitars.map(g => {
         if (g.case) {
             return g.case.caseStyle;
-        }});
+        }
+
+        return undefined;
+    });
 
     return mostCommonString(cases);
 }
