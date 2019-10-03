@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import ProjectDetail from '../components/ProjectDetail';
 
 import { NextPageContext } from 'next';
+import { Typography } from '@material-ui/core';
 
 import { Project } from '../interfaces/models/project';
 import { findProject } from '../data/guitarservice/guitarservice';
@@ -34,9 +35,9 @@ class ProjectDetailPage extends React.Component<Props> {
     if (errors) {
       return (
         <Layout title={`GuitarHousehold 🎸 | Error`} pathname={pathname}>
-          <p>
+          <Typography>
             <span style={{ color: 'red' }}>Error:</span> {errors}
-          </p>
+          </Typography>
         </Layout>
       );
     }

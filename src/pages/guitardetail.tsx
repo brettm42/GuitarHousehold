@@ -36,9 +36,7 @@ class GuitarDetailPage extends React.Component<Props> {
       return (
         <Layout title={`GuitarHousehold 🎸 | Error`} pathname={pathname}>
           <Typography>
-            <p>
-              <span style={{ color: 'red' }}>Error:</span> {errors}
-            </p>
+            <span style={{ color: 'red' }}>Error:</span> {errors}
           </Typography>
         </Layout>
       );
