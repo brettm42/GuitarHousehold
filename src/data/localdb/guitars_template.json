@@ -1,34 +1,34 @@
 [
     {
         "id": 10000,
-        "name": "Ibanez Artcore AK80-BS-12-02",
+        "name": "Guitar #1",
         "description": "",
         "purchaseDate": "",
-        "purchaseStore": "Amazon",
-        "make": "Ibanez",
-        "model": "AK80",
-        "series": "Artcore",
-        "serialNumber": "S123456789",
-        "serialNumberLocation": "Body",
-        "bodyStyle": "Hollowbody",
+        "purchaseStore": "",
+        "make": "Squier",
+        "model": "",
+        "series": "",
+        "serialNumber": "",
+        "serialNumberLocation": "",
+        "bodyStyle": "Stratocaster",
         "color": "Sunburst",
         "pickups": [
             {
                 "id": 10010,
-                "name": "Ibanez Neck",
+                "name": "Factory Neck",
                 "description": "",
                 "purchaseDate": "",
-                "purchaseStore": "Factory",
+                "purchaseStore": "",
                 "position": "Neck",
                 "type": "Humbucker",
                 "output": ""
             },
             {
                 "id": 10011,
-                "name": "Ibanez Bridge",
+                "name": "Factory Bridge",
                 "description": "",
                 "purchaseDate": "",
-                "purchaseStore": "Factory",
+                "purchaseStore": "",
                 "position": "Bridge",
                 "type": "Humbucker",
                 "output": ""
@@ -43,9 +43,14 @@
             "purchaseStore": "Guitar Center",
             "caseStyle": "Arched"
         },
-        "picture": "http://www.chorder.com/images/reviews-articles/546-desktop.jpg",
+        "picture": "",
         "modifications": [
-            "Removed pickguard", "Added chrome knobs"
+            "Removed pickguard", 
+            "Added chrome knobs"
+        ],
+        "controls": [
+            "Master volume",
+            "Tone"
         ]
     }
 ]
