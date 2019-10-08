@@ -118,8 +118,6 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         `Most Pickups: ${GuitarUtils.mostPickups(guitars)}`,
         `Most Modifications: ${GuitarUtils.mostModifications(guitars)}`,
         `Most Controls: ${GuitarUtils.mostControls(guitars)}`,
-        `Longest Scale: n/a`,
-        `Shortest Scale: n/a`,
         `Most Frets: ${GuitarUtils.mostFrets(guitars)}`,
         `Least Frets: ${GuitarUtils.leastFrets(guitars)}`,
         `Longest Project: ${GuitarUtils.longestProject(guitars)}`,

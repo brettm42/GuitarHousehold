@@ -144,7 +144,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               <ul>
                 {guitar.modifications.map(i => 
                   <li key={i.length}>
-                    <Typography>{i}</Typography>
+                    <Typography>
+                      {i}
+                    </Typography>
                   </li>)}
               </ul>
             </div>
@@ -155,7 +157,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               <ul>
                 {guitar.controls.map(i => 
                   <li key={i.length}>
-                    <Typography>{i}</Typography>
+                    <Typography>
+                      {i}
+                    </Typography>
                   </li>)}
               </ul>
             </div>
