@@ -148,6 +148,38 @@ export function mostModifications(guitars: Guitar[]): string {
         : defaultString;
 }
 
+export function hasControls(guitar: Guitar): boolean {
+    return guitar.controls
+        ? guitar.controls.length > 0
+        : false;
+}
+
+export function mostControls(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    var max;
+    for (let guitar of guitars) {
+        if (!guitar.controls) {
+            continue;
+        }
+
+        if (!max) {
+            max = guitar;
+            continue;
+        }
+
+        if ((max.controls || []).length < guitar.controls.length) {
+            max = guitar;
+        }
+    }
+
+    return max && max.controls 
+        ? `${max.name} (${max.controls.length} controls)`
+        : defaultString;
+}
+
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
     const cases = guitars.map(g => {
         if (g.case) {

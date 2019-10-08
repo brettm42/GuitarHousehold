@@ -144,9 +144,18 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               <ul>
                 {guitar.modifications.map(i => 
                   <li key={i.length}>
-                    <Typography>
-                      {i}
-                    </Typography>
+                    <Typography>{i}</Typography>
+                  </li>)}
+              </ul>
+            </div>
+          : null}
+        {guitar.controls && GuitarUtils.hasControls(guitar)
+          ? <div className={classes.description}>
+              <p>Controls:</p>
+              <ul>
+                {guitar.controls.map(i => 
+                  <li key={i.length}>
+                    <Typography>{i}</Typography>
                   </li>)}
               </ul>
             </div>

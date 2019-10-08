@@ -145,6 +145,17 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               </ul>
             </div>
           : null}
+        {guitar.controls && GuitarUtils.hasControls(guitar)
+          ? <div className={classes.description}>
+              <p>Controls:</p>
+              <ul>
+                {guitar.controls.map(i => 
+                  <li key={i.length}>
+                    <Typography>{i}</Typography>
+                  </li>)}
+              </ul>
+            </div>
+          : null}
       </Typography>
 
       <ExpansionPanel className={classes.jsonExpander}>
