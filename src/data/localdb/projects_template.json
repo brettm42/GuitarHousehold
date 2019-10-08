@@ -1,18 +1,18 @@
 [
     {
         "id": 100000,
-        "name": "Project Natural Jazzmaster",
+        "name": "Project #1",
         "description": "",
         "projectStart": "12/6/2015",
         "projectComplete": "1/8/2016",
-        "purchaseStore": "GuitarFetish",
-        "serialNumber": "ICS123456789",
-        "serialNumberLocation": "Neck",
+        "purchaseStore": "",
+        "serialNumber": "",
+        "serialNumberLocation": "",
         "bodyStyle": "Jazzmaster",
-        "body": "XGP Offset Body Double Bound Flamed Maple Vintage Natural",
-        "neck": "Squier Vintage Modified Jazzmaster Neck",
-        "pickguard": "XGP 3 Ply White Offset Pickguard- 2 Jazzmaster pickups",
-        "color": "Natural",
+        "body": "",
+        "neck": "",
+        "pickguard": "",
+        "color": "Sunburst",
         "pickups": [
             {
                 "id": 100010,
@@ -22,7 +22,7 @@
                 "purchaseStore": "GuitarFetish",
                 "position": "Neck",
                 "type": "Jazzmaster",
-                "output": ""
+                "output": "5.0K"
             },
             {
                 "id": 100011,
@@ -32,7 +32,7 @@
                 "purchaseStore": "GuitarFetish",
                 "position": "Bridge",
                 "type": "Jazzmaster",
-                "output": ""
+                "output": "6.1K"
             }
         ],
         "scale": "25.5\"",
@@ -49,6 +49,11 @@
         "picture": "",
         "modifications": [
             "Wired up as (but with a 4-throw rotary switch instead of blade) - https://dl.dropboxusercontent.com/u/7440801/Guitar%20Wiring/Tele%204-Way%20Dual%202.jpg"
+        ],
+        "controls": [
+            "4-way rotary: neck, series, parallel, bridge",
+            "Master volume",
+            "Tone"
         ]
     }
 ]
