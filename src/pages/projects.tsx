@@ -28,7 +28,7 @@ const Projects: NextPage<Props> = ({ items, pathname }) => {
   const classes = useStyles();
 
   return (
-    <Layout title="GuitarHousehold 🎸 | Project List" pathname={pathname}>
+    <Layout title='GuitarHousehold 🎸 | Project List' pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
           Project Guitar List

@@ -76,7 +76,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
 
         <Grid item className={classes.jsonExpander}>
           <ExpansionPanel>
-            <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
+            <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
               <Typography className={classes.heading}>Case JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

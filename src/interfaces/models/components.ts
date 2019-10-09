@@ -27,11 +27,11 @@ const bodyStyles = [
 
 export type StringType = typeof stringTypes[number];
 const stringTypes = [
-    "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
-    "D'Addario EPN21 Pure Nickel, Jazz Light, 12-51",
-    "D'Addario EJ12 80/20 Bronze Acoustic, Medium, 13-56",
-    "D'Addario EJ17 Phosphor Bronze Acoustic, Medium, 13-56",
-    "Ernie Ball 12-string Medium Nickel Wound, 11-52",
+    'D\'Addario EPN22 Pure Nickel, Jazz Medium, 13-56',
+    'D\'Addario EPN21 Pure Nickel, Jazz Light, 12-51',
+    'D\'Addario EJ12 80/20 Bronze Acoustic, Medium, 13-56',
+    'D\'Addario EJ17 Phosphor Bronze Acoustic, Medium, 13-56',
+    'Ernie Ball 12-string Medium Nickel Wound, 11-52',
     'Factory',
     'Custom',
     'None'

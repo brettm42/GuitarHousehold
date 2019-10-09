@@ -167,7 +167,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       </Typography>
       
       <ExpansionPanel className={classes.jsonExpander}>
-        <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
+        <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

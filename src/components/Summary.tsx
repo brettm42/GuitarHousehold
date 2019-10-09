@@ -75,8 +75,8 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Typography>
 
       <Grid container className={classes.root} spacing={3}>
-        <Grid item xs={"auto"}>
-          <Grid container justify="flex-start" spacing={3}>
+        <Grid item xs={'auto'}>
+          <Grid container justify='flex-start' spacing={3}>
             <Grid key={'popular'} item>
               <Paper className={classes.paper0}>
                 <MostCommonComponent data={guitars} />

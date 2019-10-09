@@ -82,7 +82,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 
         <Grid item className={classes.jsonExpander}>
           <ExpansionPanel>
-            <ExpansionPanelSummary aria-controls="panelJson-content" id="panelJson-header">
+            <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
               <Typography className={classes.heading}>Pickup JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

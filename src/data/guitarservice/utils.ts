@@ -247,7 +247,8 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
-    const pickups = guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[]);
+    const pickups = 
+        guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[]);
 
     return mostCommonString(pickups.map(p => p.type));
 }
@@ -266,7 +267,8 @@ export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
             .filter(p => p.output);
 
     const avgOutput = 
-        pickups.reduce((avg, pickup) => avg + Number.parseFloat(pickup.output.split('K')[0]), 0) / pickups.length;
+        pickups.reduce((avg, pickup) => 
+            avg + Number.parseFloat(pickup.output.split('K')[0]), 0) / pickups.length;
 
     return avgOutput ? `${roundToHundredths(avgOutput)}K` : defaultString;
 }
@@ -345,7 +347,8 @@ export function oldestGuitar(guitars: Guitar[]): string {
             continue;
         }
 
-        if (Date.parse(max.purchaseDate || Date.now().toString()) > Date.parse(guitar.purchaseDate)) {
+        if (Date.parse(max.purchaseDate || Date.now().toString()) 
+            > Date.parse(guitar.purchaseDate)) {
             max = guitar;
         }
     }
@@ -371,7 +374,8 @@ export function newestGuitar(guitars: Guitar[]): string {
             continue;
         }
 
-        if (Date.parse(min.purchaseDate || Date.now().toString()) < Date.parse(guitar.purchaseDate)) {
+        if (Date.parse(min.purchaseDate || Date.now().toString()) 
+            < Date.parse(guitar.purchaseDate)) {
             min = guitar;
         }
     }
@@ -397,13 +401,13 @@ export function longestProject(guitars: Guitar[]): string {
             max = guitar;
             maxLength = 
                 Date.parse(guitar.projectComplete || Date.now().toString()) 
-                - Date.parse(guitar.projectStart);
+                    - Date.parse(guitar.projectStart);
             continue;
         }
 
         var projectLength = 
             Date.parse(guitar.projectComplete || Date.now().toString()) 
-            - Date.parse(guitar.projectStart);
+                - Date.parse(guitar.projectStart);
         if (maxLength < projectLength) {
             max = guitar;
             maxLength = projectLength;
@@ -431,13 +435,13 @@ export function shortestProject(guitars: Guitar[]): string {
             min = guitar;
             minLength = 
                 Date.parse(guitar.projectComplete || Date.now().toString()) 
-                - Date.parse(guitar.projectStart);
+                    - Date.parse(guitar.projectStart);
             continue;
         }
 
         var projectLength = 
             Date.parse(guitar.projectComplete || Date.now().toString()) 
-            - Date.parse(guitar.projectStart);
+                - Date.parse(guitar.projectStart);
         if (minLength > projectLength) {
             min = guitar;
             minLength = projectLength;
@@ -692,7 +696,7 @@ export function randomPick(guitars: Guitar[]): Guitar {
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
     if (items.length === 0) {
-        return "None";
+        return 'None';
     }
 
     var modeMap: { [key: string]: number; } = {};
@@ -717,7 +721,7 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
         }
     }
 
-    return maxElement || "Standard";
+    return maxElement || 'Standard';
 }
 
 function getColorMapping(color: string): string {

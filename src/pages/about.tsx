@@ -25,7 +25,7 @@ const AboutPage: NextPage<Props> = ({pathname}) => {
   const classes = useStyles();
 
   return (
-    <Layout title="GuitarHousehold 🎸| About" pathname={pathname}>
+    <Layout title='GuitarHousehold 🎸| About' pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h3' gutterBottom>
           About

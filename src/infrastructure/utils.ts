@@ -15,7 +15,7 @@ export function millisecondsToFriendlyString(duration: number): string {
         if (duration < oneMonth) {
             if (duration < oneWeek) {
                 if (duration < oneDay) {
-                    return "Less than a day";
+                    return 'Less than a day';
                 }
 
                 return `${Math.round(duration / oneDay)} days`;

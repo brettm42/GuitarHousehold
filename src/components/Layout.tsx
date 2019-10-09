@@ -136,22 +136,22 @@ export default function Layout(props: Props) {
     <div className={classes.rootPage}>
       <Head>
         <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
       
       <div className={classes.root}>
         <AppBar position='static'>
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+            <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu' onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
             <Link href='/'>
-              <Typography variant="h6" className={classes.title}>
+              <Typography variant='h6' className={classes.title}>
                 GuitarHousehold
               </Typography>
             </Link>
-            <Typography variant="subtitle1">
+            <Typography variant='subtitle1'>
               {pathname}
             </Typography>
           </Toolbar>
