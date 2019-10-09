@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import Head from 'next/head';
+import Link from 'next/link';
 
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
@@ -29,8 +30,12 @@ type Props = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    rootPage: {
+      maxWidth: '100%',
+      overflowX: 'hidden'
+    },
     root: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -128,7 +133,7 @@ export default function Layout(props: Props) {
   };
 
   return (
-    <div>
+    <div className={classes.rootPage}>
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -141,9 +146,11 @@ export default function Layout(props: Props) {
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              GuitarHousehold
-            </Typography>
+            <Link href='/'>
+              <Typography variant="h6" className={classes.title}>
+                GuitarHousehold
+              </Typography>
+            </Link>
             <Typography variant="subtitle1">
               {pathname}
             </Typography>
