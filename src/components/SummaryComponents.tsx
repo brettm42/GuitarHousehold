@@ -184,10 +184,6 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   function buildGuitarGrid(guitar: Guitar): JSX.Element {
     return (
       <div>
-        <Typography>
-          {guitar.name}
-        </Typography>
-
         <Link href={`/detail?id=${guitar.id}`}>
           <a>
             {guitar.picture
@@ -195,6 +191,10 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
               : '🎸'}
           </a>
         </Link>
+
+        <Typography>
+          {guitar.name}
+        </Typography>
       </div>
     );
   }
