@@ -2,7 +2,11 @@ import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
 
-import { millisecondsToFriendlyString, roundToHundredths } from '../../infrastructure/utils';
+import { 
+    millisecondsToFriendlyString,
+    randomElementWithSeed,
+    roundToHundredths
+} from '../../infrastructure/utils';
 
 const defaultString = 'None';
 
@@ -678,6 +682,12 @@ export function averagePickupCost(guitars: Guitar[]): string {
     return averagePrice 
         ? `\$${roundToHundredths(averagePrice)}` 
         : defaultString;
+}
+
+export function randomPick(guitars: Guitar[]): Guitar {
+    const day = new Date(Date.now());
+
+    return randomElementWithSeed(guitars, day.getDate() + day.getDay());
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {

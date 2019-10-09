@@ -1,7 +1,10 @@
 import * as React from 'react';
 
-import List from '../components/List';
+import Link from 'next/link';
+
 import Typography from '@material-ui/core/Typography';
+
+import List from '../components/List';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
@@ -37,6 +40,15 @@ const useStyles = makeStyles(() =>
     },
     pickups: {
 
+    },
+    randomPick: {
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    randomPickImg: {
+      maxHeight: 250
     }
   })
 );
@@ -164,4 +176,48 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   );
 };
 
-export { MissingCasesComponent, MostCommonComponent, OutliersComponent, PickupsComponent, ValuesComponent };
+const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+
+  function buildGuitarGrid(guitar: Guitar): JSX.Element {
+    return (
+      <div>
+        <Typography>
+          {guitar.name}
+        </Typography>
+
+        <Link href={`/detail?id=${guitar.id}`}>
+          <a>
+            {guitar.picture
+              ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
+              : '🎸'}
+          </a>
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <Typography variant='subtitle2' gutterBottom>
+        Pick of the Day!
+      </Typography>
+
+      <div className={classes.randomPick}>
+        {buildGuitarGrid(
+          GuitarUtils.randomPick(guitars))}      
+      </div>
+    </div>
+  );
+};
+
+export { 
+  MissingCasesComponent,
+  MostCommonComponent,
+  OutliersComponent,
+  PickupsComponent,
+  RandomPickComponent,
+  ValuesComponent 
+};

@@ -11,6 +11,7 @@ import {
   MostCommonComponent, 
   OutliersComponent, 
   PickupsComponent,
+  RandomPickComponent,
   ValuesComponent
 } from './SummaryComponents';
 
@@ -81,11 +82,6 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
                 <MostCommonComponent data={guitars} />
               </Paper>
             </Grid>
-            <Grid key={'cases'} item>
-              <Paper className={classes.paper1}>
-                <MissingCasesComponent data={guitars} />
-              </Paper>
-            </Grid>
             <Grid key={'outliers'} item>
               <Paper className={classes.paper2}>
                 <OutliersComponent data={guitars} />
@@ -94,6 +90,16 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <Grid key={'values'} item>
               <Paper className={classes.paper3}>
                 <ValuesComponent data={guitars} />
+              </Paper>
+            </Grid>
+            <Grid key={'randomPick'} item>
+              <Paper className={classes.paper5}>
+                <RandomPickComponent data={guitars} />
+              </Paper>
+            </Grid> 
+            <Grid key={'cases'} item>
+              <Paper className={classes.paper1}>
+                <MissingCasesComponent data={guitars} />
               </Paper>
             </Grid>
             <Grid key={'pickups'} item>

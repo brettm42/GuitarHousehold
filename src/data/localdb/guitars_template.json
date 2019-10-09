@@ -34,6 +34,7 @@
                 "output": ""
             }
         ],
+        "scale": "25.5\"",
         "strings": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
         "case": {
             "id": 10100,
@@ -41,9 +42,11 @@
             "description": "",
             "purchaseDate": "",
             "purchaseStore": "Guitar Center",
+            "purchasePrice": "",
             "caseStyle": "Arched"
         },
         "picture": "",
+        "purchasePrice": "",
         "modifications": [
             "Removed pickguard", 
             "Added chrome knobs"

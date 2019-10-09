@@ -1,3 +1,10 @@
+export function StringEnum<T extends string>(i: Array<T>): {[K in T]: K} {
+    return i.reduce((item, key) => {
+        item[key] = key;
+        return item;
+    }, Object.create(null));
+}
+
 export function millisecondsToFriendlyString(duration: number): string {
     const oneDay =   86400000;
     const oneWeek =  604800000;
@@ -25,4 +32,17 @@ export function millisecondsToFriendlyString(duration: number): string {
 
 export function roundToHundredths(value: number): number {
     return Math.round(value * 100) / 100;
+}
+
+export function randomElement(array: any[]): any {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+export function randomElementWithSeed(array: any[], seed: number): any {
+    return array[Math.floor(random(seed) * array.length)];
+}
+
+function random(seed: number): number {
+    const i = Math.sin(seed++) * 10000;
+    return i - Math.floor(i);
 }

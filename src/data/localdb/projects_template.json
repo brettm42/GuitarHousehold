@@ -20,6 +20,7 @@
                 "description": "",
                 "purchaseDate": "",
                 "purchaseStore": "GuitarFetish",
+                "purchasePrice": "",
                 "position": "Neck",
                 "type": "Jazzmaster",
                 "output": "5.0K"
@@ -30,6 +31,7 @@
                 "description": "",
                 "purchaseDate": "",
                 "purchaseStore": "GuitarFetish",
+                "purchasePrice": "",
                 "position": "Bridge",
                 "type": "Jazzmaster",
                 "output": "6.1K"
@@ -37,16 +39,17 @@
         ],
         "scale": "25.5\"",
         "strings": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
-        "scale": "",
         "case": {
             "id": 100100,
             "name": "Douglas EGC-200 SJM Case",
             "description": "",
             "purchaseDate": "",
             "purchaseStore": "Rondo Music",
+            "purchasePrice": "",
             "caseStyle": "Flat"
         },
         "picture": "",
+        "purchasePrice": "",
         "modifications": [
             "Wired up as (but with a 4-throw rotary switch instead of blade) - https://dl.dropboxusercontent.com/u/7440801/Guitar%20Wiring/Tele%204-Way%20Dual%202.jpg"
         ],
