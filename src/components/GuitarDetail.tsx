@@ -79,8 +79,8 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               `Color: ${guitar.color}`,
               `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`,
               `Purchased ${guitar.purchaseDate} from ${guitar.purchaseStore}`,
-              guitar.purchasePrice
-                ? `Purchase price: \$${guitar.purchasePrice}`
+              GuitarUtils.hasPurchasePrice(guitar)
+                ? `Purchase price: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
               `Strings: ${guitar.strings}`,
               guitar.scale

@@ -26,6 +26,20 @@ export function hasPickups(guitar: Guitar): boolean {
         : false;
 }
 
+export function hasPurchasePrice(guitar: Guitar | Project): boolean {
+    if (guitar.purchasePrice) {
+        return true;
+    } 
+    
+    if (isProject(guitar)) {
+        if (guitar.purchaseComponentPrice) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export function mostPickups(guitars: Guitar[]): string {
     if (guitars.length < 1) {
         return defaultString;
@@ -453,7 +467,7 @@ export function shortestProject(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function cheapest(guitars: Guitar[]): string {
+export function leastExpensive(guitars: Guitar[]): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -461,26 +475,27 @@ export function cheapest(guitars: Guitar[]): string {
     var min;
     var price;
     for (let guitar of guitars) {
-        if (!guitar.purchasePrice) {
+        if (!hasPurchasePrice(guitar)) {
             continue;
         }
-
+        
+        const guitarCost = getGuitarCost(guitar);
         if (!min) {
             min = guitar;
-            price = Number.parseFloat(guitar.purchasePrice);
+            price = guitarCost;
             continue;
         }
 
-        if ((price || 9999999) > Number.parseFloat(guitar.purchasePrice)) {
+        if ((price || 9999999) > guitarCost) {
             min = guitar;
-            price = Number.parseFloat(guitar.purchasePrice);
+            price = guitarCost;
         }
     }
 
     return min ? `${min.name} (\$${price})` : defaultString;
 }
 
-export function cheapestWithCase(guitars: Guitar[]): string {
+export function leastExpensiveWithCase(guitars: Guitar[]): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -488,12 +503,12 @@ export function cheapestWithCase(guitars: Guitar[]): string {
     var min;
     var price;
     for (let guitar of guitars) {
-        if (!guitar.purchasePrice || !guitar.case) {
+        if (!hasPurchasePrice(guitar) || !guitar.case) {
             continue;
         }
 
         var cost = 
-            Number.parseFloat(guitar.purchasePrice)
+            getGuitarCost(guitar)
             + (guitar.case.purchasePrice ? Number.parseFloat(guitar.case.purchasePrice) : 0);
 
         if (!min) {
@@ -511,6 +526,34 @@ export function cheapestWithCase(guitars: Guitar[]): string {
     return min ? `${min.name} (\$${price})` : defaultString;
 }
 
+export function leastExpensiveProject(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    var min;
+    var price;
+    for (let guitar of guitars) {
+        if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
+            continue;
+        }
+        
+        const guitarCost = getGuitarCost(guitar);
+        if (!min) {
+            min = guitar;
+            price = guitarCost;
+            continue;
+        }
+
+        if ((price || 9999999) > guitarCost) {
+            min = guitar;
+            price = guitarCost;
+        }
+    }
+
+    return min ? `${min.name} (\$${price})` : defaultString;
+}
+
 export function mostExpensive(guitars: Guitar[]): string {
     if (guitars.length < 1) {
         return defaultString;
@@ -519,19 +562,20 @@ export function mostExpensive(guitars: Guitar[]): string {
     var max;
     var price;
     for (let guitar of guitars) {
-        if (!guitar.purchasePrice) {
+        if (!hasPurchasePrice(guitar)) {
             continue;
         }
 
+        const cost = getGuitarCost(guitar);
         if (!max) {
             max = guitar;
-            price = Number.parseFloat(guitar.purchasePrice);
+            price = cost;
             continue;
         }
 
-        if ((price || 0) < Number.parseFloat(guitar.purchasePrice)) {
+        if ((price || 0) < cost) {
             max = guitar;
-            price = Number.parseFloat(guitar.purchasePrice);
+            price = cost;
         }
     }
 
@@ -546,14 +590,42 @@ export function mostExpensiveWithCase(guitars: Guitar[]): string {
     var max;
     var price;
     for (let guitar of guitars) {
-        if (!guitar.purchasePrice || !guitar.case) {
+        if (!hasPurchasePrice(guitar) || !guitar.case) {
             continue;
         }
 
         var cost = 
-            Number.parseFloat(guitar.purchasePrice)
+            getGuitarCost(guitar)
             + (guitar.case.purchasePrice ? Number.parseFloat(guitar.case.purchasePrice) : 0);
 
+        if (!max) {
+            max = guitar;
+            price = cost;
+            continue;
+        }
+
+        if ((price || 0) < cost) {
+            max = guitar;
+            price = cost;
+        }
+    }
+
+    return max ? `${max.name} (\$${price})` : defaultString;
+}
+
+export function mostExpensiveProject(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    var max;
+    var price;
+    for (let guitar of guitars) {
+        if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
+            continue;
+        }
+
+        const cost = getGuitarCost(guitar);
         if (!max) {
             max = guitar;
             price = cost;
@@ -574,24 +646,11 @@ function getTotalCost(guitars: Guitar[]): number {
         return 0;
     }
 
-    var price = 0;
-    for (let guitar of guitars) {
-        if (!guitar.purchasePrice) {
-            continue;
-        }
-
-        price += Number.parseFloat(guitar.purchasePrice);
-
-        if (guitar.pickups && guitar.pickups.length > 0) {
-            for (let pickup of guitar.pickups) {
-                if (pickup.purchasePrice) {
-                    price += Number.parseFloat(pickup.purchasePrice);
-                }
-            }
-        } 
-    }
-
-    return price;
+    return guitars.reduce((price, guitar) => price 
+        + (hasPurchasePrice(guitar)
+            ? getGuitarCost(guitar)
+            : 0), 
+        0);
 }
 
 export function totalCost(guitars: Guitar[]): string {
@@ -625,10 +684,26 @@ export function averageCost(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    const purchases = guitars.filter(g => g.purchasePrice);
+    const purchases = guitars.filter(guitar => hasPurchasePrice(guitar));
     const averagePrice = 
-        purchases.reduce((avg, g) => avg 
-            + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0), 
+        purchases.reduce((avg, guitar) => avg 
+            + getGuitarCost(guitar), 
+            0) / purchases.length;
+
+    return averagePrice 
+        ? `\$${roundToHundredths(averagePrice)}` 
+        : defaultString;
+}
+
+export function averageProjectCost(guitars: Guitar[]): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const purchases = guitars.filter(guitar => hasPurchasePrice(guitar) && isProject(guitar));
+    const averagePrice = 
+        purchases.reduce((avg, guitar) => avg 
+            + getGuitarCost(guitar), 
             0) / purchases.length;
 
     return averagePrice 
@@ -657,10 +732,10 @@ export function averageCostWithCase(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    const purchases = guitars.filter(g => g.purchasePrice);
+    const purchases = guitars.filter(guitar => hasPurchasePrice(guitar));
     const averagePrice = 
         purchases.reduce((avg, g) => avg 
-            + (g.purchasePrice ? Number.parseFloat(g.purchasePrice) : 0) 
+            + getGuitarCost(g) 
             + (g.case && g.case.purchasePrice ? Number.parseFloat(g.case.purchasePrice) : 0), 
             0) / purchases.length;
 
@@ -722,6 +797,34 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
     }
 
     return maxElement || 'Standard';
+}
+
+export function getGuitarCost(guitar: Guitar | Project): number {
+    var total = 0
+
+    if (!hasPurchasePrice(guitar)) {
+        return total;
+    }
+
+    if (isProject(guitar)) {
+        if (guitar.purchaseComponentPrice && guitar.purchaseComponentPrice.length > 0) {
+            for (let item of guitar.purchaseComponentPrice) {
+                total += Number.parseFloat(item);
+            }
+        }
+    } else if (guitar.purchasePrice) {
+        total += Number.parseFloat(guitar.purchasePrice);
+    }
+
+    if (guitar.pickups && guitar.pickups.length > 0) {
+        for (let pickup of guitar.pickups) {
+            if (pickup.purchasePrice) {
+                total += Number.parseFloat(pickup.purchasePrice);
+            }
+        }
+    }
+
+    return roundToHundredths(total);
 }
 
 function getColorMapping(color: string): string {

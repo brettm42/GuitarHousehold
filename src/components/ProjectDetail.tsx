@@ -78,8 +78,8 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`,
               `Body Style: ${guitar.bodyStyle}`,
               `Color: ${guitar.color}`,
-              guitar.purchasePrice
-                ? `Purchase price: \$${guitar.purchasePrice}`
+              GuitarUtils.hasPurchasePrice(guitar)
+                ? `Project cost: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
               `Neck: ${guitar.neck}`,
               `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`,
