@@ -13,6 +13,10 @@
         "neck": "",
         "pickguard": "",
         "color": "Sunburst",
+        "purchaseComponentPrice": [
+            "89.95",
+            "15.99"
+        ],
         "pickups": [
             {
                 "id": 100010,
@@ -49,14 +53,13 @@
             "caseStyle": "Flat"
         },
         "picture": "",
-        "purchasePrice": "",
         "modifications": [
-            "Wired up as (but with a 4-throw rotary switch instead of blade) - https://dl.dropboxusercontent.com/u/7440801/Guitar%20Wiring/Tele%204-Way%20Dual%202.jpg"
+            "Wired up as (but with a 4-throw rotary switch) - https://dl.dropboxusercontent.com/u/7440801/Guitar%20Wiring/Tele%204-Way%20Dual%202.jpg"
         ],
         "controls": [
             "4-way rotary: neck, series, parallel, bridge",
             "Master volume",
-            "Tone"
+            "Master tSone"
         ]
     }
 ]
