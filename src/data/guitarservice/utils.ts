@@ -836,7 +836,7 @@ export function getGuitarCost(guitar: Guitar | Project): number {
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
         + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `
-        + `and ${guitar.tremolo ? guitar.tremolo : 'no'} tremolo`;
+        + `${guitar.tremolo ? 'and tremolo' : ''}`;
 }
 
 function getColorMapping(color: string): string {

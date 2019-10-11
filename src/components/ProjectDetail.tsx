@@ -69,9 +69,8 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
 
           <div>
             {[
-              guitar.description
-                ? guitar.description
-                : GuitarUtils.summarizeGuitar(guitar),
+              GuitarUtils.summarizeGuitar(guitar),
+              guitar.description,
               guitar.series
                 ? `Series: ${guitar.series}`
                 : null,

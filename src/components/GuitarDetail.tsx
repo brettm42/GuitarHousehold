@@ -69,9 +69,8 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
           <div>
             {[
-              guitar.description
-                ? guitar.description
-                : GuitarUtils.summarizeGuitar(guitar),
+              GuitarUtils.summarizeGuitar(guitar),
+              guitar.description,
               `Make: ${guitar.make}`,
               `Model: ${guitar.model}`,
               guitar.series
