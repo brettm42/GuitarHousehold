@@ -69,7 +69,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
           <div>
             {[
-              guitar.description,
+              guitar.description
+                ? guitar.description
+                : GuitarUtils.summarizeGuitar(guitar),
               `Make: ${guitar.make}`,
               `Model: ${guitar.model}`,
               guitar.series
@@ -90,6 +92,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 ? `Number of Frets: ${guitar.numberOfFrets}`
                 : null,
               `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
+              guitar.tremolo
+                ? `Tremolo: ${guitar.tremolo}`
+                : null,
               guitar.productUrl
                 ? `Product Link: ${<a href={guitar.productUrl}>{guitar.productUrl}</a>}`
                 : null

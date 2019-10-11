@@ -62,7 +62,7 @@ export function mostPickups(guitars: Guitar[]): string {
     }
 
     return max 
-        ? `${max.name} (${max.pickups.length} pickups)`
+        ? `${max.name} (${max.pickups ? max.pickups.length : 'no'} pickups)`
         : defaultString;
 }
 
@@ -246,6 +246,12 @@ export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
     return mostCommonString(bodies);
 }
 
+export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
+    const tremolos = guitars.map(g => g.tremolo);
+
+    return mostCommonString(tremolos);
+}
+
 export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
     let electric = 0;
     let acoustic = 0;
@@ -262,13 +268,13 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
-        guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[]);
+        guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[]);
 
     return mostCommonString(pickups.map(p => p.type));
 }
 
 export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
-    const pickups = guitars.map(g => g.pickups.length.toString());
+    const pickups = guitars.map(g => (g.pickups || []).length.toString());
 
     return mostCommonString(pickups);
 }
@@ -277,12 +283,12 @@ export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
         guitars
             .filter(g => g.pickups)
-            .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[])
+            .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[])
             .filter(p => p.output);
 
     const avgOutput = 
         pickups.reduce((avg, pickup) => 
-            avg + Number.parseFloat(pickup.output.split('K')[0]), 0) / pickups.length;
+            avg + Number.parseFloat((pickup.output || '').split('K')[0]), 0) / pickups.length;
 
     return avgOutput ? `${roundToHundredths(avgOutput)}K` : defaultString;
 }
@@ -750,7 +756,7 @@ export function averagePickupCost(guitars: Guitar[]): string {
     }
 
     const pickups = guitars
-        .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups ], [] as Pickup[])
+        .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[])
         .filter(p => p.purchasePrice);
 
     const averagePrice = 
@@ -827,6 +833,12 @@ export function getGuitarCost(guitar: Guitar | Project): number {
     return roundToHundredths(total);
 }
 
+export function summarizeGuitar(guitar: Guitar): string {
+    return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
+        + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `
+        + `and ${guitar.tremolo ? guitar.tremolo : 'no'} tremolo`;
+}
+
 function getColorMapping(color: string): string {
     const mapping: { [key: string]: string; } = {
         'Shoreline Gold': 'Gold',
@@ -864,8 +876,12 @@ function getColorMapping(color: string): string {
 
 function isAcoustic(guitar: Guitar): boolean {
     const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
-    
-    return acousticStyle.includes(guitar.bodyStyle);
+    const pickupNumber = 
+        guitar.pickups
+            ? guitar.pickups.length
+            : 0;
+
+    return acousticStyle.includes(guitar.bodyStyle) && pickupNumber < 2;
 }
 
 function isElectric(guitar: Guitar): boolean {

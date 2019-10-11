@@ -93,6 +93,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         `Frets: ${GuitarUtils.averageFrets(guitars)}`,
         `Pickup: ${GuitarUtils.mostCommonPickupType(guitars)}`,
         `Number of Pickups: ${GuitarUtils.mostCommonPickupNumber(guitars)}`,
+        `Tremolo Style: ${GuitarUtils.mostCommonTremoloType(guitars)}`,
         `Case Style: ${GuitarUtils.mostCommonCaseStyle(guitars)}`,
         `Store: ${GuitarUtils.mostCommonStore(guitars)}`,
         `Acoustics vs. Electrics: ${GuitarUtils.acousticVsElectric(guitars)}`
