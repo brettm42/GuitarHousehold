@@ -63,3 +63,13 @@ const caseStyles = [
     'Flat',
     'Arched'
 ] as const;
+
+export type TremoloType = typeof tremoloTypes[number];
+const tremoloTypes = [
+    'Jazzmaster',
+    'Bigsby',
+    'Floyd-rose',
+    'Stratocaster',
+    'Les Paul',
+    'Mustang'
+] as const;
