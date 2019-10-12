@@ -23,15 +23,16 @@ type SummaryProps = {
 }
 
 const gridPaperStyle = {
-  padding: 10,
-  minHeight: 270,
-  width: 420
+  padding: 4,
+  minHeight: 280,
+  width: 320
 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      paddingTop: theme.spacing(2)
     },
     paper0: {
       ...gridPaperStyle,
@@ -87,16 +88,16 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
                 <OutliersComponent data={guitars} />
               </Paper>
             </Grid>
-            <Grid key={'values'} item>
-              <Paper className={classes.paper3}>
-                <ValuesComponent data={guitars} />
-              </Paper>
-            </Grid>
             <Grid key={'randomPick'} item>
               <Paper className={classes.paper5}>
                 <RandomPickComponent data={guitars} />
               </Paper>
             </Grid> 
+            <Grid key={'values'} item>
+              <Paper className={classes.paper3}>
+                <ValuesComponent data={guitars} />
+              </Paper>
+            </Grid>            
             <Grid key={'cases'} item>
               <Paper className={classes.paper1}>
                 <MissingCasesComponent data={guitars} />

@@ -45,7 +45,7 @@ export function mostPickups(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
+    let max;
     for (let guitar of guitars) {
         if (!guitar.pickups) {
             continue;
@@ -71,7 +71,7 @@ export function mostFrets(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
+    let max;
     for (let guitar of guitars) {
         if (!guitar.numberOfFrets) {
             continue;
@@ -97,7 +97,7 @@ export function leastFrets(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var min;
+    let min;
     for (let guitar of guitars) {
         if (!guitar.numberOfFrets) {
             continue;
@@ -145,7 +145,7 @@ export function mostModifications(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
+    let max;
     for (let guitar of guitars) {
         if (!guitar.modifications) {
             continue;
@@ -177,7 +177,7 @@ export function mostControls(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
+    let max;
     for (let guitar of guitars) {
         if (!guitar.controls) {
             continue;
@@ -297,8 +297,7 @@ export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
     let max = 0;
     let maxPickup = null;
     let maxGuitar = null;
-    for (let guitar of guitars) 
-    {
+    for (let guitar of guitars) {
         if (!guitar.pickups) {
             continue;
         }
@@ -308,7 +307,7 @@ export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
                 continue;
             }
 
-            var output = Number.parseFloat(pickup.output.split('K')[0]);
+            const output = Number.parseFloat(pickup.output.split('K')[0]);
             if (output > max) {
                 max = output;
                 maxPickup = pickup;
@@ -326,8 +325,8 @@ export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
     let min = 999999;
     let minPickup = null;
     let minGuitar = null;
-    for (let guitar of guitars) 
-    {
+
+    for (let guitar of guitars) {
         if (!guitar.pickups) {
             continue;
         }
@@ -337,7 +336,7 @@ export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
                 continue;
             }
 
-            var output = Number.parseFloat(pickup.output.split('K')[0]);
+            const output = Number.parseFloat(pickup.output.split('K')[0]);
             if (output < min) {
                 min = output;
                 minPickup = pickup;
@@ -356,7 +355,7 @@ export function oldestGuitar(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
+    let max;
     for (let guitar of guitars) {
         if (!guitar.purchaseDate) {
             continue;
@@ -383,7 +382,7 @@ export function newestGuitar(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var min;
+    let min;
     for (let guitar of guitars) {
         if (!guitar.purchaseDate) {
             continue;
@@ -410,24 +409,23 @@ export function longestProject(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
-    var maxLength = 0;
+    let max;
+    let maxLength = 0;
     for (let guitar of guitars) {
         if (!isProject(guitar) || !guitar.projectStart) {
             continue;
         }
 
+        const projectLength = 
+            Date.parse(guitar.projectComplete || Date.now().toString()) 
+                - Date.parse(guitar.projectStart);
+
         if (!max) {
             max = guitar;
-            maxLength = 
-                Date.parse(guitar.projectComplete || Date.now().toString()) 
-                    - Date.parse(guitar.projectStart);
+            maxLength = projectLength;
             continue;
         }
 
-        var projectLength = 
-            Date.parse(guitar.projectComplete || Date.now().toString()) 
-                - Date.parse(guitar.projectStart);
         if (maxLength < projectLength) {
             max = guitar;
             maxLength = projectLength;
@@ -444,24 +442,23 @@ export function shortestProject(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var min;
-    var minLength = 99999999;
+    let min;
+    let minLength = 99999999;
     for (let guitar of guitars) {
         if (!isProject(guitar) || !guitar.projectStart) {
             continue;
         }
 
+        const projectLength = 
+            Date.parse(guitar.projectComplete || Date.now().toString()) 
+                - Date.parse(guitar.projectStart);
+
         if (!min) {
             min = guitar;
-            minLength = 
-                Date.parse(guitar.projectComplete || Date.now().toString()) 
-                    - Date.parse(guitar.projectStart);
+            minLength = projectLength;
             continue;
         }
 
-        var projectLength = 
-            Date.parse(guitar.projectComplete || Date.now().toString()) 
-                - Date.parse(guitar.projectStart);
         if (minLength > projectLength) {
             min = guitar;
             minLength = projectLength;
@@ -478,8 +475,8 @@ export function leastExpensive(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var min;
-    var price;
+    let min;
+    let price;
     for (let guitar of guitars) {
         if (!hasPurchasePrice(guitar)) {
             continue;
@@ -506,15 +503,14 @@ export function leastExpensiveWithCase(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var min;
-    var price;
+    let min;
+    let price;
     for (let guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !guitar.case) {
             continue;
         }
 
-        var cost = 
-            getGuitarCost(guitar)
+        const cost = getGuitarCost(guitar)
             + (guitar.case.purchasePrice ? Number.parseFloat(guitar.case.purchasePrice) : 0);
 
         if (!min) {
@@ -537,8 +533,8 @@ export function leastExpensiveProject(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var min;
-    var price;
+    let min;
+    let price;
     for (let guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
             continue;
@@ -565,8 +561,8 @@ export function mostExpensive(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
-    var price;
+    let max;
+    let price;
     for (let guitar of guitars) {
         if (!hasPurchasePrice(guitar)) {
             continue;
@@ -593,15 +589,14 @@ export function mostExpensiveWithCase(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
-    var price;
+    let max;
+    let price;
     for (let guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !guitar.case) {
             continue;
         }
 
-        var cost = 
-            getGuitarCost(guitar)
+        const cost = getGuitarCost(guitar)
             + (guitar.case.purchasePrice ? Number.parseFloat(guitar.case.purchasePrice) : 0);
 
         if (!max) {
@@ -624,8 +619,8 @@ export function mostExpensiveProject(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var max;
-    var price;
+    let max;
+    let price;
     for (let guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
             continue;
@@ -652,7 +647,8 @@ function getTotalCost(guitars: Guitar[]): number {
         return 0;
     }
 
-    return guitars.reduce((price, guitar) => price 
+    return guitars.reduce((price, guitar) => 
+        price 
         + (hasPurchasePrice(guitar)
             ? getGuitarCost(guitar)
             : 0), 
@@ -672,8 +668,7 @@ export function totalCostWithCases(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    var price = getTotalCost(guitars);
-
+    let price = getTotalCost(guitars);
     for (let guitar of guitars) {
         if (!guitar.case || !guitar.case.purchasePrice) {
             continue;
@@ -706,7 +701,9 @@ export function averageProjectCost(guitars: Guitar[]): string {
         return defaultString;
     }
 
-    const purchases = guitars.filter(guitar => hasPurchasePrice(guitar) && isProject(guitar));
+    const purchases = 
+        guitars.filter(guitar => hasPurchasePrice(guitar) && isProject(guitar));
+    
     const averagePrice = 
         purchases.reduce((avg, guitar) => avg 
             + getGuitarCost(guitar), 
@@ -723,6 +720,7 @@ export function averageCaseCost(guitars: Guitar[]): string {
     }
 
     const cases = guitars.filter(c => c.case).map(g => g.case);
+
     const averagePrice = 
         cases.reduce((avg, c) => avg 
             + (c && c.purchasePrice ? Number.parseFloat(c.purchasePrice) : 0), 
@@ -739,6 +737,7 @@ export function averageCostWithCase(guitars: Guitar[]): string {
     }
 
     const purchases = guitars.filter(guitar => hasPurchasePrice(guitar));
+
     const averagePrice = 
         purchases.reduce((avg, g) => avg 
             + getGuitarCost(g) 
@@ -780,12 +779,12 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
         return 'None';
     }
 
-    var modeMap: { [key: string]: number; } = {};
+    const modeMap: { [key: string]: number; } = {};
     let maxElement = items[0];
     let maxCount = 1;
 
-    for (var i = 0; i < items.length; i++) {
-        var elem = items[i];
+    for (let i = 0; i < items.length; i++) {
+        let elem = items[i];
         if (elem === undefined) {
             continue;
         }
@@ -806,7 +805,7 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
 }
 
 export function getGuitarCost(guitar: Guitar | Project): number {
-    var total = 0
+    let total = 0
 
     if (!hasPurchasePrice(guitar)) {
         return total;
