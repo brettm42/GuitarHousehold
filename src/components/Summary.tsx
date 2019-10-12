@@ -23,7 +23,7 @@ type SummaryProps = {
 }
 
 const gridPaperStyle = {
-  padding: 4,
+  padding: 1,
   minHeight: 280,
   width: 320
 };
@@ -75,40 +75,36 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         {guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)
       </Typography>
 
-      <Grid container className={classes.root} spacing={3}>
-        <Grid item xs={'auto'}>
-          <Grid container justify='flex-start' spacing={3}>
-            <Grid key={'popular'} item>
-              <Paper className={classes.paper0}>
-                <MostCommonComponent data={guitars} />
-              </Paper>
-            </Grid>
-            <Grid key={'outliers'} item>
-              <Paper className={classes.paper2}>
-                <OutliersComponent data={guitars} />
-              </Paper>
-            </Grid>
-            <Grid key={'randomPick'} item>
-              <Paper className={classes.paper5}>
-                <RandomPickComponent data={guitars} />
-              </Paper>
-            </Grid> 
-            <Grid key={'values'} item>
-              <Paper className={classes.paper3}>
-                <ValuesComponent data={guitars} />
-              </Paper>
-            </Grid>            
-            <Grid key={'cases'} item>
-              <Paper className={classes.paper1}>
-                <MissingCasesComponent data={guitars} />
-              </Paper>
-            </Grid>
-            <Grid key={'pickups'} item>
-              <Paper className={classes.paper4}>
-                <PickupsComponent data={guitars} />
-              </Paper>
-            </Grid>
-          </Grid>
+      <Grid container className={classes.root} justify='flex-start' spacing={3}>
+        <Grid key={'popular'} item>
+          <Paper className={classes.paper0}>
+            <MostCommonComponent data={guitars} />
+          </Paper>
+        </Grid>
+        <Grid key={'outliers'} item>
+          <Paper className={classes.paper2}>
+            <OutliersComponent data={guitars} />
+          </Paper>
+        </Grid>
+        <Grid key={'randomPick'} item>
+          <Paper className={classes.paper5}>
+            <RandomPickComponent data={guitars} />
+          </Paper>
+        </Grid> 
+        <Grid key={'values'} item>
+          <Paper className={classes.paper3}>
+            <ValuesComponent data={guitars} />
+          </Paper>
+        </Grid>            
+        <Grid key={'cases'} item>
+          <Paper className={classes.paper1}>
+            <MissingCasesComponent data={guitars} />
+          </Paper>
+        </Grid>
+        <Grid key={'pickups'} item>
+          <Paper className={classes.paper4}>
+            <PickupsComponent data={guitars} />
+          </Paper>
         </Grid>
       </Grid>
     </div>

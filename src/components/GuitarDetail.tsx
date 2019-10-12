@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightRegular
     },
     description: {
-      maxWidth: 550
+      maxWidth: 525
     },
     img: {
       maxWidth: 500,
