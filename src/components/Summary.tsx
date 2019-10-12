@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import { 
+import {
+  BreakdownComponent,
   MissingCasesComponent, 
   MostCommonComponent, 
   OutliersComponent, 
@@ -16,7 +16,6 @@ import {
 } from './SummaryComponents';
 
 import { Guitar } from '../interfaces/models/guitar';
-import * as GuitarUtils from '../data/guitarservice/utils';
 
 type SummaryProps = {
   data: Guitar[]
@@ -25,7 +24,7 @@ type SummaryProps = {
 const gridPaperStyle = {
   padding: 1,
   minHeight: 280,
-  width: 320
+  width: 350
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,11 +51,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper4: {
       ...gridPaperStyle,
-      background: 'lavender'
+      background: 'lightyellow'
     },
     paper5: {
       ...gridPaperStyle,
       background: 'lightgrey'
+    },
+    paper6: {
+      ...gridPaperStyle,
+      background: 'lavender'
     },
     control: {
       padding: theme.spacing(2),
@@ -71,11 +74,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
 
   return (
     <div>
-      <Typography variant='h5' gutterBottom>
-        {guitars.length} Guitars ({guitars.filter(g => GuitarUtils.isProject(g)).length} are projects)
-      </Typography>
-
-      <Grid container className={classes.root} justify='flex-start' spacing={3}>
+      <Grid container className={classes.root} justify='flex-start' spacing={2}>
         <Grid key={'popular'} item>
           <Paper className={classes.paper0}>
             <MostCommonComponent data={guitars} />
@@ -89,6 +88,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         <Grid key={'randomPick'} item>
           <Paper className={classes.paper5}>
             <RandomPickComponent data={guitars} />
+          </Paper>
+        </Grid>
+        <Grid key={'breakdown'} item>
+          <Paper className={classes.paper6}>
+            <BreakdownComponent data={guitars} />
           </Paper>
         </Grid> 
         <Grid key={'values'} item>

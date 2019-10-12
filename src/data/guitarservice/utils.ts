@@ -266,6 +266,20 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
     return `${acoustic} vs. ${electric}`;
 }
 
+export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
+    let factory = 0;
+    let project = 0;
+    for (let guitar of guitars) {
+        if (isProject(guitar)) {
+            project += 1;
+        } else {
+            factory += 1;
+        }
+    }
+
+    return `${factory} vs. ${project}`;
+}
+
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
         guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[]);

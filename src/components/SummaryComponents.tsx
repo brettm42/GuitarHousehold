@@ -2,18 +2,19 @@ import * as React from 'react';
 
 import Link from 'next/link';
 
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import List from '../components/List';
 
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/utils';
 
 type SummaryComponentProps = {
   title: string,
-  contents: string[],
+  contents: [string, string][],
   style: string
 }
 
@@ -21,26 +22,24 @@ type SummaryComponentsProps = {
   data: Guitar[]
 }
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
     },
-    mostCommon: {
-    
+    detail: {
+      minWidth: '50%',
+      padding: theme.spacing(0, 1, 1, 2)
     },
-    missingCases: {
-      
+    detailTitle: {
+      padding: theme.spacing(1, 0, 0, 1)
     },
-    outliers: {
-      
-    },
-    values: {
-      
-    },
-    pickups: {
-
-    },
+    breakdown: {},
+    missingCases: {},
+    mostCommon: {},
+    outliers: {},
+    pickups: {},
+    values: {},
     randomPick: {
       height: '100%',
       display: 'flex',
@@ -48,7 +47,10 @@ const useStyles = makeStyles(() =>
       justifyContent: 'center'
     },
     randomPickImg: {
-      maxHeight: 250
+      maxHeight: 300
+    },
+    randomPickCaption: {
+      padding: theme.spacing(2, 0, 2, 0)
     }
   })
 );
@@ -58,20 +60,26 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
   contents: contents,
   style: style
 }) => {  
+  const classes = useStyles();
+
   return (
     <div className={style}>
-      <Typography variant='subtitle2' gutterBottom>
+      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {title}
       </Typography>
-      <ul>
-        {contents.map((text, idx) => (
-          <li key={idx}>
-            <Typography>
-              {text}
+
+      <Grid container>
+        {contents.map((line, idx) => (
+          <Grid item className={classes.detail} key={idx} zeroMinWidth>
+            <Typography variant='caption' gutterBottom>
+              {line[0]}
             </Typography>
-          </li>
+            <Typography gutterBottom>
+              {line[1]}
+            </Typography>
+          </Grid>
         ))}
-      </ul>
+      </Grid>
     </div>
   );
 };
@@ -85,18 +93,17 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Most Common...'}
       contents={[
-        `Make: ${GuitarUtils.mostCommonMake(guitars)}`,
-        `Body: ${GuitarUtils.mostCommonBody(guitars)}`,
-        `Color: ${GuitarUtils.mostCommonColor(guitars)}`,
-        `Tuning: ${GuitarUtils.mostCommonTuning(guitars)}`,
-        `Scale Length: ${GuitarUtils.mostCommonScale(guitars)}`,
-        `Frets: ${GuitarUtils.averageFrets(guitars)}`,
-        `Pickup: ${GuitarUtils.mostCommonPickupType(guitars)}`,
-        `Number of Pickups: ${GuitarUtils.mostCommonPickupNumber(guitars)}`,
-        `Tremolo Style: ${GuitarUtils.mostCommonTremoloType(guitars)}`,
-        `Case Style: ${GuitarUtils.mostCommonCaseStyle(guitars)}`,
-        `Store: ${GuitarUtils.mostCommonStore(guitars)}`,
-        `Acoustics vs. Electrics: ${GuitarUtils.acousticVsElectric(guitars)}`
+        [ 'Make', GuitarUtils.mostCommonMake(guitars) ],
+        [ 'Body', GuitarUtils.mostCommonBody(guitars) ],
+        [ 'Color', GuitarUtils.mostCommonColor(guitars) ],
+        [ 'Pickup', GuitarUtils.mostCommonPickupType(guitars) ],
+        [ 'Number of Pickups', GuitarUtils.mostCommonPickupNumber(guitars) ],
+        [ 'Tuning', GuitarUtils.mostCommonTuning(guitars) ],
+        [ 'Scale Length', GuitarUtils.mostCommonScale(guitars) ],
+        [ 'Frets', GuitarUtils.averageFrets(guitars) ],
+        [ 'Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars) ],
+        [ 'Case Style', GuitarUtils.mostCommonCaseStyle(guitars) ],
+        [ 'Store', GuitarUtils.mostCommonStore(guitars) ]
       ]}
       style={classes.mostCommon} />
     );
@@ -109,7 +116,7 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
 
   return (
     <div className={classes.missingCases}>
-      <Typography variant='subtitle2' gutterBottom>
+      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         Guitars Missing Cases:
       </Typography>
       <List items={guitars.filter((i: Guitar) => !GuitarUtils.hasCase(i))} />
@@ -126,15 +133,15 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Outliers:'}
       contents={[
-        `Oldest: ${GuitarUtils.oldestGuitar(guitars)}`,
-        `Newest: ${GuitarUtils.newestGuitar(guitars)}`,
-        `Most Pickups: ${GuitarUtils.mostPickups(guitars)}`,
-        `Most Modifications: ${GuitarUtils.mostModifications(guitars)}`,
-        `Most Controls: ${GuitarUtils.mostControls(guitars)}`,
-        `Most Frets: ${GuitarUtils.mostFrets(guitars)}`,
-        `Least Frets: ${GuitarUtils.leastFrets(guitars)}`,
-        `Longest Project: ${GuitarUtils.longestProject(guitars)}`,
-        `Shortest Project: ${GuitarUtils.shortestProject(guitars)}`
+        [ 'Oldest', GuitarUtils.oldestGuitar(guitars) ],
+        [ 'Newest', GuitarUtils.newestGuitar(guitars) ],
+        [ 'Most Pickups', GuitarUtils.mostPickups(guitars) ],
+        [ 'Most Modifications', GuitarUtils.mostModifications(guitars) ],
+        [ 'Most Controls', GuitarUtils.mostControls(guitars) ],
+        [ 'Most Frets', GuitarUtils.mostFrets(guitars) ],
+        [ 'Least Frets', GuitarUtils.leastFrets(guitars) ],
+        [ 'Longest Project', GuitarUtils.longestProject(guitars) ],
+        [ 'Shortest Project', GuitarUtils.shortestProject(guitars) ]
       ]}
       style={classes.outliers} />
   );
@@ -149,15 +156,17 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Values:'}
       contents={[
-        `Cheapest: ${GuitarUtils.leastExpensive(guitars)} (with case ${GuitarUtils.leastExpensiveWithCase(guitars)})`,
-        `Most Expensive: ${GuitarUtils.mostExpensive(guitars)} (with case ${GuitarUtils.mostExpensiveWithCase(guitars)})`,
-        `Average Cost: ${GuitarUtils.averageCost(guitars)} (average plus case ${GuitarUtils.averageCostWithCase(guitars)})`,
-        `Average Case Cost: ${GuitarUtils.averageCaseCost(guitars)}`,
-        `Average Pickup Cost: ${GuitarUtils.averagePickupCost(guitars)}`,
-        `Least Expensive Project: ${GuitarUtils.leastExpensiveProject(guitars)}`,
-        `Most Expensive Project: ${GuitarUtils.mostExpensiveProject(guitars)}`,
-        `Average Project Cost: ${GuitarUtils.averageProjectCost(guitars)}`,
-        `Household: ${GuitarUtils.totalCost(guitars)} (with cases ${GuitarUtils.totalCostWithCases(guitars)})`,
+        [ 'Cheapest', GuitarUtils.leastExpensive(guitars) ],
+        [ 'with case', GuitarUtils.leastExpensiveWithCase(guitars) ],
+        [ 'Most Expensive', GuitarUtils.mostExpensive(guitars) ],
+        [ 'with case', GuitarUtils.mostExpensiveWithCase(guitars) ],
+        [ 'Average Cost', `${GuitarUtils.averageCost(guitars)} (average plus case ${GuitarUtils.averageCostWithCase(guitars)})` ],
+        [ 'Average Case Cost', GuitarUtils.averageCaseCost(guitars) ],
+        [ 'Average Pickup Cost', GuitarUtils.averagePickupCost(guitars) ],
+        [ 'Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars) ],
+        [ 'Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars) ],
+        [ 'Average Project Cost', GuitarUtils.averageProjectCost(guitars) ],
+        [ 'Household', `${GuitarUtils.totalCost(guitars)} (with cases ${GuitarUtils.totalCostWithCases(guitars)})` ],
       ]}
       style={classes.values} />
   );
@@ -172,9 +181,9 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Pickups:'}
       contents={[
-        `Average Output: ${GuitarUtils.averagePickup(guitars)}`,
-        `Highest Output: ${GuitarUtils.highestPickup(guitars)}`,
-        `Lowest Output: ${GuitarUtils.lowestPickup(guitars)}`
+        [ 'Average Output', GuitarUtils.averagePickup(guitars) ],
+        [ 'Highest Output', GuitarUtils.highestPickup(guitars) ],
+        [ 'Lowest Output', GuitarUtils.lowestPickup(guitars) ]
       ]}
       style={classes.pickups} />
   );
@@ -195,8 +204,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
               : '🎸'}
           </a>
         </Link>
-
-        <Typography>
+        <Typography className={classes.randomPickCaption}>
           {guitar.name}
         </Typography>
       </div>
@@ -205,7 +213,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 
   return (
     <div>
-      <Typography variant='subtitle2' gutterBottom>
+      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         Pick of the Day!
       </Typography>
 
@@ -217,7 +225,25 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   );
 };
 
-export { 
+const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+
+  return (
+    <SummaryComponent
+      title={'Breakdown:'}
+      contents={[
+        [ 'Acoustics vs. Electrics', GuitarUtils.acousticVsElectric(guitars) ],
+        [ 'Factory vs. Project', GuitarUtils.factoryVsProject(guitars) ],
+        [ '6 String vs. 12 String', 'n/a' ]
+      ]}
+      style={classes.breakdown} />
+    );
+  };
+
+export {
+  BreakdownComponent,
   MissingCasesComponent,
   MostCommonComponent,
   OutliersComponent,

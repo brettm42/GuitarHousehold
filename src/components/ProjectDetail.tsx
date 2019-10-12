@@ -62,7 +62,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item className={classes.description}>
+        <Grid item className={classes.description} zeroMinWidth>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
           </Typography>
@@ -110,7 +110,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.imgGrid}>
+        <Grid item className={classes.imgGrid} zeroMinWidth>
           {guitar.picture
             ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
             : null}

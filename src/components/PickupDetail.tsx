@@ -46,7 +46,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item>
+        <Grid item zeroMinWidth>
           <Typography variant='h6' gutterBottom>
             {pickup.name}
           </Typography>
@@ -80,7 +80,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.jsonExpander}>
+        <Grid item className={classes.jsonExpander} zeroMinWidth>
           <ExpansionPanel>
             <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
               <Typography className={classes.heading}>Pickup JSON Data</Typography>

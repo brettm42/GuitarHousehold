@@ -62,7 +62,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item className={classes.description}>
+        <Grid item className={classes.description} zeroMinWidth>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
           </Typography>

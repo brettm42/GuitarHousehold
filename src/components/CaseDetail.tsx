@@ -46,7 +46,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item>
+        <Grid item zeroMinWidth>
           <Typography variant='h6' gutterBottom>
             {guitarCase.name}
           </Typography>
@@ -74,7 +74,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.jsonExpander}>
+        <Grid item className={classes.jsonExpander} zeroMinWidth>
           <ExpansionPanel>
             <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
               <Typography className={classes.heading}>Case JSON Data</Typography>
