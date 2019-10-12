@@ -13,6 +13,7 @@ export interface Guitar extends RetailItem {
     readonly color: string;
     readonly pickups?: ReadonlyArray<Pickup>;
     readonly strings?: StringType;
+    readonly numberOfStrings?: number;
     readonly tremolo?: TremoloType;
     readonly case?: Case;
     readonly scale?: string;

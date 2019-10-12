@@ -280,6 +280,20 @@ export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
     return `${factory} vs. ${project}`;
 }
 
+export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
+    let six = 0;
+    let twelve = 0;
+    for (let guitar of guitars) {
+        if (guitar.numberOfStrings && guitar.numberOfStrings === 12) {
+            twelve += 1;
+        } else {
+            six += 1;
+        }
+    }
+
+    return `${six} vs. ${twelve}`;
+}
+
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
         guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[]);

@@ -88,6 +88,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
                 ? `Pickguard: ${guitar.pickguard}`
                 : null,
               `Strings: ${guitar.strings}`,
+              guitar.numberOfStrings
+                ? `Number of Strings: ${guitar.numberOfStrings}`
+                : null,
               guitar.scale
                 ? `Neck Scale: ${guitar.scale}`
                 : null,

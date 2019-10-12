@@ -234,9 +234,9 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Breakdown:'}
       contents={[
-        [ 'Acoustics vs. Electrics', GuitarUtils.acousticVsElectric(guitars) ],
+        [ 'Acoustic vs. Electric', GuitarUtils.acousticVsElectric(guitars) ],
         [ 'Factory vs. Project', GuitarUtils.factoryVsProject(guitars) ],
-        [ '6 String vs. 12 String', 'n/a' ]
+        [ '6 String vs. 12 String', GuitarUtils.sixStringVs12string(guitars) ]
       ]}
       style={classes.breakdown} />
     );

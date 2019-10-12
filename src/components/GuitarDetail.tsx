@@ -84,6 +84,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 ? `Purchase price: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
               `Strings: ${guitar.strings}`,
+              guitar.numberOfStrings
+                ? `Number of Strings: ${guitar.numberOfStrings}`
+                : null,
               guitar.scale
                 ? `Neck Scale: ${guitar.scale}`
                 : null,
@@ -106,7 +109,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.imgGrid}>
+        <Grid item className={classes.imgGrid} zeroMinWidth>
           {guitar.picture
             ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
             : null}
