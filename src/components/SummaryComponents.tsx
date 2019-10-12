@@ -194,7 +194,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 }) => {
   const classes = useStyles();
 
-  function buildGuitarGrid(guitar: Guitar): JSX.Element {
+  function buildGuitarGrid(guitar: Guitar): React.ReactElement {
     return (
       <div>
         <Link href={`/detail?id=${guitar.id}`}>

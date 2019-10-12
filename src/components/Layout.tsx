@@ -6,6 +6,7 @@ import Link from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
@@ -13,9 +14,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Zoom from '@material-ui/core/Zoom';
 
 import FeaturedPlayListRoundedIcon from '@material-ui/icons/FeaturedPlayListRounded';
 import FeaturedVideoRoundedIcon from '@material-ui/icons/FeaturedVideoRounded';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -23,20 +27,21 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 type Props = {
-  children: JSX.Element | JSX.Element[] | undefined,
+  children: React.ReactElement | React.ReactElement[] | undefined,
   title?: string,
   pathname: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    rootPage: {
+    root: {
       maxWidth: '100%',
       overflowX: 'hidden'
     },
-    root: {
+    appBar: {
       flexGrow: 1
     },
+    toolbar: theme.mixins.toolbar,
     menuButton: {
       marginRight: theme.spacing(2),
     },
@@ -68,11 +73,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     footer: {
       padding: theme.spacing(2)
+    },
+    scrollToTop: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
     }
   })
 );
 
-export default function Layout(props: Props) {
+export default function Layout(props: Props): React.ReactElement {
   const classes = useStyles();
   const { children, title, pathname } = props;
 
@@ -98,6 +108,34 @@ export default function Layout(props: Props) {
     return <ListItem button component='a' { ...props } />;
   };
 
+  function ScrollToTopComponent(props: Props) {
+    const { children } = props;
+    const classes = useStyles();
+  
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 100
+    });
+  
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+      const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
+        '#back-to-top-anchor',
+      );
+  
+      if (anchor) {
+        anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    };
+  
+    return (
+      <Zoom in={trigger}>
+        <div onClick={handleClick} role='presentation' className={classes.scrollToTop}>
+          {children}
+        </div>
+      </Zoom>
+    );
+  }
+
   const drawer = () => {
     return (
       <div className={classes.list}
@@ -106,44 +144,43 @@ export default function Layout(props: Props) {
            onKeyDown={toggleDrawer(true)}
       >
         <List>
-          {[
-            'Home',
-            'Guitars', 
-            'Projects', 
-            'About'
-          ].map((text, index) => (
-            <ListItemLink key={index} href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
-              <ListItemIcon>
-                {index === 0 
-                  ? <InboxIcon /> 
-                  : index === 1
-                    ? <FeaturedPlayListRoundedIcon />
-                    : index === 2
-                      ? <FeaturedVideoRoundedIcon />
-                      : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemLink>
+          {['Home', 'Guitars', 'Projects', 'About']
+            .map((text, index) => (
+              <ListItemLink key={index} href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
+                <ListItemIcon>
+                  {index === 0 
+                    ? <InboxIcon /> 
+                    : index === 1
+                      ? <FeaturedPlayListRoundedIcon />
+                      : index === 2
+                        ? <FeaturedVideoRoundedIcon />
+                        : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemLink>
           ))}
         </List>
-
         <Divider />
       </div>
     );
   };
 
   return (
-    <div className={classes.rootPage}>
+    <div className={classes.root}>
       <Head>
         <title>{title}</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
-      
-      <div className={classes.root}>
-        <AppBar position='static'>
+
+      <div id='back-to-top-anchor' className={classes.appBar}>
+        <AppBar position='absolute'>
           <Toolbar>
-            <IconButton edge='start' className={classes.menuButton} color='inherit' aria-label='menu' onClick={toggleDrawer(true)}>
+            <IconButton className={classes.menuButton} 
+                        edge='start' 
+                        color='inherit' 
+                        aria-label='menu' 
+                        onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
             <Link href='/'>
@@ -157,19 +194,27 @@ export default function Layout(props: Props) {
           </Toolbar>
         </AppBar>
 
-        <Drawer open={state.drawerOpen} onClose={toggleDrawer(false)}>
+        <Drawer open={state.drawerOpen} onClose={toggleDrawer(false)} aria-label='open navigation drawer'>
           {drawer()}
         </Drawer>
       </div>
 
+      <div className={classes.toolbar} />
       {children}
 
       <footer>
         <div className={classes.footer}>
           <Divider className={classes.divider} />
+          
           <Typography variant='body2' gutterBottom>
             I'm here to stay (Footer)
           </Typography>
+          
+          <ScrollToTopComponent {...props}>
+            <Fab color='secondary' size='small' aria-label='scroll to top'>
+              <KeyboardArrowUpIcon />
+            </Fab>
+          </ScrollToTopComponent>
         </div>
       </footer>
     </div>
