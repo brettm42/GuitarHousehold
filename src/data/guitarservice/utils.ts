@@ -217,7 +217,7 @@ export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
-    const tunings = guitars.map(g => g.tuning);
+    const tunings = guitars.map(g => g.tuning ? g.tuning : 'Standard');
 
     return mostCommonString(tunings);
 }
@@ -235,9 +235,9 @@ export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
-    const makes = guitars.map(g => g.purchaseStore);
+    const stores = guitars.map(g => g.purchaseStore);
 
-    return mostCommonString(makes);
+    return mostCommonString(stores);
 }
 
 export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
@@ -775,8 +775,9 @@ export function randomPick(guitars: Guitar[]): Guitar {
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
+    const fallbackString = 'None';
     if (items.length === 0) {
-        return 'None';
+        return fallbackString;
     }
 
     const modeMap: { [key: string]: number; } = {};
@@ -786,7 +787,7 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
     for (let i = 0; i < items.length; i++) {
         let elem = items[i];
         if (elem === undefined) {
-            continue;
+            elem = fallbackString;
         }
 
         if (!modeMap[elem]) {
@@ -801,7 +802,7 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
         }
     }
 
-    return maxElement || 'Standard';
+    return maxElement || fallbackString;
 }
 
 export function getGuitarCost(guitar: Guitar | Project): number {
