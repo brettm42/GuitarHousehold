@@ -294,6 +294,20 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     return `${six} vs. ${twelve}`;
 }
 
+export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
+    let fixed = 0;
+    let tremolo = 0;
+    for (let guitar of guitars) {
+        if (guitar.tremolo) {
+            tremolo += 1;
+        } else {
+            fixed += 1;
+        }
+    }
+
+    return `${tremolo} vs. ${fixed}`;
+}
+
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
         guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[]);
