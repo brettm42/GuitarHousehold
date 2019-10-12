@@ -23,7 +23,6 @@ type SummaryProps = {
 
 const gridPaperStyle = {
   padding: 1,
-  minHeight: 280,
   width: 350
 };
 
