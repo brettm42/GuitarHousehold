@@ -58,7 +58,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item zeroMinWidth xs>
+        <Grid item zeroMinWidth xs={12} sm>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
           </Typography>
@@ -105,7 +105,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item zeroMinWidth xs={6}>
+        <Grid item zeroMinWidth xs={12} sm={6}>
           {guitar.picture
             ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
             : null}
