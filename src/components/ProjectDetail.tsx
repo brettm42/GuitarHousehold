@@ -31,15 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightRegular
     },
     description: {
-      maxWidth: 520
+      maxWidth: 500
     },
     img: {
-      maxWidth: 500,
+      width: '100%',
       display: 'flex',
-      marginLeft: 'auto',
-      marginRight: 0
-    },
-    imgGrid: {
       marginLeft: 'auto',
       marginRight: 0
     },
@@ -62,7 +58,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item className={classes.description} zeroMinWidth>
+        <Grid item zeroMinWidth xs>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
           </Typography>
@@ -113,7 +109,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.imgGrid} zeroMinWidth>
+        <Grid item zeroMinWidth xs={6}>
           {guitar.picture
             ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
             : null}
@@ -174,7 +170,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       </Typography>
       
       <ExpansionPanel className={classes.jsonExpander}>
-        <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
+        <ExpansionPanelSummary id='panelJson-header' aria-controls='panelJson-content'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

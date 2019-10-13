@@ -31,15 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: theme.typography.fontWeightRegular
     },
     description: {
-      maxWidth: 520
+      maxWidth: 500
     },
     img: {
-      maxWidth: 500,
+      width: '100%',
       display: 'flex',
-      marginLeft: 'auto',
-      marginRight: 0
-    },
-    imgGrid: {
       marginLeft: 'auto',
       marginRight: 0
     },
@@ -62,7 +58,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
-        <Grid item className={classes.description} zeroMinWidth>
+        <Grid item zeroMinWidth xs>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
           </Typography>
@@ -109,7 +105,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.imgGrid} zeroMinWidth>
+        <Grid item zeroMinWidth xs={6}>
           {guitar.picture
             ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
             : null}

@@ -130,7 +130,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'popular'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper0}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelMostCommon-header' aria-controls='panelMostCommon-content'>
               <Typography variant='overline'>
                 Most Common
               </Typography>
@@ -145,7 +145,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'outliers'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper2}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelOutliers-header' aria-controls='panelOutliers-content'>
               <Typography variant='overline'>
                 Outliers
               </Typography>
@@ -160,7 +160,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'randomPick'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper5}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelRandom-header' aria-controls='panelRandom-content'>
               <Typography variant='overline'>
                 Random Pick
               </Typography>
@@ -175,7 +175,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'breakdown'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper6}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelBreakdown-header' aria-controls='panelBreakdown-content'>
               <Typography variant='overline'>
                 Breakdown
               </Typography>
@@ -190,7 +190,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'values'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper3}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelValues-header' aria-controls='panelValues-content'>
               <Typography variant='overline'>
                 Values
               </Typography>
@@ -205,7 +205,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'cases'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper1}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
               <Typography variant='overline'>
                 Missing Cases
               </Typography>
@@ -220,7 +220,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'pickups'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper4}>
-            <ExpansionPanelSummary>
+            <ExpansionPanelSummary id='panelPickups-header' aria-controls='panelPickups-content'>
               <Typography variant='overline'>
                 Pickups
               </Typography>
