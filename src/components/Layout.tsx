@@ -46,7 +46,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
+      flexGrow: 1
+    },
+    pathname: {
+      marginRight: 0
     },
     rootNav: {
       width: '100%',
@@ -69,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 250,
     },
     divider: {
-      margin: theme.spacing(2),
+      margin: theme.spacing(2)
     },
     footer: {
       padding: theme.spacing(2)
@@ -77,7 +80,8 @@ const useStyles = makeStyles((theme: Theme) =>
     scrollToTop: {
       position: 'fixed',
       bottom: theme.spacing(2),
-      right: theme.spacing(2)
+      right: theme.spacing(2),
+      zIndex: 10
     }
   })
 );
@@ -184,11 +188,11 @@ export default function Layout(props: Props): React.ReactElement {
               <MenuIcon />
             </IconButton>
             <Link href='/'>
-              <Typography variant='h6' className={classes.title}>
+              <Typography className={classes.title}  variant='h6'>
                 GuitarHousehold
               </Typography>
             </Link>
-            <Typography variant='subtitle1'>
+            <Typography className={classes.pathname} variant='subtitle1'>
               {pathname}
             </Typography>
           </Toolbar>
@@ -211,7 +215,7 @@ export default function Layout(props: Props): React.ReactElement {
           </Typography>
           
           <ScrollToTopComponent {...props}>
-            <Fab color='secondary' size='small' aria-label='scroll to top'>
+            <Fab className={classes.scrollToTop} color='secondary' size='small' aria-label='scroll to top'>
               <KeyboardArrowUpIcon />
             </Fab>
           </ScrollToTopComponent>
