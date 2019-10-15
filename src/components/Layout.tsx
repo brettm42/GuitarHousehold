@@ -150,15 +150,15 @@ export default function Layout(props: Props): React.ReactElement {
       >
         <List>
           {['Home', 'Guitars', 'Projects', 'About']
-            .map((text, index) => (
-              <Link href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
-                <ListItemLink key={index}>
+            .map((text, idx) => (
+              <Link key={idx} href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
+                <ListItemLink>
                   <ListItemIcon>
-                    {index === 0 
+                    {idx === 0 
                       ? <InboxIcon /> 
-                      : index === 1
+                      : idx === 1
                         ? <FeaturedPlayListRoundedIcon />
-                        : index === 2
+                        : idx === 2
                           ? <FeaturedVideoRoundedIcon />
                           : <MailIcon />}
                   </ListItemIcon>

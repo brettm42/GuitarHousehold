@@ -58,7 +58,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
     <div className={classes.root}>
       <GridList cellHeight={imgHeight} cols={3} className={classes.gridList}>
         {guitars.map(guitar => (
-          <GridListTile key={guitar.name} className={classes.gridListTile}>
+          <GridListTile key={guitar.id} className={classes.gridListTile}>
             <Link href={`/detail?id=${guitar.id}`}>
               <a>
                 <div className={classes.background} aria-label={guitar.name}>

@@ -54,7 +54,7 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
     <div className={classes.root}>
       <Grid container spacing={3}>
         {guitars.map(guitar => (
-          <Grid item xs zeroMinWidth>
+          <Grid item xs key={guitar.id} zeroMinWidth>
             <Paper className={classes.paper}>
               <Link href={`/detail?id=${guitar.id}`}>
                 <a>
