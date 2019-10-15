@@ -94,7 +94,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 ? `Tremolo: ${guitar.tremolo}`
                 : null,
               guitar.productUrl
-                ? `Product Link: ${<a href={guitar.productUrl}>{guitar.productUrl}</a>}`
+                ? `Product Link: ${guitar.productUrl}`
                 : null
             ]
             .map((text, idx) => (
@@ -166,7 +166,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
       </Typography>
 
       <ExpansionPanel className={classes.jsonExpander}>
-        <ExpansionPanelSummary aria-controls='panelJson-content' id='panelJson-header'>
+        <ExpansionPanelSummary id='guitarPanelJson-header' aria-controls='guitarPanelJson-content'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

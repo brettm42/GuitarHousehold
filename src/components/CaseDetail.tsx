@@ -63,7 +63,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
                   ? `Purchase price: \$${guitarCase.purchasePrice}`
                   : null,
               guitarCase.productUrl
-                ? `Product Link: <a href=${guitarCase.productUrl}>${guitarCase.productUrl}</a>`
+                ? `Product Link: ${guitarCase.productUrl}`
                 : null
             ]
             .map((text, idx) => (
@@ -76,7 +76,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
 
         <Grid item className={classes.jsonExpander} zeroMinWidth>
           <ExpansionPanel>
-            <ExpansionPanelSummary id='panelJson-header' aria-controls='panelJson-content'>
+            <ExpansionPanelSummary id='casePanelJson-header' aria-controls='casePanelJson-content'>
               <Typography className={classes.heading}>Case JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

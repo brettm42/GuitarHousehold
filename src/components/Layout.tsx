@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import AppBar from '@material-ui/core/AppBar';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Fab from '@material-ui/core/Fab';
@@ -98,9 +99,9 @@ export default function Layout(props: Props): React.ReactElement {
   const toggleDrawer = (open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
-    if (event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
+    if (event.type === 'keydown' 
+      && ((event as React.KeyboardEvent).key === 'Tab' 
+        || (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
     }
@@ -150,18 +151,20 @@ export default function Layout(props: Props): React.ReactElement {
         <List>
           {['Home', 'Guitars', 'Projects', 'About']
             .map((text, index) => (
-              <ListItemLink key={index} href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
-                <ListItemIcon>
-                  {index === 0 
-                    ? <InboxIcon /> 
-                    : index === 1
-                      ? <FeaturedPlayListRoundedIcon />
-                      : index === 2
-                        ? <FeaturedVideoRoundedIcon />
-                        : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemLink>
+              <Link href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
+                <ListItemLink key={index}>
+                  <ListItemIcon>
+                    {index === 0 
+                      ? <InboxIcon /> 
+                      : index === 1
+                        ? <FeaturedPlayListRoundedIcon />
+                        : index === 2
+                          ? <FeaturedVideoRoundedIcon />
+                          : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemLink>
+              </Link>
           ))}
         </List>
         <Divider />
@@ -187,11 +190,15 @@ export default function Layout(props: Props): React.ReactElement {
                         onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
-            <Link href='/'>
-              <Typography className={classes.title}  variant='h6'>
-                GuitarHousehold
-              </Typography>
-            </Link>
+            <div className={classes.title}>
+              <Link href='/'>
+                <ButtonBase focusRipple key='title'>
+                  <Typography variant='h6'>
+                    GuitarHousehold
+                  </Typography>
+                </ButtonBase>
+              </Link>
+            </div>
             <Typography className={classes.pathname} variant='subtitle1'>
               {pathname}
             </Typography>

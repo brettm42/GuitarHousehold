@@ -98,7 +98,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
                 ? `Tremolo: ${guitar.tremolo}`
                 : null,
               guitar.productUrl
-                ? `Product Link: ${<a href={guitar.productUrl}>{guitar.productUrl}</a>}`
+                ? `Product Link: ${guitar.productUrl}`
                 : null
             ]
             .map((text, idx) => (
@@ -170,7 +170,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       </Typography>
       
       <ExpansionPanel className={classes.jsonExpander}>
-        <ExpansionPanelSummary id='panelJson-header' aria-controls='panelJson-content'>
+        <ExpansionPanelSummary id='projectPanelJson-header' aria-controls='projectPanelJson-content'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

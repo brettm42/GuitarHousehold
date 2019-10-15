@@ -69,7 +69,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                 ? `Purchase Store: ${pickup.purchaseStore}`
                 : null,
               pickup.productUrl
-                ? `Product Link: <a href=${pickup.productUrl}>${pickup.productUrl}</a>`
+                ? `Product Link: ${pickup.productUrl}`
                 : null
               ]
               .map((text, idx) => (
@@ -82,7 +82,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 
         <Grid item className={classes.jsonExpander} zeroMinWidth>
           <ExpansionPanel>
-            <ExpansionPanelSummary id='panelJson-header' aria-controls='panelJson-content'>
+            <ExpansionPanelSummary id='pickupPanelJson-header' aria-controls='pickupPanelJson-content'>
               <Typography className={classes.heading}>Pickup JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
