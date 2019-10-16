@@ -39,8 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
       overflowX: 'hidden'
     },
-    appBar: {
+    appBarDiv: {
       flexGrow: 1
+    },
+    appBar: {
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      color: 'white',
     },
     toolbar: theme.mixins.toolbar,
     menuButton: {
@@ -51,23 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     pathname: {
       marginRight: 0
-    },
-    rootNav: {
-      width: '100%',
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.text.secondary,
-      padding: theme.spacing(2),
-      marginLeft: theme.spacing(-2),
-      marginBottom: theme.spacing(2),
-      '& svg': {
-        margin: theme.spacing(2)
-      },
-      '& hr': {
-        margin: theme.spacing(0, 1)
-      },
-      textTransform: 'capitalize'
     },
     list: {
       width: 250,
@@ -195,8 +182,8 @@ export default function Layout(props: Props): React.ReactElement {
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
 
-      <div id='back-to-top-anchor' className={classes.appBar}>
-        <AppBar position='absolute'>
+      <div id='back-to-top-anchor' className={classes.appBarDiv}>
+        <AppBar position='absolute' className={classes.appBar}>
           <Toolbar>
             <IconButton className={classes.menuButton} 
                         edge='start' 

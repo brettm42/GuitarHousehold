@@ -18,6 +18,7 @@ import {
   OutliersComponent, 
   PickupsComponent,
   RandomPickComponent,
+  TimelineComponent,
   ValuesComponent
 } from './SummaryComponents';
 
@@ -26,6 +27,14 @@ import { Guitar } from '../interfaces/models/guitar';
 type SummaryProps = {
   data: Guitar[]
 }
+
+const gridColors = [
+  'rgba(188, 201, 208, 1)',
+  'rgba(142, 196, 202, 1)',
+  'rgba(208, 225, 239, 1)',
+  'rgba(255, 165, 167, 1)',
+  'rgba(235, 172, 175, 1)'
+];
 
 const gridPaperStyle = {
   padding: 1,
@@ -40,31 +49,43 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper0: {
       ...gridPaperStyle,
-      background: 'lightblue'
+      background: gridColors[0]
     },
     paper1: {
       ...gridPaperStyle,
-      background: 'lightgreen'
+      background: gridColors[1]
     },
     paper2: {
       ...gridPaperStyle,
-      background: 'lightpink'
+      background: gridColors[2]
     },
     paper3: {
       ...gridPaperStyle,
-      background: 'orange'
+      background: gridColors[3]
     },
     paper4: {
       ...gridPaperStyle,
-      background: 'lightyellow'
+      background: gridColors[4]
     },
     paper5: {
       ...gridPaperStyle,
-      background: 'lightgrey'
+      background: gridColors[0]
     },
     paper6: {
       ...gridPaperStyle,
-      background: 'lavender'
+      background: gridColors[1]
+    },
+    paper7: {
+      ...gridPaperStyle,
+      background: gridColors[2]
+    },
+    paper8: {
+      ...gridPaperStyle,
+      background: gridColors[3]
+    },
+    paper9: {
+      ...gridPaperStyle,
+      background: gridColors[4]
     },
     control: {
       padding: theme.spacing(2),
@@ -84,6 +105,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   const valuesComponent = (<ValuesComponent data={guitars} />);
   const missingCasesComponent = (<MissingCasesComponent data={guitars} />);
   const pickupsComponent = (<PickupsComponent data={guitars} />);
+  const timelineComponent = (<TimelineComponent data={guitars} />);
 
   const desktopGrid = (
     <Grid container className={classes.root} justify='flex-start' spacing={2}>
@@ -93,33 +115,38 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         </Paper>
       </Grid>
       <Grid key={'outliers'} item xs={6} sm={4}>
-        <Paper className={classes.paper2}>
+        <Paper className={classes.paper1}>
           {outliersComponent}
         </Paper>
       </Grid>
       <Grid key={'randomPick'} item xs={6} sm={4}>
-        <Paper className={classes.paper5}>
+        <Paper className={classes.paper2}>
           {randomPickComponent}
         </Paper>
       </Grid>
       <Grid key={'breakdown'} item xs={6} sm={4}>
-        <Paper className={classes.paper6}>
+        <Paper className={classes.paper3}>
           {breakdownComponent}
         </Paper>
       </Grid> 
       <Grid key={'values'} item xs={6} sm={4}>
-        <Paper className={classes.paper3}>
+        <Paper className={classes.paper4}>
           {valuesComponent}
         </Paper>
       </Grid>            
       <Grid key={'cases'} item xs={6} sm={4}>
-        <Paper className={classes.paper1}>
+        <Paper className={classes.paper5}>
           {missingCasesComponent}
         </Paper>
       </Grid>
       <Grid key={'pickups'} item xs={6} sm={4}>
-        <Paper className={classes.paper4}>
+        <Paper className={classes.paper6}>
           {pickupsComponent}
+        </Paper>
+      </Grid>
+      <Grid key={'timeline'} item xs={6} sm={4}>
+        <Paper className={classes.paper7}>
+          {timelineComponent}
         </Paper>
       </Grid>
     </Grid>
@@ -144,7 +171,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'outliers'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper2}>
+          <ExpansionPanel className={classes.paper1}>
             <ExpansionPanelSummary id='panelOutliers-header' aria-controls='panelOutliers-content'>
               <Typography variant='overline'>
                 Outliers
@@ -159,7 +186,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'randomPick'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper5}>
+          <ExpansionPanel className={classes.paper2}>
             <ExpansionPanelSummary id='panelRandom-header' aria-controls='panelRandom-content'>
               <Typography variant='overline'>
                 Random Pick
@@ -174,7 +201,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'breakdown'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper6}>
+          <ExpansionPanel className={classes.paper3}>
             <ExpansionPanelSummary id='panelBreakdown-header' aria-controls='panelBreakdown-content'>
               <Typography variant='overline'>
                 Breakdown
@@ -189,7 +216,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid> 
       <Grid key={'values'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper3}>
+          <ExpansionPanel className={classes.paper4}>
             <ExpansionPanelSummary id='panelValues-header' aria-controls='panelValues-content'>
               <Typography variant='overline'>
                 Values
@@ -204,7 +231,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>            
       <Grid key={'cases'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper1}>
+          <ExpansionPanel className={classes.paper5}>
             <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
               <Typography variant='overline'>
                 Missing Cases
@@ -219,7 +246,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'pickups'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper4}>
+          <ExpansionPanel className={classes.paper6}>
             <ExpansionPanelSummary id='panelPickups-header' aria-controls='panelPickups-content'>
               <Typography variant='overline'>
                 Pickups
@@ -228,6 +255,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <ExpansionPanelDetails>
               <Divider />              
               {pickupsComponent}
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Paper>
+      </Grid>
+      <Grid key={'timeline'} item xs={12} sm={6}>
+        <Paper>
+          <ExpansionPanel className={classes.paper7}>
+            <ExpansionPanelSummary id='panelTimeline-header' aria-controls='panelTimeline-content'>
+              <Typography variant='overline'>
+                Timeline
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Divider />              
+              {timelineComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>

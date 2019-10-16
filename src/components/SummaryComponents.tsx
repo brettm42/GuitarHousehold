@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     outliers: {},
     pickups: {},
     values: {},
+    timeline: {},
     randomPick: {
       height: '100%',
       display: 'flex',
@@ -106,8 +107,8 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Store', GuitarUtils.mostCommonStore(guitars) ]
       ]}
       style={classes.mostCommon} />
-    );
-  };
+  );
+};
 
 const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
@@ -208,8 +209,8 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
           {guitar.name}
         </Typography>
       </div>
-    );
-  }
+  );
+}
 
   return (
     <div>
@@ -242,8 +243,24 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars) ]
       ]}
       style={classes.breakdown} />
-    );
-  };
+  );
+};
+
+const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+
+  return (
+    <SummaryComponent
+      title={'Timeline:'}
+      contents={[
+        [ 'Average per Year', `${GuitarUtils.averageGuitarPerYear(guitars)} guitars` ],
+        [ 'Most Guitars Acquired', GuitarUtils.mostGuitarsInAYear(guitars) ]
+      ]}
+      style={classes.timeline} />
+  );
+};
 
 export {
   BreakdownComponent,
@@ -252,5 +269,6 @@ export {
   OutliersComponent,
   PickupsComponent,
   RandomPickComponent,
+  TimelineComponent,
   ValuesComponent 
 };

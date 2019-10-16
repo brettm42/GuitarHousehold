@@ -18,6 +18,20 @@ export function isProject(guitar: any): guitar is Project {
     return guitar.projectStart !== undefined;
 }
 
+export function isAcoustic(guitar: Guitar): boolean {
+    const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
+    const pickupNumber = 
+        guitar.pickups
+            ? guitar.pickups.length
+            : 0;
+
+    return acousticStyle.includes(guitar.bodyStyle) && pickupNumber < 2;
+}
+
+export function isElectric(guitar: Guitar): boolean {
+    return !isAcoustic(guitar);
+}
+
 export function hasCase(guitar: Guitar): boolean {
     return guitar.case
         ? guitar.case.id !== undefined
@@ -44,13 +58,13 @@ export function hasPurchasePrice(guitar: Guitar | Project): boolean {
     return false;
 }
 
-export function mostPickups(guitars: Guitar[]): string {
+export function mostPickups(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.pickups) {
             continue;
         }
@@ -70,13 +84,13 @@ export function mostPickups(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function mostFrets(guitars: Guitar[]): string {
+export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.numberOfFrets) {
             continue;
         }
@@ -96,13 +110,13 @@ export function mostFrets(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function leastFrets(guitars: Guitar[]): string {
+export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let min;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.numberOfFrets) {
             continue;
         }
@@ -122,7 +136,7 @@ export function leastFrets(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function averageFrets(guitars: Guitar[]): string {
+export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -144,13 +158,13 @@ export function hasModifications(guitar: Guitar): boolean {
         : false;
 }
 
-export function mostModifications(guitars: Guitar[]): string {
+export function mostModifications(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.modifications) {
             continue;
         }
@@ -176,13 +190,13 @@ export function hasControls(guitar: Guitar): boolean {
         : false;
 }
 
-export function mostControls(guitars: Guitar[]): string {
+export function mostControls(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.controls) {
             continue;
         }
@@ -259,7 +273,7 @@ export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
 export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
     let electric = 0;
     let acoustic = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (isElectric(guitar)) {
             electric += 1;
         } else if (isAcoustic(guitar)) {
@@ -273,7 +287,7 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
 export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
     let factory = 0;
     let project = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (isProject(guitar)) {
             project += 1;
         } else {
@@ -287,7 +301,7 @@ export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
 export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     let six = 0;
     let twelve = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (guitar.numberOfStrings && guitar.numberOfStrings === 12) {
             twelve += 1;
         } else {
@@ -301,7 +315,7 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
 export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
     let sunburst = 0;
     let otherColor = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (getColorMapping(guitar.color).toLowerCase().includes('sunburst')) {
             sunburst += 1;
         } else {
@@ -315,7 +329,7 @@ export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
 export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
     let fixed = 0;
     let tremolo = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (guitar.tremolo) {
             tremolo += 1;
         } else {
@@ -329,9 +343,9 @@ export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
 export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
     let humbucker = 0;
     let singleCoil = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (guitar.pickups) {
-            for (let pickup of guitar.pickups) {
+            for (const pickup of guitar.pickups) {
                 if (!pickup.type) {
                     continue;
                 }
@@ -379,12 +393,12 @@ export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
     let max = 0;
     let maxPickup = null;
     let maxGuitar = null;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.pickups) {
             continue;
         }
 
-        for (let pickup of guitar.pickups) {
+        for (const pickup of guitar.pickups) {
             if (!pickup.output) {
                 continue;
             }
@@ -408,12 +422,12 @@ export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
     let minPickup = null;
     let minGuitar = null;
 
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.pickups) {
             continue;
         }
 
-        for (let pickup of guitar.pickups) {
+        for (const pickup of guitar.pickups) {
             if (!pickup.output) {
                 continue;
             }
@@ -432,13 +446,13 @@ export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
         : defaultString;
 }
 
-export function oldestGuitar(guitars: Guitar[]): string {
+export function oldestGuitar(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.purchaseDate) {
             continue;
         }
@@ -459,13 +473,13 @@ export function oldestGuitar(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function newestGuitar(guitars: Guitar[]): string {
+export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let min;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.purchaseDate) {
             continue;
         }
@@ -486,14 +500,14 @@ export function newestGuitar(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function longestProject(guitars: Guitar[]): string {
+export function longestProject(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
     let maxLength = 0;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!isProject(guitar) || !guitar.projectStart) {
             continue;
         }
@@ -519,14 +533,14 @@ export function longestProject(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function shortestProject(guitars: Guitar[]): string {
+export function shortestProject(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let min;
     let minLength = 99999999;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!isProject(guitar) || !guitar.projectStart) {
             continue;
         }
@@ -552,14 +566,14 @@ export function shortestProject(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function leastExpensive(guitars: Guitar[]): string {
+export function leastExpensive(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let min;
     let price;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!hasPurchasePrice(guitar)) {
             continue;
         }
@@ -580,14 +594,14 @@ export function leastExpensive(guitars: Guitar[]): string {
     return min ? `${min.name} (\$${price})` : defaultString;
 }
 
-export function leastExpensiveWithCase(guitars: Guitar[]): string {
+export function leastExpensiveWithCase(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let min;
     let price;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !guitar.case) {
             continue;
         }
@@ -610,14 +624,14 @@ export function leastExpensiveWithCase(guitars: Guitar[]): string {
     return min ? `${min.name} (\$${price})` : defaultString;
 }
 
-export function leastExpensiveProject(guitars: Guitar[]): string {
+export function leastExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let min;
     let price;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
             continue;
         }
@@ -638,14 +652,14 @@ export function leastExpensiveProject(guitars: Guitar[]): string {
     return min ? `${min.name} (\$${price})` : defaultString;
 }
 
-export function mostExpensive(guitars: Guitar[]): string {
+export function mostExpensive(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
     let price;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!hasPurchasePrice(guitar)) {
             continue;
         }
@@ -666,14 +680,14 @@ export function mostExpensive(guitars: Guitar[]): string {
     return max ? `${max.name} (\$${price})` : defaultString;
 }
 
-export function mostExpensiveWithCase(guitars: Guitar[]): string {
+export function mostExpensiveWithCase(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
     let price;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !guitar.case) {
             continue;
         }
@@ -696,14 +710,14 @@ export function mostExpensiveWithCase(guitars: Guitar[]): string {
     return max ? `${max.name} (\$${price})` : defaultString;
 }
 
-export function mostExpensiveProject(guitars: Guitar[]): string {
+export function mostExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let max;
     let price;
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
             continue;
         }
@@ -724,7 +738,7 @@ export function mostExpensiveProject(guitars: Guitar[]): string {
     return max ? `${max.name} (\$${price})` : defaultString;
 }
 
-function getTotalCost(guitars: Guitar[]): number {
+function getTotalCost(guitars: ReadonlyArray<Guitar>): number {
     if (guitars.length < 1) {
         return 0;
     }
@@ -737,7 +751,7 @@ function getTotalCost(guitars: Guitar[]): number {
         0);
 }
 
-export function totalCost(guitars: Guitar[]): string {
+export function totalCost(guitars: ReadonlyArray<Guitar>): string {
     const price = getTotalCost(guitars);
 
     return price || price < 1 
@@ -745,13 +759,13 @@ export function totalCost(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function totalCostWithCases(guitars: Guitar[]): string {
+export function totalCostWithCases(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
     let price = getTotalCost(guitars);
-    for (let guitar of guitars) {
+    for (const guitar of guitars) {
         if (!guitar.case || !guitar.case.purchasePrice) {
             continue;
         }
@@ -762,7 +776,7 @@ export function totalCostWithCases(guitars: Guitar[]): string {
     return price || price < 1 ? `\$${roundToHundredths(price)}` : defaultString;
 }
 
-export function averageCost(guitars: Guitar[]): string {
+export function averageCost(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -778,7 +792,7 @@ export function averageCost(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function averageProjectCost(guitars: Guitar[]): string {
+export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -796,7 +810,7 @@ export function averageProjectCost(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function averageCaseCost(guitars: Guitar[]): string {
+export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -813,7 +827,7 @@ export function averageCaseCost(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function averageCostWithCase(guitars: Guitar[]): string {
+export function averageCostWithCase(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -831,7 +845,7 @@ export function averageCostWithCase(guitars: Guitar[]): string {
         : defaultString;
 }
 
-export function averagePickupCost(guitars: Guitar[]): string {
+export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
@@ -854,6 +868,92 @@ export function randomPick(guitars: Guitar[]): Guitar {
     const day = new Date(Date.now());
 
     return randomElementWithSeed(guitars, day.getDate() + day.getDay());
+}
+
+export function getGuitarCost(guitar: Guitar | Project): number {
+    let total = 0
+
+    if (!hasPurchasePrice(guitar)) {
+        return total;
+    }
+
+    if (isProject(guitar)) {
+        if (guitar.purchaseComponentPrice && guitar.purchaseComponentPrice.length > 0) {
+            for (const item of guitar.purchaseComponentPrice) {
+                total += Number.parseFloat(item);
+            }
+        }
+    } else if (guitar.purchasePrice) {
+        total += Number.parseFloat(guitar.purchasePrice);
+    }
+
+    if (guitar.pickups && guitar.pickups.length > 0) {
+        for (const pickup of guitar.pickups) {
+            if (pickup.purchasePrice) {
+                total += Number.parseFloat(pickup.purchasePrice);
+            }
+        }
+    }
+
+    return roundToHundredths(total);
+}
+
+interface YearMap {
+    [year: number]: number;
+}
+
+function guitarPerYear(guitars: ReadonlyArray<Guitar>): YearMap {
+    if (guitars.length < 1) {
+        return {};
+    }
+
+    const years: YearMap = {};
+    for (const guitar of guitars) {
+        if (guitar.purchaseDate) {
+            const date = new Date(Date.parse(guitar.purchaseDate));
+            const total = years[date.getFullYear()] || 0;
+
+            years[date.getFullYear()] = 1 + total;
+        }
+    }
+
+    return years;
+}
+
+export function averageGuitarPerYear(guitars: ReadonlyArray<Guitar>): string {
+    const years = guitarPerYear(guitars);
+
+    let total = 0;
+    let length = 0;
+    console.log(years);
+    for (const year of Object.values(years)) {
+        total += year;
+        length += 1;
+    }
+
+    return Math.round(total / length).toString();
+}
+
+export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
+    const years = guitarPerYear(guitars);
+    
+    let maxNumber = 0;
+    let maxYear = 0;
+    for (const key of Object.keys(years)) {
+        const year = Number.parseInt(key);
+        if (years[year] > maxNumber) {
+            maxNumber = years[year];
+            maxYear = year;
+        }
+    }
+
+    return `${maxNumber} in ${maxYear}`;
+}
+
+export function summarizeGuitar(guitar: Guitar): string {
+    return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
+        + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `
+        + `${guitar.tremolo ? 'and tremolo' : ''}`;
 }
 
 function mostCommonString(items: ReadonlyArray<string | undefined>): string {
@@ -885,40 +985,6 @@ function mostCommonString(items: ReadonlyArray<string | undefined>): string {
     }
 
     return maxElement || fallbackString;
-}
-
-export function getGuitarCost(guitar: Guitar | Project): number {
-    let total = 0
-
-    if (!hasPurchasePrice(guitar)) {
-        return total;
-    }
-
-    if (isProject(guitar)) {
-        if (guitar.purchaseComponentPrice && guitar.purchaseComponentPrice.length > 0) {
-            for (let item of guitar.purchaseComponentPrice) {
-                total += Number.parseFloat(item);
-            }
-        }
-    } else if (guitar.purchasePrice) {
-        total += Number.parseFloat(guitar.purchasePrice);
-    }
-
-    if (guitar.pickups && guitar.pickups.length > 0) {
-        for (let pickup of guitar.pickups) {
-            if (pickup.purchasePrice) {
-                total += Number.parseFloat(pickup.purchasePrice);
-            }
-        }
-    }
-
-    return roundToHundredths(total);
-}
-
-export function summarizeGuitar(guitar: Guitar): string {
-    return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
-        + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `
-        + `${guitar.tremolo ? 'and tremolo' : ''}`;
 }
 
 function getColorMapping(color: string): string {
@@ -954,18 +1020,4 @@ function getColorMapping(color: string): string {
     }
 
     return color;
-}
-
-function isAcoustic(guitar: Guitar): boolean {
-    const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
-    const pickupNumber = 
-        guitar.pickups
-            ? guitar.pickups.length
-            : 0;
-
-    return acousticStyle.includes(guitar.bodyStyle) && pickupNumber < 2;
-}
-
-function isElectric(guitar: Guitar): boolean {
-    return !isAcoustic(guitar);
 }
