@@ -236,8 +236,10 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       contents={[
         [ 'Acoustic vs. Electric', GuitarUtils.acousticVsElectric(guitars) ],
         [ 'Factory vs. Project', GuitarUtils.factoryVsProject(guitars) ],
+        [ 'Sunburst vs. Other Color', GuitarUtils.sunburstVsColor(guitars) ],
         [ '6 String vs. 12 String', GuitarUtils.sixStringVs12string(guitars) ],
-        [ 'Tremolo vs. Fixed', GuitarUtils.tremoloVsFixed(guitars) ]
+        [ 'Tremolo vs. Fixed', GuitarUtils.tremoloVsFixed(guitars) ],
+        [ 'Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars) ]
       ]}
       style={classes.breakdown} />
     );

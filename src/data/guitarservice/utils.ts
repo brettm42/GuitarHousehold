@@ -294,6 +294,20 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     return `${six} vs. ${twelve}`;
 }
 
+export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
+    let sunburst = 0;
+    let otherColor = 0;
+    for (let guitar of guitars) {
+        if (getColorMapping(guitar.color).toLowerCase().includes('sunburst')) {
+            sunburst += 1;
+        } else {
+            otherColor += 1;
+        }
+    }
+
+    return `${sunburst} vs. ${otherColor}`;
+}
+
 export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
     let fixed = 0;
     let tremolo = 0;
@@ -306,6 +320,28 @@ export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
     }
 
     return `${tremolo} vs. ${fixed}`;
+}
+
+export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
+    let humbucker = 0;
+    let singleCoil = 0;
+    for (let guitar of guitars) {
+        if (guitar.pickups) {
+            for (let pickup of guitar.pickups) {
+                if (!pickup.type) {
+                    continue;
+                }
+
+                if (pickup.type.toString().toLowerCase().includes('humbucker')) {
+                    humbucker += 1;
+                } else {
+                    singleCoil += 1;
+                }
+            }
+        }
+    }
+
+    return `${humbucker} vs. ${singleCoil}`;
 }
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
