@@ -950,6 +950,14 @@ export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
     return `${maxNumber} in ${maxYear}`;
 }
 
+export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
+    const years = guitarPerYear(guitars);
+
+    const date = new Date(Date.now());
+
+    return `${years[date.getFullYear()]} in ${date.getFullYear()}`;
+}
+
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
         + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `

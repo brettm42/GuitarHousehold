@@ -256,7 +256,8 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       title={'Timeline:'}
       contents={[
         [ 'Average per Year', `${GuitarUtils.averageGuitarPerYear(guitars)} guitars` ],
-        [ 'Most Guitars Acquired', GuitarUtils.mostGuitarsInAYear(guitars) ]
+        [ 'Most Guitars Acquired', GuitarUtils.mostGuitarsInAYear(guitars) ],
+        [ 'Guitars This Year', GuitarUtils.guitarsThisYear(guitars) ]
       ]}
       style={classes.timeline} />
   );
