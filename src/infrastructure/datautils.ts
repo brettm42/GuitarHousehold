@@ -5,6 +5,37 @@ export function StringEnum<T extends string>(i: Array<T>): {[K in T]: K} {
     }, Object.create(null));
 }
 
+export function mostCommonString(items: ReadonlyArray<string | undefined>): string {
+    const fallbackString = 'None';
+    if (items.length === 0) {
+        return fallbackString;
+    }
+
+    const modeMap: { [key: string]: number; } = {};
+    let maxElement = items[0];
+    let maxCount = 1;
+
+    for (let i = 0; i < items.length; i++) {
+        let elem = items[i];
+        if (elem === undefined) {
+            elem = fallbackString;
+        }
+
+        if (!modeMap[elem]) {
+            modeMap[elem] = 1;
+        } else {
+            modeMap[elem]++;  
+        }
+
+        if (modeMap[elem] > maxCount) {
+            maxElement = elem;
+            maxCount = modeMap[elem];
+        }
+    }
+
+    return maxElement || fallbackString;
+}
+
 export function millisecondsToFriendlyString(duration: number): string {
     const oneDay =   86400000;
     const oneWeek =  604800000;

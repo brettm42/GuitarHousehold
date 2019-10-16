@@ -4,6 +4,7 @@ import { Project } from '../../interfaces/models/project';
 
 import { 
     millisecondsToFriendlyString,
+    mostCommonString,
     randomElementWithSeed,
     roundToHundredths
 } from '../../infrastructure/datautils';
@@ -953,37 +954,6 @@ export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
         + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `
         + `${guitar.tremolo ? 'and tremolo' : ''}`;
-}
-
-function mostCommonString(items: ReadonlyArray<string | undefined>): string {
-    const fallbackString = 'None';
-    if (items.length === 0) {
-        return fallbackString;
-    }
-
-    const modeMap: { [key: string]: number; } = {};
-    let maxElement = items[0];
-    let maxCount = 1;
-
-    for (let i = 0; i < items.length; i++) {
-        let elem = items[i];
-        if (elem === undefined) {
-            elem = fallbackString;
-        }
-
-        if (!modeMap[elem]) {
-            modeMap[elem] = 1;
-        } else {
-            modeMap[elem]++;  
-        }
-
-        if (modeMap[elem] > maxCount) {
-            maxElement = elem;
-            maxCount = modeMap[elem];
-        }
-    }
-
-    return maxElement || fallbackString;
 }
 
 function getColorMapping(color: string): string {
