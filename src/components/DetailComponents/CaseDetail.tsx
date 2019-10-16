@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import { Pickup } from '../interfaces/models/pickup';
+import { Case } from '../../interfaces/models/case';
 
-type PickupDetailProps = {
-  item: Pickup
+type CaseDetailProps = {
+  item: Case
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
-  item: pickup,
+const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
+  item: guitarCase,
 }) => {
   const classes = useStyles();
 
@@ -48,48 +48,42 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
       <Grid container className={classes.root} spacing={3}>
         <Grid item zeroMinWidth xs sm={6}>
           <Typography variant='h6' gutterBottom>
-            {pickup.name}
+            {guitarCase.name}
           </Typography>
 
           <div>
             {[
-              pickup.description,
-              `Position: ${pickup.position}`,
-              `Type: ${pickup.type}`,
-              pickup.output 
-                ? `Output: ${pickup.output}`
+              guitarCase.description,
+              `Case Style: ${guitarCase.caseStyle}`,
+              guitarCase.purchaseDate 
+                ? `Purchased ${guitarCase.purchaseDate}`
                 : null,
-              pickup.purchaseDate 
-                ? `Purchase Date: ${pickup.purchaseDate}`
-                : null,
-              pickup.purchasePrice
-                  ? `Purchase price: \$${pickup.purchasePrice}`
+              `Purchase Store: ${guitarCase.purchaseStore}`,
+              guitarCase.purchasePrice
+                  ? `Purchase price: \$${guitarCase.purchasePrice}`
                   : null,
-              pickup.purchaseStore 
-                ? `Purchase Store: ${pickup.purchaseStore}`
-                : null,
-              pickup.productUrl
-                ? `Product Link: ${pickup.productUrl}`
+              guitarCase.productUrl
+                ? `Product Link: ${guitarCase.productUrl}`
                 : null
-              ]
-              .map((text, idx) => (
-                <Typography key={idx} gutterBottom>
-                  {text}
-                </Typography>
-              ))}
+            ]
+            .map((text, idx) => (
+              <Typography key={idx} gutterBottom>
+                {text}
+              </Typography>
+            ))}
           </div>
         </Grid>
 
         <Grid item className={classes.jsonExpander} zeroMinWidth>
           <ExpansionPanel>
-            <ExpansionPanelSummary id='pickupPanelJson-header' aria-controls='pickupPanelJson-content'>
-              <Typography className={classes.heading}>Pickup JSON Data</Typography>
+            <ExpansionPanelSummary id='casePanelJson-header' aria-controls='casePanelJson-content'>
+              <Typography className={classes.heading}>Case JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div className={classes.json}>
                 <Divider />
                 <Typography variant='subtitle1'>
-                  <pre>{JSON.stringify(pickup, undefined, 2)}</pre>
+                  <pre>{JSON.stringify(guitarCase, undefined, 2)}</pre>
                 </Typography>
               </div>
             </ExpansionPanelDetails>
@@ -100,4 +94,4 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
   );
 };
 
-export default PickupDetail;
+export default CaseDetail;

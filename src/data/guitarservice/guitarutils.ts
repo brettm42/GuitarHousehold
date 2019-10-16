@@ -6,7 +6,7 @@ import {
     millisecondsToFriendlyString,
     randomElementWithSeed,
     roundToHundredths
-} from '../../infrastructure/utils';
+} from '../../infrastructure/datautils';
 
 const defaultString = 'None';
 

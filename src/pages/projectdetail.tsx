@@ -1,10 +1,11 @@
 import * as React from 'react';
 
 import Layout from '../components/Layout';
-import ProjectDetail from '../components/ProjectDetail';
+import ProjectDetail from '../components/DetailComponents/ProjectDetail';
 
 import { NextPageContext } from 'next';
 import { Typography } from '@material-ui/core';
+import { buildPageTitle } from '../components/viewutils';
 
 import { Project } from '../interfaces/models/project';
 import { findProject } from '../data/guitarservice/guitarservice';
@@ -34,7 +35,7 @@ class ProjectDetailPage extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`GuitarHousehold 🎸 | Error`} pathname={pathname}>
+        <Layout title={buildPageTitle('Error')} pathname={pathname}>
           <Typography>
             <span style={{ color: 'red' }}>Error:</span> {errors}
           </Typography>
@@ -43,7 +44,7 @@ class ProjectDetailPage extends React.Component<Props> {
     }
 
     return (
-      <Layout title={`GuitarHousehold 🎸 | ${item ? item.name : 'Details'}`} pathname={'project' + pathname}>
+      <Layout title={buildPageTitle(item ? item.name : 'Details')} pathname={'project' + pathname}>
         {item && <ProjectDetail item={item} />}
       </Layout>
     );

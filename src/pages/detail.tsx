@@ -3,11 +3,12 @@ import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
-import ListDetail from '../components/ListDetail';
-import GuitarDetail from '../components/GuitarDetail';
-import ProjectDetail from '../components/ProjectDetail';
+import ListDetail from '../components/DetailComponents/ListDetail';
+import GuitarDetail from '../components/DetailComponents/GuitarDetail';
+import ProjectDetail from '../components/DetailComponents/ProjectDetail';
 
 import { NextPageContext } from 'next';
+import { buildPageTitle } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { Project } from '../interfaces/models/project';
@@ -38,7 +39,7 @@ class InitialPropsDetail extends React.Component<Props> {
 
     if (errors) {
       return (
-        <Layout title={`GuitarHousehold 🎸 | Error`} pathname={pathname}>
+        <Layout title={buildPageTitle('Error')} pathname={pathname}>
           <Typography>
             <p>
               <span style={{ color: 'red' }}>Error:</span> {errors}
@@ -65,7 +66,7 @@ class InitialPropsDetail extends React.Component<Props> {
     }
 
     return (
-      <Layout title={`GuitarHousehold 🎸 | ${item ? item.name : 'Details'}`} pathname={(isProject(item) ? 'project' : 'guitar') + pathname}>
+      <Layout title={buildPageTitle(item ? item.name : 'Details')} pathname={(isProject(item) ? 'project' : 'guitar') + pathname}>
         {isProject(item)
           ? item && <ProjectDetail item={item} />
           : isGuitar(item)

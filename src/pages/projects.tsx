@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { NextPage } from 'next';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { buildPageTitle } from '../components/viewutils';
 
 import { Project } from '../interfaces/models/project';
 import { findAllProjects } from '../data/guitarservice/guitarservice';
@@ -28,7 +29,7 @@ const Projects: NextPage<Props> = ({ items, pathname }) => {
   const classes = useStyles();
 
   return (
-    <Layout title='GuitarHousehold 🎸 | Project List' pathname={pathname}>
+    <Layout title={buildPageTitle('Project List')} pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
           Project Guitar List

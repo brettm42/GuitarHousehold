@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import * as Constants from '../infrastructure/constants';
+
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
@@ -7,8 +9,9 @@ import HouseholdGridList from '../components/HouseholdGridList';
 import Layout from '../components/Layout';
 import Summary from '../components/Summary';
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { NextPage } from 'next';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { buildPageTitle } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { Project } from '../interfaces/models/project';
@@ -36,12 +39,12 @@ const IndexPage: NextPage<Props> = ({ guitars, projects, pathname }) => {
   const classes = useStyles();
 
   return (
-    <Layout title='GuitarHousehold 🎸| Home' pathname={pathname}>
+    <Layout title={buildPageTitle('Home')} pathname={pathname}>
       <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
 
       <div className={classes.title}>
         <Typography variant='h3' gutterBottom>
-          GuitarHousehold🎸
+          {Constants.SiteTitle}
         </Typography> 
       </div>
 

@@ -10,7 +10,7 @@ import List from '../components/List';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import { Guitar } from '../interfaces/models/guitar';
-import * as GuitarUtils from '../data/guitarservice/utils';
+import * as GuitarUtils from '../data/guitarservice/guitarutils';
 
 type SummaryComponentProps = {
   title: string,

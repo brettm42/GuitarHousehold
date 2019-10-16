@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 
 import { NextPage } from 'next';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { buildPageTitle } from '../components/viewutils';
 
 type Props = {
   pathname: string
@@ -25,7 +26,7 @@ const AboutPage: NextPage<Props> = ({pathname}) => {
   const classes = useStyles();
 
   return (
-    <Layout title='GuitarHousehold 🎸| About' pathname={pathname}>
+    <Layout title={buildPageTitle('About')} pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h3' gutterBottom>
           About

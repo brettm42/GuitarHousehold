@@ -12,11 +12,11 @@ import PickupDetail from './PickupDetail';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-import { Guitar } from '../interfaces/models/guitar';
-import * as GuitarUtils from '../data/guitarservice/utils';
+import { Project } from '../../interfaces/models/project';
+import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
-type GuitarDetailProps = {
-  item: Guitar
+type ProjectDetailProps = {
+  item: Project
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -50,11 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
+const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
   item: guitar,
 }) => {
   const classes = useStyles();
-  
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
@@ -67,17 +67,21 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
             {[
               GuitarUtils.summarizeGuitar(guitar),
               guitar.description,
-              `Make: ${guitar.make}`,
-              `Model: ${guitar.model}`,
               guitar.series
                 ? `Series: ${guitar.series}`
                 : null,
+              `Project Started: ${guitar.projectStart}`,
+              `Project Completed: ${guitar.projectComplete}`,
+              `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`,
               `Body Style: ${guitar.bodyStyle}`,
               `Color: ${guitar.color}`,
-              `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`,
-              `Purchased ${guitar.purchaseDate} from ${guitar.purchaseStore}`,
               GuitarUtils.hasPurchasePrice(guitar)
-                ? `Purchase price: \$${GuitarUtils.getGuitarCost(guitar)}`
+                ? `Project cost: \$${GuitarUtils.getGuitarCost(guitar)}`
+                : null,
+              `Neck: ${guitar.neck}`,
+              `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`,
+              guitar.pickguard
+                ? `Pickguard: ${guitar.pickguard}`
                 : null,
               `Strings: ${guitar.strings}`,
               guitar.numberOfStrings
@@ -112,7 +116,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
         </Grid>
       </Grid>
 
-      <Divider variant='middle'/>
+      <Divider variant='middle' />
       <Typography variant='h5'>
         {guitar.pickups && GuitarUtils.hasPickups(guitar)
           ? <div>
@@ -164,9 +168,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
             </div>
           : null}
       </Typography>
-
+      
       <ExpansionPanel className={classes.jsonExpander}>
-        <ExpansionPanelSummary id='guitarPanelJson-header' aria-controls='guitarPanelJson-content'>
+        <ExpansionPanelSummary id='projectPanelJson-header' aria-controls='projectPanelJson-content'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
@@ -182,4 +186,4 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
   );
 };
 
-export default GuitarDetail;
+export default ProjectDetail;
