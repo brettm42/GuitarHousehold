@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Constants from '../infrastructure/constants';
 
 import Typography from '@material-ui/core/Typography';
 import Layout from '../components/Layout';
@@ -18,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     body: {
       padding: theme.spacing(0, 2)
+    },
+    familyPic: {
+      padding: theme.spacing(2, 0)
     }
   })
 );
@@ -32,6 +36,9 @@ const AboutPage: NextPage<Props> = ({pathname}) => {
           About
         </Typography>
       </div>
+
+      <img className={classes.familyPic} src={Constants.AboutPageImg1} />
+      <img className={classes.familyPic} src={Constants.AboutPageImg2} />
 
       <div className={classes.body}>
         <Typography variant='body2' gutterBottom>
