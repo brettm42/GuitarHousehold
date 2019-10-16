@@ -9,19 +9,13 @@ Install it and run:
 
 ```bash
 npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
-
+npm install --save-dev typescript
 npm install --save next react react-dom
 
-## TypeScript
+npm run dev
+```
 
-```
-npm install --save-dev typescript
-```
+## TypeScript Note
 
 To enable TypeScript's features, install the type declaratons for React and Node.
 
