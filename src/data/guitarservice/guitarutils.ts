@@ -925,7 +925,6 @@ export function averageGuitarPerYear(guitars: ReadonlyArray<Guitar>): string {
 
     let total = 0;
     let length = 0;
-    console.log(years);
     for (const year of Object.values(years)) {
         total += year;
         length += 1;
