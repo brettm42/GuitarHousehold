@@ -109,6 +109,21 @@ export default function Layout(props: Props): React.ReactElement {
     setState({ ...state, drawerOpen: open });
   };
 
+  // const ListItemLink = React.forwardRef((props, ref) => (
+  //   <ListItem button component='a' { ...props } innerRef={ref}>
+  //     <ListItemIcon>
+  //         {props.idx === 0 
+  //           ? <InboxIcon /> 
+  //           : idx === 1
+  //             ? <FeaturedPlayListRoundedIcon />
+  //             : idx === 2
+  //               ? <FeaturedVideoRoundedIcon />
+  //               : <MailIcon />}
+  //       </ListItemIcon>
+  //       <ListItemText primary={text} />
+  //     </ListItem>
+  // ));
+
   function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
     return <ListItem button component='a' { ...props } />;
   };
@@ -151,7 +166,7 @@ export default function Layout(props: Props): React.ReactElement {
         <List>
           {['Home', 'Guitars', 'Projects', 'About']
             .map((text, idx) => (
-              <Link key={idx} href={`/${text === 'Home' ? '' : text.toLowerCase()}`}>
+              <Link key={idx} href={`/${text === 'Home' ? '' : text.toLowerCase()}`} passHref>
                 <ListItemLink>
                   <ListItemIcon>
                     {idx === 0 

@@ -79,7 +79,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
                 ? `Project cost: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
               `Neck: ${guitar.neck}`,
-              `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`,
+              `s/n: ${guitar.serialNumber ? guitar.serialNumber : 'None'} (location: ${guitar.serialNumberLocation})`,
               guitar.pickguard
                 ? `Pickguard: ${guitar.pickguard}`
                 : null,
