@@ -11,8 +11,8 @@ import { NextPageContext } from 'next';
 import { buildPageTitle } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
-import { Project } from '../interfaces/models/project';
 import { findGuitar } from '../data/guitarservice/guitarservice';
+import { isGuitar, isProject } from '../data/guitarservice/guitarutils';
 
 type Props = {
   item?: Guitar,
@@ -38,40 +38,28 @@ class InitialPropsDetail extends React.Component<Props> {
     const { item, errors, pathname } = this.props;
 
     if (errors) {
+      console.warn(`Hit error page, ${errors}`);
+
       return (
         <Layout title={buildPageTitle('Error')} pathname={pathname}>
-          <Typography>
-            <p>
+          <div>
+            <Typography>
               <span style={{ color: 'red' }}>Error:</span> {errors}
-            </p>
-          </Typography>
+            </Typography>
+          </div>
         </Layout>
       );
     }
 
-    function isGuitar(arg: any): arg is Guitar {
-      if (arg.make !== undefined) {
-        console.log(`Guitar ${arg.id}`);
-      }
-
-      return arg.make !== undefined;
-    }
-
-    function isProject(arg: any): arg is Project {
-      if (arg.body !== undefined) {
-        console.log(`Project ${arg.id}`);
-      }
-      
-      return arg.body !== undefined;
-    }
-
     return (
       <Layout title={buildPageTitle(item ? item.name : 'Details')} pathname={(isProject(item) ? 'project' : 'guitar') + pathname}>
-        {isProject(item)
-          ? item && <ProjectDetail item={item} />
-          : isGuitar(item)
-            ? item && <GuitarDetail item={item} />
-            : item && <ListDetail item={item} />}
+        <div>
+          {isProject(item)
+            ? item && <ProjectDetail item={item} />
+            : isGuitar(item)
+              ? item && <GuitarDetail item={item} />
+              : item && <ListDetail item={item} />}
+        </div>
       </Layout>
     );
   };

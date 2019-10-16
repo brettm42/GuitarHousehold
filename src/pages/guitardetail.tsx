@@ -34,18 +34,24 @@ class GuitarDetailPage extends React.Component<Props> {
     const { item, errors, pathname } = this.props;
 
     if (errors) {
+      console.warn(`Hit error page, ${errors}`);
+
       return (
         <Layout title={buildPageTitle('Error')} pathname={pathname}>
-          <Typography>
-            <span style={{ color: 'red' }}>Error:</span> {errors}
-          </Typography>
+          <div>
+            <Typography>
+              <span style={{ color: 'red' }}>Error:</span> {errors}
+            </Typography>
+          </div>
         </Layout>
       );
     }
 
     return (
       <Layout title={buildPageTitle(item ? item.name : 'Details')} pathname={'guitar' + pathname}>
-        {item && <GuitarDetail item={item} />}
+        <div>
+          {item && <GuitarDetail item={item} />}
+        </div>
       </Layout>
     );
   };

@@ -4,7 +4,7 @@ import { BodyStyle, SerialNumberLocation, StringType, TremoloType } from './comp
 import { RetailItem } from '../entry';
 
 export interface Guitar extends RetailItem {
-    readonly make?: string;
+    readonly make: string;
     readonly model?: string;
     readonly series?: string;
     readonly serialNumber?: string;

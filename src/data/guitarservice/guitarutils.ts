@@ -10,6 +10,10 @@ import {
 
 const defaultString = 'None';
 
+export function isGuitar(guitar: any): guitar is Guitar {
+    return guitar.make !== undefined;
+}
+
 export function isProject(guitar: any): guitar is Project {
     return guitar.projectStart !== undefined;
 }
