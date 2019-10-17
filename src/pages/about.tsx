@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
     body: {
       padding: theme.spacing(0, 2)
     },
-    familyPic: {
-      padding: theme.spacing(2, 0)
+    image: {
+      width: '100%',
+      padding: theme.spacing(2)
     }
   })
 );
@@ -37,8 +38,8 @@ const AboutPage: NextPage<Props> = ({pathname}) => {
         </Typography>
       </div>
 
-      <img className={classes.familyPic} src={Constants.AboutPageImg1} />
-      <img className={classes.familyPic} src={Constants.AboutPageImg2} />
+      <img className={classes.image} src={Constants.AboutPageImg1} />
+      <img className={classes.image} src={Constants.AboutPageImg2} />
 
       <div className={classes.body}>
         <Typography variant='body2' gutterBottom>
