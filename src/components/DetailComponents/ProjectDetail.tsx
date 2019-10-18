@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
     description: {
       maxWidth: 500
     },
+    summary: {
+      paddingBottom: theme.spacing(2)
+    },
     img: {
       width: '100%',
       display: 'flex',
@@ -55,6 +58,24 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
 }) => {
   const classes = useStyles();
 
+  const projectSummary = (
+    <div>
+      {guitar.description
+        ? <div>
+            <Typography variant='subtitle2' gutterBottom>
+              {GuitarUtils.summarizeGuitar(guitar)}
+            </Typography>
+            <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+              {guitar.description}
+            </Typography>
+          </div>
+        : <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+            {GuitarUtils.summarizeGuitar(guitar)}
+          </Typography>
+      }
+    </div>
+  );
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
@@ -63,10 +84,10 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
             {guitar.name}
           </Typography>
 
+          {projectSummary}
+
           <div>
             {[
-              GuitarUtils.summarizeGuitar(guitar),
-              guitar.description,
               guitar.series
                 ? `Series: ${guitar.series}`
                 : null,

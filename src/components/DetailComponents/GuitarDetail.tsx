@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
     description: {
       maxWidth: 500
     },
+    summary: {
+      paddingBottom: theme.spacing(2)
+    },
     img: {
       width: '100%',
       display: 'flex',
@@ -55,6 +58,24 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 }) => {
   const classes = useStyles();
   
+  const guitarSummary = (
+    <div>
+      {guitar.description
+        ? <div>
+            <Typography variant='subtitle2' gutterBottom>
+              {GuitarUtils.summarizeGuitar(guitar)}
+            </Typography>
+            <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+              {guitar.description}
+            </Typography>
+          </div>
+        : <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+            {GuitarUtils.summarizeGuitar(guitar)}
+          </Typography>
+      }
+    </div>
+  );
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3}>
@@ -63,10 +84,10 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
             {guitar.name}
           </Typography>
 
+          {guitarSummary}
+
           <div>
             {[
-              GuitarUtils.summarizeGuitar(guitar),
-              guitar.description,
               `Make: ${guitar.make}`,
               `Model: ${guitar.model}`,
               guitar.series
