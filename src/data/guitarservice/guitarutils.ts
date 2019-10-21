@@ -960,8 +960,8 @@ export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
 
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
-        + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets, ${guitar.scale} scale length `
-        + `${guitar.tremolo ? 'and tremolo' : ''}`;
+        + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
+        + `${guitar.tremolo ? ', and tremolo' : ''}`;
 }
 
 function getColorMapping(color: string): string {

@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
     },
+    summary: {
+      paddingBottom: theme.spacing(2)
+    },
     jsonExpander: {
       marginLeft: 'auto',
       marginRight: 0
@@ -32,8 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      width: 400
+      textOverflow: 'ellipsis'
     }
   })
 );
@@ -51,9 +53,14 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
             {pickup.name}
           </Typography>
 
+          {pickup.description
+            ? <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+                {pickup.description}
+              </Typography>
+            : null}
+
           <div>
             {[
-              pickup.description,
               `Position: ${pickup.position}`,
               `Type: ${pickup.type}`,
               pickup.output 
@@ -80,7 +87,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.jsonExpander} zeroMinWidth>
+        <Grid item className={classes.jsonExpander} xs zeroMinWidth>
           <ExpansionPanel>
             <ExpansionPanelSummary id='pickupPanelJson-header' aria-controls='pickupPanelJson-content'>
               <Typography className={classes.heading}>Pickup JSON Data</Typography>

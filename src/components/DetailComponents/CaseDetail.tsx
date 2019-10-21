@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
     },
+    summary: {
+      paddingBottom: theme.spacing(2)
+    },
     jsonExpander: {
       marginLeft: 'auto',
       marginRight: 0
@@ -32,8 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      width: 400
+      textOverflow: 'ellipsis'
     }
   })
 );
@@ -51,9 +53,14 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
             {guitarCase.name}
           </Typography>
 
+          {guitarCase.description
+            ? <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+                {guitarCase.description}
+              </Typography>
+            : null}
+
           <div>
             {[
-              guitarCase.description,
               `Case Style: ${guitarCase.caseStyle}`,
               guitarCase.purchaseDate 
                 ? `Purchased ${guitarCase.purchaseDate}`
@@ -74,7 +81,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.jsonExpander} zeroMinWidth>
+        <Grid item className={classes.jsonExpander} xs zeroMinWidth>
           <ExpansionPanel>
             <ExpansionPanelSummary id='casePanelJson-header' aria-controls='casePanelJson-content'>
               <Typography className={classes.heading}>Case JSON Data</Typography>
