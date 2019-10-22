@@ -11,6 +11,7 @@ import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { IsMobile } from '../viewutils';
 
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
@@ -78,7 +79,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
   return (
     <div>
-      <Grid container className={classes.root} spacing={3}>
+      <Grid container className={classes.root} spacing={3} direction={IsMobile() ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs={12} sm>
           <Typography variant='h4' gutterBottom>
             {guitar.name}

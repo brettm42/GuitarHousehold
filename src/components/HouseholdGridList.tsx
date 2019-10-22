@@ -15,6 +15,7 @@ type HouseholdGridListProps = {
 }
 
 const imgHeight = 340;
+const imgMobileHeight = 240;
 const mobileImgBackgroundHeight = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,11 +54,13 @@ const useStyles = makeStyles((theme: Theme) =>
       background: 'lightgrey'
     },
     mobileImg: {
-      maxHeight: 'auto',
-      maxWidth: '95%',
+      height: imgMobileHeight,
+      width: 'auto',
       display: 'block',
       overflow: 'hidden',
-      margin: '-20% auto'
+      marginTop: '-20px',
+      marginLeft: 'auto',
+      marginRight: 'auto'
     }
   })
 );
