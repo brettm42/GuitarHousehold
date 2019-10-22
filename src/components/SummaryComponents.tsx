@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import List from '../components/List';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { IsMobile } from './viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/guitarutils';
@@ -43,12 +44,18 @@ const useStyles = makeStyles((theme: Theme) =>
     timeline: {},
     randomPick: {
       height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
+      marginLeft: 'auto',
+      padding: theme.spacing(2, 0, 2, 4)
+    },
+    randomPickMobile: {
+      height: '100%',
+      width: 'auto',
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
     randomPickImg: {
-      maxHeight: 300
+      height: 300
     },
     randomPickCaption: {
       padding: theme.spacing(2, 0, 2, 0)
@@ -195,6 +202,18 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 }) => {
   const classes = useStyles();
 
+  function buildDesktopGuitarGrid(guitar: Guitar): React.ReactElement {
+    return (
+      <div>
+        {buildGuitarGrid(guitar)}
+
+        <Typography variant='subtitle2' gutterBottom>
+          {GuitarUtils.summarizeGuitar(guitar)}
+        </Typography>
+      </div>
+    );
+  }
+
   function buildGuitarGrid(guitar: Guitar): React.ReactElement {
     return (
       <div>
@@ -209,20 +228,27 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
           {guitar.name}
         </Typography>
       </div>
-  );
-}
+    );
+  }
 
   return (
-    <div>
-      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
-        Pick of the Day!
-      </Typography>
+    IsMobile()
+      ? <div className={classes.randomPickMobile}>
+          <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
+            Pick of the Day!
+          </Typography>
 
-      <div className={classes.randomPick}>
-        {buildGuitarGrid(
-          GuitarUtils.randomPick(guitars))}      
-      </div>
-    </div>
+          {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
+        </div>
+      : <div>
+          <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
+            Pick of the Day!
+          </Typography>
+
+          <div className={classes.randomPick}>
+            {buildDesktopGuitarGrid(GuitarUtils.randomPick(guitars))}
+          </div>
+        </div>
   );
 };
 
