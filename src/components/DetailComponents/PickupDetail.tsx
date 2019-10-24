@@ -63,7 +63,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
           <div>
             {[
               `Position: ${pickup.position}`,
-              `Type: ${pickup.type}`,
+              `Type: ${pickup.type}${pickup.size ? ' (' + pickup.size + ' size)' : ''}`,
               pickup.output 
                 ? `Output: ${pickup.output}`
                 : null,

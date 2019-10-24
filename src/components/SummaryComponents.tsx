@@ -189,6 +189,7 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Pickups:'}
       contents={[
+        [ 'Most Common Size', GuitarUtils.mostCommonPickupSize(guitars) ],
         [ 'Average Output', GuitarUtils.averagePickup(guitars) ],
         [ 'Highest Output', GuitarUtils.highestPickup(guitars) ],
         [ 'Lowest Output', GuitarUtils.lowestPickup(guitars) ]

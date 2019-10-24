@@ -58,6 +58,18 @@ const pickupTypes = [
     'Active Humbucker'
 ] as const;
 
+export type PickupSize = typeof pickupSizes[number];
+const pickupSizes = [
+    'Humbucker',
+    'Soapbar',
+    'Dog-ear',
+    'Jazzmaster',
+    'Wide-range Humbucker',
+    'Stratocaster',
+    'Mini-humbucker',
+    'Telecaster Bridge'
+] as const;
+
 export type CaseStyle = typeof caseStyles[number];
 const caseStyles = [
     'Flat',

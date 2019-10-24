@@ -21,6 +21,7 @@
                 "purchaseStore": "",
                 "position": "Neck",
                 "type": "Humbucker",
+                "size": "Humbucker",
                 "output": ""
             },
             {
@@ -31,6 +32,7 @@
                 "purchaseStore": "",
                 "position": "Bridge",
                 "type": "Humbucker",
+                "size": "Telecaster Bridge",
                 "output": ""
             }
         ],

@@ -27,6 +27,7 @@
                 "purchasePrice": "",
                 "position": "Neck",
                 "type": "Jazzmaster",
+                "size": "Jazzmaster",
                 "output": "5.0K"
             },
             {
@@ -38,6 +39,7 @@
                 "purchasePrice": "",
                 "position": "Bridge",
                 "type": "Jazzmaster",
+                "size": "Jazzmaster",
                 "output": "6.1K"
             }
         ],
