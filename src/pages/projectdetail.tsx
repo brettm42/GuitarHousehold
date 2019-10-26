@@ -1,10 +1,11 @@
 import * as React from 'react';
 
+import Typography from '@material-ui/core/Typography';
+
 import Layout from '../components/Layout';
 import ProjectDetail from '../components/DetailComponents/ProjectDetail';
 
 import { NextPageContext } from 'next';
-import { Typography } from '@material-ui/core';
 import { buildPageTitle } from '../components/viewutils';
 
 import { Project } from '../interfaces/models/project';

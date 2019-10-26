@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import List from '../components/List';
+import DataList from '../components/ListComponents/DataList';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IsMobile } from './viewutils';
@@ -127,7 +127,7 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         Guitars Missing Cases:
       </Typography>
-      <List items={guitars.filter((i: Guitar) => !GuitarUtils.hasCase(i))} />
+      <DataList items={guitars.filter((i: Guitar) => !GuitarUtils.hasCase(i))} />
     </div>
   );
 };

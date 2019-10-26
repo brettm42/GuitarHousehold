@@ -1,10 +1,11 @@
 import * as React from 'react'; 
 
+import Typography from '@material-ui/core/Typography';
+
 import Layout from '../components/Layout';
 import GuitarDetail from '../components/DetailComponents/GuitarDetail';
 
 import { NextPageContext } from 'next';
-import { Typography } from '@material-ui/core';
 import { buildPageTitle } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';

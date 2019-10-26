@@ -1,6 +1,7 @@
-import Layout from '../components/Layout';
-import List from '../components/List';
 import Typography from '@material-ui/core/Typography';
+
+import Layout from '../components/Layout';
+import DataList from '../components/ListComponents/DataList';
 
 import { NextPage } from 'next';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -40,7 +41,7 @@ const Projects: NextPage<Props> = ({ items, pathname }) => {
         You are currently on: {pathname}
       </Typography>
 
-      <List items={items} />
+      <DataList items={items} />
     </Layout>
   );
 };
