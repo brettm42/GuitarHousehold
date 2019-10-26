@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import * as Constants from '../infrastructure/constants';
 
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 import HouseholdGridList from '../components/HouseholdGridList';
 import Layout from '../components/Layout';
