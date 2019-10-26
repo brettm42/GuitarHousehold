@@ -15,3 +15,29 @@ export function IsMobile(): boolean {
 export function buildPageTitle(page: string): string {
     return `${Constants.SiteTitle}| ${page}`;
 }
+
+export function tableSort<T>(array: T[], compare: (a: T, b: T) => number) {
+    const stableThis = array.map((i, idx) => [i, idx] as [T, number]);
+    stableThis.sort((a, b) => {
+        const order = compare(a[0], b[0]);
+        if (order !== 0) {
+            return order;
+        }
+
+        return a[1] - b[1];
+    });
+
+    return stableThis.map(item => item[0]);
+}
+
+export function isDescending<T>(a: T, b: T, orderBy: keyof T) {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
+
+    return 0;
+}

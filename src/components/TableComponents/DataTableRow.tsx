@@ -33,19 +33,19 @@ const DataTableRow: React.FunctionComponent<Props> = ({ item }) => {
   return (
     <TableRow className={classes.root} key={item.id}>
       {/* Column 1 */}
-      <TableCell align='center' component='th' scope='row' key={item.id + 0}>
+      <TableCell align='center' component='th' scope='row'>
         <Typography>
           {item.id}
         </Typography>
       </TableCell>
 
       {/* Column 2 */}
-      <TableCell align='center' aria-hidden='true' key={item.id + 1}>
+      <TableCell align='center' aria-hidden='true'>
         {' — '}
       </TableCell>
 
       {/* Column 3 */}
-      <TableCell key={item.id + 2}>
+      <TableCell>
         <Link href={`/detail?id=${item.id}`}>
           <a>
             <Typography>
