@@ -10,7 +10,7 @@ import Layout from '../components/Layout';
 import Summary from '../components/Summary';
 
 import { NextPage } from 'next';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { IsMobile } from '../viewutils';
 
 import { Guitar } from '../../interfaces/models/guitar';

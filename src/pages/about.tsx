@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Layout from '../components/Layout';
 
 import { NextPage } from 'next';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle } from '../components/viewutils';
 
 type Props = {

@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import DataList from '../components/ListComponents/DataList';
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { IsMobile } from './viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
