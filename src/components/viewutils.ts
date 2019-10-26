@@ -16,8 +16,12 @@ export function buildPageTitle(page: string): string {
     return `${Constants.SiteTitle}| ${page}`;
 }
 
-export function tableSort<T>(array: T[], compare: (a: T, b: T) => number) {
-    const stableThis = array.map((i, idx) => [i, idx] as [T, number]);
+type Complete<T> = {
+    [P in keyof Required<T>]: Pick<T, P> extends Required<Pick<T, P>> ? T[P] : (T[P] | undefined);
+}
+
+export function tableSort<T>(array: T[], compare: (a: Complete<T>, b: Complete<T>) => number) {
+    const stableThis = array.map((i, idx) => [i, idx] as [Complete<T>, number]);
     stableThis.sort((a, b) => {
         const order = compare(a[0], b[0]);
         if (order !== 0) {

@@ -8,12 +8,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { IsMobile } from '../viewutils';
 
 import { Case } from '../../interfaces/models/case';
 
 type CaseDetailProps = {
   item: Case
+  isMobile: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,13 +42,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
-  item: guitarCase,
+  item: guitarCase, isMobile
 }) => {
   const classes = useStyles();
 
   return (
     <div>
-      <Grid container className={classes.root} spacing={3} direction={IsMobile() ? 'column' : 'row'}>
+      <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs sm={6}>
           <Typography variant='h6' gutterBottom>
             {guitarCase.name}

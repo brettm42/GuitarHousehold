@@ -31,20 +31,17 @@ const DataTableRow: React.FunctionComponent<Props> = ({ item }) => {
   const classes = useStyles();
   
   return (
-    <TableRow className={classes.root} key={item.id}>
-      {/* Column 1 */}
+    <TableRow className={classes.root} key={item.id} tabIndex={-1}>
       <TableCell align='center' component='th' scope='row'>
         <Typography>
           {item.id}
         </Typography>
       </TableCell>
 
-      {/* Column 2 */}
       <TableCell align='center' aria-hidden='true'>
         {' — '}
       </TableCell>
 
-      {/* Column 3 */}
       <TableCell>
         <Link href={`/detail?id=${item.id}`}>
           <a>

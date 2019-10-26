@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import { IsMobile } from './viewutils';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import {
@@ -26,6 +25,7 @@ import { Guitar } from '../interfaces/models/guitar';
 
 type SummaryProps = {
   data: Guitar[]
+  isMobile: boolean
 }
 
 const gridColors = [
@@ -94,18 +94,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Summary: React.FunctionComponent<SummaryProps> = ({
-  data: guitars
+  data: guitars, isMobile
 }) => {
   const classes = useStyles();
 
-  const mostCommonComponent = (<MostCommonComponent data={guitars} />);
-  const outliersComponent = (<OutliersComponent data={guitars} />);
-  const randomPickComponent = (<RandomPickComponent data={guitars} />);
-  const breakdownComponent = (<BreakdownComponent data={guitars} />);
-  const valuesComponent = (<ValuesComponent data={guitars} />);
-  const missingCasesComponent = (<MissingCasesComponent data={guitars} />);
-  const pickupsComponent = (<PickupsComponent data={guitars} />);
-  const timelineComponent = (<TimelineComponent data={guitars} />);
+  const mostCommonComponent = (<MostCommonComponent data={guitars} isMobile={isMobile} />);
+  const outliersComponent = (<OutliersComponent data={guitars} isMobile={isMobile} />);
+  const randomPickComponent = (<RandomPickComponent data={guitars} isMobile={isMobile} />);
+  const breakdownComponent = (<BreakdownComponent data={guitars} isMobile={isMobile} />);
+  const valuesComponent = (<ValuesComponent data={guitars} isMobile={isMobile} />);
+  const missingCasesComponent = (<MissingCasesComponent data={guitars} isMobile={isMobile} />);
+  const pickupsComponent = (<PickupsComponent data={guitars} isMobile={isMobile} />);
+  const timelineComponent = (<TimelineComponent data={guitars} isMobile={isMobile} />);
 
   const desktopGrid = (
     <Grid container className={classes.root} justify='flex-start' spacing={2}>
@@ -279,9 +279,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
 
   return (
     <div>
-      {IsMobile() 
-        ? mobileGrid
-        : desktopGrid}
+      {isMobile ? mobileGrid : desktopGrid}
     </div>
   );
 };

@@ -8,19 +8,19 @@ import Typography from '@material-ui/core/Typography';
 import DataList from '../components/ListComponents/DataList';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { IsMobile } from './viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/guitarutils';
 
 type SummaryComponentProps = {
-  title: string,
-  contents: [string, string][],
+  title: string
+  contents: [string, string][]
   style: string
 }
 
 type SummaryComponentsProps = {
   data: Guitar[]
+  isMobile: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -199,7 +199,7 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 };
 
 const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
-  data: guitars
+  data: guitars, isMobile
 }) => {
   const classes = useStyles();
 
@@ -233,19 +233,17 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   }
 
   return (
-    IsMobile()
+    isMobile
       ? <div className={classes.randomPickMobile}>
           <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
             Pick of the Day!
           </Typography>
-
           {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
         </div>
       : <div>
           <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
             Pick of the Day!
           </Typography>
-
           <div className={classes.randomPick}>
             {buildDesktopGuitarGrid(GuitarUtils.randomPick(guitars))}
           </div>

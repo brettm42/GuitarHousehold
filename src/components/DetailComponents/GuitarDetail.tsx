@@ -11,13 +11,13 @@ import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { IsMobile } from '../viewutils';
 
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
 type GuitarDetailProps = {
   item: Guitar
+  isMobile: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
-  item: guitar,
+  item: guitar, isMobile
 }) => {
   const classes = useStyles();
   
@@ -79,7 +79,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
   return (
     <div>
-      <Grid container className={classes.root} spacing={3} direction={IsMobile() ? 'column' : 'row'}>
+      <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs={12} sm>
           <Typography variant='h4' gutterBottom>
             {guitar.name}
@@ -142,7 +142,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               <ul>
                 {guitar.pickups.map(i => 
                   <li key={i.id}>
-                    <PickupDetail item={i} />
+                    <PickupDetail item={i} isMobile={isMobile} />
                   </li>)}
               </ul>
             </div>
@@ -153,7 +153,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               <ul>
                 {guitar.case 
                   ? <li key={guitar.case.id}>
-                      <CaseDetail item={guitar.case} />
+                      <CaseDetail item={guitar.case} isMobile={isMobile} />
                     </li> 
                   : null}
               </ul>

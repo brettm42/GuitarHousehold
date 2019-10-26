@@ -6,12 +6,12 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { IsMobile } from './viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 
 type HouseholdGridListProps = {
   data: Guitar[]
+  isMobile: boolean
 }
 
 const imgHeight = 340;
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
-  data: guitars
+  data: guitars, isMobile
 }) => {
   const classes = useStyles();
 
@@ -118,7 +118,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
     </div>
   );
 
-  return IsMobile() ? mobileGridList : desktopGridList;
+  return isMobile ? mobileGridList : desktopGridList;
 };
 
 export default HouseholdGridList;

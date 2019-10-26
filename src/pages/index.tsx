@@ -11,16 +11,17 @@ import Summary from '../components/Summary';
 
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { buildPageTitle } from '../components/viewutils';
+import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { Project } from '../interfaces/models/project';
 import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarservice';
 
 type Props = {
-  guitars: Guitar[],
-  projects: Project[],
+  guitars: Guitar[]
+  projects: Project[]
   pathname: string
+  isMobile: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IndexPage: NextPage<Props> = ({ guitars, projects, pathname }) => {
+const IndexPage: NextPage<Props> = ({ guitars, projects, pathname, isMobile }) => {
   const data = [...guitars, ...projects];
   const classes = useStyles();
 
@@ -49,13 +50,13 @@ const IndexPage: NextPage<Props> = ({ guitars, projects, pathname }) => {
       </div>
 
       <div>
-        <Summary data={data} />
+        <Summary data={data} isMobile={isMobile} />
       </div>
 
       <Divider className={classes.divider} />
 
       <div>
-        <HouseholdGridList data={data} />
+        <HouseholdGridList data={data} isMobile={isMobile} />
       </div>
     </Layout>
   );
@@ -64,8 +65,9 @@ const IndexPage: NextPage<Props> = ({ guitars, projects, pathname }) => {
 IndexPage.getInitialProps = async ({ pathname }) => {
   const guitars: Guitar[] = await findAllGuitars();
   const projects: Project[] = await findAllProjects();
+  const isMobile = IsMobile();
 
-  return { guitars, projects, pathname };
+  return { guitars, projects, pathname, isMobile };
 };
 
 export default IndexPage;

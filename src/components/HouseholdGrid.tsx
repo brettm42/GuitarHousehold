@@ -12,6 +12,7 @@ import { Guitar } from '../interfaces/models/guitar';
 
 type HouseholdGridProps = {
   data: Guitar[]
+  isMobile: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,13 +47,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
-  data: guitars
+  data: guitars, isMobile
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container spacing={isMobile ? 2 : 3}>
         {guitars.map(guitar => (
           <Grid item xs key={guitar.id} zeroMinWidth>
             <Paper className={classes.paper}>

@@ -27,9 +27,11 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import { FooterMessage } from '../infrastructure/constants';
+
 type Props = {
-  children: React.ReactElement | React.ReactElement[] | undefined,
-  title?: string,
+  children: React.ReactElement | React.ReactElement[] | undefined
+  title?: string
   pathname: string
 }
 
@@ -64,6 +66,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     footer: {
       padding: theme.spacing(2)
+    },
+    footerMessage: {
+      paddingLeft: theme.spacing(2)
     },
     scrollToTop: {
       position: 'fixed',
@@ -221,9 +226,11 @@ export default function Layout(props: Props): React.ReactElement {
         <div className={classes.footer}>
           <Divider className={classes.divider} />
           
-          <Typography variant='body2' gutterBottom>
-            I'm here to stay (Footer)
-          </Typography>
+          <div className={classes.footerMessage}>
+            <Typography variant='caption' gutterBottom>
+              {FooterMessage}
+            </Typography>
+          </div>
           
           <ScrollToTopComponent {...props}>
             <Fab className={classes.scrollToTop} color='secondary' size='small' aria-label='scroll to top'>

@@ -33,7 +33,7 @@ const AboutPage: NextPage<Props> = ({pathname}) => {
   return (
     <Layout title={buildPageTitle('About')} pathname={pathname}>
       <div className={classes.title}>
-        <Typography variant='h3' gutterBottom>
+        <Typography variant='h4' gutterBottom>
           About
         </Typography>
       </div>
