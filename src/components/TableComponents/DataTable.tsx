@@ -36,7 +36,7 @@ export default function DataTable(props: Props) {
         <TableHead>
           <TableRow>
             <TableCell align='center'>id</TableCell>
-            <TableCell />
+            <TableCell aria-hidden='true' />
             <TableCell>Guitar</TableCell>
           </TableRow>
         </TableHead>

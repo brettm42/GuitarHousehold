@@ -40,7 +40,7 @@ const DataTableRow: React.FunctionComponent<Props> = ({ item }) => {
       </TableCell>
 
       {/* Column 2 */}
-      <TableCell align='center'>
+      <TableCell align='center' aria-hidden='true'>
         {' - '}
       </TableCell>
 
