@@ -21,12 +21,8 @@ export function isProject(guitar: any): guitar is Project {
 
 export function isAcoustic(guitar: Guitar): boolean {
     const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
-    const pickupNumber = 
-        guitar.pickups
-            ? guitar.pickups.length
-            : 0;
 
-    return acousticStyle.includes(guitar.bodyStyle) && pickupNumber < 2;
+    return acousticStyle.includes(guitar.bodyStyle) && getPickupCount(guitar) < 2;
 }
 
 export function isElectric(guitar: Guitar): boolean {
@@ -45,7 +41,7 @@ export function hasPickups(guitar: Guitar): boolean {
         : false;
 }
 
-export function hasPurchasePrice(guitar: Guitar | Project): boolean {
+export function hasPurchasePrice(guitar: Guitar): boolean {
     if (guitar.purchasePrice) {
         return true;
     } 
@@ -57,6 +53,18 @@ export function hasPurchasePrice(guitar: Guitar | Project): boolean {
     }
 
     return false;
+}
+
+export function getPickupCount(guitar: Guitar): number {
+    if (!hasPickups(guitar)) {
+        return 0;       
+    }
+
+    if (guitar.pickups) {
+        return guitar.pickups.length;
+    }
+
+    return 0;
 }
 
 export function mostPickups(guitars: ReadonlyArray<Guitar>): string {
@@ -75,13 +83,13 @@ export function mostPickups(guitars: ReadonlyArray<Guitar>): string {
             continue;
         }
 
-        if ((max.pickups || []).length < guitar.pickups.length) {
+        if (getPickupCount(max) < getPickupCount(guitar)) {
             max = guitar;
         }
     }
 
     return max 
-        ? `${max.name} (${max.pickups ? max.pickups.length : 'no'} pickups)`
+        ? `${max.name} (${getPickupCount(max)} pickups)`
         : defaultString;
 }
 
@@ -895,7 +903,7 @@ export function getGuitarCost(guitar: Guitar | Project): number {
         total += Number.parseFloat(guitar.purchasePrice);
     }
 
-    if (guitar.pickups && guitar.pickups.length > 0) {
+    if (guitar.pickups && getPickupCount(guitar) > 0) {
         for (const pickup of guitar.pickups) {
             if (pickup.purchasePrice) {
                 total += Number.parseFloat(pickup.purchasePrice);
@@ -967,7 +975,7 @@ export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
 
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
-        + `${guitar.pickups ? guitar.pickups.length : 'no'} pickups, ${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
+        + `${guitar.pickups ? getPickupCount(guitar) : 'no'} pickups, ${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
         + `${guitar.tremolo ? ', and tremolo' : ''}`;
 }
 
