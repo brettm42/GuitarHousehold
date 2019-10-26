@@ -2,10 +2,11 @@ import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
 import DataList from '../components/ListComponents/DataList';
+import DataTable from '../components/TableComponents/DataTable';
 
 import { NextPage } from 'next';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { buildPageTitle } from '../components/viewutils';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Project } from '../interfaces/models/project';
 import { findAllProjects } from '../data/guitarservice/guitarservice';
@@ -41,7 +42,9 @@ const Projects: NextPage<Props> = ({ items, pathname }) => {
         You are currently on: {pathname}
       </Typography>
 
-      <DataList items={items} />
+      {IsMobile() 
+        ? <DataList items={items} /> 
+        : <DataTable items={items} />}
     </Layout>
   );
 };
