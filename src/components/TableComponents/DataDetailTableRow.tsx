@@ -41,26 +41,38 @@ const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, guitar })
       </TableCell>
 
       <TableCell>
-        <Typography>
+        <Typography variant='body2'>
           {guitar.bodyStyle}
         </Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>
+        <Typography variant='body2'>
           {guitar.make}
         </Typography>
       </TableCell>
 
       <TableCell>
-        <Typography>
+        <Typography variant='body2'>
           {guitar.color}
         </Typography>
       </TableCell>
       
       <TableCell>
-        <Typography>
+        <Typography variant='body2'>
           {getPickupCount(guitar)}
+        </Typography>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant='body2'>
+          {guitar.strings}
+        </Typography>
+      </TableCell>
+
+      <TableCell>
+        <Typography variant='body2'>
+          {guitar.purchaseDate}
         </Typography>
       </TableCell>
     </TableRow>

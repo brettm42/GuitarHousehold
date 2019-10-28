@@ -23,11 +23,13 @@ interface tableHeadCell {
 
 const tableHeadCells: tableHeadCell[] = [
   { id: 'id', label: 'id' },
-  { id: 'name', label: 'Guitar Name' },
-  { id: 'bodyStyle', label: 'Guitar Type' },
-  { id: 'make', label: 'Guitar Make' },
-  { id: 'color', label: 'Guitar Color' },
-  { id: 'pickups', label: 'Guitar Pickups' }
+  { id: 'name', label: 'Name' },
+  { id: 'bodyStyle', label: 'Type' },
+  { id: 'make', label: 'Make' },
+  { id: 'color', label: 'Color' },
+  { id: 'pickups', label: 'Pickups' },
+  { id: 'strings', label: 'Strings' },
+  { id: 'purchaseDate', label: 'Purchased' }
 ]
 
 const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, onRequestSort, order, orderBy }) => {
