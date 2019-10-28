@@ -48,8 +48,8 @@ const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, onReques
               </Typography>
               {orderBy === cell.id
                 ? (<span className={classes.hidden}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </span>)
+                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                   </span>)
                 : null}
             </TableSortLabel>
           </TableCell>

@@ -78,20 +78,18 @@ export default function DataDetailTable(props: Props) {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <div className={classes.tableWrapper}>
-          <Table
-            className={classes.table}
-            aria-label='guitar detailed data table'>
-              <DataDetailTableHead
-                classes={classes}
-                order={order}
-                orderBy={orderBy}
-                onRequestSort={handleRequestSort} />
-              <TableBody>
-                {tableSort(guitars, getTableSorting(order, orderBy))
-                  .map(guitar => 
-                    <DataDetailTableRow classes={classes} guitar={guitar} />
-                  )}
-              </TableBody>
+          <Table className={classes.table} aria-label='guitar detailed data table'>
+            <DataDetailTableHead
+              classes={classes}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort} />
+            <TableBody>
+              {tableSort(guitars, getTableSorting(order, orderBy))
+                .map(guitar => 
+                  <DataDetailTableRow classes={classes} guitar={guitar} />)
+              }
+            </TableBody>
           </Table>
         </div>
       </Paper>

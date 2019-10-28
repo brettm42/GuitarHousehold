@@ -83,7 +83,9 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                     : <div className={classes.imgPlaceholder}>🎸</div>}
                   <GridListTileBar
                     title={guitar.name}
-                    subtitle={<span>{`${guitar.make} ${guitar.bodyStyle}`}</span>}
+                    subtitle={
+                      <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
+                    }
                   />
                 </div>
               </a>
@@ -107,7 +109,9 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                     : <div className={classes.imgPlaceholder}>🎸</div>}
                   <GridListTileBar
                     title={guitar.name}
-                    subtitle={<span>{`${guitar.make} ${guitar.bodyStyle}`}</span>}
+                    subtitle={
+                      <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
+                    }
                   />
                 </div>
               </a>

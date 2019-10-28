@@ -33,13 +33,13 @@ const DataTableRow: React.FunctionComponent<Props> = ({ item }) => {
   return (
     <TableRow className={classes.root} key={item.id} tabIndex={-1}>
       <TableCell align='center' component='th' scope='row'>
-        <Typography>
+        <Typography variant='body2'>
           {item.id}
         </Typography>
       </TableCell>
 
       <TableCell align='center' aria-hidden='true'>
-        {' — '}
+        {' • '}
       </TableCell>
 
       <TableCell>

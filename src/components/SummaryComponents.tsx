@@ -75,7 +75,6 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {title}
       </Typography>
-
       <Grid container>
         {contents.map((line, idx) => (
           <Grid item className={classes.detail} key={idx} zeroMinWidth>
@@ -85,8 +84,8 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
             <Typography gutterBottom>
               {line[1]}
             </Typography>
-          </Grid>
-        ))}
+          </Grid>))
+        }
       </Grid>
     </div>
   );
@@ -207,7 +206,6 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     return (
       <div>
         {buildGuitarGrid(guitar)}
-
         <Typography variant='subtitle2' gutterBottom>
           {GuitarUtils.summarizeGuitar(guitar)}
         </Typography>

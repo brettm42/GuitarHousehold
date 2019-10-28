@@ -141,7 +141,7 @@ export default function Layout(props: Props): React.ReactElement {
   
     return (
       <Zoom in={trigger}>
-        <div onClick={handleClick} role='presentation' className={classes.scrollToTop}>
+        <div className={classes.scrollToTop} onClick={handleClick} role='presentation'>
           {children}
         </div>
       </Zoom>
@@ -151,9 +151,9 @@ export default function Layout(props: Props): React.ReactElement {
   const drawer = () => {
     return (
       <div className={classes.list}
-           role='presentation'
-           onClick={toggleDrawer(true)}
-           onKeyDown={toggleDrawer(true)}
+        role='presentation'
+        onClick={toggleDrawer(true)}
+        onKeyDown={toggleDrawer(true)}
       >
         <List>
           {['Home', 'Guitars', 'Projects', 'About']
@@ -193,10 +193,11 @@ export default function Layout(props: Props): React.ReactElement {
         <AppBar position='absolute' className={classes.appBar}>
           <Toolbar>
             <IconButton className={classes.menuButton} 
-                        edge='start' 
-                        color='inherit' 
-                        aria-label='menu' 
-                        onClick={toggleDrawer(true)}>
+              edge='start' 
+              color='inherit' 
+              aria-label='menu' 
+              onClick={toggleDrawer(true)}
+            >
               <MenuIcon />
             </IconButton>
             <div className={classes.title}>
