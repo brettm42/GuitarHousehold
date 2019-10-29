@@ -1,4 +1,9 @@
-import { PickupPosition, PickupSize, PickupType } from './components';
+import { 
+    PickupMount, 
+    PickupPosition, 
+    PickupSize, 
+    PickupType 
+} from './components';
 import { RetailItem } from '../entry';
 
 export interface Pickup extends RetailItem {
@@ -6,4 +11,5 @@ export interface Pickup extends RetailItem {
     readonly size?: PickupSize;
     readonly position?: PickupPosition;
     readonly output?: string;
+    readonly mount?: PickupMount;
 }

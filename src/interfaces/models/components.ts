@@ -22,6 +22,7 @@ const bodyStyles = [
     'Semi-Hollowbody',
     'Starcaster',
     'Flattop',
+    'Resonator',
     'Unique'
 ] as const;
 
@@ -42,6 +43,13 @@ const pickupPositions = [
     'Neck',
     'Middle',
     'Bridge'
+] as const;
+
+export type PickupMount = typeof pickupMounts[number];
+const pickupMounts = [
+    'Neck',
+    'Pickguard',
+    'Top'
 ] as const;
 
 export type PickupType = typeof pickupTypes[number];

@@ -22,7 +22,8 @@
                 "position": "Neck",
                 "type": "Humbucker",
                 "size": "Humbucker",
-                "output": ""
+                "output": "",
+                "mount": "Pickguard"
             },
             {
                 "id": 10011,

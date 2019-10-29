@@ -1,6 +1,11 @@
 import { Case } from './case';
 import { Pickup } from './pickup';
-import { BodyStyle, SerialNumberLocation, StringType, TremoloType } from './components';
+import { 
+    BodyStyle, 
+    SerialNumberLocation,
+    StringType,
+    TremoloType
+} from './components';
 import { RetailItem } from '../entry';
 
 export interface Guitar extends RetailItem {

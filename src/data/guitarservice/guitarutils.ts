@@ -22,7 +22,18 @@ export function isProject(guitar: any): guitar is Project {
 export function isAcoustic(guitar: Guitar): boolean {
     const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
 
-    return acousticStyle.includes(guitar.bodyStyle) && getPickupCount(guitar) < 2;
+    if (acousticStyle.includes(guitar.bodyStyle)) {
+        switch (getPickupCount(guitar)) {
+            case 0:
+                return true;
+            case 1:
+                return (guitar.pickups || [])[0].mount === 'Neck';
+            default:
+                return false;
+        }
+    }
+
+    return false;
 }
 
 export function isElectric(guitar: Guitar): boolean {
