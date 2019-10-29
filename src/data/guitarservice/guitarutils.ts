@@ -973,6 +973,41 @@ export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
     return `${years[date.getFullYear()]} in ${date.getFullYear()}`;
 }
 
+function casePerYear(guitars: ReadonlyArray<Guitar>): YearMap {
+    if (guitars.length < 1) {
+        return {};
+    }
+
+    const years: YearMap = {};
+    for (const guitar of guitars) {
+        if (guitar.case && hasCase(guitar) && guitar.case.purchaseDate) {
+            const date = new Date(Date.parse(guitar.case.purchaseDate));
+            console.log(date);
+            const total = years[date.getFullYear()] || 0;
+
+            years[date.getFullYear()] = 1 + total;
+        }
+    }
+
+    return years;
+}
+
+export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
+    const years = casePerYear(guitars);
+    
+    let maxNumber = 0;
+    let maxYear = 0;
+    for (const key of Object.keys(years)) {
+        const year = Number.parseInt(key);
+        if (years[year] > maxNumber) {
+            maxNumber = years[year];
+            maxYear = year;
+        }
+    }
+
+    return `${maxNumber} in ${maxYear}`;
+}
+
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
         + `${guitar.pickups ? getPickupCount(guitar) : 'no'} pickups, ${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
