@@ -15,7 +15,7 @@ type HouseholdGridListProps = {
 }
 
 const imgHeight = 340;
-const imgMobileHeight = 240;
+const mobileImgHeight = 240;
 const mobileImgBackgroundHeight = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,14 +54,21 @@ const useStyles = makeStyles((theme: Theme) =>
       background: 'lightgrey'
     },
     mobileImg: {
-      height: imgMobileHeight,
+      height: mobileImgHeight,
       width: 'auto',
       display: 'block',
       overflow: 'hidden',
       marginTop: '-20px',
       marginLeft: 'auto',
       marginRight: 'auto'
-    }
+    },
+    mobileImgPlaceholder: {
+      height: mobileImgHeight,
+      display: 'flex',
+      margin: '0 auto',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
   })
 );
 
@@ -106,7 +113,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
                   {guitar.picture
                     ? <img className={classes.mobileImg} src={guitar.picture} alt={guitar.name} />
-                    : <div className={classes.imgPlaceholder}>🎸</div>}
+                    : <div className={classes.mobileImgPlaceholder}>🎸</div>}
                   <GridListTileBar
                     title={guitar.name}
                     subtitle={
