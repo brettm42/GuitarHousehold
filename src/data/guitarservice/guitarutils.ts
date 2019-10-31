@@ -825,7 +825,7 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
     }
 
     const purchases = 
-        guitars.filter(guitar => hasPurchasePrice(guitar) && isProject(guitar));
+        guitars.filter(guitar => isProject(guitar) && hasPurchasePrice(guitar));
     
     const averagePrice = 
         purchases.reduce((avg, guitar) => avg 
@@ -1019,9 +1019,32 @@ export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function summarizeGuitar(guitar: Guitar): string {
-    return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} guitar with `
-        + `${guitar.pickups ? getPickupCount(guitar) : 'no'} pickups, ${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
+    return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
+        + `guitar with ${summarizePickups(guitar)}, `
+        + `${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
         + `${guitar.tremolo ? ', and tremolo' : ''}`;
+}
+
+export function summarizePickups(guitar: Guitar): string {
+    const pickupCount = getPickupCount(guitar);
+    if (pickupCount < 1) {
+        return 'no pickups';
+    }
+
+    const types = Array<string>();
+    for (const pickup of (guitar.pickups || [])) {
+        if (types.includes(pickup.type)) {
+            continue;
+        }
+
+        types.push(pickup.type);
+    }
+
+    return types.length > 1
+        ? `${pickupCount} pickups - ${types.reduce((str, t) => str += t + ', ', '')}`.slice(0, -2)
+        : `${pickupCount} `
+            + `${types.reduce((str, t) => str += t + '', '')} `
+            + `${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
 
 function getColorMapping(color: string): string {
