@@ -346,6 +346,20 @@ export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
     return `${sunburst} vs. ${otherColor}`;
 }
 
+export function jazzmasterVsOther(guitars: ReadonlyArray<Guitar>): string {
+    let jazzmaster = 0;
+    let otherType = 0;
+    for (const guitar of guitars) {
+        if (guitar.bodyStyle === 'Jazzmaster') {
+            jazzmaster += 1;
+        } else {
+            otherType += 1;
+        }
+    }
+
+    return `${jazzmaster} vs. ${otherType}`;
+}
+
 export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
     let fixed = 0;
     let tremolo = 0;
@@ -380,6 +394,26 @@ export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
     }
 
     return `${humbucker} vs. ${singleCoil}`;
+}
+
+export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
+    let flat = 0;
+    let arched = 0;
+    for (const guitar of guitars) {
+        if (hasCase(guitar) && guitar.case) {
+            if (!guitar.case.caseStyle) {
+                continue;
+            }
+
+            if (guitar.case.caseStyle === 'Flat') {
+                flat += 1;
+            } else if (guitar.case.caseStyle === 'Arched') {
+                arched += 1;
+            }
+        }
+    }
+
+    return `${flat} vs. ${arched}`;
 }
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
