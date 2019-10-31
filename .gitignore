@@ -1,10 +1,13 @@
-
+.next
 .vs
+.vscode
 BlazorPages
 
 src/npm-debug.log
 src/node_modules
 src/.next
+src/.vs
+src/.vscode
 
 src/data/localdb/assets.json
 src/data/localdb/guitars.json
