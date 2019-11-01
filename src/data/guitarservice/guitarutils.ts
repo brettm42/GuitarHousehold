@@ -1052,6 +1052,10 @@ export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
     return `${maxNumber} in ${maxYear}`;
 }
 
+export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
+    return `Household has ${guitars.length} guitars...`;
+}
+
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
         + `guitar with ${summarizePickups(guitar)}, `

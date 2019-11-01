@@ -38,14 +38,16 @@ const gridColors = [
 
 const gridPaperStyle = {
   padding: 1,
-  alignSelf: 'stretch'
+  alignSelf: 'stretch',
+  height: '100%'
 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      paddingTop: theme.spacing(2)
+      alignItems: 'stretch',
+      padding: theme.spacing(2)
     },
     paper0: {
       ...gridPaperStyle,
@@ -108,7 +110,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   const timelineComponent = (<TimelineComponent data={guitars} isMobile={isMobile} />);
 
   const desktopGrid = (
-    <Grid container className={classes.root} justify='flex-start' spacing={2}>
+    <Grid container 
+      className={classes.root}
+      justify='flex-start' 
+      spacing={2}
+    >
       <Grid key={'popular'} item xs={6} sm={4}>
         <Paper className={classes.paper0}>
           {mostCommonComponent}
@@ -153,7 +159,12 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   );
   
   const mobileGrid = (
-    <Grid container className={classes.root} justify='space-between' spacing={2}>
+    <Grid container 
+      className={classes.root} 
+      justify='space-between' 
+      direction='column'
+      spacing={2}
+    >
       <Grid key={'popular'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper0}>
