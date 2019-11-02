@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0, 1, 1, 2)
     },
     detailTitle: {
+      textAlign: 'left',
       padding: theme.spacing(1, 0, 0, 1)
     },
     breakdown: {},
@@ -42,11 +43,13 @@ const useStyles = makeStyles((theme: Theme) =>
     pickups: {},
     values: {},
     timeline: {},
+    randomPickDiv: {
+      textAlign: 'center'
+    },
     randomPick: {
-      width: '50%',
-      height: '100%',
+      display: 'inline-block',
       margin: '0 auto',
-      padding: theme.spacing(2, 0, 2, 0)
+      paddingTop: theme.spacing(1)
     },
     randomPickMobile: {
       height: '100%',
@@ -59,7 +62,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 300
     },
     randomPickCaption: {
-      padding: theme.spacing(2, 0, 2, 0)
+      textAlign: 'left',
+      padding: theme.spacing(4),
+      paddingTop: theme.spacing(2)
     }
   })
 );
@@ -203,17 +208,6 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 }) => {
   const classes = useStyles();
 
-  function buildDesktopGuitarGrid(guitar: Guitar): React.ReactElement {
-    return (
-      <div>
-        {buildGuitarGrid(guitar)}
-        <Typography variant='subtitle2' gutterBottom>
-          {GuitarUtils.summarizeGuitar(guitar)}
-        </Typography>
-      </div>
-    );
-  }
-
   function buildGuitarGrid(guitar: Guitar): React.ReactElement {
     return (
       <div>
@@ -224,29 +218,31 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
               : '🎸'}
           </a>
         </Link>
-        <Typography className={classes.randomPickCaption}>
-          {guitar.name}
-        </Typography>
+        <div className={classes.randomPickCaption}>
+          <Typography variant='subtitle1' gutterBottom>
+            {guitar.name}
+          </Typography>
+          <Typography variant='subtitle2' gutterBottom>
+            {GuitarUtils.summarizeGuitar(guitar)}
+          </Typography>
+        </div>
       </div>
     );
   }
 
   return (
-    isMobile
-      ? <div className={classes.randomPickMobile}>
-          <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
-            Pick of the Day!
-          </Typography>
-          {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
-        </div>
-      : <div>
-          <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
-            Pick of the Day!
-          </Typography>
-          <div className={classes.randomPick}>
-            {buildDesktopGuitarGrid(GuitarUtils.randomPick(guitars))}
+    <div className={classes.randomPickDiv}>
+      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
+        Pick of the Day!
+      </Typography>
+      {isMobile
+        ? <div className={classes.randomPickMobile}>
+            {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
           </div>
-        </div>
+        : <div className={classes.randomPick}>
+            {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
+          </div>}
+    </div>
   );
 };
 
