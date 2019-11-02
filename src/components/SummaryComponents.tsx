@@ -43,9 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
     values: {},
     timeline: {},
     randomPick: {
+      width: '50%',
       height: '100%',
-      marginLeft: 'auto',
-      padding: theme.spacing(2, 0, 2, 4)
+      margin: '0 auto',
+      padding: theme.spacing(2, 0, 2, 0)
     },
     randomPickMobile: {
       height: '100%',
