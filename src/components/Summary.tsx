@@ -126,34 +126,33 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         </Paper>
       </Grid>
       <Grid key={'randomPick'} item xs={6} sm={4}>
-        <Paper className={classes.paper2}>
+        <Paper className={classes.paper3}>
           {randomPickComponent}
         </Paper>
       </Grid>
       <Grid key={'breakdown'} item xs={6} sm={4}>
-        <Paper className={classes.paper3}>
+        <Paper className={classes.paper2}>
           {breakdownComponent}
         </Paper>
       </Grid> 
-      <Grid key={'values'} item xs={6} sm={4}>
-        <Paper className={classes.paper4}>
-          {valuesComponent}
-        </Paper>
-      </Grid>
-      <Grid key={'empty'} item xs={6} sm={4} />
-      <Grid key={'cases'} item xs={6} sm={4}>
-        <Paper className={classes.paper5}>
-          {missingCasesComponent}
-        </Paper>
-      </Grid>
       <Grid key={'pickups'} item xs={6} sm={4}>
-        <Paper className={classes.paper6}>
+        <Paper className={classes.paper4}>
           {pickupsComponent}
         </Paper>
       </Grid>
       <Grid key={'timeline'} item xs={6} sm={4}>
-        <Paper className={classes.paper7}>
+        <Paper className={classes.paper5}>
           {timelineComponent}
+        </Paper>
+      </Grid>
+      <Grid key={'cases'} item xs={6} sm={4}>
+        <Paper className={classes.paper6}>
+          {missingCasesComponent}
+        </Paper>
+      </Grid>
+      <Grid key={'values'} item xs={6} sm={4}>
+        <Paper className={classes.paper8}>
+          {valuesComponent}
         </Paper>
       </Grid>
     </Grid>
