@@ -139,7 +139,8 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         <Paper className={classes.paper4}>
           {valuesComponent}
         </Paper>
-      </Grid>            
+      </Grid>
+      <Grid key={'empty'} item xs={6} sm={4} />
       <Grid key={'cases'} item xs={6} sm={4}>
         <Paper className={classes.paper5}>
           {missingCasesComponent}
