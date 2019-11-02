@@ -199,7 +199,7 @@ export function mostModifications(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
-    return max && max.modifications 
+    return (max && max.modifications)
         ? `${max.name} (${max.modifications.length} modifications)`
         : defaultString;
 }
@@ -237,13 +237,8 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
-    const cases = guitars.map(g => {
-        if (g.case) {
-            return g.case.caseStyle;
-        }
-
-        return undefined;
-    });
+    const cases = guitars.map(g => 
+        g.case ? g.case.caseStyle : undefined)
 
     return mostCommonString(cases);
 }
@@ -255,7 +250,8 @@ export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
-    const tunings = guitars.map(g => g.tuning ? g.tuning : 'Standard');
+    const tunings = guitars.map(g => 
+        g.tuning ? g.tuning : 'Standard');
 
     return mostCommonString(tunings);
 }
@@ -296,7 +292,7 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
     for (const guitar of guitars) {
         if (isElectric(guitar)) {
             electric += 1;
-        } else if (isAcoustic(guitar)) {
+        } else {
             acoustic += 1;
         }
     }
@@ -418,16 +414,21 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
-        guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[]);
+        guitars.reduce((pickups, guitar) => 
+            [ ...pickups, ...guitar.pickups || [] ], 
+            [] as Pickup[]);
 
     return mostCommonString(pickups.map(p => p.type));
 }
 
 export function mostCommonPickupSize(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
-        guitars.reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[]);
+        guitars.reduce((pickups, guitar) => 
+            [ ...pickups, ...guitar.pickups || [] ], 
+            [] as Pickup[]);
+    const sizes = pickups.filter(p => p.size).map(p => p.size);
 
-    return mostCommonString(pickups.filter(p => p.size).map(p => p.size));
+    return mostCommonString(sizes);
 }
 
 export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
@@ -438,14 +439,16 @@ export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
 
 export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
     const pickups = 
-        guitars
-            .filter(g => g.pickups)
-            .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[])
+        guitars.filter(g => g.pickups)
+            .reduce((pickups, guitar) => 
+                [ ...pickups, ...guitar.pickups || [] ], 
+                [] as Pickup[])
             .filter(p => p.output);
 
     const avgOutput = 
         pickups.reduce((avg, pickup) => 
-            avg + Number.parseFloat((pickup.output || '').split('K')[0]), 0) / pickups.length;
+            avg + Number.parseFloat((pickup.output || '').split('K')[0]), 
+            0) / pickups.length;
 
     return avgOutput ? `${roundToHundredths(avgOutput)}K` : defaultString;
 }
@@ -473,7 +476,7 @@ export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
-    return max > 0 && maxPickup && maxGuitar
+    return (max > 0 && maxPickup && maxGuitar)
         ? `${maxPickup.output} - ${maxPickup.name} - ${maxPickup.position} (on ${maxGuitar.name})`
         : defaultString;
 }
@@ -502,7 +505,7 @@ export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
-    return min > 0 && minPickup && minGuitar
+    return (min > 0 && minPickup && minGuitar)
         ? `${minPickup.output} - ${minPickup.name} - ${minPickup.position} (on ${minGuitar.name})`
         : defaultString;
 }
@@ -668,7 +671,9 @@ export function leastExpensiveWithCase(guitars: ReadonlyArray<Guitar>): string {
         }
 
         const cost = getGuitarCost(guitar)
-            + (guitar.case.purchasePrice ? Number.parseFloat(guitar.case.purchasePrice) : 0);
+            + (guitar.case.purchasePrice 
+                ? Number.parseFloat(guitar.case.purchasePrice) 
+                : 0);
 
         if (!min) {
             min = guitar;
@@ -754,7 +759,9 @@ export function mostExpensiveWithCase(guitars: ReadonlyArray<Guitar>): string {
         }
 
         const cost = getGuitarCost(guitar)
-            + (guitar.case.purchasePrice ? Number.parseFloat(guitar.case.purchasePrice) : 0);
+            + (guitar.case.purchasePrice 
+                ? Number.parseFloat(guitar.case.purchasePrice) 
+                : 0);
 
         if (!max) {
             max = guitar;
@@ -815,7 +822,7 @@ function getTotalCost(guitars: ReadonlyArray<Guitar>): number {
 export function totalCost(guitars: ReadonlyArray<Guitar>): string {
     const price = getTotalCost(guitars);
 
-    return price || price < 1 
+    return (price || price < 1)
         ? `\$${roundToHundredths(price)}` 
         : defaultString;
 }
@@ -834,7 +841,9 @@ export function totalCostWithCases(guitars: ReadonlyArray<Guitar>): string {
         price += Number.parseFloat(guitar.case.purchasePrice);
     }
 
-    return price || price < 1 ? `\$${roundToHundredths(price)}` : defaultString;
+    return (price || price < 1) 
+        ? `\$${roundToHundredths(price)}` 
+        : defaultString;
 }
 
 export function averageCost(guitars: ReadonlyArray<Guitar>): string {
@@ -844,8 +853,8 @@ export function averageCost(guitars: ReadonlyArray<Guitar>): string {
 
     const purchases = guitars.filter(guitar => hasPurchasePrice(guitar));
     const averagePrice = 
-        purchases.reduce((avg, guitar) => avg 
-            + getGuitarCost(guitar), 
+        purchases.reduce((avg, guitar) => 
+            avg + getGuitarCost(guitar), 
             0) / purchases.length;
 
     return averagePrice 
@@ -862,8 +871,8 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
         guitars.filter(guitar => isProject(guitar) && hasPurchasePrice(guitar));
     
     const averagePrice = 
-        purchases.reduce((avg, guitar) => avg 
-            + getGuitarCost(guitar), 
+        purchases.reduce((avg, guitar) => 
+            avg + getGuitarCost(guitar), 
             0) / purchases.length;
 
     return averagePrice 
@@ -879,8 +888,8 @@ export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
     const cases = guitars.filter(c => c.case).map(g => g.case);
 
     const averagePrice = 
-        cases.reduce((avg, c) => avg 
-            + (c && c.purchasePrice ? Number.parseFloat(c.purchasePrice) : 0), 
+        cases.reduce((avg, c) => 
+            avg + (c && c.purchasePrice ? Number.parseFloat(c.purchasePrice) : 0), 
             0) / cases.length;
 
     return averagePrice 
@@ -896,7 +905,8 @@ export function averageCostWithCase(guitars: ReadonlyArray<Guitar>): string {
     const purchases = guitars.filter(guitar => hasPurchasePrice(guitar));
 
     const averagePrice = 
-        purchases.reduce((avg, g) => avg 
+        purchases.reduce((avg, g) => 
+            avg 
             + getGuitarCost(g) 
             + (g.case && g.case.purchasePrice ? Number.parseFloat(g.case.purchasePrice) : 0), 
             0) / purchases.length;
@@ -912,12 +922,14 @@ export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
     }
 
     const pickups = guitars
-        .reduce((pickups, guitar) => [ ...pickups, ...guitar.pickups || [] ], [] as Pickup[])
+        .reduce((pickups, guitar) => 
+            [ ...pickups, ...guitar.pickups || [] ], 
+            [] as Pickup[])
         .filter(p => p.purchasePrice);
 
     const averagePrice = 
-        pickups.reduce((avg, p) => avg 
-            + (p && p.purchasePrice ? Number.parseFloat(p.purchasePrice) : 0), 
+        pickups.reduce((avg, p) => 
+            avg + (p && p.purchasePrice ? Number.parseFloat(p.purchasePrice) : 0), 
             0) / pickups.length;
 
     return averagePrice 
@@ -932,8 +944,7 @@ export function randomPick(guitars: Guitar[]): Guitar {
 }
 
 export function getGuitarCost(guitar: Guitar | Project): number {
-    let total = 0
-
+    let total = 0;
     if (!hasPurchasePrice(guitar)) {
         return total;
     }
@@ -997,8 +1008,8 @@ export function averageGuitarPerYear(guitars: ReadonlyArray<Guitar>): string {
 export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
     const years = guitarPerYear(guitars);
     
-    let maxNumber = 0;
     let maxYear = 0;
+    let maxNumber = 0;
     for (const key of Object.keys(years)) {
         const year = Number.parseInt(key);
         if (years[year] > maxNumber) {
@@ -1011,9 +1022,8 @@ export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
-    const years = guitarPerYear(guitars);
-
     const date = new Date(Date.now());
+    const years = guitarPerYear(guitars);
 
     return `${years[date.getFullYear()]} in ${date.getFullYear()}`;
 }
@@ -1039,8 +1049,8 @@ function casePerYear(guitars: ReadonlyArray<Guitar>): YearMap {
 export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
     const years = casePerYear(guitars);
     
-    let maxNumber = 0;
     let maxYear = 0;
+    let maxNumber = 0;
     for (const key of Object.keys(years)) {
         const year = Number.parseInt(key);
         if (years[year] > maxNumber) {
