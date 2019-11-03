@@ -6,7 +6,7 @@ import {
     StringType,
     TremoloType
 } from './components';
-import { RetailItem } from '../entry';
+import { RetailItem } from '../retailitem';
 
 export interface Guitar extends RetailItem {
     readonly make: string;

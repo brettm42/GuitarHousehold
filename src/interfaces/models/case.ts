@@ -1,4 +1,4 @@
-import { RetailItem } from '../entry';
+import { RetailItem } from '../retailitem';
 import { CaseStyle } from './components';
 
 export interface Case extends RetailItem {

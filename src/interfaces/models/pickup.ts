@@ -4,7 +4,7 @@ import {
     PickupSize, 
     PickupType 
 } from './components';
-import { RetailItem } from '../entry';
+import { RetailItem } from '../retailitem';
 
 export interface Pickup extends RetailItem {
     readonly type: PickupType;
