@@ -8,6 +8,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { Guitar } from '../interfaces/models/guitar';
+import { Typography } from '@material-ui/core';
 
 type HouseholdGridListProps = {
   data: Guitar[]
@@ -87,7 +88,11 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                 <div className={classes.imgBackground} aria-label={guitar.name}>
                   {guitar.picture
                     ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
-                    : <div className={classes.imgPlaceholder}>🎸</div>}
+                    : <div className={classes.imgPlaceholder}>
+                        <Typography variant='h4' gutterBottom>
+                          {'🎸'}
+                        </Typography>
+                      </div>}
                   <GridListTileBar
                     title={guitar.name}
                     subtitle={
@@ -113,7 +118,11 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
                   {guitar.picture
                     ? <img className={classes.mobileImg} src={guitar.picture} alt={guitar.name} />
-                    : <div className={classes.mobileImgPlaceholder}>🎸</div>}
+                    : <div className={classes.mobileImgPlaceholder}>
+                        <Typography variant='h4' gutterBottom>
+                          {'🎸'}
+                        </Typography>
+                      </div>}
                   <GridListTileBar
                     title={guitar.name}
                     subtitle={

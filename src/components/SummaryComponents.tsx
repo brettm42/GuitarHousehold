@@ -215,7 +215,9 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
           <a>
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
-              : '🎸'}
+              : <Typography variant='h4' gutterBottom>
+                 {'🎸'}
+                </Typography>}
           </a>
         </Link>
         <div className={classes.randomPickCaption}>

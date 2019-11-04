@@ -19,13 +19,19 @@ type Props = {
 const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, guitar }) => {
   return (
     <TableRow key={guitar.id} tabIndex={-1} hover>
-      <TableCell align='center' component='th' scope='row' padding='none'>
+      <TableCell 
+        key={`${guitar.id}-id`}
+        align='center' 
+        component='th' 
+        scope='row' 
+        padding='none'
+      >
         <Typography>
           {guitar.id}
         </Typography>
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${guitar.id}-name`}>
         <Link href={`/detail?id=${guitar.id}`}>
           <a>
             <Typography>
@@ -40,39 +46,45 @@ const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, guitar })
         </div>
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${guitar.id}-style`}>
         <Typography variant='body2'>
           {guitar.bodyStyle}
         </Typography>
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${guitar.id}-make`}>
         <Typography variant='body2'>
           {guitar.make}
         </Typography>
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${guitar.id}-color`}>
         <Typography variant='body2'>
           {guitar.color}
         </Typography>
       </TableCell>
       
-      <TableCell>
+      <TableCell key={`${guitar.id}-pickups`}>
         <Typography variant='body2'>
           {getPickupCount(guitar)}
         </Typography>
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${guitar.id}-strings`}>
         <Typography variant='body2'>
           {guitar.strings}
         </Typography>
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${guitar.id}-date`}>
         <Typography variant='body2'>
           {guitar.purchaseDate}
+        </Typography>
+      </TableCell>
+
+      <TableCell key={`${guitar.id}-price`}>
+        <Typography variant='body2'>
+          {guitar.purchasePrice}
         </Typography>
       </TableCell>
     </TableRow>

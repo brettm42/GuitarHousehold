@@ -812,10 +812,7 @@ function getTotalCost(guitars: ReadonlyArray<Guitar>): number {
     }
 
     return guitars.reduce((price, guitar) => 
-        price 
-        + (hasPurchasePrice(guitar)
-            ? getGuitarCost(guitar)
-            : 0), 
+        price + (hasPurchasePrice(guitar) ? getGuitarCost(guitar) : 0), 
         0);
 }
 

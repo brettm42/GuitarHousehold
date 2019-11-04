@@ -29,7 +29,8 @@ const tableHeadCells: tableHeadCell[] = [
   { id: 'color', label: 'Color' },
   { id: 'pickups', label: 'Pickups' },
   { id: 'strings', label: 'Strings' },
-  { id: 'purchaseDate', label: 'Purchased' }
+  { id: 'purchaseDate', label: 'Purchased' },
+  { id: 'purchasePrice', label: 'Purchase Price' }
 ]
 
 const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, onRequestSort, order, orderBy }) => {
@@ -39,7 +40,7 @@ const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, onReques
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow key='header'>
         {tableHeadCells.map(cell => (
           <TableCell key={cell.id} sortDirection={orderBy === cell.id ? order : false}>
             <TableSortLabel active={orderBy === cell.id} direction={order} onClick={createSortHandler(cell.id)}>
