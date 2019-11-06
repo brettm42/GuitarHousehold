@@ -179,7 +179,7 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars) ],
         [ 'Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars) ],
         [ 'Average Project Cost', GuitarUtils.averageProjectCost(guitars) ],
-        [ 'Household', `${GuitarUtils.totalCost(guitars)} (with cases ${GuitarUtils.totalCostWithCases(guitars)})` ],
+        [ 'Household', `${GuitarUtils.getHouseholdCost(guitars)} (with cases ${GuitarUtils.getHouseholdCostWithCases(guitars)})` ],
       ]}
       style={classes.values} />
   );

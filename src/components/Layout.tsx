@@ -130,7 +130,7 @@ export default function Layout(props: Props): React.ReactElement {
     });
   
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
+      const anchor = ((event.target as HTMLDivElement).ownerDocument ?? document).querySelector(
         '#back-to-top-anchor',
       );
   

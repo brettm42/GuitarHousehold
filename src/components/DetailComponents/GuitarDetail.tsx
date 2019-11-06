@@ -135,12 +135,13 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
       </Grid>
 
       <Divider variant='middle'/>
+
       <Typography variant='h5'>
-        {guitar.pickups && GuitarUtils.hasPickups(guitar)
+        {GuitarUtils.hasPickups(guitar)
           ? <div>
               <p>Pickups:</p>
               <ul>
-                {guitar.pickups.map(i => 
+                {(guitar.pickups ?? []).map(i => 
                   <li key={i.id}>
                     <PickupDetail item={i} isMobile={isMobile} />
                   </li>)}
@@ -159,11 +160,11 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               </ul>
             </div>
           : null}
-        {guitar.modifications && GuitarUtils.hasModifications(guitar)
+        {GuitarUtils.hasModifications(guitar)
           ? <div className={classes.description}>
               <p>Modifications:</p>
               <ul>
-                {guitar.modifications.map((i, idx) => 
+                {(guitar.modifications ?? []).map((i, idx) => 
                   <li key={idx}>
                     <Typography>
                       {i}
@@ -172,11 +173,11 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               </ul>
             </div>
           : null}
-        {guitar.controls && GuitarUtils.hasControls(guitar)
+        {GuitarUtils.hasControls(guitar)
           ? <div className={classes.description}>
               <p>Controls:</p>
               <ul>
-                {guitar.controls.map((i, idx) => 
+                {(guitar.controls ?? []).map((i, idx) => 
                   <li key={idx}>
                     <Typography>
                       {i}

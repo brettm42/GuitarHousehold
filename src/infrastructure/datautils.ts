@@ -32,8 +32,8 @@ export function mostCommonString(items: ReadonlyArray<string | undefined>): stri
             maxCount = modeMap[elem];
         }
     }
-
-    return maxElement || fallbackString;
+    
+    return maxElement ?? fallbackString;
 }
 
 export function millisecondsToFriendlyString(duration: number): string {
