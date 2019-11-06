@@ -8,7 +8,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@material-ui/core": "^4.5.2",
+    "@material-ui/core": "^4.6.0",
     "@material-ui/icons": "^4.5.1",
     "next": "^9.1.2",
     "react": "^16.11.0",
@@ -18,7 +18,7 @@
     "@types/node": "^11.15.2",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   },
   "license": "ISC"
 }
