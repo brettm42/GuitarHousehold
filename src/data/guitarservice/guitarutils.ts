@@ -20,21 +20,30 @@ export function isProject(guitar: any): guitar is Project {
     return guitar.projectStart !== undefined;
 }
 
-export function isAcoustic(guitar: Guitar): boolean {
-    const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
+function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
+    if (pickups.length < 1) {
+        return true;
+    }
+    
+    if (pickups.length > 1) {
+        return false;
+    }
 
-    if (acousticStyle.includes(guitar.bodyStyle)) {
-        switch (getPickupCount(guitar)) {
-            case 0:
-                return true;
-            case 1:
-                return guitar.pickups?.[0].mount === 'Neck';
-            default:
-                return false;
-        }
+    if (pickups[0].mount === 'Neck'
+        || pickups[0].mount === 'Under-saddle'
+        || pickups[0].type === 'Piezo') {
+        return true;
     }
 
     return false;
+}
+
+export function isAcoustic(guitar: Guitar): boolean {
+    const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
+
+    return acousticStyle.includes(guitar.bodyStyle)
+        ? isAcousticPickup(guitar.pickups ?? [])
+        : false;
 }
 
 export function isElectric(guitar: Guitar): boolean {

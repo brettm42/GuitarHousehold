@@ -62,8 +62,13 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 
           <div>
             {[
-              `Position: ${pickup.position}`,
+              pickup.position
+                ? `Position: ${pickup.position}`
+                : null,
               `Type: ${pickup.type}${pickup.size ? ' (' + pickup.size + ' size)' : ''}`,
+              pickup.mount
+                ? `Mount: ${pickup.mount}`
+                : null,
               pickup.output 
                 ? `Output: ${pickup.output}`
                 : null,
