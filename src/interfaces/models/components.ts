@@ -42,7 +42,8 @@ export type PickupPosition = typeof pickupPositions[number];
 const pickupPositions = [
     'Neck',
     'Middle',
-    'Bridge'
+    'Bridge',
+    'Under-saddle'
 ] as const;
 
 export type PickupMount = typeof pickupMounts[number];
