@@ -355,18 +355,18 @@ export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
     return `${sunburst} vs. ${otherColor}`;
 }
 
-export function jazzmasterVsOther(guitars: ReadonlyArray<Guitar>): string {
-    let jazzmaster = 0;
-    let otherType = 0;
+export function styleVsOtherStyle(style: string, guitars: ReadonlyArray<Guitar>): string {
+    let styleA = 0;
+    let otherStyle = 0;
     for (const guitar of guitars) {
-        if (guitar.bodyStyle === 'Jazzmaster') {
-            jazzmaster += 1;
+        if (guitar.bodyStyle === style) {
+            styleA += 1;
         } else {
-            otherType += 1;
+            otherStyle += 1;
         }
     }
 
-    return `${jazzmaster} vs. ${otherType}`;
+    return `${styleA} vs. ${otherStyle}`;
 }
 
 export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
