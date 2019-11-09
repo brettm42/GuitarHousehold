@@ -29,6 +29,7 @@ const tableHeadCells: tableHeadCell[] = [
   { id: 'color', label: 'Color' },
   { id: 'pickups', label: 'Pickups' },
   { id: 'strings', label: 'Strings' },
+  { id: 'scale', label: 'Scale' },
   { id: 'purchaseDate', label: 'Purchased' },
   { id: 'purchasePrice', label: 'Purchase Price' }
 ]

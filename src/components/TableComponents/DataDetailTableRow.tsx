@@ -76,6 +76,12 @@ const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, guitar })
         </Typography>
       </TableCell>
 
+      <TableCell key={`${guitar.id}-scale`}>
+        <Typography variant='body2'>
+          {guitar.scale}
+        </Typography>
+      </TableCell>
+
       <TableCell key={`${guitar.id}-date`}>
         <Typography variant='body2'>
           {guitar.purchaseDate}
