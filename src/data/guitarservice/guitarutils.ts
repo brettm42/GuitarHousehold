@@ -649,7 +649,7 @@ export function leastExpensive(guitars: ReadonlyArray<Guitar>): string {
     let min;
     let price = minDefault;
     for (const guitar of guitars) {
-        if (!hasPurchasePrice(guitar)) {
+        if (isProject(guitar) || !hasPurchasePrice(guitar)) {
             continue;
         }
         
@@ -677,7 +677,7 @@ export function leastExpensiveWithCase(guitars: ReadonlyArray<Guitar>): string {
     let min;
     let price = 0;
     for (const guitar of guitars) {
-        if (!hasPurchasePrice(guitar) || !hasCase(guitar)) {
+        if (isProject(guitar) || !hasPurchasePrice(guitar) || !hasCase(guitar)) {
             continue;
         }
 
@@ -737,7 +737,7 @@ export function mostExpensive(guitars: ReadonlyArray<Guitar>): string {
     let max;
     let price = 0;
     for (const guitar of guitars) {
-        if (!hasPurchasePrice(guitar)) {
+        if (isProject(guitar) || !hasPurchasePrice(guitar)) {
             continue;
         }
 
@@ -765,7 +765,7 @@ export function mostExpensiveWithCase(guitars: ReadonlyArray<Guitar>): string {
     let max;
     let price = 0;
     for (const guitar of guitars) {
-        if (!hasPurchasePrice(guitar) || !hasCase(guitar)) {
+        if (isProject(guitar) || !hasPurchasePrice(guitar) || !hasCase(guitar)) {
             continue;
         }
 
@@ -890,12 +890,46 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
         : defaultString;
 }
 
+export function mostExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const cases = guitars
+        .filter(guitar => hasCase(guitar))    
+        .map(g => g.case);
+
+    let max;
+    let price = 0;
+    for (const c of cases) {
+        if (!c?.purchasePrice) {
+            continue;
+        }
+
+        const casePrice = Number.parseFloat(c.purchasePrice);
+        if (!max) {
+            max = c;
+            price = casePrice;
+            continue;
+        }
+
+        if (price < casePrice) {
+            max = c;
+            price = casePrice;
+        }
+    }
+
+    return max ? `${max.name} (\$${price})` : defaultString;
+}
+
 export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
     }
 
-    const cases = guitars.filter(c => c.case).map(g => g.case);
+    const cases = guitars
+        .filter(guitar => hasCase(guitar))
+        .map(g => g.case);
 
     const averagePrice = 
         cases.reduce((avg, c) => 
@@ -924,6 +958,40 @@ export function averageCostWithCase(guitars: ReadonlyArray<Guitar>): string {
     return averagePrice 
         ? `\$${roundToHundredths(averagePrice)}` 
         : defaultString;
+}
+
+export function mostExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const pickups = guitars
+        .reduce((pickups, guitar) => 
+            [ ...pickups, ...guitar.pickups ?? [] ], 
+            [] as Pickup[])
+        .filter(p => p.purchasePrice);
+
+    let max;
+    let maxPrice = 0;
+    for (const pickup of pickups) {
+        if (!pickup?.purchasePrice) {
+            continue;
+        }
+
+        const price = Number.parseFloat(pickup.purchasePrice);
+        if (!max) {
+            max = pickup;
+            maxPrice = price;
+            continue;
+        }
+
+        if (maxPrice < price) {
+            max = pickup;
+            maxPrice = price;
+        }
+    }
+
+    return max ? `${max.name} (\$${maxPrice})` : defaultString;
 }
 
 export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
@@ -984,7 +1052,7 @@ interface YearMap {
     [year: number]: number;
 }
 
-function guitarPerYear(guitars: ReadonlyArray<Guitar>): YearMap {
+function guitarPerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
     if (guitars.length < 1) {
         return {};
     }
@@ -1002,8 +1070,15 @@ function guitarPerYear(guitars: ReadonlyArray<Guitar>): YearMap {
     return years;
 }
 
+export function guitarsPerYear(guitars: ReadonlyArray<Guitar>): ReadonlyArray<string> {
+    const years = guitarPerYearMap(guitars);
+
+    return Object.entries(years)
+        .map(([year, value]) => `${year}:\xa0${value}`);
+}
+
 export function averageGuitarPerYear(guitars: ReadonlyArray<Guitar>): string {
-    const years = guitarPerYear(guitars);
+    const years = guitarPerYearMap(guitars);
 
     let total = 0;
     let length = 0;
@@ -1016,7 +1091,7 @@ export function averageGuitarPerYear(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
-    const years = guitarPerYear(guitars);
+    const years = guitarPerYearMap(guitars);
     
     let maxYear = 0;
     let maxNumber = 0;
@@ -1033,12 +1108,12 @@ export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
 
 export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
     const date = new Date(Date.now());
-    const years = guitarPerYear(guitars);
+    const years = guitarPerYearMap(guitars);
 
     return `${years[date.getFullYear()]} in ${date.getFullYear()}`;
 }
 
-function casePerYear(guitars: ReadonlyArray<Guitar>): YearMap {
+function casePerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
     if (guitars.length < 1) {
         return {};
     }
@@ -1057,7 +1132,7 @@ function casePerYear(guitars: ReadonlyArray<Guitar>): YearMap {
 }
 
 export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
-    const years = casePerYear(guitars);
+    const years = casePerYearMap(guitars);
     
     let maxYear = 0;
     let maxNumber = 0;
@@ -1099,9 +1174,9 @@ export function summarizePickups(guitar: Guitar): string {
     }
 
     return types.length > 1
-        ? `${pickupCount} pickups - ${types.reduce((str, t) => str += t + ', ', '')}`.slice(0, -2)
+        ? `${pickupCount} pickups - ${types.join(', ')}`
         : `${pickupCount} `
-            + `${types.reduce((str, t) => str += t + '', '')} `
+            + `${types.join(', ')} `
             + `${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
 
