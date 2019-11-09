@@ -14,7 +14,7 @@ export async function findGuitar(id: number | string): Promise<Guitar> {
     return findProject(id);
   }
 
-  throw new Error('Cannot find guitar');
+  throw new Error(`Cannot find guitar with ID: ${id}`);
 }
 
 export async function findProject(id: number | string): Promise<Project> {
@@ -25,7 +25,7 @@ export async function findProject(id: number | string): Promise<Project> {
     }
   }
 
-  throw new Error('Cannot find guitar');
+  throw new Error(`Cannot find guitar with ID: ${id}`);
 }
 
 export async function findAllGuitars(): Promise<Guitar[]> {
@@ -49,5 +49,13 @@ export async function findAllArchived(): Promise<Guitar[]> {
     throw new Error('Cannot find guitars');
   }
 
-  return (guitarDb as Guitar[]).filter(g => g.archive || g.soldDate);
+  return (guitarDb as Guitar[]).filter(g => g.archive);
+}
+
+export async function findAllSold(): Promise<Guitar[]> {
+  if (guitarDb === undefined) {
+    throw new Error('Cannot find guitars');
+  }
+
+  return (guitarDb as Guitar[]).filter(g => g.soldDate);
 }

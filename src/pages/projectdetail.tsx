@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-
+import Error from '../components/Error';
 import Layout from '../components/Layout';
 import ProjectDetail from '../components/DetailComponents/ProjectDetail';
 
@@ -38,16 +37,8 @@ class ProjectDetailPage extends React.Component<Props> {
     const { item, errors, pathname, isMobile } = this.props;
 
     if (errors) {
-      console.warn(`Hit error page, ${errors}`);
-
       return (
-        <Layout title={buildPageTitle('Error')} pathname={pathname}>
-          <div>
-            <Typography>
-              <span style={{ color: 'red' }}>Error:</span> {errors}              
-            </Typography>
-          </div>
-        </Layout>
+        <Error errors={errors} pathname={pathname} />
       );
     }
 

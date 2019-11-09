@@ -5,7 +5,7 @@ import GuitarList from '../components/GuitarList';
 import { IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
-import { findAllArchived } from '../data/guitarservice/guitarservice';
+import { findAllArchived, findAllSold } from '../data/guitarservice/guitarservice';
 
 type Props = {
   items: Guitar[]
@@ -23,7 +23,7 @@ const Archive: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
 };
 
 Archive.getInitialProps = async ({ pathname }) => {
-  const items: Guitar[] = await findAllArchived();
+  const items: Guitar[] = [ ...await findAllArchived(), ...await findAllSold() ];
   const title = 'Archive';
   const isMobile = IsMobile();
   
