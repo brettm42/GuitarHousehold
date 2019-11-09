@@ -21,10 +21,10 @@ import Zoom from '@material-ui/core/Zoom';
 import FeaturedPlayListRoundedIcon from '@material-ui/icons/FeaturedPlayListRounded';
 import FeaturedVideoRoundedIcon from '@material-ui/icons/FeaturedVideoRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import InboxRoundedIcon from '@material-ui/icons/InboxRounded';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MailRoundedIcon from '@material-ui/icons/MailRounded';
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxRoundedIcon from '@material-ui/icons/InboxRounded';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -157,9 +157,9 @@ export default function Layout(props: Props): React.ReactElement {
         onKeyDown={toggleDrawer(true)}
       >
         <List>
-          {['Home', 'Guitars', 'Projects', 'Archive', 'About']
+          {['Home', 'Guitars', 'Projects', 'Archive']
             .map((text, idx) => (
-              <Link key={idx} href={`/${text === 'Home' ? '' : text.toLowerCase()}`} passHref>
+              <Link key={idx} href={`/${text === 'Home' ? '' : text.toLocaleLowerCase()}`} passHref>
                 <ListItemLink>
                   <ListItemIcon>
                     {idx === 0 
@@ -177,7 +177,19 @@ export default function Layout(props: Props): React.ReactElement {
               </Link>
           ))}
         </List>
+
         <Divider />
+        
+        <List>
+          <Link key={99} href={'/about'} passHref>
+            <ListItemLink>
+              <ListItemIcon>
+                <MailRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary={'About'} />
+            </ListItemLink>
+          </Link>
+        </List>
       </div>
     );
   };

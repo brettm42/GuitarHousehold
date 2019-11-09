@@ -345,7 +345,7 @@ export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
     let sunburst = 0;
     let otherColor = 0;
     for (const guitar of guitars) {
-        if (getColorMapping(guitar.color).toLowerCase().includes('sunburst')) {
+        if (getColorMapping(guitar.color).toLocaleLowerCase().includes('sunburst')) {
             sunburst += 1;
         } else {
             otherColor += 1;
@@ -392,7 +392,7 @@ export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
                 continue;
             }
 
-            if (pickup.type.toString().toLowerCase().includes('humbucker')) {
+            if (pickup.type.toString().toLocaleLowerCase().includes('humbucker')) {
                 humbucker += 1;
             } else {
                 singleCoil += 1;
