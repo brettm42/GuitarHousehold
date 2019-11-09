@@ -20,10 +20,11 @@ import Zoom from '@material-ui/core/Zoom';
 
 import FeaturedPlayListRoundedIcon from '@material-ui/icons/FeaturedPlayListRounded';
 import FeaturedVideoRoundedIcon from '@material-ui/icons/FeaturedVideoRounded';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import MailIcon from '@material-ui/icons/Mail';
+import MailRoundedIcon from '@material-ui/icons/MailRounded';
 import MenuIcon from '@material-ui/icons/Menu';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import InboxRoundedIcon from '@material-ui/icons/InboxRounded';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -156,18 +157,20 @@ export default function Layout(props: Props): React.ReactElement {
         onKeyDown={toggleDrawer(true)}
       >
         <List>
-          {['Home', 'Guitars', 'Projects', 'About']
+          {['Home', 'Guitars', 'Projects', 'Archive', 'About']
             .map((text, idx) => (
               <Link key={idx} href={`/${text === 'Home' ? '' : text.toLowerCase()}`} passHref>
                 <ListItemLink>
                   <ListItemIcon>
                     {idx === 0 
-                      ? <InboxIcon /> 
+                      ? <HomeRoundedIcon />
                       : idx === 1
                         ? <FeaturedPlayListRoundedIcon />
                         : idx === 2
                           ? <FeaturedVideoRoundedIcon />
-                          : <MailIcon />}
+                          : idx === 3
+                            ? <InboxRoundedIcon />
+                            : <MailRoundedIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemLink>

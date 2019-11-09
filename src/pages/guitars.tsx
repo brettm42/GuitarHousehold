@@ -21,24 +21,34 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       padding: theme.spacing(2)
+    },
+    emptyList: {
+      padding: theme.spacing(4)
     }
   })
 );
 
 const Guitars: NextPage<Props> = ({ items, pathname, isMobile }) => {
   const classes = useStyles();
+  const title = 'Guitar List';
 
   return (
-    <Layout title={buildPageTitle('Guitar List')} pathname={pathname}>
+    <Layout title={buildPageTitle(title)} pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
-          Guitar List
+          {title}
         </Typography>
       </div>
 
-      {isMobile
-        ? <DataTable items={items} />
-        : <DataDetailTable items={items} />}
+      {items.length > 0
+        ? isMobile
+          ? <DataTable items={items} />
+          : <DataDetailTable items={items} />
+        : <div className={classes.emptyList}>
+            <Typography>
+              {'Nothing to see here...'}
+            </Typography>
+          </div>}
     </Layout>
   );
 };

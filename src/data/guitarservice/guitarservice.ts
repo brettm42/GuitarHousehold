@@ -43,3 +43,11 @@ export async function findAllProjects(): Promise<Project[]> {
 
   return projectDb as Project[];
 }
+
+export async function findAllArchived(): Promise<Guitar[]> {
+  if (guitarDb === undefined) {
+    throw new Error('Cannot find guitars');
+  }
+
+  return (guitarDb as Guitar[]).filter(g => g.archive || g.soldDate);
+}

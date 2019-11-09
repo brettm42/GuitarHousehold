@@ -8,11 +8,11 @@ import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
-import { Project } from '../interfaces/models/project';
-import { findAllProjects } from '../data/guitarservice/guitarservice';
+import { Guitar } from '../interfaces/models/guitar';
+import { findAllArchived } from '../data/guitarservice/guitarservice';
 
 type Props = {
-  items: Project[]
+  items: Guitar[]
   pathname: string
   isMobile: boolean
 }
@@ -20,7 +20,7 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(2, 0)
+      padding: theme.spacing(2)
     },
     emptyList: {
       padding: theme.spacing(4)
@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Projects: NextPage<Props> = ({ items, pathname, isMobile }) => {
+const Archive: NextPage<Props> = ({ items, pathname, isMobile }) => {
   const classes = useStyles();
-  const title = 'Project List';
+  const title = 'Archive';
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname}>
@@ -53,11 +53,11 @@ const Projects: NextPage<Props> = ({ items, pathname, isMobile }) => {
   );
 };
 
-Projects.getInitialProps = async ({ pathname }) => {
-  const items: Project[] = await findAllProjects();
+Archive.getInitialProps = async ({ pathname }) => {
+  const items: Guitar[] = await findAllArchived();
   const isMobile = IsMobile();
 
   return { items, pathname, isMobile };
 };
 
-export default Projects;
+export default Archive;
