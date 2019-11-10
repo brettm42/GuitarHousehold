@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
-import { Guitar } from '../interfaces/models/guitar';
+import { Guitar } from '../../interfaces/models/guitar';
 
 type HouseholdGridProps = {
   data: Guitar[]

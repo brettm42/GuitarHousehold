@@ -22,7 +22,7 @@ import {
   PartValuesComponent
 } from './SummaryComponents';
 
-import { Guitar } from '../interfaces/models/guitar';
+import { Guitar } from '../../interfaces/models/guitar';
 
 type SummaryProps = {
   data: Guitar[]

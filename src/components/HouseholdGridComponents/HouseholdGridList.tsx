@@ -7,7 +7,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 
-import { Guitar } from '../interfaces/models/guitar';
+import { Guitar } from '../../interfaces/models/guitar';
 import { Typography } from '@material-ui/core';
 
 type HouseholdGridListProps = {

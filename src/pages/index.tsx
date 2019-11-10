@@ -5,9 +5,9 @@ import * as Constants from '../infrastructure/constants';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 
-import HouseholdGridList from '../components/HouseholdGridList';
+import HouseholdGridList from '../components/HouseholdGridComponents/HouseholdGridList';
 import Layout from '../components/Layout';
-import Summary from '../components/Summary';
+import Summary from '../components/SummaryComponents/Summary';
 
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';

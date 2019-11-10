@@ -5,12 +5,12 @@ import Link from 'next/link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import DataList from '../components/ListComponents/DataList';
+import DataList from '../../components/ListComponents/DataList';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { Guitar } from '../interfaces/models/guitar';
-import * as GuitarUtils from '../data/guitarservice/guitarutils';
+import { Guitar } from '../../interfaces/models/guitar';
+import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
 type SummaryComponentProps = {
   title: string
