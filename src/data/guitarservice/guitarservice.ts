@@ -1,6 +1,8 @@
 import guitarDb from '../localdb/guitars.json';
 import projectDb from '../localdb/projects.json';
 
+import { isProject } from './guitarutils';
+
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 
@@ -8,6 +10,10 @@ export async function findGuitar(id: number | string): Promise<Guitar> {
   if (guitarDb !== undefined && guitarDb.length > 0) {
     const guitar = (guitarDb as Guitar[]).find(data => data.id === Number(id));
     if (guitar) {
+      if (isProject(guitar)) {
+        throw new Error (`Guitar id ${id} is not a guitar`)
+      }
+      
       return guitar;
     }
 
@@ -21,6 +27,10 @@ export async function findProject(id: number | string): Promise<Project> {
   if (projectDb !== undefined && projectDb.length > 0) {
     const project = (projectDb as Project[]).find(data => data.id === Number(id));
     if (project) {
+      if (!isProject(project)) {
+        throw new Error (`Project id ${id} is not a project`)
+      }
+      
       return project;
     }
   }
