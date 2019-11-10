@@ -104,16 +104,25 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   data: guitars, isMobile
 }) => {
   const classes = useStyles();
-
-  const breakdownComponent = (<BreakdownComponent data={guitars} isMobile={isMobile} />);
-  const mostCommonComponent = (<MostCommonComponent data={guitars} isMobile={isMobile} />);
-  const missingCasesComponent = (<MissingCasesComponent data={guitars} isMobile={isMobile} />);
-  const outliersComponent = (<OutliersComponent data={guitars} isMobile={isMobile} />);
-  const partValuesComponent = (<PartValuesComponent data={guitars} isMobile={isMobile} />);
-  const pickupsComponent = (<PickupsComponent data={guitars} isMobile={isMobile} />);
-  const randomPickComponent = (<RandomPickComponent data={guitars} isMobile={isMobile} />);
-  const timelineComponent = (<TimelineComponent data={guitars} isMobile={isMobile} />);
-  const valuesComponent = (<ValuesComponent data={guitars} isMobile={isMobile} />);
+  
+  const breakdownComponent = 
+    (<BreakdownComponent data={guitars} isMobile={isMobile} />);
+  const mostCommonComponent =   
+    (<MostCommonComponent data={guitars} isMobile={isMobile} />);
+  const missingCasesComponent = 
+    (<MissingCasesComponent data={guitars} isMobile={isMobile} />);
+  const outliersComponent =     
+    (<OutliersComponent data={guitars} isMobile={isMobile} />);
+  const partValuesComponent =   
+    (<PartValuesComponent data={guitars} isMobile={isMobile} />);
+  const pickupsComponent =      
+    (<PickupsComponent data={guitars} isMobile={isMobile} />);
+  const randomPickComponent =   
+    (<RandomPickComponent data={guitars} isMobile={isMobile} />);
+  const timelineComponent =     
+    (<TimelineComponent data={guitars} isMobile={isMobile} />);
+  const valuesComponent =       
+    (<ValuesComponent data={guitars} isMobile={isMobile} />);
 
   const desktopGrid = (
     <Grid container 
@@ -256,7 +265,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper9}>
             <ExpansionPanelSummary id='panelPartValues-header' aria-controls='panelPartValues-content'>
               <Typography variant='overline'>
-                {'Part Values'}
+                {'Case/Pickup Values'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
