@@ -18,7 +18,8 @@ import {
   PickupsComponent,
   RandomPickComponent,
   TimelineComponent,
-  ValuesComponent
+  ValuesComponent,
+  PartValuesComponent
 } from './SummaryComponents';
 
 import { Guitar } from '../interfaces/models/guitar';
@@ -87,6 +88,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper9: {
       ...gridPaperStyle,
+      background: gridColors[2]
+    },
+    paper10: {
+      ...gridPaperStyle,
       background: gridColors[4]
     },
     control: {
@@ -100,14 +105,15 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
 }) => {
   const classes = useStyles();
 
-  const mostCommonComponent = (<MostCommonComponent data={guitars} isMobile={isMobile} />);
-  const outliersComponent = (<OutliersComponent data={guitars} isMobile={isMobile} />);
-  const randomPickComponent = (<RandomPickComponent data={guitars} isMobile={isMobile} />);
   const breakdownComponent = (<BreakdownComponent data={guitars} isMobile={isMobile} />);
-  const valuesComponent = (<ValuesComponent data={guitars} isMobile={isMobile} />);
+  const mostCommonComponent = (<MostCommonComponent data={guitars} isMobile={isMobile} />);
   const missingCasesComponent = (<MissingCasesComponent data={guitars} isMobile={isMobile} />);
+  const outliersComponent = (<OutliersComponent data={guitars} isMobile={isMobile} />);
+  const partValuesComponent = (<PartValuesComponent data={guitars} isMobile={isMobile} />);
   const pickupsComponent = (<PickupsComponent data={guitars} isMobile={isMobile} />);
+  const randomPickComponent = (<RandomPickComponent data={guitars} isMobile={isMobile} />);
   const timelineComponent = (<TimelineComponent data={guitars} isMobile={isMobile} />);
+  const valuesComponent = (<ValuesComponent data={guitars} isMobile={isMobile} />);
 
   const desktopGrid = (
     <Grid container 
@@ -155,6 +161,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           {valuesComponent}
         </Paper>
       </Grid>
+      <Grid key={'partValues'} item xs={6} sm={4}>
+        <Paper className={classes.paper9}>
+          {partValuesComponent}
+        </Paper>
+      </Grid>
     </Grid>
   );
   
@@ -170,7 +181,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper0}>
             <ExpansionPanelSummary id='panelMostCommon-header' aria-controls='panelMostCommon-content'>
               <Typography variant='overline'>
-                Most Common
+                {'Most Common'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -185,7 +196,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper1}>
             <ExpansionPanelSummary id='panelOutliers-header' aria-controls='panelOutliers-content'>
               <Typography variant='overline'>
-                Outliers
+                {'Outliers'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -200,7 +211,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper2}>
             <ExpansionPanelSummary id='panelRandom-header' aria-controls='panelRandom-content'>
               <Typography variant='overline'>
-                Random Pick
+                {'Random Pick'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -215,7 +226,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper3}>
             <ExpansionPanelSummary id='panelBreakdown-header' aria-controls='panelBreakdown-content'>
               <Typography variant='overline'>
-                Breakdown
+                {'Breakdown'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -230,12 +241,27 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper4}>
             <ExpansionPanelSummary id='panelValues-header' aria-controls='panelValues-content'>
               <Typography variant='overline'>
-                Values
+                {'Values'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
               {valuesComponent}
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Paper>
+      </Grid>
+      <Grid key={'partValues'} item xs={12} sm={6}>
+        <Paper>
+          <ExpansionPanel className={classes.paper9}>
+            <ExpansionPanelSummary id='panelPartValues-header' aria-controls='panelPartValues-content'>
+              <Typography variant='overline'>
+                {'Part Values'}
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Divider />
+              {partValuesComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -245,7 +271,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper5}>
             <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
               <Typography variant='overline'>
-                Missing Cases
+                {'Missing Cases'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -260,7 +286,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper6}>
             <ExpansionPanelSummary id='panelPickups-header' aria-controls='panelPickups-content'>
               <Typography variant='overline'>
-                Pickups
+                {'Pickups'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -275,7 +301,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ExpansionPanel className={classes.paper7}>
             <ExpansionPanelSummary id='panelTimeline-header' aria-controls='panelTimeline-content'>
               <Typography variant='overline'>
-                Timeline
+                {'Timeline'}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

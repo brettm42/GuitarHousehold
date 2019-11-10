@@ -138,7 +138,7 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
   return (
     <div className={classes.missingCases}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
-        Guitars Missing Cases:
+        {'Guitars Missing Cases:'}
       </Typography>
       <DataList items={guitars.filter((i: Guitar) => !GuitarUtils.hasCase(i))} />
     </div>
@@ -182,14 +182,28 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Most Expensive', GuitarUtils.mostExpensive(guitars) ],
         [ 'with case', GuitarUtils.mostExpensiveWithCase(guitars) ],
         [ 'Average Cost', `${GuitarUtils.averageCost(guitars)} (average with case ${GuitarUtils.averageCostWithCase(guitars)})` ],
-        [ 'Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars) ],
-        [ 'Average Case Cost', GuitarUtils.averageCaseCost(guitars) ],
-        [ 'Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars) ],
-        [ 'Average Pickup Cost', GuitarUtils.averagePickupCost(guitars) ],
         [ 'Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars) ],
         [ 'Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars) ],
         [ 'Average Project Cost', GuitarUtils.averageProjectCost(guitars) ],
         [ 'Household Total', `${GuitarUtils.getHouseholdCost(guitars)} (with cases ${GuitarUtils.getHouseholdCostWithCases(guitars)})` ],
+      ]}
+      style={classes.values} />
+  );
+};
+
+const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+  
+  return (
+    <SummaryComponent
+      title={'Case/Pickup Values:'}
+      contents={[
+        [ 'Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars) ],
+        [ 'Average Case Cost', GuitarUtils.averageCaseCost(guitars) ],
+        [ 'Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars) ],
+        [ 'Average Pickup Cost', GuitarUtils.averagePickupCost(guitars) ]
       ]}
       style={classes.values} />
   );
@@ -245,7 +259,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   return (
     <div className={classes.randomPickDiv}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
-        Pick of the Day!
+        {'Pick of the Day!'}
       </Typography>
       {isMobile
         ? <div className={classes.randomPickMobile}>
@@ -294,7 +308,8 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Most Guitars Acquired', GuitarUtils.mostGuitarsInAYear(guitars) ],
         [ 'Most Cases Acquired', GuitarUtils.mostCasesInAYear(guitars) ],
         [ 'Guitars This Year', GuitarUtils.guitarsThisYear(guitars) ],
-        [ 'Guitars per Year', GuitarUtils.guitarsPerYear(guitars) ]
+        [ 'Guitars per Year', GuitarUtils.guitarsPerYear(guitars) ],
+        [ 'Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars) ],
       ]}
       style={classes.timeline} />
   );
@@ -305,6 +320,7 @@ export {
   MissingCasesComponent,
   MostCommonComponent,
   OutliersComponent,
+  PartValuesComponent,
   PickupsComponent,
   RandomPickComponent,
   TimelineComponent,

@@ -1070,6 +1070,24 @@ function guitarPerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
     return years;
 }
 
+function projectPerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
+    if (guitars.length < 1) {
+        return {};
+    }
+
+    const years: YearMap = {};
+    for (const guitar of guitars) {
+        if (isProject(guitar) && guitar.projectComplete) {
+            const date = new Date(Date.parse(guitar.projectComplete));
+            const total = years[date.getFullYear()] ?? 0;
+
+            years[date.getFullYear()] = 1 + total;
+        }
+    }
+
+    return years;
+}
+
 export function guitarsPerYear(guitars: ReadonlyArray<Guitar>): ReadonlyArray<string> {
     const years = guitarPerYearMap(guitars);
 
@@ -1133,6 +1151,22 @@ function casePerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
 
 export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
     const years = casePerYearMap(guitars);
+    
+    let maxYear = 0;
+    let maxNumber = 0;
+    for (const key of Object.keys(years)) {
+        const year = Number.parseInt(key);
+        if (years[year] > maxNumber) {
+            maxNumber = years[year];
+            maxYear = year;
+        }
+    }
+
+    return `${maxNumber} in ${maxYear}`;
+}
+
+export function mostProjectsInAYear(guitars: ReadonlyArray<Guitar>): string {
+    const years = projectPerYearMap(guitars);
     
     let maxYear = 0;
     let maxNumber = 0;
