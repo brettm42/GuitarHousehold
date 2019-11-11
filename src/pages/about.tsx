@@ -28,13 +28,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const AboutPage: NextPage<Props> = ({pathname}) => {
+  const title = 'About';
   const classes = useStyles();
 
   return (
-    <Layout title={buildPageTitle('About')} pathname={pathname}>
+    <Layout title={buildPageTitle(title)} pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
-          About
+          {title}
         </Typography>
       </div>
 
@@ -43,7 +44,7 @@ const AboutPage: NextPage<Props> = ({pathname}) => {
 
       <div className={classes.body}>
         <Typography variant='body2' gutterBottom>
-          This is the about page...
+          {'This is the about page...'}
         </Typography>
       </div>
     </Layout>
