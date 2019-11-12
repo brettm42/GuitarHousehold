@@ -119,6 +119,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.tremolo
                 ? `Tremolo: ${guitar.tremolo}`
                 : null,
+              guitar.hasBattery
+                ? `Has battery: Yes`
+                : null,
               guitar.productUrl
                 ? `Product Link: ${guitar.productUrl}`
                 : null
