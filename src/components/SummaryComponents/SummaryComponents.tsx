@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'left',
       padding: theme.spacing(1, 0, 0, 1)
     },
+    detailChildren: {
+      padding: theme.spacing(0, 1)
+    },
     breakdown: {},
     missingCases: {},
     mostCommon: {},
@@ -84,18 +87,16 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
       <Grid container>
         {contents.map((line, idx) =>
           <Grid item className={classes.detail} key={idx} zeroMinWidth>
-            <Typography variant='caption' gutterBottom>
+            <Typography variant='caption'>
               {line[0]}
             </Typography>
             {Array.isArray(line[1])
-              ? <ul>
-                  {line[1].map((i, idx) => 
-                    <li key={idx}>
-                      <Typography variant='caption'>
-                        {i}
-                      </Typography>
-                    </li>)}
-                </ul>
+              ? <div className={classes.detailChildren}>
+                  {line[1].map(i => 
+                    <Typography variant='caption' display='block'>
+                      {i}
+                    </Typography>)}
+                </div>
               : <Typography gutterBottom>
                   {line[1]}
                 </Typography>}
@@ -201,6 +202,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       title={'Case/Pickup Values:'}
       contents={[
         [ 'Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars) ],
+        [ 'Cheapest Case', GuitarUtils.leastExpensiveCase(guitars) ],
         [ 'Average Case Cost', GuitarUtils.averageCaseCost(guitars) ],
         [ 'Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars) ],
         [ 'Average Pickup Cost', GuitarUtils.averagePickupCost(guitars) ]

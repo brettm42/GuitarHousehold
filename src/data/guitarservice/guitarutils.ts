@@ -922,6 +922,38 @@ export function mostExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     return max ? `${max.name} (\$${price})` : defaultString;
 }
 
+export function leastExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const cases = guitars
+        .filter(guitar => hasCase(guitar))    
+        .map(g => g.case);
+
+    let min;
+    let minPrice = minDefault;
+    for (const c of cases) {
+        if (!c?.purchasePrice) {
+            continue;
+        }
+
+        const casePrice = Number.parseFloat(c.purchasePrice);
+        if (!min) {
+            min = c;
+            minPrice = casePrice;
+            continue;
+        }
+
+        if (minPrice > casePrice) {
+            min = c;
+            minPrice = casePrice;
+        }
+    }
+
+    return min ? `${min.name} (\$${minPrice})` : defaultString;
+}
+
 export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
