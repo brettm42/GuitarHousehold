@@ -16,10 +16,11 @@ type Props = {
 
 const Archive: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
   return <GuitarList 
-    items={items} 
-    pathname={pathname} 
-    isMobile={isMobile} 
-    title={title} />;
+      items={items} 
+      pathname={pathname} 
+      isMobile={isMobile} 
+      title={title} 
+    />;
 };
 
 Archive.getInitialProps = async ({ pathname }) => {

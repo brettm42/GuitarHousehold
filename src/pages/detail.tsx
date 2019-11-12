@@ -20,7 +20,7 @@ type Props = {
   isMobile: boolean
 }
 
-class InitialPropsDetail extends React.Component<Props> {
+class DetailPage extends React.Component<Props> {
   static getInitialProps = async ({ query }: NextPageContext) => {
     const isMobile = IsMobile();
 
@@ -59,4 +59,4 @@ class InitialPropsDetail extends React.Component<Props> {
   };
 }
 
-export default InitialPropsDetail;
+export default DetailPage;

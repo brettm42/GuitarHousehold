@@ -14,14 +14,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
-import { Project } from '../interfaces/models/project';
 import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarservice';
 
 type Props = {
-  guitars: Guitar[]
-  projects: Project[]
+  data: Guitar[]
   pathname: string
-  isMobile: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,8 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IndexPage: NextPage<Props> = ({ guitars, projects, pathname, isMobile }) => {
-  const data = [...guitars, ...projects];
+const IndexPage: NextPage<Props> = ({ data, pathname }) => {
+  const isMobile = IsMobile();
   const classes = useStyles();
 
   return (
@@ -63,11 +60,9 @@ const IndexPage: NextPage<Props> = ({ guitars, projects, pathname, isMobile }) =
 };
 
 IndexPage.getInitialProps = async ({ pathname }) => {
-  const guitars: Guitar[] = await findAllGuitars();
-  const projects: Project[] = await findAllProjects();
-  const isMobile = IsMobile();
+  const data = [...await findAllGuitars(), ...await findAllProjects()];
 
-  return { guitars, projects, pathname, isMobile };
+  return { data, pathname };
 };
 
 export default IndexPage;
