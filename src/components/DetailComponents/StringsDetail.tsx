@@ -9,10 +9,10 @@ import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { Pickup } from '../../interfaces/models/pickup';
+import { Strings } from '../../interfaces/models/strings';
 
-type PickupDetailProps = {
-  item: Pickup
+type StringsDetailProps = {
+  item: Strings
   isMobile: boolean
 }
 
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
-  item: pickup, isMobile
+const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
+  item: strings, isMobile
 }) => {
   const classes = useStyles();
 
@@ -51,58 +51,48 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs sm={6}>
           <Typography variant='h6' gutterBottom>
-            {pickup.name}
+            {strings.name}
           </Typography>
 
-          {pickup.description
+          {strings.description
             ? <Typography className={classes.summary} variant='subtitle2' gutterBottom>
-                {pickup.description}
+                {strings.description}
               </Typography>
             : null}
 
           <div>
             {[
-              pickup.position
-                ? `Position: ${pickup.position}`
+              `Gauge: ${strings.gauge}`,
+              `Last Time Changed: ${strings.lastChangeDate}`,
+              strings.purchaseDate 
+                ? `Purchased ${strings.purchaseDate}`
                 : null,
-              `Type: ${pickup.type}${pickup.size ? ' (' + pickup.size + ' size)' : ''}`,
-              pickup.mount
-                ? `Mount: ${pickup.mount}`
+              `Purchase Store: ${strings.purchaseStore}`,
+              strings.purchasePrice
+                ? `Purchase Price: \$${strings.purchasePrice}`
                 : null,
-              pickup.output 
-                ? `Output: ${pickup.output}`
-                : null,
-              pickup.purchaseDate 
-                ? `Purchase Date: ${pickup.purchaseDate}`
-                : null,
-              pickup.purchasePrice
-                ? `Purchase Price: \$${pickup.purchasePrice}`
-                : null,
-              pickup.purchaseStore 
-                ? `Purchase Store: ${pickup.purchaseStore}`
-                : null,
-              pickup.productUrl
-                ? `Product Link: ${pickup.productUrl}`
+              strings.productUrl
+                ? `Product Link: ${strings.productUrl}`
                 : null
-              ]
-              .map((text, idx) => (
-                <Typography key={idx} gutterBottom>
-                  {text}
-                </Typography>
-              ))}
+            ]
+            .map((text, idx) => (
+              <Typography key={idx} gutterBottom>
+                {text}
+              </Typography>
+            ))}
           </div>
         </Grid>
 
         <Grid item className={classes.jsonExpander} xs zeroMinWidth>
           <ExpansionPanel>
-            <ExpansionPanelSummary id='pickupPanelJson-header' aria-controls='pickupPanelJson-content'>
-              <Typography className={classes.heading}>Pickup JSON Data</Typography>
+            <ExpansionPanelSummary id='stringsPanelJson-header' aria-controls='stringsPanelJson-content'>
+              <Typography className={classes.heading}>Strings JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <div className={classes.json}>
                 <Divider />
                 <Typography variant='subtitle1'>
-                  <pre>{JSON.stringify(pickup, undefined, 2)}</pre>
+                  <pre>{JSON.stringify(strings, undefined, 2)}</pre>
                 </Typography>
               </div>
             </ExpansionPanelDetails>
@@ -113,4 +103,4 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
   );
 };
 
-export default PickupDetail;
+export default StringsDetail;

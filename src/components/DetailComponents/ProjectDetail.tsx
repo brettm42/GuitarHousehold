@@ -98,7 +98,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               `Body Style: ${guitar.bodyStyle}`,
               `Color: ${guitar.color}`,
               GuitarUtils.hasPurchasePrice(guitar)
-                ? `Project cost: \$${GuitarUtils.getGuitarCost(guitar)}`
+                ? `Project Cost: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
               `Neck: ${guitar.neck}`,
               `s/n: ${guitar.serialNumber ? guitar.serialNumber : 'None'} (location: ${guitar.serialNumberLocation})`,
@@ -120,7 +120,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
                 ? `Tremolo: ${guitar.tremolo}`
                 : null,
               guitar.hasBattery
-                ? `Has battery: Yes`
+                ? `Has Battery: Yes`
                 : null,
               guitar.productUrl
                 ? `Product Link: ${guitar.productUrl}`

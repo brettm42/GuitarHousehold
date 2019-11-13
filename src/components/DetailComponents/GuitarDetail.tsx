@@ -99,7 +99,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               `s/n: ${guitar.serialNumber ? guitar.serialNumber : 'None'} (location: ${guitar.serialNumberLocation})`,
               `Purchased ${guitar.purchaseDate} from ${guitar.purchaseStore}`,
               GuitarUtils.hasPurchasePrice(guitar)
-                ? `Purchase price: \$${guitar.purchasePrice}`
+                ? `Purchase Price: \$${guitar.purchasePrice}`
                 : null,
               `Strings: ${guitar.strings}`,
               guitar.numberOfStrings
@@ -116,7 +116,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 ? `Tremolo: ${guitar.tremolo}`
                 : null,
               guitar.hasBattery
-                ? `Has battery: Yes`
+                ? `Has Battery: Yes`
                 : null,
               guitar.productUrl
                 ? `Product Link: ${guitar.productUrl}`
