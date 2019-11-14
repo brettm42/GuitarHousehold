@@ -63,6 +63,12 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
           <div>
             {[
               `Gauge: ${strings.gauge}`,
+              strings.material
+                ? `Material: ${strings.material}`
+                : null,
+              strings.numberOfStrings
+                ? `Number of Strings: ${strings.numberOfStrings}`
+                : null,
               `Last Time Changed: ${strings.lastChangeDate}`,
               strings.purchaseDate 
                 ? `Purchased ${strings.purchaseDate}`

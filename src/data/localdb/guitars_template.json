@@ -38,8 +38,13 @@
             }
         ],
         "scale": "25.5\"",
-        "numberOfStrings": 7,
-        "strings": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+        "strings": {
+            "name": "D'Addario EJ12 80/20 Bronze Acoustic, Medium, 13-56",
+            "gauge": "13-56",
+            "numberOfStrings": 7,
+            "material": "80/20 Bronze",
+            "lastChangeDate": "11/02/2019"
+        },
         "hasBattery": "true",
         "tremolo": "",
         "case": {

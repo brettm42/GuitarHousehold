@@ -1,9 +1,9 @@
 import { Case } from './case';
 import { Pickup } from './pickup';
+import { Strings } from './strings';
 import { 
     BodyStyle, 
     SerialNumberLocation,
-    StringType,
     TremoloType
 } from './components';
 import { RetailItem } from '../retailitem';
@@ -17,8 +17,7 @@ export interface Guitar extends RetailItem {
     readonly bodyStyle: BodyStyle;
     readonly color: string;
     readonly pickups?: ReadonlyArray<Pickup>;
-    readonly strings?: StringType;
-    readonly numberOfStrings?: number;
+    readonly strings?: Strings;
     readonly tremolo?: TremoloType;
     readonly case?: Case;
     readonly scale?: string;

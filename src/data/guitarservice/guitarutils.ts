@@ -331,10 +331,12 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     let six = 0;
     let twelve = 0;
     for (const guitar of guitars) {
-        if (guitar?.numberOfStrings === 12) {
-            twelve += 1;
-        } else {
-            six += 1;
+        if (guitar.strings) {
+            if (guitar.strings.numberOfStrings === 12) {
+                twelve += 1;
+            } else {
+                six += 1;
+            }
         }
     }
 

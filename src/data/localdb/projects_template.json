@@ -44,8 +44,13 @@
             }
         ],
         "scale": "25.5\"",
-        "numberOfStrings": 12,
-        "strings": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+        "strings": {
+            "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+            "gauge": "13-56",
+            "numberOfStrings": 12,
+            "material": "Pure Nickel",
+            "lastChangeDate": "11/02/2019"
+        },
         "tremolo": "",
         "case": {
             "id": 100100,

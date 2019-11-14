@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
+import StringsDetail from './StringsDetail';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -101,10 +102,6 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               GuitarUtils.hasPurchasePrice(guitar)
                 ? `Purchase Price: \$${guitar.purchasePrice}`
                 : null,
-              `Strings: ${guitar.strings}`,
-              guitar.numberOfStrings
-                ? `Number of Strings: ${guitar.numberOfStrings}`
-                : null,
               guitar.scale
                 ? `Neck Scale: ${guitar.scale}`
                 : null,
@@ -148,6 +145,16 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                   <li key={i.id}>
                     <PickupDetail item={i} isMobile={isMobile} />
                   </li>)}
+              </ul>
+            </div>
+          : null}
+        {guitar.strings
+          ? <div>
+              <p>Strings:</p>
+              <ul>
+                <li key={`${guitar.id}-strings`}>
+                  <StringsDetail item={guitar.strings} isMobile={isMobile} />
+                </li>
               </ul>
             </div>
           : null}
