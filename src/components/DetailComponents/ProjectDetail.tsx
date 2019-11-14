@@ -156,7 +156,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           ? <div>
               <p>Strings:</p>
               <ul>
-                <li key={`${guitar.id}-strings`}>
+                <li key={guitar.strings.id}>
                   <StringsDetail item={guitar.strings} isMobile={isMobile} />
                 </li>
               </ul>
