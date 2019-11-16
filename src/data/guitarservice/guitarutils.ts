@@ -11,6 +11,7 @@ import {
 
 const defaultString = 'None';
 const minDefault = 9999999;
+const pastDate = "01/11/1977";
 
 export function isGuitar(guitar: any): guitar is Guitar {
     return guitar.make !== undefined;
@@ -250,8 +251,7 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
-    const cases = guitars.map(g => 
-        g.case ? g.case.caseStyle : undefined)
+    const cases = guitars.map(g => g.case?.caseStyle)
 
     return mostCommonString(cases);
 }
@@ -263,8 +263,7 @@ export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
-    const tunings = guitars.map(g => 
-        g.tuning ? g.tuning : 'Standard');
+    const tunings = guitars.map(g => g.tuning ? g.tuning : 'Standard');
 
     return mostCommonString(tunings);
 }
@@ -297,6 +296,12 @@ export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
     const tremolos = guitars.map(g => g.tremolo);
 
     return mostCommonString(tremolos);
+}
+
+export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
+    const strings = guitars.map(g => g.strings?.name);
+
+    return mostCommonString(strings);
 }
 
 export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
@@ -423,6 +428,15 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
     }
 
     return `${flat} vs. ${arched}`;
+}
+
+export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
+    const strings = 
+        guitars
+            .filter(g => g.strings?.gauge)
+            .map(g => g.strings?.gauge);
+
+    return mostCommonString(strings);
 }
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
@@ -574,6 +588,89 @@ export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
 
     return min
         ? `${min.name} (bought ${min.purchaseDate})`
+        : defaultString;
+}
+
+export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    let max;
+    let maxDate;
+    for (const guitar of guitars) {
+        if (!guitar.strings) {
+            continue;
+        }
+    
+        let lastChangeDate = guitar.strings.lastChangeDate;
+        if (!lastChangeDate) {
+            if (guitar.strings.name.includes('Factory')) {
+                lastChangeDate = guitar.purchaseDate;
+            }
+            else {
+                continue;
+            }
+        }
+
+        if (!max) {
+            max = guitar;
+            maxDate = lastChangeDate;
+            continue;
+        }
+
+        if (Date.parse(maxDate ?? pastDate) 
+                > Date.parse(lastChangeDate ?? Date.now().toString())) {
+            max = guitar;
+            maxDate = lastChangeDate;
+        }
+    }
+
+    return max
+        ? maxDate === max?.purchaseDate
+            ? `${max.strings?.name} strings (came with ${max.name})`
+            : `${max.strings?.name} strings (changed ${maxDate} on ${max.name})`
+        : defaultString;
+}
+
+export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    let min;
+    let minDate;
+    for (const guitar of guitars) {
+        if (!guitar.strings) {
+            continue;
+        }
+
+        let lastChangeDate = guitar.strings.lastChangeDate;
+        if (!lastChangeDate) {
+            if (guitar.strings.name.includes('Factory')) {
+                lastChangeDate = guitar.purchaseDate;
+            } else {
+                continue;
+            }
+        }
+
+        if (!min) {
+            min = guitar;
+            minDate = lastChangeDate;
+            continue;
+        }
+
+        if (Date.parse(minDate ?? pastDate) 
+               < Date.parse(lastChangeDate ?? Date.now().toString())) {
+            min = guitar;
+            minDate = lastChangeDate;
+        }
+    }
+
+    return min
+        ? minDate === min?.purchaseDate
+            ? `${min.strings?.name} strings (came with ${min.name})`
+            : `${min.strings?.name} strings (changed ${minDate} on ${min.name})`
         : defaultString;
 }
 

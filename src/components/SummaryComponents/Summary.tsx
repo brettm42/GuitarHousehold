@@ -14,12 +14,13 @@ import {
   BreakdownComponent,
   MissingCasesComponent, 
   MostCommonComponent, 
-  OutliersComponent, 
+  OutliersComponent,
+  PartValuesComponent,
   PickupsComponent,
   RandomPickComponent,
+  StringsComponent,
   TimelineComponent,
-  ValuesComponent,
-  PartValuesComponent
+  ValuesComponent
 } from './SummaryComponents';
 
 import { Guitar } from '../../interfaces/models/guitar';
@@ -117,6 +118,8 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
     (<PartValuesComponent data={guitars} isMobile={isMobile} />);
   const pickupsComponent =      
     (<PickupsComponent data={guitars} isMobile={isMobile} />);
+  const stringsComponent =
+    (<StringsComponent data={guitars} isMobile={isMobile} />);
   const randomPickComponent =   
     (<RandomPickComponent data={guitars} isMobile={isMobile} />);
   const timelineComponent =     
@@ -153,6 +156,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'pickups'} item xs={6} sm={4}>
         <Paper className={classes.paper4}>
           {pickupsComponent}
+        </Paper>
+      </Grid>
+      <Grid key={'strings'} item xs={6} sm={4}>
+        <Paper className={classes.paper4}>
+          {stringsComponent}
         </Paper>
       </Grid>
       <Grid key={'timeline'} item xs={6} sm={4}>
@@ -301,6 +309,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <ExpansionPanelDetails>
               <Divider />              
               {pickupsComponent}
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Paper>
+      </Grid>
+      <Grid key={'strings'} item xs={12} sm={6}>
+        <Paper>
+          <ExpansionPanel className={classes.paper4}>
+            <ExpansionPanelSummary id='panelStrings-header' aria-controls='panelStrings-content'>
+              <Typography variant='overline'>
+                {'Strings'}
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Divider />              
+              {stringsComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>

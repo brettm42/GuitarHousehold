@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     mostCommon: {},
     outliers: {},
     pickups: {},
+    strings: {},
     values: {},
     timeline: {},
     randomPickDiv: {
@@ -92,8 +93,8 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
             </Typography>
             {Array.isArray(line[1])
               ? <div className={classes.detailChildren}>
-                  {line[1].map(i => 
-                    <Typography variant='caption' display='block'>
+                  {line[1].map((i, idx) => 
+                    <Typography key={idx} variant='caption' display='block'>
                       {i}
                     </Typography>)}
                 </div>
@@ -229,6 +230,24 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   );
 };
 
+const StringsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+  
+  return (
+    <SummaryComponent
+      title={'Strings:'}
+      contents={[
+        [ 'On Most Guitars', GuitarUtils.mostCommonStrings(guitars) ],
+        [ 'Most Common Gauge', GuitarUtils.mostCommonStringGauge(guitars) ],
+        [ 'Oldest Strings', GuitarUtils.oldestStrings(guitars) ],
+        [ 'Newest Strings', GuitarUtils.newestStrings(guitars) ]
+      ]}
+      style={classes.strings} />
+  );
+};
+
 const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars, isMobile
 }) => {
@@ -325,6 +344,7 @@ export {
   PartValuesComponent,
   PickupsComponent,
   RandomPickComponent,
+  StringsComponent,
   TimelineComponent,
   ValuesComponent 
 };
