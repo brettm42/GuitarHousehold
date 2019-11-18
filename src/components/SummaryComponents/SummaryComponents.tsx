@@ -241,6 +241,7 @@ const StringsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       contents={[
         [ 'On Most Guitars', GuitarUtils.mostCommonStrings(guitars) ],
         [ 'Most Common Gauge', GuitarUtils.mostCommonStringGauge(guitars) ],
+        [ 'Average String Age', GuitarUtils.averageStringAge(guitars) ],
         [ 'Oldest Strings', GuitarUtils.oldestStrings(guitars) ],
         [ 'Newest Strings', GuitarUtils.newestStrings(guitars) ]
       ]}

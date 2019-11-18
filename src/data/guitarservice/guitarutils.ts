@@ -1,6 +1,7 @@
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
+import { Strings } from '../../interfaces/models/strings';
 
 import { 
     millisecondsToFriendlyString,
@@ -183,6 +184,30 @@ export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
 
     return averageFrets 
         ? `${Math.round(averageFrets)}` 
+        : defaultString;
+}
+
+function getStringAge(strings: Strings | undefined): number {
+    if (strings && strings.lastChangeDate) {
+        return Date.parse(strings.lastChangeDate);
+    }
+
+    return 0;
+}
+
+export function averageStringAge(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const items = guitars.filter(c => c.strings);
+    const averageAge = 
+        items.reduce((avg, g) => 
+            avg + getStringAge(g.strings),
+            0) / items.length;
+
+    return averageAge 
+        ? `${millisecondsToFriendlyString(averageAge)}` 
         : defaultString;
 }
 
