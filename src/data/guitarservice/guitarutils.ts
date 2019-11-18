@@ -626,10 +626,14 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
+    const duration = 
+        millisecondsToFriendlyString(
+            Date.now() - Date.parse(maxDate ?? Date.now().toString()));
+
     return max
         ? maxDate === max?.purchaseDate
-            ? `${max.strings?.name} strings (came with ${max.name})`
-            : `${max.strings?.name} strings (changed ${maxDate} on ${max.name})`
+            ? `${max.strings?.name} strings (came with ${max.name}) - ${duration}`
+            : `${max.strings?.name} strings (changed ${maxDate} on ${max.name}) - ${duration}`
         : defaultString;
 }
 
@@ -667,10 +671,14 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
+    const duration = 
+        millisecondsToFriendlyString(
+            Date.now() - Date.parse(minDate ?? Date.now().toString()));
+
     return min
         ? minDate === min?.purchaseDate
-            ? `${min.strings?.name} strings (came with ${min.name})`
-            : `${min.strings?.name} strings (changed ${minDate} on ${min.name})`
+            ? `${min.strings?.name} strings (came with ${min.name}) - ${duration}`
+            : `${min.strings?.name} strings (changed ${minDate} on ${min.name}) - ${duration}`
         : defaultString;
 }
 
