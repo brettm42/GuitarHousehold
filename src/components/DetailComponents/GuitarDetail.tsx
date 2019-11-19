@@ -155,7 +155,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               <p>Strings:</p>
               <ul>
                 <li key={guitar.strings.id}>
-                  <StringsDetail item={guitar.strings} isMobile={isMobile} />
+                  <StringsDetail item={guitar.strings} parent={guitar} isMobile={isMobile} />
                 </li>
               </ul>
             </div>

@@ -1,7 +1,6 @@
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
-import { Strings } from '../../interfaces/models/strings';
 
 import { 
     millisecondsToFriendlyString,
@@ -11,6 +10,7 @@ import {
 } from '../../infrastructure/datautils';
 
 const defaultString = 'None';
+const unknownString = 'Unknown';
 const minDefault = 9999999;
 const pastDate = "01/11/1977";
 
@@ -187,12 +187,28 @@ export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
         : defaultString;
 }
 
-function getStringAge(strings: Strings | undefined): number {
-    if (strings && strings.lastChangeDate) {
-        return Date.parse(strings.lastChangeDate);
+function getStringAgeDuration(guitar: Guitar): number {
+    if (guitar.strings) {
+        if (guitar.strings.lastChangeDate) {
+            return Date.now() - Date.parse(guitar.strings.lastChangeDate);
+        } else if (guitar.strings.name.includes('Factory')) {
+            if (!guitar.purchaseDate) {
+                return 0;
+            }
+
+            return Date.now() - Date.parse(guitar.purchaseDate);
+        }
     }
 
     return 0;
+}
+
+export function getStringAge(guitar: Guitar): string {
+    const duration = getStringAgeDuration(guitar);
+
+    return duration > 0
+        ? millisecondsToFriendlyString(duration)
+        : unknownString;
 }
 
 export function averageStringAge(guitars: ReadonlyArray<Guitar>): string {
@@ -200,11 +216,17 @@ export function averageStringAge(guitars: ReadonlyArray<Guitar>): string {
         return defaultString;
     }
 
-    const items = guitars.filter(c => c.strings);
-    const averageAge = 
-        items.reduce((avg, g) => 
-            avg + getStringAge(g.strings),
-            0) / items.length;
+    let total = 0;
+    let count = 0;
+    for (const guitar of guitars) {
+        const age = getStringAgeDuration(guitar);
+        if (age > 0) {
+            total += age;
+            count++;
+        }
+    }
+
+    const averageAge = total / count;
 
     return averageAge 
         ? `${millisecondsToFriendlyString(averageAge)}` 

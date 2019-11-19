@@ -9,10 +9,13 @@ import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import { Guitar } from '../../interfaces/models/guitar';
 import { Strings } from '../../interfaces/models/strings';
+import { getStringAge } from '../../data/guitarservice/guitarutils';
 
 type StringsDetailProps = {
   item: Strings
+  parent: Guitar
   isMobile: boolean
 }
 
@@ -42,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
-  item: strings, isMobile
+  item: strings, parent: guitar, isMobile
 }) => {
   const classes = useStyles();
 
@@ -74,6 +77,7 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
               strings.lastChangeDate
                 ? `Last Time Changed: ${strings.lastChangeDate}`
                 : null,
+              `String Age: ${getStringAge(guitar)}`,
               strings.purchaseDate 
                 ? `Purchased ${strings.purchaseDate}`
                 : null,
