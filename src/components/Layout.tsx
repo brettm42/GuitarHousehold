@@ -170,7 +170,9 @@ export default function Layout(props: Props): React.ReactElement {
                           ? <FeaturedVideoRoundedIcon />
                           : idx === 3
                             ? <InboxRoundedIcon />
-                            : <MailRoundedIcon />}
+                            : idx === 4
+                              ? <FeaturedPlayListRoundedIcon />
+                              : <MailRoundedIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemLink>
@@ -181,6 +183,14 @@ export default function Layout(props: Props): React.ReactElement {
         <Divider />
         
         <List>
+          <Link key={98} href={'/wishlist'} passHref>
+            <ListItemLink>
+              <ListItemIcon>
+                <FeaturedPlayListRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Wishlist'} />
+            </ListItemLink>
+          </Link>
           <Link key={99} href={'/about'} passHref>
             <ListItemLink>
               <ListItemIcon>

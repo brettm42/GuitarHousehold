@@ -12,3 +12,4 @@ src/.vscode
 src/data/localdb/assets.json
 src/data/localdb/guitars.json
 src/data/localdb/projects.json
+src/data/localdb/wishlist.json
