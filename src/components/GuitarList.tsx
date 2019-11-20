@@ -1,8 +1,8 @@
 import Typography from '@material-ui/core/Typography';
 
-import Layout from '../components/Layout';
-import DataTable from '../components/TableComponents/DataTable';
 import DataDetailTable from '../components/TableComponents/DataDetailTable';
+import DataTable from '../components/TableComponents/DataTable';
+import Layout from '../components/Layout';
 
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';

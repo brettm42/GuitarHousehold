@@ -1,5 +1,6 @@
 import assets from '../data/localdb/assets.json';
 
+export const ImagePlaceholder = '🎸';
 export const SiteTitle = 'GuitarHousehold 🎸';
 
 export const FooterMessage = assets.footer.message;

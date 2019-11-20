@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import Error from '../components/Error';
+import GuitarDetail from '../components/DetailComponents/GuitarDetail';
 import Layout from '../components/Layout';
 import ListDetail from '../components/DetailComponents/ListDetail';
-import GuitarDetail from '../components/DetailComponents/GuitarDetail';
 import ProjectDetail from '../components/DetailComponents/ProjectDetail';
 
 import { NextPageContext } from 'next';

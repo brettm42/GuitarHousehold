@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import * as Constants from '../../infrastructure/constants';
+
 import Link from 'next/link';
 
 import Grid from '@material-ui/core/Grid';
@@ -262,7 +264,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
               : <Typography variant='h4' gutterBottom>
-                 {'🎸'}
+                 {Constants.ImagePlaceholder}
                 </Typography>}
           </a>
         </Link>

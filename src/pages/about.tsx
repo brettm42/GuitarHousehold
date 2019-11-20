@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
 
 import Typography from '@material-ui/core/Typography';
+
 import Layout from '../components/Layout';
 
 import { NextPage } from 'next';

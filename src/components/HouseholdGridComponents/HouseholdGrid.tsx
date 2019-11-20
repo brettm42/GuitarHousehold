@@ -1,12 +1,13 @@
 import * as React from 'react';
 
 import Link from 'next/link';
+
 import Grid from '@material-ui/core/Grid';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { Guitar } from '../../interfaces/models/guitar';
 

@@ -1,11 +1,14 @@
 import * as React from 'react';
 
+import * as Constants from '../../infrastructure/constants';
+
 import Link from 'next/link';
+
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { Guitar } from '../../interfaces/models/guitar';
 import { Typography } from '@material-ui/core';
@@ -90,7 +93,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                     ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
                     : <div className={classes.imgPlaceholder}>
                         <Typography variant='h4' gutterBottom>
-                          {'🎸'}
+                          {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
                   <GridListTileBar
@@ -120,7 +123,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                     ? <img className={classes.mobileImg} src={guitar.picture} alt={guitar.name} />
                     : <div className={classes.mobileImgPlaceholder}>
                         <Typography variant='h4' gutterBottom>
-                          {'🎸'}
+                          {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
                   <GridListTileBar
