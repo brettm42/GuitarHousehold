@@ -110,6 +110,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               guitar.numberOfFrets
                 ? `Number of Frets: ${guitar.numberOfFrets}`
                 : null,
+              guitar.nutWidth
+                ? `Nut Width: ${guitar.nutWidth}`
+                : null,
               `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
               guitar.tremolo
                 ? `Tremolo: ${guitar.tremolo}`

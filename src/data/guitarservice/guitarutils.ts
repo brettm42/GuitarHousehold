@@ -1425,7 +1425,8 @@ function getColorMapping(color: string): string {
         'Purple Haze Metalflake': 'Purple',
         'Aztec Gold Metalflake': 'Gold',
         'Olympic White': 'White',
-        'TV Yellow': 'Yellow'
+        'TV Yellow': 'Yellow',
+        'Seafoam Green': 'Green'
     };
     
     if (color in mapping) {
