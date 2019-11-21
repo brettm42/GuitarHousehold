@@ -114,6 +114,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.numberOfFrets
                 ? `Number of Frets: ${guitar.numberOfFrets}`
                 : null,
+              guitar.neckRadius
+                ? `Neck Radius: ${guitar.neckRadius}`
+                : null,
               guitar.nutWidth
                 ? `Nut Width: ${guitar.nutWidth}`
                 : null,

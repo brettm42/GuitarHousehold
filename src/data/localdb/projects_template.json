@@ -44,6 +44,8 @@
             }
         ],
         "scale": "25.5\"",
+        "neckRadius": "",
+        "nutWidth": "",
         "strings": {
             "id": 100009,
             "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
@@ -52,7 +54,7 @@
             "material": "Pure Nickel",
             "lastChangeDate": "11/02/2019"
         },
-        "tremolo": "",
+        "tremolo": "Jazzmaster",
         "case": {
             "id": 100100,
             "name": "Douglas EGC-200 SJM Case",

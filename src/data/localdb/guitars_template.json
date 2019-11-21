@@ -38,6 +38,8 @@
             }
         ],
         "scale": "25.5\"",
+        "neckRadius": "",
+        "nutWidth": "",
         "strings": {
             "id": 10009,
             "name": "D'Addario EJ12 80/20 Bronze Acoustic, Medium, 13-56",
@@ -47,7 +49,7 @@
             "lastChangeDate": "11/02/2019"
         },
         "hasBattery": "true",
-        "tremolo": "",
+        "tremolo": "Stratocaster",
         "case": {
             "id": 10100,
             "name": "TKL Artcore Case",
