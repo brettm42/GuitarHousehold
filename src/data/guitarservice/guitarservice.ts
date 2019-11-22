@@ -6,7 +6,7 @@ import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 
 export async function findGuitar(id: number | string): Promise<Guitar> {
-  if (guitarDb !== undefined && guitarDb.length > 0) {
+  if (guitarDb) {
     const guitar = (guitarDb as Guitar[]).find(data => data.id === Number(id));
     if (guitar) {      
       return guitar;
@@ -18,8 +18,8 @@ export async function findGuitar(id: number | string): Promise<Guitar> {
   throw new Error(`Cannot find guitar with ID: ${id}`);
 }
 
-export async function findProject(id: number | string): Promise<Project | Guitar> {
-  if (projectDb !== undefined && projectDb.length > 0) {
+async function findProject(id: number | string): Promise<Project | Guitar> {
+  if (projectDb) {
     const project = (projectDb as Project[]).find(data => data.id === Number(id));
     if (project) {
       return project;
@@ -31,8 +31,8 @@ export async function findProject(id: number | string): Promise<Project | Guitar
   throw new Error(`Cannot find guitar with ID: ${id}`);
 }
 
-export async function findWishlist(id: number | string): Promise<Guitar> {
-  if (wishlistDb !== undefined && wishlistDb.length > 0) {
+async function findWishlist(id: number | string): Promise<Guitar> {
+  if (wishlistDb) {
     const wishlist = (wishlistDb as Guitar[]).find(data => data.id === Number(id));
     if (wishlist) {      
       return wishlist;
@@ -43,23 +43,23 @@ export async function findWishlist(id: number | string): Promise<Guitar> {
 }
 
 export async function findAllGuitars(): Promise<Guitar[]> {
-  if (guitarDb === undefined) {
+  if (!guitarDb) {
     throw new Error('Cannot find guitars');
   }
 
-  return guitarDb as Guitar[];
+  return (guitarDb as Guitar[]).filter(g => !g.archive);
 }
 
 export async function findAllProjects(): Promise<Project[]> {
-  if (projectDb === undefined) {
+  if (!projectDb) {
     throw new Error('Cannot find project guitars');
   }
 
-  return projectDb as Project[];
+  return (projectDb as Project[]).filter(g => !g.archive);
 }
 
 export async function findAllArchived(): Promise<Guitar[]> {
-  if (guitarDb === undefined) {
+  if (!guitarDb) {
     throw new Error('Cannot find guitars');
   }
 
@@ -67,7 +67,7 @@ export async function findAllArchived(): Promise<Guitar[]> {
 }
 
 export async function findAllSold(): Promise<Guitar[]> {
-  if (guitarDb === undefined) {
+  if (!guitarDb) {
     throw new Error('Cannot find guitars');
   }
 
@@ -75,7 +75,7 @@ export async function findAllSold(): Promise<Guitar[]> {
 }
 
 export async function findAllWishlist(): Promise<Guitar[]> {
-  if (wishlistDb === undefined) {
+  if (!wishlistDb) {
     throw new Error('Cannot find wishlist');
   }
 
