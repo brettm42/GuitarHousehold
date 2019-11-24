@@ -18,7 +18,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
     "@babel/plugin-proposal-optional-chaining": "^7.7.4",
     "@types/node": "^11.15.2",
-    "@types/react": "^16.9.12",
+    "@types/react": "^16.9.13",
     "@types/react-dom": "^16.9.4",
     "typescript": "^3.7.2"
   },
