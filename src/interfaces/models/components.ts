@@ -70,7 +70,8 @@ const pickupSizes = [
 export type CaseStyle = typeof caseStyles[number];
 const caseStyles = [
     'Flat',
-    'Arched'
+    'Arched',
+    'Gig Bag'
 ] as const;
 
 export type TremoloType = typeof tremoloTypes[number];

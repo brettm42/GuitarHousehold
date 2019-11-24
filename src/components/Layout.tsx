@@ -157,7 +157,7 @@ export default function Layout(props: Props): React.ReactElement {
         onKeyDown={toggleDrawer(true)}
       >
         <List>
-          {['Home', 'Guitars', 'Projects', 'Archive']
+          {['Home', 'Guitars', 'Projects', 'Instruments', 'Archive']
             .map((text, idx) => (
               <Link key={idx} href={`/${text === 'Home' ? '' : text.toLocaleLowerCase()}`} passHref>
                 <ListItemLink>
