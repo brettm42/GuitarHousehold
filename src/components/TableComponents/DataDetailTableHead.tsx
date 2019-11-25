@@ -6,42 +6,26 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Typography from '@material-ui/core/Typography';
 
-import { Order, useStyles } from './DataDetailTable';
-import { Guitar } from '../../interfaces/models/guitar';
+import { Order, TableDataCell, useStyles } from './DataDetailTable';
+import { Project } from '../../interfaces/models/project';
 
 interface Props {
-  classes: ReturnType<typeof useStyles>;
-  onRequestSort: (event: React.MouseEvent, property: keyof Guitar) => void;
-  order: Order;
-  orderBy: string;
+  classes: ReturnType<typeof useStyles>
+  columns: ReadonlyArray<TableDataCell>
+  onRequestSort: (event: React.MouseEvent, property: keyof Project) => void
+  order: Order
+  orderBy: string
 }
 
-interface tableHeadCell {
-  id: keyof Guitar;
-  label: string;
-}
-
-const tableHeadCells: tableHeadCell[] = [
-  { id: 'id', label: 'id' },
-  { id: 'name', label: 'Name' },
-  { id: 'bodyStyle', label: 'Type' },
-  { id: 'make', label: 'Make' },
-  { id: 'color', label: 'Color' },
-  { id: 'pickups', label: 'Pickups' },
-  { id: 'scale', label: 'Scale' },
-  { id: 'purchaseDate', label: 'Purchased' },
-  { id: 'purchasePrice', label: 'Purchase Price' }
-]
-
-const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, onRequestSort, order, orderBy }) => {
-  const createSortHandler = (property: keyof Guitar) => (event: React.MouseEvent) => {
+const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, columns, onRequestSort, order, orderBy }) => {
+  const createSortHandler = (property: keyof Project) => (event: React.MouseEvent) => {
     onRequestSort(event, property);
   }
 
   return (
     <TableHead>
       <TableRow key='header'>
-        {tableHeadCells.map(cell => (
+        {columns.map(cell => (
           <TableCell key={cell.id} sortDirection={orderBy === cell.id ? order : false}>
             <TableSortLabel active={orderBy === cell.id} direction={order} onClick={createSortHandler(cell.id)}>
               <Typography variant='subtitle1'>

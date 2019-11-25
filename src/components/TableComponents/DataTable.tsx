@@ -12,6 +12,7 @@ import { Entry } from '../../interfaces/entry';
 
 type Props = {
   items: Entry[]
+  columns: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
