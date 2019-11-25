@@ -15,6 +15,7 @@ type Props = {
   pathname: string
   isMobile: boolean
   title: string
+  columns: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GuitarList: NextPage<Props> = ({ items, pathname, isMobile, title }) => {
+const GuitarList: NextPage<Props> = ({ items, pathname, isMobile, title, columns }) => {
   const classes = useStyles();
 
   return (
@@ -41,8 +42,8 @@ const GuitarList: NextPage<Props> = ({ items, pathname, isMobile, title }) => {
 
       {items.length > 0
         ? isMobile
-          ? <DataTable items={items} />
-          : <DataDetailTable items={items} />
+          ? <DataTable items={items} columns={columns} />
+          : <DataDetailTable items={items} columns={columns} />
         : <div className={classes.emptyList}>
             <Typography>
               {`Nothing to see here... looks like no ${title.toLocaleLowerCase()} results were found`}
