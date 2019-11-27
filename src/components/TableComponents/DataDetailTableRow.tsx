@@ -10,7 +10,7 @@ import { TableDataCell, useStyles } from './DataDetailTable';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 
-import { getPickupCount, summarizeGuitar } from '../../data/guitarservice/guitarutils';
+import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
 
 type Props = {
   classes: ReturnType<typeof useStyles>
@@ -51,17 +51,13 @@ const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, columns, 
       {columns.map(cell => 
         cell.id === 'id' || cell.id === 'name'
         ? null
-        : cell.id === 'pickups'
-          ? <TableCell key={`${guitar.id}-${cell.id}`}>
-              <Typography variant='body2'>
-                {getPickupCount(guitar)}
-              </Typography>
-            </TableCell>
-          : <TableCell key={`${guitar.id}-${cell.id}`}>
-              <Typography variant='body2'>
-                {guitar[cell.id]}
-              </Typography>
-            </TableCell>    
+        : <TableCell key={`${guitar.id}-${cell.id}`}>
+            <Typography variant='body2'>
+              {cell.formatter
+                ? cell.formatter(guitar)
+                : guitar[cell.id]}
+            </Typography>
+          </TableCell>
       )}
     </TableRow>
   );

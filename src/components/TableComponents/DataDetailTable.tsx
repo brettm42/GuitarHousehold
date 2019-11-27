@@ -13,6 +13,8 @@ import { isDescending, tableSort } from '../viewutils';
 import { Entry } from '../../interfaces/entry';
 import { Project } from '../../interfaces/models/project';
 
+import { getPickupCount } from '../../data/guitarservice/guitarutils';
+
 type Props = {
   items: Entry[]
   columns: string
@@ -21,6 +23,7 @@ type Props = {
 export interface TableDataCell {
   id: keyof Project
   label: string
+  formatter?: (data: Project) => string | number
 }
 
 export type Order = 'asc' | 'desc';
@@ -75,7 +78,7 @@ const guitarCells: ReadonlyArray<TableDataCell> = [
   { id: 'bodyStyle', label: 'Type' },
   { id: 'make', label: 'Make' },
   { id: 'color', label: 'Color' },
-  { id: 'pickups', label: 'Pickups' },
+  { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
   { id: 'scale', label: 'Scale' },
   { id: 'purchaseDate', label: 'Purchased' },
   { id: 'purchasePrice', label: 'Purchase Price' }
@@ -85,10 +88,10 @@ const projectCells: ReadonlyArray<TableDataCell> = [
   { id: 'bodyStyle', label: 'Type' },
   { id: 'make', label: 'Make' },
   { id: 'color', label: 'Color' },
-  { id: 'pickups', label: 'Pickups' },
-  { id: 'scale', label: 'Scale' },
   { id: 'projectStart', label: 'Project Start' },
-  { id: 'projectComplete', label: 'Project Complete' }
+  { id: 'projectComplete', label: 'Project Complete' },
+  { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
+  { id: 'scale', label: 'Scale' }
 ]
 
 export default function DataDetailTable(props: Props) {
