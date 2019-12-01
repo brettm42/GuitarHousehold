@@ -79,7 +79,7 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
   title: title,
   contents: contents,
   style: style
-}) => {  
+}) => {
   const classes = useStyles();
 
   return (
@@ -95,7 +95,7 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
             </Typography>
             {Array.isArray(line[1])
               ? <div className={classes.detailChildren}>
-                  {line[1].map((i, idx) => 
+                  {line[1].map((i, idx) =>
                     <Typography key={idx} variant='caption' display='block'>
                       {i}
                     </Typography>)}
@@ -153,7 +153,7 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
   const classes = useStyles();
-  
+
   return (
     <SummaryComponent
       title={'Outliers:'}
@@ -176,7 +176,7 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
   const classes = useStyles();
-  
+
   return (
     <SummaryComponent
       title={'Values:'}
@@ -199,7 +199,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
   const classes = useStyles();
-  
+
   return (
     <SummaryComponent
       title={'Case/Pickup Values:'}
@@ -218,7 +218,7 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
   const classes = useStyles();
-  
+
   return (
     <SummaryComponent
       title={'Pickups:'}
@@ -236,7 +236,7 @@ const StringsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
   const classes = useStyles();
-  
+
   return (
     <SummaryComponent
       title={'Strings:'}
@@ -349,5 +349,5 @@ export {
   RandomPickComponent,
   StringsComponent,
   TimelineComponent,
-  ValuesComponent 
+  ValuesComponent
 };

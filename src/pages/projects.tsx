@@ -15,11 +15,11 @@ type Props = {
 }
 
 const Projects: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
-  return <GuitarList 
-      items={items} 
-      pathname={pathname} 
-      isMobile={isMobile} 
-      title={title} 
+  return <GuitarList
+      items={items}
+      pathname={pathname}
+      isMobile={isMobile}
+      title={title}
       columns={'project'}
     />;
 };

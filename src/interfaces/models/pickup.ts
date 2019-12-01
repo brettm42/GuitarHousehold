@@ -1,8 +1,8 @@
-import { 
-    PickupMount, 
-    PickupPosition, 
-    PickupSize, 
-    PickupType 
+import {
+    PickupMount,
+    PickupPosition,
+    PickupSize,
+    PickupType
 } from './components';
 import { RetailItem } from '../retailitem';
 

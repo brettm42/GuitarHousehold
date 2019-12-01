@@ -15,11 +15,11 @@ type Props = {
 }
 
 const Wishlist: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
-  return <GuitarList 
-      items={items} 
-      pathname={pathname} 
-      isMobile={isMobile} 
-      title={title} 
+  return <GuitarList
+      items={items}
+      pathname={pathname}
+      isMobile={isMobile}
+      title={title}
       columns={'wishlist'}
     />;
 };
@@ -28,7 +28,7 @@ Wishlist.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [ ...await findAllWishlist() ];
   const title = 'Wishlist';
   const isMobile = IsMobile();
-  
+
   return { items, pathname, title, isMobile };
 };
 

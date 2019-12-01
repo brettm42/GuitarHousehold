@@ -59,7 +59,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
   item: guitar, isMobile
 }) => {
   const classes = useStyles();
-  
+
   const guitarSummary = (
     <div>
       {guitar.description
@@ -149,7 +149,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div>
               <p>Pickups:</p>
               <ul>
-                {(guitar.pickups ?? []).map(i => 
+                {(guitar.pickups ?? []).map(i =>
                   <li key={i.id}>
                     <PickupDetail item={i} isMobile={isMobile} />
                   </li>)}
@@ -170,10 +170,10 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div>
               <p>Case:</p>
               <ul>
-                {guitar.case 
+                {guitar.case
                   ? <li key={guitar.case.id}>
                       <CaseDetail item={guitar.case} isMobile={isMobile} />
-                    </li> 
+                    </li>
                   : null}
               </ul>
             </div>
@@ -182,7 +182,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div className={classes.description}>
               <p>Modifications:</p>
               <ul>
-                {(guitar.modifications ?? []).map((i, idx) => 
+                {(guitar.modifications ?? []).map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}
@@ -195,7 +195,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div className={classes.description}>
               <p>Controls:</p>
               <ul>
-                {(guitar.controls ?? []).map((i, idx) => 
+                {(guitar.controls ?? []).map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}

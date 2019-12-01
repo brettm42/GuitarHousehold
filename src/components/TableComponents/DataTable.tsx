@@ -32,7 +32,7 @@ export default function DataTable(props: Props) {
     <Paper className={classes.root}>
       <Table className={classes.table} aria-label='Guitar data table'>
         <TableBody>
-          {props.items.map(item => 
+          {props.items.map(item =>
             <DataTableRow item={item} />)
           }
         </TableBody>

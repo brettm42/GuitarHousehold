@@ -12,8 +12,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import {
   BreakdownComponent,
-  MissingCasesComponent, 
-  MostCommonComponent, 
+  MissingCasesComponent,
+  MostCommonComponent,
   OutliersComponent,
   PartValuesComponent,
   PickupsComponent,
@@ -105,32 +105,32 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   data: guitars, isMobile
 }) => {
   const classes = useStyles();
-  
-  const breakdownComponent = 
+
+  const breakdownComponent =
     (<BreakdownComponent data={guitars} isMobile={isMobile} />);
-  const mostCommonComponent =   
+  const mostCommonComponent =
     (<MostCommonComponent data={guitars} isMobile={isMobile} />);
-  const missingCasesComponent = 
+  const missingCasesComponent =
     (<MissingCasesComponent data={guitars} isMobile={isMobile} />);
-  const outliersComponent =     
+  const outliersComponent =
     (<OutliersComponent data={guitars} isMobile={isMobile} />);
-  const partValuesComponent =   
+  const partValuesComponent =
     (<PartValuesComponent data={guitars} isMobile={isMobile} />);
-  const pickupsComponent =      
+  const pickupsComponent =
     (<PickupsComponent data={guitars} isMobile={isMobile} />);
   const stringsComponent =
     (<StringsComponent data={guitars} isMobile={isMobile} />);
-  const randomPickComponent =   
+  const randomPickComponent =
     (<RandomPickComponent data={guitars} isMobile={isMobile} />);
-  const timelineComponent =     
+  const timelineComponent =
     (<TimelineComponent data={guitars} isMobile={isMobile} />);
-  const valuesComponent =       
+  const valuesComponent =
     (<ValuesComponent data={guitars} isMobile={isMobile} />);
 
   const desktopGrid = (
-    <Grid container 
+    <Grid container
       className={classes.root}
-      justify='flex-start' 
+      justify='flex-start'
       spacing={2}
     >
       <Grid key={'popular'} item xs={6} sm={4}>
@@ -152,7 +152,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         <Paper className={classes.paper2}>
           {breakdownComponent}
         </Paper>
-      </Grid> 
+      </Grid>
       <Grid key={'pickups'} item xs={6} sm={4}>
         <Paper className={classes.paper4}>
           {pickupsComponent}
@@ -185,11 +185,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
     </Grid>
   );
-  
+
   const mobileGrid = (
-    <Grid container 
-      className={classes.root} 
-      justify='space-between' 
+    <Grid container
+      className={classes.root}
+      justify='space-between'
       direction='column'
       spacing={2}
     >
@@ -252,7 +252,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
-      </Grid> 
+      </Grid>
       <Grid key={'values'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper4}>
@@ -282,7 +282,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
-      </Grid>            
+      </Grid>
       <Grid key={'cases'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper5}>
@@ -307,7 +307,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <Divider />              
+              <Divider />
               {pickupsComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -322,7 +322,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <Divider />              
+              <Divider />
               {stringsComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -337,7 +337,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <Divider />              
+              <Divider />
               {timelineComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>

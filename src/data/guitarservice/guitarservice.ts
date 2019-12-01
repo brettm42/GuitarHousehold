@@ -22,7 +22,7 @@ export async function findInstrument(id: number | string): Promise<Guitar> {
 async function findGuitar(id: number | string): Promise<Guitar> {
   if (guitarDb) {
     const guitar = (guitarDb as Guitar[]).find(data => data.id === Number(id));
-    if (guitar) {      
+    if (guitar) {
       return guitar;
     }
 
@@ -48,7 +48,7 @@ async function findProject(id: number | string): Promise<Project | Guitar> {
 async function findWishlist(id: number | string): Promise<Guitar> {
   if (wishlistDb) {
     const wishlist = (wishlistDb as Guitar[]).find(data => data.id === Number(id));
-    if (wishlist) {      
+    if (wishlist) {
       return wishlist;
     }
   }

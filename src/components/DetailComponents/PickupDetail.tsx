@@ -69,16 +69,16 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
               pickup.mount
                 ? `Mount: ${pickup.mount}`
                 : null,
-              pickup.output 
+              pickup.output
                 ? `Output: ${pickup.output}`
                 : null,
-              pickup.purchaseDate 
+              pickup.purchaseDate
                 ? `Purchase Date: ${pickup.purchaseDate}`
                 : null,
               pickup.purchasePrice
                 ? `Purchase Price: \$${pickup.purchasePrice}`
                 : null,
-              pickup.purchaseStore 
+              pickup.purchaseStore
                 ? `Purchase Store: ${pickup.purchaseStore}`
                 : null,
               pickup.productUrl

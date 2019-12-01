@@ -24,7 +24,7 @@ export function mostCommonString(items: ReadonlyArray<string | undefined>): stri
         if (!modeMap[elem]) {
             modeMap[elem] = 1;
         } else {
-            modeMap[elem]++;  
+            modeMap[elem]++;
         }
 
         if (modeMap[elem] > maxCount) {
@@ -32,7 +32,7 @@ export function mostCommonString(items: ReadonlyArray<string | undefined>): stri
             maxCount = modeMap[elem];
         }
     }
-    
+
     return maxElement ?? fallbackString;
 }
 

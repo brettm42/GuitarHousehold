@@ -15,11 +15,11 @@ type Props = {
 }
 
 const Instruments: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
-  return <GuitarList 
-      items={items} 
-      pathname={pathname} 
-      isMobile={isMobile} 
-      title={title} 
+  return <GuitarList
+      items={items}
+      pathname={pathname}
+      isMobile={isMobile}
+      title={title}
       columns={'instrument'}
     />;
 };
@@ -28,7 +28,7 @@ Instruments.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [ ...await findAllInstruments() ];
   const title = 'Instruments';
   const isMobile = IsMobile();
-  
+
   return { items, pathname, title, isMobile };
 };
 

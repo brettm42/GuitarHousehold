@@ -153,7 +153,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           ? <div>
               <p>Pickups:</p>
               <ul>
-                {(guitar.pickups ?? []).map(i => 
+                {(guitar.pickups ?? []).map(i =>
                   <li key={i.id}>
                     <PickupDetail item={i} isMobile={isMobile} />
                   </li>)}
@@ -174,10 +174,10 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           ? <div>
               <p>Case:</p>
               <ul>
-                {guitar.case 
+                {guitar.case
                   ? <li key={guitar.case.id}>
                       <CaseDetail item={guitar.case} isMobile={isMobile} />
-                    </li> 
+                    </li>
                   : null}
               </ul>
             </div>
@@ -186,7 +186,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           ? <div className={classes.description}>
               <p>Modifications:</p>
               <ul>
-                {(guitar.modifications ?? []).map((i, idx) => 
+                {(guitar.modifications ?? []).map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}
@@ -199,7 +199,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
           ? <div className={classes.description}>
               <p>Controls:</p>
               <ul>
-                {(guitar.controls ?? []).map((i, idx) => 
+                {(guitar.controls ?? []).map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}
@@ -209,7 +209,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
             </div>
           : null}
       </Typography>
-      
+
       <ExpansionPanel className={classes.jsonExpander}>
         <ExpansionPanelSummary id='projectPanelJson-header' aria-controls='projectPanelJson-content'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>

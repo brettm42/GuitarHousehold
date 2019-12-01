@@ -9,7 +9,7 @@ const serialNumberLocations = [
 
 export type BodyStyle = typeof bodyStyles[number];
 const bodyStyles = [
-    'Telecaster', 
+    'Telecaster',
     'Stratocaster',
     'Jazzmaster',
     'Jaguar',

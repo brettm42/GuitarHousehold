@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const DataTableRow: React.FunctionComponent<Props> = ({ item }) => {
   const classes = useStyles();
-  
+
   return (
     <TableRow className={classes.root} key={item.id} tabIndex={-1}>
       <TableCell align='center' component='th' scope='row'>

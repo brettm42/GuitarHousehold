@@ -1,8 +1,8 @@
 import { Case } from './case';
 import { Pickup } from './pickup';
 import { Strings } from './strings';
-import { 
-    BodyStyle, 
+import {
+    BodyStyle,
     SerialNumberLocation,
     TremoloType
 } from './components';
