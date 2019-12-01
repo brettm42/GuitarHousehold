@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 
 import DataDetailTableHead from './DataDetailTableHead';
 import DataDetailTableRow from './DataDetailTableRow';
+import { BaseColumn, GuitarColumn, ProjectColumn } from './DataDetailTableColumns';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { isDescending, tableSort } from '../viewutils';
@@ -13,17 +14,9 @@ import { isDescending, tableSort } from '../viewutils';
 import { Entry } from '../../interfaces/entry';
 import { Project } from '../../interfaces/models/project';
 
-import { getPickupCount } from '../../data/guitarservice/guitarutils';
-
 type Props = {
   items: Entry[]
   columns: string
-}
-
-export interface TableDataCell {
-  id: keyof Project
-  label: string
-  formatter?: (data: Project) => string | number
 }
 
 export type Order = 'asc' | 'desc';
@@ -64,35 +57,10 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 function getTableSorting<K extends keyof any>(order: Order, orderBy: K):
   (a: { [key in K]: any }, b: { [key in K]: any }) => number {
-    return order === 'desc' 
-      ? (a, b) => isDescending(a, b, orderBy) 
+    return order === 'desc'
+      ? (a, b) => isDescending(a, b, orderBy)
       : (a, b) => -isDescending(a, b, orderBy);
 }
-
-const baseCells: ReadonlyArray<TableDataCell> = [
-  { id: 'id', label: 'id' },
-  { id: 'name', label: 'Name' }
-]
-
-const guitarCells: ReadonlyArray<TableDataCell> = [
-  { id: 'bodyStyle', label: 'Type' },
-  { id: 'make', label: 'Make' },
-  { id: 'color', label: 'Color' },
-  { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
-  { id: 'scale', label: 'Scale' },
-  { id: 'purchaseDate', label: 'Purchased' },
-  { id: 'purchasePrice', label: 'Purchase Price' }
-]
-
-const projectCells: ReadonlyArray<TableDataCell> = [
-  { id: 'bodyStyle', label: 'Type' },
-  { id: 'make', label: 'Make' },
-  { id: 'color', label: 'Color' },
-  { id: 'projectStart', label: 'Project Start' },
-  { id: 'projectComplete', label: 'Project Complete' },
-  { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
-  { id: 'scale', label: 'Scale' }
-]
 
 export default function DataDetailTable(props: Props) {
   const classes = useStyles();
@@ -107,13 +75,13 @@ export default function DataDetailTable(props: Props) {
     setOrderBy(property);
     event.preventDefault();
   }
-  
+
   const tableCells =
-    props.columns.includes('guitars') || props.columns.includes('archive')
-      ? [ ...baseCells, ...guitarCells]
-      : props.columns.includes('projects')
-        ? [ ...baseCells, ...projectCells ]
-        : baseCells;
+    props.columns.includes('guitar') || props.columns.includes('archive')
+      ? [ ...BaseColumn, ...GuitarColumn ]
+      : props.columns.includes('project')
+        ? [ ...BaseColumn, ...ProjectColumn ]
+        : BaseColumn;
 
   return (
     <div className={classes.root}>
@@ -128,7 +96,7 @@ export default function DataDetailTable(props: Props) {
               onRequestSort={handleRequestSort} />
             <TableBody>
               {tableSort(guitars, getTableSorting(order, orderBy))
-                .map(guitar => 
+                .map(guitar =>
                   <DataDetailTableRow classes={classes} columns={tableCells} guitar={guitar} />)
               }
             </TableBody>

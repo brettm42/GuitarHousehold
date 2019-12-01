@@ -85,15 +85,15 @@ export default function Layout(props: Props): React.ReactElement {
   const { children, title, pathname } = props;
 
   const [state, setState] = React.useState(
-    { 
-      drawerOpen: false 
+    {
+      drawerOpen: false
     });
 
   const toggleDrawer = (open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
-    if (event.type === 'keydown' 
-      && ((event as React.KeyboardEvent).key === 'Tab' 
+    if (event.type === 'keydown'
+      && ((event as React.KeyboardEvent).key === 'Tab'
         || (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
@@ -105,8 +105,8 @@ export default function Layout(props: Props): React.ReactElement {
   // const ListItemLink = React.forwardRef((props, ref) => (
   //   <ListItem button component='a' { ...props } innerRef={ref}>
   //     <ListItemIcon>
-  //         {props.idx === 0 
-  //           ? <InboxIcon /> 
+  //         {props.idx === 0
+  //           ? <InboxIcon />
   //           : idx === 1
   //             ? <FeaturedPlayListRoundedIcon />
   //             : idx === 2
@@ -124,22 +124,22 @@ export default function Layout(props: Props): React.ReactElement {
   function ScrollToTopComponent(props: Props) {
     const { children } = props;
     const classes = useStyles();
-  
+
     const trigger = useScrollTrigger({
       disableHysteresis: true,
       threshold: 100
     });
-  
+
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
       const anchor = ((event.target as HTMLDivElement).ownerDocument ?? document).querySelector(
         '#back-to-top-anchor',
       );
-  
+
       if (anchor) {
         anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     };
-  
+
     return (
       <Zoom in={trigger}>
         <div className={classes.scrollToTop} onClick={handleClick} role='presentation'>
@@ -162,7 +162,7 @@ export default function Layout(props: Props): React.ReactElement {
               <Link key={idx} href={`/${text === 'Home' ? '' : text.toLocaleLowerCase()}`} passHref>
                 <ListItemLink>
                   <ListItemIcon>
-                    {idx === 0 
+                    {idx === 0
                       ? <HomeRoundedIcon />
                       : idx === 1
                         ? <FeaturedPlayListRoundedIcon />
@@ -181,7 +181,7 @@ export default function Layout(props: Props): React.ReactElement {
         </List>
 
         <Divider />
-        
+
         <List>
           <Link key={98} href={'/wishlist'} passHref>
             <ListItemLink>
@@ -217,10 +217,10 @@ export default function Layout(props: Props): React.ReactElement {
       <div id='back-to-top-anchor' className={classes.appBarDiv}>
         <AppBar position='absolute' className={classes.appBar}>
           <Toolbar>
-            <IconButton className={classes.menuButton} 
-              edge='start' 
-              color='inherit' 
-              aria-label='menu' 
+            <IconButton className={classes.menuButton}
+              edge='start'
+              color='inherit'
+              aria-label='menu'
               onClick={toggleDrawer(true)}
             >
               <MenuIcon />
@@ -251,13 +251,13 @@ export default function Layout(props: Props): React.ReactElement {
       <footer>
         <div className={classes.footer}>
           <Divider className={classes.divider} />
-          
+
           <div className={classes.footerMessage}>
             <Typography variant='caption' gutterBottom>
               {FooterMessage}
             </Typography>
           </div>
-          
+
           <ScrollToTopComponent {...props}>
             <Fab className={classes.scrollToTop} color='secondary' size='small' aria-label='scroll to top'>
               <KeyboardArrowUpIcon />

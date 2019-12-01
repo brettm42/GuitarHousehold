@@ -6,7 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 
-import { TableDataCell, useStyles } from './DataDetailTable';
+import { useStyles } from './DataDetailTable';
+import { TableDataCell } from './DataDetailTableColumns';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 
@@ -21,11 +22,11 @@ type Props = {
 const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, columns, guitar }) => {
   return (
     <TableRow key={guitar.id} tabIndex={-1} hover>
-      <TableCell 
+      <TableCell
         key={`${guitar.id}-id`}
-        align='center' 
-        component='th' 
-        scope='row' 
+        align='center'
+        component='th'
+        scope='row'
         padding='none'
       >
         <Typography>
@@ -48,7 +49,7 @@ const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, columns, 
         </div>
       </TableCell>
 
-      {columns.map(cell => 
+      {columns.map(cell =>
         cell.id === 'id' || cell.id === 'name'
         ? null
         : <TableCell key={`${guitar.id}-${cell.id}`}>

@@ -6,7 +6,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Typography from '@material-ui/core/Typography';
 
-import { Order, TableDataCell, useStyles } from './DataDetailTable';
+import { Order, useStyles } from './DataDetailTable';
+import { TableDataCell } from './DataDetailTableColumns';
 import { Project } from '../../interfaces/models/project';
 
 interface Props {

@@ -20,7 +20,7 @@ const Projects: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
       pathname={pathname} 
       isMobile={isMobile} 
       title={title} 
-      columns={'projects'}
+      columns={'project'}
     />;
 };
 
