@@ -149,6 +149,21 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
   );
 };
 
+const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.missingCases}>
+      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
+        {'In Progress Projects:'}
+      </Typography>
+      <DataList items={guitars.filter((i: Guitar) => GuitarUtils.isProject(i) && !i.projectComplete)} />
+    </div>
+  );
+};
+
 const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
@@ -346,6 +361,7 @@ export {
   OutliersComponent,
   PartValuesComponent,
   PickupsComponent,
+  ProjectInProgressComponent,
   RandomPickComponent,
   StringsComponent,
   TimelineComponent,

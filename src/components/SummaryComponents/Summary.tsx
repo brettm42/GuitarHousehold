@@ -17,6 +17,7 @@ import {
   OutliersComponent,
   PartValuesComponent,
   PickupsComponent,
+  ProjectInProgressComponent,
   RandomPickComponent,
   StringsComponent,
   TimelineComponent,
@@ -118,6 +119,8 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
     (<PartValuesComponent data={guitars} isMobile={isMobile} />);
   const pickupsComponent =
     (<PickupsComponent data={guitars} isMobile={isMobile} />);
+  const inProgressComponent =
+    (<ProjectInProgressComponent data={guitars} isMobile={isMobile} />);
   const stringsComponent =
     (<StringsComponent data={guitars} isMobile={isMobile} />);
   const randomPickComponent =
@@ -181,6 +184,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'partValues'} item xs={6} sm={4}>
         <Paper className={classes.paper9}>
           {partValuesComponent}
+        </Paper>
+      </Grid>
+      <Grid key={'inProgress'} item xs={6} sm={4}>
+        <Paper className={classes.paper10}>
+          {inProgressComponent}
         </Paper>
       </Grid>
     </Grid>
@@ -339,6 +347,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <ExpansionPanelDetails>
               <Divider />
               {timelineComponent}
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Paper>
+      </Grid>
+      <Grid key={'inProgress'} item xs={12} sm={6}>
+        <Paper>
+          <ExpansionPanel className={classes.paper8}>
+            <ExpansionPanelSummary id='panelProjects-header' aria-controls='panelProjects-content'>
+              <Typography variant='overline'>
+                {'In Progress Projects'}
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Divider />
+              {inProgressComponent}
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
