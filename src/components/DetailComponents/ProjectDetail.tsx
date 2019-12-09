@@ -83,7 +83,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs={12} sm>
           <Typography variant='h4' gutterBottom>
-            {guitar.name}
+            {(guitar.name + (!guitar.projectComplete ? ' (In Progress)' : ''))}
           </Typography>
 
           {projectSummary}
@@ -94,7 +94,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
                 ? `Series: ${guitar.series}`
                 : null,
               `Project Started: ${guitar.projectStart}`,
-              `Project Completed: ${guitar.projectComplete ?? 'In Progress'}`,
+              guitar.projectComplete
+                ? `Project Completed: ${guitar.projectComplete}`
+                : null,
               `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`,
               `Body Style: ${guitar.bodyStyle}`,
               `Color: ${guitar.color}`,

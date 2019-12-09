@@ -64,6 +64,12 @@ export function hasPickups(guitar: Guitar): boolean {
         : false;
 }
 
+export function hasFactoryStrings(guitar: Guitar): boolean {
+    return guitar && guitar.strings && guitar.strings.name
+        ? guitar.strings.name.includes('Factory')
+        : false;
+}
+
 export function hasPurchasePrice(guitar: Guitar): boolean {
     if (guitar.purchasePrice) {
         return true;
@@ -189,9 +195,9 @@ export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
 
 function getStringAgeDuration(guitar: Guitar): number {
     if (guitar.strings) {
-        if (guitar.strings.lastChangeDate) {
+        if (guitar.strings?.lastChangeDate) {
             return Date.now() - Date.parse(guitar.strings.lastChangeDate);
-        } else if (guitar.strings.name.includes('Factory')) {
+        } else if (hasFactoryStrings(guitar)) {
             if (!guitar.purchaseDate) {
                 return 0;
             }
@@ -652,7 +658,7 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
 
         let lastChangeDate = guitar.strings.lastChangeDate;
         if (!lastChangeDate) {
-            if (guitar.strings.name.includes('Factory')) {
+            if (hasFactoryStrings(guitar)) {
                 lastChangeDate = guitar.purchaseDate;
             }
             else {
@@ -698,7 +704,7 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
 
         let lastChangeDate = guitar.strings.lastChangeDate;
         if (!lastChangeDate) {
-            if (guitar.strings.name.includes('Factory')) {
+            if (hasFactoryStrings(guitar)) {
                 lastChangeDate = guitar.purchaseDate;
             } else {
                 continue;
@@ -1374,7 +1380,7 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
         + `guitar with ${summarizePickups(guitar)}, `
-        + `${guitar.numberOfFrets} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
+        + `${guitar.numberOfFrets ?? 'unknown'} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`.trimRight()
         + `${guitar.tremolo ? ', and tremolo' : ''}`;
 }
 
@@ -1426,7 +1432,8 @@ function getColorMapping(color: string): string {
         'Aztec Gold Metalflake': 'Gold',
         'Olympic White': 'White',
         'TV Yellow': 'Yellow',
-        'Seafoam Green': 'Green'
+        'Seafoam Green': 'Green',
+        'Antique Cherry': 'Natural'
     };
 
     if (color in mapping) {
