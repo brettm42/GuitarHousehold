@@ -83,7 +83,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs={12} sm>
           <Typography variant='h4' gutterBottom>
-            {(guitar.name + (!guitar.projectComplete ? ' (In Progress)' : ''))}
+            {(guitar.name + (!guitar.projectComplete ? ' (In\u00A0Progress)' : ''))}
           </Typography>
 
           {projectSummary}
