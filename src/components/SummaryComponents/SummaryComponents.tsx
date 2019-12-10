@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     pickups: {},
     strings: {},
     values: {},
+    caseValues: {},
     timeline: {},
     randomPickDiv: {
       textAlign: 'center'
@@ -71,7 +72,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'left',
       padding: theme.spacing(4),
       paddingTop: theme.spacing(2)
-    }
+    },
+    inProgress: {}
   })
 );
 
@@ -155,7 +157,7 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
   const classes = useStyles();
 
   return (
-    <div className={classes.missingCases}>
+    <div className={classes.inProgress}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {'In Progress Projects:'}
       </Typography>
@@ -225,7 +227,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars) ],
         [ 'Average Pickup Cost', GuitarUtils.averagePickupCost(guitars) ]
       ]}
-      style={classes.values} />
+      style={classes.caseValues} />
   );
 };
 
