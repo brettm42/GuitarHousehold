@@ -8,10 +8,10 @@ import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle } from '../components/viewutils';
 
-type Props = {
-  errors: string
-  pathname: string
-}
+type ErrorProps = {
+  errors: string;
+  pathname: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Error: NextPage<Props> = ({ errors, pathname }) => {
+const Error: NextPage<ErrorProps> = ({ errors, pathname }) => {
   const classes = useStyles();
 
   return (

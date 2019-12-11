@@ -17,9 +17,9 @@ import { Project } from '../../interfaces/models/project';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
 type ProjectDetailProps = {
-  item: Project
-  isMobile: boolean
-}
+  item: Project;
+  isMobile: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

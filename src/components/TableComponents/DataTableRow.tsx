@@ -13,9 +13,9 @@ import { Guitar } from '../../interfaces/models/guitar';
 
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
 
-type Props = {
-  item: Entry
-}
+type DataTableRowProps = {
+  item: Entry;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const DataTableRow: React.FunctionComponent<Props> = ({ item }) => {
+const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
   const classes = useStyles();
 
   return (

@@ -14,10 +14,10 @@ import { Strings } from '../../interfaces/models/strings';
 import { getStringAge } from '../../data/guitarservice/guitarutils';
 
 type StringsDetailProps = {
-  item: Strings
-  parent: Guitar
-  isMobile: boolean
-}
+  item: Strings;
+  parent: Guitar;
+  isMobile: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

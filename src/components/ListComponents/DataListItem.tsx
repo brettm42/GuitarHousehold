@@ -6,11 +6,11 @@ import Typography from '@material-ui/core/Typography';
 
 import { Entry } from '../../interfaces/entry';
 
-type Props = {
-  data: Entry
-}
+type DataListItemProps = {
+  data: Entry;
+};
 
-const DataListItem: React.FunctionComponent<Props> = ({ data }) => (
+const DataListItem: React.FunctionComponent<DataListItemProps> = ({ data }) => (
   <Typography>
     <Link href={`/detail?id=${data.id}`}>
       <a>

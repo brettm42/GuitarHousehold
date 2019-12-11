@@ -27,9 +27,9 @@ import {
 import { Guitar } from '../../interfaces/models/guitar';
 
 type SummaryProps = {
-  data: Guitar[]
-  isMobile: boolean
-}
+  data: Guitar[];
+  isMobile: boolean;
+};
 
 const gridColors = [
   'rgba(109, 211, 206, 1)',

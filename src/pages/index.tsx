@@ -16,10 +16,10 @@ import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarservice';
 
-type Props = {
-  data: Guitar[]
-  pathname: string
-}
+type IndexProps = {
+  data: Guitar[];
+  pathname: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IndexPage: NextPage<Props> = ({ data, pathname }) => {
+const IndexPage: NextPage<IndexProps> = ({ data, pathname }) => {
   const isMobile = IsMobile();
   const classes = useStyles();
 

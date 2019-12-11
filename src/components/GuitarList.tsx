@@ -10,13 +10,13 @@ import { buildPageTitle } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 
-type Props = {
-  items: Guitar[]
-  pathname: string
-  isMobile: boolean
-  title: string
-  columns: string
-}
+type GuitarListProps = {
+  items: Guitar[];
+  pathname: string;
+  isMobile: boolean;
+  title: string;
+  columns: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GuitarList: NextPage<Props> = ({ items, pathname, isMobile, title, columns }) => {
+const GuitarList: NextPage<GuitarListProps> = ({ items, pathname, isMobile, title, columns }) => {
   const classes = useStyles();
 
   return (

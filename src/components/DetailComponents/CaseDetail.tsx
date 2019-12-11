@@ -12,9 +12,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Case } from '../../interfaces/models/case';
 
 type CaseDetailProps = {
-  item: Case
-  isMobile: boolean
-}
+  item: Case;
+  isMobile: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

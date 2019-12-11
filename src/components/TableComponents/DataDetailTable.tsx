@@ -14,10 +14,10 @@ import { isDescending, tableSort } from '../viewutils';
 import { Entry } from '../../interfaces/entry';
 import { Project } from '../../interfaces/models/project';
 
-type Props = {
-  items: Entry[]
-  columns: string
-}
+type DataDetailTableProps = {
+  items: Entry[];
+  columns: string;
+};
 
 export type Order = 'asc' | 'desc';
 
@@ -70,7 +70,7 @@ function getTableColumns(columns: string): ReadonlyArray<TableDataCell> {
         : BaseColumns;
 }
 
-export default function DataDetailTable(props: Props) {
+export default function DataDetailTable(props: DataDetailTableProps) {
   const classes = useStyles();
   const guitars = props.items as Project[];
 

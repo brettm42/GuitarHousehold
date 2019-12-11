@@ -15,15 +15,15 @@ import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
 type SummaryComponentProps = {
-  title: string
-  contents: [string, string | ReadonlyArray<string>][]
-  style: string
-}
+  title: string;
+  contents: [string, string | ReadonlyArray<string>][];
+  style: string;
+};
 
 type SummaryComponentsProps = {
-  data: Guitar[]
-  isMobile: boolean
-}
+  data: Guitar[];
+  isMobile: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

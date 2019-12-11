@@ -12,9 +12,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Pickup } from '../../interfaces/models/pickup';
 
 type PickupDetailProps = {
-  item: Pickup
-  isMobile: boolean
-}
+  item: Pickup;
+  isMobile: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

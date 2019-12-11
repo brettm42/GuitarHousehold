@@ -9,9 +9,9 @@ import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle } from '../components/viewutils';
 
-type Props = {
-  pathname: string
-}
+type AboutProps = {
+  pathname: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AboutPage: NextPage<Props> = ({pathname}) => {
+const AboutPage: NextPage<AboutProps> = ({pathname}) => {
   const title = 'About';
   const classes = useStyles();
 

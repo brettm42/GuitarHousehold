@@ -10,7 +10,7 @@ import { Order, useStyles } from './DataDetailTable';
 import { TableDataCell } from './DataDetailTableColumns';
 import { Project } from '../../interfaces/models/project';
 
-interface Props {
+interface DataDetailTableHeadProps {
   classes: ReturnType<typeof useStyles>
   columns: ReadonlyArray<TableDataCell>
   onRequestSort: (event: React.MouseEvent, property: keyof Project) => void
@@ -18,7 +18,8 @@ interface Props {
   orderBy: string
 }
 
-const DataDetailTableHead: React.FunctionComponent<Props> = ({ classes, columns, onRequestSort, order, orderBy }) => {
+const DataDetailTableHead: React.FunctionComponent<DataDetailTableHeadProps> = 
+    ({ classes, columns, onRequestSort, order, orderBy }) => {
   const createSortHandler = (property: keyof Project) => (event: React.MouseEvent) => {
     onRequestSort(event, property);
   }

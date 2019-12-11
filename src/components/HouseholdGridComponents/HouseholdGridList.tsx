@@ -14,9 +14,9 @@ import { Guitar } from '../../interfaces/models/guitar';
 import { Typography } from '@material-ui/core';
 
 type HouseholdGridListProps = {
-  data: Guitar[]
-  isMobile: boolean
-}
+  data: Guitar[];
+  isMobile: boolean;
+};
 
 const imgHeight = 340;
 const mobileImgHeight = 240;

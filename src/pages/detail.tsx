@@ -13,14 +13,14 @@ import { Guitar } from '../interfaces/models/guitar';
 import { findInstrument } from '../data/guitarservice/guitarservice';
 import { isGuitar, isProject } from '../data/guitarservice/guitarutils';
 
-type Props = {
-  item?: Guitar
-  errors?: string
-  pathname: string
-  isMobile: boolean
-}
+type DetailProps = {
+  item?: Guitar;
+  errors?: string;
+  pathname: string;
+  isMobile: boolean;
+};
 
-class DetailPage extends React.Component<Props> {
+class DetailPage extends React.Component<DetailProps> {
   static getInitialProps = async ({ query }: NextPageContext) => {
     const isMobile = IsMobile();
 

@@ -13,13 +13,13 @@ import { Project } from '../../interfaces/models/project';
 
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
 
-type Props = {
-  classes: ReturnType<typeof useStyles>
-  columns: ReadonlyArray<TableDataCell>
-  guitar: Project
-}
+type DataDetailTableRowProps = {
+  classes: ReturnType<typeof useStyles>;
+  columns: ReadonlyArray<TableDataCell>;
+  guitar: Project;
+};
 
-const DataDetailTableRow: React.FunctionComponent<Props> = ({ classes, columns, guitar }) => {
+const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ classes, columns, guitar }) => {
   return (
     <TableRow key={guitar.id} tabIndex={-1} hover>
       <TableCell

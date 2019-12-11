@@ -10,10 +10,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { Entry } from '../../interfaces/entry';
 
-type Props = {
-  items: Entry[]
-  columns: string
-}
+type DataTableProps = {
+  items: Entry[];
+  columns: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function DataTable(props: Props) {
+export default function DataTable(props: DataTableProps) {
   const classes = useStyles();
 
   return (

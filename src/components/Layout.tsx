@@ -30,11 +30,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { FooterMessage } from '../infrastructure/constants';
 
-type Props = {
-  children: React.ReactElement | React.ReactElement[] | undefined
-  title?: string
-  pathname: string
-}
+type LayoutProps = {
+  children: React.ReactElement | React.ReactElement[] | undefined;
+  title?: string;
+  pathname: string;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Layout(props: Props): React.ReactElement {
+export default function Layout(props: LayoutProps): React.ReactElement {
   const classes = useStyles();
   const { children, title, pathname } = props;
 
@@ -121,7 +121,7 @@ export default function Layout(props: Props): React.ReactElement {
     return <ListItem button component='a' { ...props } />;
   };
 
-  function ScrollToTopComponent(props: Props) {
+  function ScrollToTopComponent(props: LayoutProps) {
     const { children } = props;
     const classes = useStyles();
 

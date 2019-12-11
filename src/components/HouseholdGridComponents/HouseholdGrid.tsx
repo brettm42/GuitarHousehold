@@ -12,9 +12,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Guitar } from '../../interfaces/models/guitar';
 
 type HouseholdGridProps = {
-  data: Guitar[]
-  isMobile: boolean
-}
+  data: Guitar[];
+  isMobile: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

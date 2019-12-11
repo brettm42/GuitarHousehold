@@ -7,14 +7,14 @@ import { IsMobile } from '../components/viewutils';
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllInstruments } from '../data/guitarservice/guitarservice';
 
-type Props = {
-  items: Guitar[]
-  pathname: string
-  title: string
-  isMobile: boolean
-}
+type InstrumentsProps = {
+  items: Guitar[];
+  pathname: string;
+  title: string;
+  isMobile: boolean;
+};
 
-const Instruments: NextPage<Props> = ({ items, pathname, title, isMobile }) => {
+const Instruments: NextPage<InstrumentsProps> = ({ items, pathname, title, isMobile }) => {
   return <GuitarList
       items={items}
       pathname={pathname}
