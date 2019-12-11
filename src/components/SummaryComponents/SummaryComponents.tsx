@@ -161,7 +161,7 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {'In Progress Projects:'}
       </Typography>
-      <DataList items={guitars.filter((i: Guitar) => GuitarUtils.isProject(i) && !i.projectComplete)} />
+      <DataList items={guitars.filter(g => GuitarUtils.isInProgress(g))} />
     </div>
   );
 };

@@ -22,6 +22,10 @@ export function isProject(guitar: any): guitar is Project {
     return guitar.projectStart !== undefined;
 }
 
+export function isInProgress(guitar: any): guitar is Project {
+    return isProject(guitar) && !guitar.projectComplete;
+}
+
 function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
     if (pickups.length < 1) {
         return true;
@@ -1381,7 +1385,7 @@ export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
         + `guitar with ${summarizePickups(guitar)}, `
         + `${guitar.numberOfFrets ?? 'unknown'} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`.trimRight()
-        + `${guitar.tremolo ? ', and tremolo' : ''}`;
+        + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not completed' : ''}`;
 }
 
 export function summarizePickups(guitar: Guitar): string {

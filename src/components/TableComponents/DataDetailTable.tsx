@@ -6,7 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 
 import DataDetailTableHead from './DataDetailTableHead';
 import DataDetailTableRow from './DataDetailTableRow';
-import { BaseColumn, GuitarColumn, ProjectColumn } from './DataDetailTableColumns';
+import { BaseColumns, GuitarColumns, ProjectColumns, TableDataCell } from './DataDetailTableColumns';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { isDescending, tableSort } from '../viewutils';
@@ -62,6 +62,14 @@ function getTableSorting<K extends keyof any>(order: Order, orderBy: K):
       : (a, b) => -isDescending(a, b, orderBy);
 }
 
+function getTableColumns(columns: string): ReadonlyArray<TableDataCell> {
+  return columns.includes('guitar') || columns.includes('archive')
+      ? [ ...BaseColumns, ...GuitarColumns ]
+      : columns.includes('project')
+        ? [ ...BaseColumns, ...ProjectColumns ]
+        : BaseColumns;
+}
+
 export default function DataDetailTable(props: Props) {
   const classes = useStyles();
   const guitars = props.items as Project[];
@@ -76,12 +84,7 @@ export default function DataDetailTable(props: Props) {
     event.preventDefault();
   }
 
-  const tableCells =
-    props.columns.includes('guitar') || props.columns.includes('archive')
-      ? [ ...BaseColumn, ...GuitarColumn ]
-      : props.columns.includes('project')
-        ? [ ...BaseColumn, ...ProjectColumn ]
-        : BaseColumn;
+  const tableCells = getTableColumns(props.columns);
 
   return (
     <div className={classes.root}>

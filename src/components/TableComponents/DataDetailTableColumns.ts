@@ -8,12 +8,12 @@ export interface TableDataCell {
   formatter?: (data: Project) => string | number
 }
 
-export const BaseColumn: ReadonlyArray<TableDataCell> = [
+export const BaseColumns: ReadonlyArray<TableDataCell> = [
   { id: 'id', label: 'id' },
   { id: 'name', label: 'Name' }
 ]
 
-export const GuitarColumn: ReadonlyArray<TableDataCell> = [
+export const GuitarColumns: ReadonlyArray<TableDataCell> = [
   { id: 'bodyStyle', label: 'Type' },
   { id: 'make', label: 'Make' },
   { id: 'color', label: 'Color' },
@@ -23,7 +23,7 @@ export const GuitarColumn: ReadonlyArray<TableDataCell> = [
   { id: 'purchasePrice', label: 'Purchase Price' }
 ]
 
-export const ProjectColumn: ReadonlyArray<TableDataCell> = [
+export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'bodyStyle', label: 'Type' },
   { id: 'make', label: 'Make' },
   { id: 'color', label: 'Color' },
