@@ -1,6 +1,6 @@
 import { Project } from '../../interfaces/models/project';
 
-import { getPickupCount } from '../../data/guitarservice/guitarutils';
+import { getPickupCount, getGuitarCost } from '../../data/guitarservice/guitarutils';
 
 export interface TableDataCell {
   id: keyof Project;
@@ -30,5 +30,6 @@ export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'projectStart', label: 'Project Start' },
   { id: 'projectComplete', label: 'Project Complete' },
   { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
-  { id: 'scale', label: 'Scale' }
+  { id: 'scale', label: 'Scale' },
+  { id: 'purchaseComponentPrice', label: 'Project Cost', formatter: getGuitarCost }
 ];
