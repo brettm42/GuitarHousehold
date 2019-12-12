@@ -34,6 +34,6 @@ const Error: NextPage<ErrorProps> = ({ errors, pathname }) => {
       </div>
     </Layout>
   );
-}
+};
 
 export default Error;

@@ -3,15 +3,15 @@ import { Project } from '../../interfaces/models/project';
 import { getPickupCount } from '../../data/guitarservice/guitarutils';
 
 export interface TableDataCell {
-  id: keyof Project
-  label: string
-  formatter?: (data: Project) => string | number
+  id: keyof Project;
+  label: string;
+  formatter?: (data: Project) => string | number;
 }
 
 export const BaseColumns: ReadonlyArray<TableDataCell> = [
   { id: 'id', label: 'id' },
   { id: 'name', label: 'Name' }
-]
+];
 
 export const GuitarColumns: ReadonlyArray<TableDataCell> = [
   { id: 'bodyStyle', label: 'Type' },
@@ -21,7 +21,7 @@ export const GuitarColumns: ReadonlyArray<TableDataCell> = [
   { id: 'scale', label: 'Scale' },
   { id: 'purchaseDate', label: 'Purchased' },
   { id: 'purchasePrice', label: 'Purchase Price' }
-]
+];
 
 export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'bodyStyle', label: 'Type' },
@@ -31,4 +31,4 @@ export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'projectComplete', label: 'Project Complete' },
   { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
   { id: 'scale', label: 'Scale' }
-]
+];

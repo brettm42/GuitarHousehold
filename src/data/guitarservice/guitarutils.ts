@@ -45,7 +45,7 @@ function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
 }
 
 export function isAcoustic(guitar: Guitar): boolean {
-    const acousticStyle = [ 'Acoustic', 'Flattop', 'Hollowbody', 'Archtop' ];
+    const acousticStyle = ['Acoustic', 'Flattop', 'Hollowbody', 'Archtop'];
 
     return acousticStyle.includes(guitar.bodyStyle)
         ? isAcousticPickup(guitar.pickups ?? [])
@@ -308,7 +308,7 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
-    const cases = guitars.map(g => g.case?.caseStyle)
+    const cases = guitars.map(g => g.case?.caseStyle);
 
     return mostCommonString(cases);
 }
@@ -499,7 +499,7 @@ export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
     const pickups =
         guitars.reduce((pickups, guitar) =>
-            [ ...pickups, ...guitar.pickups ?? [] ],
+            [...pickups, ...guitar.pickups ?? []],
             [] as Pickup[]);
 
     return mostCommonString(pickups.map(p => p.type));
@@ -508,7 +508,7 @@ export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
 export function mostCommonPickupSize(guitars: ReadonlyArray<Guitar>): string {
     const pickups =
         guitars.reduce((pickups, guitar) =>
-            [ ...pickups, ...guitar.pickups ?? [] ],
+            [...pickups, ...guitar.pickups ?? []],
             [] as Pickup[]);
     const sizes = pickups.filter(p => p.size).map(p => p.size);
 
@@ -525,7 +525,7 @@ export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
     const pickups =
         guitars.filter(g => g.pickups)
             .reduce((pickups, guitar) =>
-                [ ...pickups, ...guitar.pickups ?? [] ],
+                [...pickups, ...guitar.pickups ?? []],
                 [] as Pickup[])
             .filter(p => p.output);
 
@@ -722,7 +722,7 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
         }
 
         if (Date.parse(minDate ?? pastDate)
-               < Date.parse(lastChangeDate ?? Date.now().toString())) {
+                < Date.parse(lastChangeDate ?? Date.now().toString())) {
             min = guitar;
             minDate = lastChangeDate;
         }
@@ -1163,7 +1163,7 @@ export function mostExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
 
     const pickups = guitars
         .reduce((pickups, guitar) =>
-            [ ...pickups, ...guitar.pickups ?? [] ],
+            [...pickups, ...guitar.pickups ?? []],
             [] as Pickup[])
         .filter(p => p.purchasePrice);
 
@@ -1197,7 +1197,7 @@ export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
 
     const pickups = guitars
         .reduce((pickups, guitar) =>
-            [ ...pickups, ...guitar.pickups ?? [] ],
+            [...pickups, ...guitar.pickups ?? []],
             [] as Pickup[])
         .filter(p => p.purchasePrice);
 
@@ -1405,9 +1405,7 @@ export function summarizePickups(guitar: Guitar): string {
 
     return types.length > 1
         ? `${pickupCount} pickups - ${types.join(', ')}`
-        : `${pickupCount} `
-            + `${types.join(', ')} `
-            + `${pickupCount > 1 ? 'pickups' : 'pickup'}`;
+        : `${pickupCount} ${types.join(', ')} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
 
 function getColorMapping(color: string): string {
@@ -1417,7 +1415,7 @@ function getColorMapping(color: string): string {
         'Tobacco Burst': 'Sunburst',
         'Sunrise Orange': 'Orange',
         'Candy Apple Red': 'Red',
-        'Honeyburst':'Sunburst',
+        'Honeyburst': 'Sunburst',
         'Sonic Blue': 'Blue',
         'Butterscotch': 'Natural',
         'Sherwood Green': 'Green',
