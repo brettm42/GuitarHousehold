@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AboutPage: NextPage<AboutProps> = ({pathname}) => {
+const AboutPage: NextPage<AboutProps> = ({ pathname }) => {
   const title = 'About';
   const classes = useStyles();
 

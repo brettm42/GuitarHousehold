@@ -16,12 +16,12 @@ type ProjectsProps = {
 
 const Projects: NextPage<ProjectsProps> = ({ items, pathname, title, isMobile }) => {
   return <GuitarList
-      items={items}
-      pathname={pathname}
-      isMobile={isMobile}
-      title={title}
-      columns={'project'}
-    />;
+    items={items}
+    pathname={pathname}
+    isMobile={isMobile}
+    title={title}
+    columns={'project'}
+  />;
 };
 
 Projects.getInitialProps = async ({ pathname }) => {

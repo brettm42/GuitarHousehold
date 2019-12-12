@@ -16,16 +16,16 @@ type WishlistProps = {
 
 const Wishlist: NextPage<WishlistProps> = ({ items, pathname, title, isMobile }) => {
   return <GuitarList
-      items={items}
-      pathname={pathname}
-      isMobile={isMobile}
-      title={title}
-      columns={'wishlist'}
-    />;
+    items={items}
+    pathname={pathname}
+    isMobile={isMobile}
+    title={title}
+    columns={'wishlist'}
+  />;
 };
 
 Wishlist.getInitialProps = async ({ pathname }) => {
-  const items: Guitar[] = [ ...await findAllWishlist() ];
+  const items: Guitar[] = [...await findAllWishlist()];
   const title = 'Wishlist';
   const isMobile = IsMobile();
 
