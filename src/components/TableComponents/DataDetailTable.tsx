@@ -56,18 +56,18 @@ export const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getTableSorting<K extends keyof any>(order: Order, orderBy: K):
-  (a: { [key in K]: any }, b: { [key in K]: any }) => number {
-    return order === 'desc'
-      ? (a, b) => isDescending(a, b, orderBy)
-      : (a, b) => -isDescending(a, b, orderBy);
+    (a: { [key in K]: any }, b: { [key in K]: any }) => number {
+  return order === 'desc'
+    ? (a, b) => isDescending(a, b, orderBy)
+    : (a, b) => -isDescending(a, b, orderBy);
 }
 
 function getTableColumns(columns: string): ReadonlyArray<TableDataCell> {
   return columns.includes('guitar') || columns.includes('archive')
-      ? [ ...BaseColumns, ...GuitarColumns ]
-      : columns.includes('project')
-        ? [ ...BaseColumns, ...ProjectColumns ]
-        : BaseColumns;
+    ? [...BaseColumns, ...GuitarColumns]
+    : columns.includes('project')
+      ? [...BaseColumns, ...ProjectColumns]
+      : BaseColumns;
 }
 
 export default function DataDetailTable(props: DataDetailTableProps) {
@@ -82,7 +82,7 @@ export default function DataDetailTable(props: DataDetailTableProps) {
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
     event.preventDefault();
-  }
+  };
 
   const tableCells = getTableColumns(props.columns);
 

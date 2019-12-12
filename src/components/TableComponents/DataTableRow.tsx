@@ -58,6 +58,6 @@ const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
       </TableCell>
     </TableRow>
   );
-}
+};
 
 export default DataTableRow;

@@ -1,4 +1,4 @@
-export function StringEnum<T extends string>(i: Array<T>): {[K in T]: K} {
+export function StringEnum<T extends string>(i: Array<T>): { [K in T]: K } {
     return i.reduce((item, key) => {
         item[key] = key;
         return item;
@@ -37,10 +37,10 @@ export function mostCommonString(items: ReadonlyArray<string | undefined>): stri
 }
 
 export function millisecondsToFriendlyString(duration: number): string {
-    const oneDay =   86400000;
-    const oneWeek =  604800000;
+    const oneDay = 86400000;
+    const oneWeek = 604800000;
     const oneMonth = 2419200000;
-    const oneYear =  31536000000;
+    const oneYear = 31536000000;
 
     if (duration < oneYear) {
         if (duration < oneMonth) {

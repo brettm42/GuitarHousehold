@@ -117,8 +117,8 @@ export default function Layout(props: LayoutProps): React.ReactElement {
   //     </ListItem>
   // ));
 
-  function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
-    return <ListItem button component='a' { ...props } />;
+  function ListItemLink(props: ListItemProps<'a', { button?: true; }>) {
+    return <ListItem button component='a' {...props} />;
   };
 
   function ScrollToTopComponent(props: LayoutProps) {
@@ -177,7 +177,7 @@ export default function Layout(props: LayoutProps): React.ReactElement {
                   <ListItemText primary={text} />
                 </ListItemLink>
               </Link>
-          ))}
+            ))}
         </List>
 
         <Divider />

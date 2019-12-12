@@ -51,17 +51,17 @@ const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ 
 
       {columns.map(cell =>
         cell.id === 'id' || cell.id === 'name'
-        ? null
-        : <TableCell key={`${guitar.id}-${cell.id}`}>
-            <Typography variant='body2'>
-              {cell.formatter
-                ? cell.formatter(guitar)
-                : guitar[cell.id]}
-            </Typography>
-          </TableCell>
+          ? null
+          : <TableCell key={`${guitar.id}-${cell.id}`}>
+              <Typography variant='body2'>
+                {cell.formatter
+                  ? cell.formatter(guitar)
+                  : guitar[cell.id]}
+              </Typography>
+            </TableCell>
       )}
     </TableRow>
   );
-}
+};
 
 export default DataDetailTableRow;
