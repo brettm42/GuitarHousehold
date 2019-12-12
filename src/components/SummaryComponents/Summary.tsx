@@ -171,11 +171,13 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           {timelineComponent}
         </Paper>
       </Grid>
-      <Grid key={'cases'} item xs={6} sm={4}>
-        <Paper className={classes.paper6}>
-          {missingCasesComponent}
-        </Paper>
-      </Grid>
+      {missingCasesComponent
+        ? (<Grid key={'cases'} item xs={6} sm={4}>
+            <Paper className={classes.paper6}>
+              {missingCasesComponent}
+            </Paper>
+          </Grid>)
+        : null}
       <Grid key={'values'} item xs={6} sm={4}>
         <Paper className={classes.paper8}>
           {valuesComponent}
@@ -186,11 +188,13 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           {partValuesComponent}
         </Paper>
       </Grid>
-      <Grid key={'inProgress'} item xs={6} sm={4}>
-        <Paper className={classes.paper10}>
-          {inProgressComponent}
-        </Paper>
-      </Grid>
+      {inProgressComponent
+        ? (<Grid key={'inProgress'} item xs={6} sm={4}>
+            <Paper className={classes.paper10}>
+              {inProgressComponent}
+            </Paper>
+          </Grid>)
+        : null}
     </Grid>
   );
 
@@ -291,21 +295,23 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </ExpansionPanel>
         </Paper>
       </Grid>
-      <Grid key={'cases'} item xs={12} sm={6}>
-        <Paper>
-          <ExpansionPanel className={classes.paper5}>
-            <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
-              <Typography variant='overline'>
-                {'Missing Cases'}
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Divider />
-              {missingCasesComponent}
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </Paper>
-      </Grid>
+      {missingCasesComponent 
+        ? (<Grid key={'cases'} item xs={12} sm={6}>
+            <Paper>
+              <ExpansionPanel className={classes.paper5}>
+                <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
+                  <Typography variant='overline'>
+                    {'Missing Cases'}
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Divider />
+                  {missingCasesComponent}
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </Paper>
+          </Grid>)
+        : null}
       <Grid key={'pickups'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper6}>
@@ -351,21 +357,23 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </ExpansionPanel>
         </Paper>
       </Grid>
-      <Grid key={'inProgress'} item xs={12} sm={6}>
-        <Paper>
-          <ExpansionPanel className={classes.paper8}>
-            <ExpansionPanelSummary id='panelProjects-header' aria-controls='panelProjects-content'>
-              <Typography variant='overline'>
-                {'In Progress Projects'}
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Divider />
-              {inProgressComponent}
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </Paper>
-      </Grid>
+      {inProgressComponent 
+        ? (<Grid key={'inProgress'} item xs={12} sm={6}>
+            <Paper>
+              <ExpansionPanel className={classes.paper8}>
+                <ExpansionPanelSummary id='panelProjects-header' aria-controls='panelProjects-content'>
+                  <Typography variant='overline'>
+                    {'In Progress Projects'}
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <Divider />
+                  {inProgressComponent}
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </Paper>
+          </Grid>)
+        : null}
     </Grid>
   );
 

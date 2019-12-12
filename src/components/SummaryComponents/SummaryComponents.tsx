@@ -4,6 +4,7 @@ import * as Constants from '../../infrastructure/constants';
 
 import Link from 'next/link';
 
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
     detailChildren: {
       padding: theme.spacing(0, 1)
     },
+    detailDivider: {
+      minWidth: '50%',
+      padding: theme.spacing(0, 1, 2, 2)
+    },
     breakdown: {},
     missingCases: {},
     mostCommon: {},
@@ -77,6 +82,33 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function gridLineFormatter(line: [string, string | ReadonlyArray<string>], idx: number, classes: any): JSX.Element {
+  if (line[0].startsWith('*')) {
+    return (
+      <Grid item className={classes.detailDivider} key={idx} xs={12} zeroMinWidth>
+        <Divider variant='middle' />
+      </Grid>);
+  }
+
+  return (
+    <Grid item className={classes.detail} key={idx} zeroMinWidth>
+      <Typography variant='caption'>
+        {line[0]}
+      </Typography>
+      {Array.isArray(line[1])
+        ? <div className={classes.detailChildren}>
+            {line[1].map((i, idx) =>
+              <Typography key={idx} variant='caption' display='block'>
+                {i}
+              </Typography>)}
+          </div>
+        : <Typography gutterBottom>
+            {line[1]}
+          </Typography>
+      }
+    </Grid>);
+}
+
 const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
   title: title,
   contents: contents,
@@ -90,22 +122,7 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
         {title}
       </Typography>
       <Grid container>
-        {contents.map((line, idx) =>
-          <Grid item className={classes.detail} key={idx} zeroMinWidth>
-            <Typography variant='caption'>
-              {line[0]}
-            </Typography>
-            {Array.isArray(line[1])
-              ? <div className={classes.detailChildren}>
-                  {line[1].map((i, idx) =>
-                    <Typography key={idx} variant='caption' display='block'>
-                      {i}
-                    </Typography>)}
-                </div>
-              : <Typography gutterBottom>
-                  {line[1]}
-                </Typography>}
-          </Grid>)}
+        {contents.map((line, idx) => gridLineFormatter(line, idx, classes))}
       </Grid>
     </div>
   );
@@ -141,6 +158,10 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
 }) => {
   const classes = useStyles();
 
+  if (!guitars || guitars.length < 1) {
+    return null;
+  }
+
   return (
     <div className={classes.missingCases}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
@@ -155,6 +176,10 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
   data: guitars
 }) => {
   const classes = useStyles();
+
+  if (!guitars || guitars.length < 1) {
+    return null;
+  }
 
   return (
     <div className={classes.inProgress}>
@@ -182,6 +207,7 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Most Controls', GuitarUtils.mostControls(guitars)],
         ['Most Frets', GuitarUtils.mostFrets(guitars)],
         ['Least Frets', GuitarUtils.leastFrets(guitars)],
+        ['*', '*'],
         ['Longest Project', GuitarUtils.longestProject(guitars)],
         ['Shortest Project', GuitarUtils.shortestProject(guitars)]
       ]}
@@ -203,9 +229,11 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Most Expensive', GuitarUtils.mostExpensive(guitars)],
         ['with case', GuitarUtils.mostExpensiveWithCase(guitars)],
         ['Average Cost', `${GuitarUtils.averageCost(guitars)} (average with case ${GuitarUtils.averageCostWithCase(guitars)})`],
+        ['*', '*'],
         ['Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars)],
         ['Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars)],
         ['Average Project Cost', GuitarUtils.averageProjectCost(guitars)],
+        ['*', '*'],
         ['Household Total', `${GuitarUtils.getHouseholdCost(guitars)} (with cases ${GuitarUtils.getHouseholdCostWithCases(guitars)})`],
       ]}
       style={classes.values} />
@@ -224,6 +252,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars)],
         ['Cheapest Case', GuitarUtils.leastExpensiveCase(guitars)],
         ['Average Case Cost', GuitarUtils.averageCaseCost(guitars)],
+        ['*', '*'],
         ['Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars)],
         ['Average Pickup Cost', GuitarUtils.averagePickupCost(guitars)]
       ]}
