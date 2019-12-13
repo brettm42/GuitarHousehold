@@ -11,7 +11,7 @@ import {
 
 const defaultString = 'None';
 const unknownString = 'Unknown';
-const minDefault = 9999999;
+const minDefault = 99999999;
 const pastDate = "01/11/1977";
 
 export function isGuitar(guitar: any): guitar is Guitar {
@@ -1188,6 +1188,40 @@ export function mostExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
     }
 
     return max ? `${max.name} (\$${maxPrice})` : defaultString;
+}
+
+export function leastExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
+    if (guitars.length < 1) {
+        return defaultString;
+    }
+
+    const pickups = guitars
+        .reduce((pickups, guitar) =>
+            [...pickups, ...guitar.pickups ?? []],
+            [] as Pickup[])
+        .filter(p => p.purchasePrice);
+
+    let min;
+    let minPrice = minDefault;
+    for (const pickup of pickups) {
+        if (!pickup?.purchasePrice) {
+            continue;
+        }
+
+        const price = Number.parseFloat(pickup.purchasePrice);
+        if (!min) {
+            min = pickup;
+            minPrice = price;
+            continue;
+        }
+
+        if (minPrice > price) {
+            min = pickup;
+            minPrice = price;
+        }
+    }
+
+    return min ? `${min.name} (\$${minPrice})` : defaultString;
 }
 
 export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {

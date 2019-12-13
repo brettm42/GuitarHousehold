@@ -254,6 +254,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Average Case Cost', GuitarUtils.averageCaseCost(guitars)],
         ['*', '*'],
         ['Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars)],
+        ['Cheapest Pickup', GuitarUtils.leastExpensivePickup(guitars)],
         ['Average Pickup Cost', GuitarUtils.averagePickupCost(guitars)]
       ]}
       style={classes.caseValues} />
