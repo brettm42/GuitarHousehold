@@ -71,7 +71,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 'auto'
     },
     randomPickImg: {
-      height: 300
+      maxWidth: '100%',
+      maxHeight: 300
     },
     randomPickCaption: {
       textAlign: 'left',
