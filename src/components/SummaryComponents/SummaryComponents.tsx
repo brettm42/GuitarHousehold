@@ -159,7 +159,9 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
 }) => {
   const classes = useStyles();
 
-  if (!guitars || guitars.length < 1) {
+  const data = guitars.filter(g => !GuitarUtils.hasCase(g));
+
+  if (!data || data.length < 1) {
     return null;
   }
 
@@ -168,7 +170,7 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {'Guitars Missing Cases:'}
       </Typography>
-      <DataList items={guitars.filter((i: Guitar) => !GuitarUtils.hasCase(i))} />
+      <DataList items={data} />
     </div>
   );
 };
@@ -178,7 +180,9 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
 }) => {
   const classes = useStyles();
 
-  if (!guitars || guitars.length < 1) {
+  const data = guitars.filter(g => GuitarUtils.isInProgress(g));
+
+  if (!data || data.length < 1) {
     return null;
   }
 
@@ -187,7 +191,7 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {'In Progress Projects:'}
       </Typography>
-      <DataList items={guitars.filter(g => GuitarUtils.isInProgress(g))} />
+      <DataList items={data} />
     </div>
   );
 };

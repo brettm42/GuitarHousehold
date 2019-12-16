@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       alignItems: 'stretch',
-      padding: theme.spacing(2)
+      padding: theme.spacing(1)
     },
     paper0: {
       ...gridPaperStyle,
