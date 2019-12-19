@@ -295,7 +295,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </ExpansionPanel>
         </Paper>
       </Grid>
-      {missingCasesComponent 
+      {missingCasesComponent
         ? (<Grid key={'cases'} item xs={12} sm={6}>
             <Paper>
               <ExpansionPanel className={classes.paper5}>
@@ -357,7 +357,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </ExpansionPanel>
         </Paper>
       </Grid>
-      {inProgressComponent 
+      {inProgressComponent
         ? (<Grid key={'inProgress'} item xs={12} sm={6}>
             <Paper>
               <ExpansionPanel className={classes.paper8}>

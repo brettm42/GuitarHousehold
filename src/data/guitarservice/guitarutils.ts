@@ -36,8 +36,8 @@ function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
     }
 
     if (pickups[0].mount === 'Neck'
-        || pickups[0].mount === 'Under-saddle'
-        || pickups[0].type === 'Piezo') {
+            || pickups[0].mount === 'Under-saddle'
+            || pickups[0].type === 'Piezo') {
         return true;
     }
 
@@ -69,7 +69,7 @@ export function hasPickups(guitar: Guitar): boolean {
 }
 
 export function hasFactoryStrings(guitar: Guitar): boolean {
-    return guitar && guitar.strings && guitar.strings.name
+    return (guitar && guitar.strings && guitar.strings.name)
         ? guitar.strings.name.includes('Factory')
         : false;
 }
@@ -364,6 +364,7 @@ export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
 export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
     let electric = 0;
     let acoustic = 0;
+
     for (const guitar of guitars) {
         if (isElectric(guitar)) {
             electric += 1;
@@ -378,6 +379,7 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
 export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
     let factory = 0;
     let project = 0;
+
     for (const guitar of guitars) {
         if (isProject(guitar)) {
             project += 1;
@@ -392,6 +394,7 @@ export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
 export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     let six = 0;
     let twelve = 0;
+
     for (const guitar of guitars) {
         if (guitar.strings) {
             if (guitar.strings.numberOfStrings === 12) {
@@ -408,6 +411,7 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
 export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
     let sunburst = 0;
     let otherColor = 0;
+
     for (const guitar of guitars) {
         if (getColorMapping(guitar.color).toLocaleLowerCase().includes('sunburst')) {
             sunburst += 1;
@@ -422,6 +426,7 @@ export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
 export function styleVsOtherStyle(style: string, guitars: ReadonlyArray<Guitar>): string {
     let styleA = 0;
     let otherStyle = 0;
+
     for (const guitar of guitars) {
         if (guitar.bodyStyle === style) {
             styleA += 1;
@@ -436,6 +441,7 @@ export function styleVsOtherStyle(style: string, guitars: ReadonlyArray<Guitar>)
 export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
     let fixed = 0;
     let tremolo = 0;
+
     for (const guitar of guitars) {
         if (guitar.tremolo) {
             tremolo += 1;
@@ -450,6 +456,7 @@ export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
 export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
     let humbucker = 0;
     let singleCoil = 0;
+
     for (const guitar of guitars) {
         for (const pickup of guitar.pickups ?? []) {
             if (!pickup.type) {
@@ -470,6 +477,7 @@ export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
 export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
     let flat = 0;
     let arched = 0;
+
     for (const guitar of guitars) {
         if (hasCase(guitar)) {
             if (!guitar.case?.caseStyle) {
@@ -489,8 +497,7 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
 
 export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
     const strings =
-        guitars
-            .filter(g => g.strings?.gauge)
+        guitars.filter(g => g.strings?.gauge)
             .map(g => g.strings?.gauge);
 
     return mostCommonString(strings);
@@ -541,6 +548,7 @@ export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
     let max = 0;
     let maxPickup = null;
     let maxGuitar = null;
+
     for (const guitar of guitars) {
         if (!hasPickups(guitar)) {
             continue;
@@ -1123,9 +1131,9 @@ export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
         return defaultString;
     }
 
-    const cases = guitars
-        .filter(guitar => hasCase(guitar))
-        .map(g => g.case);
+    const cases =
+        guitars.filter(guitar => hasCase(guitar))
+            .map(g => g.case);
 
     const averagePrice =
         cases.reduce((avg, c) =>
@@ -1148,7 +1156,9 @@ export function averageCostWithCase(guitars: ReadonlyArray<Guitar>): string {
         purchases.reduce((avg, g) =>
             avg
             + getGuitarCost(g)
-            + ((hasCase(g) && g.case?.purchasePrice) ? Number.parseFloat(g.case.purchasePrice) : 0),
+            + ((hasCase(g) && g.case?.purchasePrice)
+                ? Number.parseFloat(g.case.purchasePrice)
+                : 0),
             0) / purchases.length;
 
     return averagePrice
