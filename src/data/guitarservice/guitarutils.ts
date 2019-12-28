@@ -1479,7 +1479,7 @@ function getColorMapping(color: string): string {
         'Olympic White': 'White',
         'TV Yellow': 'Yellow',
         'Seafoam Green': 'Green',
-        'Antique Cherry': 'Natural',
+        'Antique Cherry': 'Red',
         'Lake Placid Blue': 'Blue'
     };
 

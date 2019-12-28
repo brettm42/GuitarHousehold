@@ -5,6 +5,7 @@ BlazorPages
 
 src/node_modules
 src/npm-debug.log
+src/.ionide
 src/.next
 src/.vs
 src/.vscode
