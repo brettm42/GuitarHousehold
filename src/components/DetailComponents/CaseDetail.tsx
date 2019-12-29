@@ -37,6 +37,14 @@ const useStyles = makeStyles((theme: Theme) =>
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis'
+    },
+    jsonExpanderMobile: {
+      margin: 0
+    },
+    jsonMobile: {
+      whiteSpace: 'nowrap',
+      overflowY: 'hidden',
+      overflowX: 'scroll'
     }
   })
 );
@@ -82,13 +90,13 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.jsonExpander} xs zeroMinWidth>
+        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} xs zeroMinWidth>
           <ExpansionPanel>
             <ExpansionPanelSummary id='casePanelJson-header' aria-controls='casePanelJson-content'>
               <Typography className={classes.heading}>Case JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <div className={classes.json}>
+              <div className={isMobile ? classes.jsonMobile : classes.json}>
                 <Divider />
                 <Typography variant='subtitle1'>
                   <pre>{JSON.stringify(guitarCase, undefined, 2)}</pre>

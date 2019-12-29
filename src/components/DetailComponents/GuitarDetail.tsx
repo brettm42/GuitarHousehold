@@ -45,12 +45,20 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 0
     },
     jsonExpander: {
-      margin: theme.spacing(2, 4)
+      margin: theme.spacing(6, 4, 0, 4)
     },
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis'
+    },
+    jsonExpanderMobile: {
+      margin: theme.spacing(6, 0, 0, 0)
+    },
+    jsonMobile: {
+      whiteSpace: 'nowrap',
+      overflowY: 'hidden',
+      overflowX: 'scroll'
     }
   })
 );
@@ -206,12 +214,12 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           : null}
       </Typography>
 
-      <ExpansionPanel className={classes.jsonExpander}>
+      <ExpansionPanel className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
         <ExpansionPanelSummary id='guitarPanelJson-header' aria-controls='guitarPanelJson-content'>
           <Typography className={classes.heading}>Guitar JSON Data</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <div className={classes.json}>
+          <div className={isMobile ? classes.jsonMobile : classes.json}>
             <Divider />
             <Typography variant='subtitle1'>
               <pre>{JSON.stringify(guitar, undefined, 2)}</pre>

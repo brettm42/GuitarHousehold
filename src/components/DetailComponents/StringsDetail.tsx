@@ -40,6 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis'
+    },
+    jsonExpanderMobile: {
+      margin: 0
+    },
+    jsonMobile: {
+      whiteSpace: 'nowrap',
+      overflowY: 'hidden',
+      overflowX: 'scroll'
     }
   })
 );
@@ -99,13 +107,13 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={classes.jsonExpander} xs zeroMinWidth>
+        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} xs zeroMinWidth>
           <ExpansionPanel>
             <ExpansionPanelSummary id='stringsPanelJson-header' aria-controls='stringsPanelJson-content'>
               <Typography className={classes.heading}>Strings JSON Data</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <div className={classes.json}>
+              <div className={isMobile ? classes.jsonMobile : classes.json}>
                 <Divider />
                 <Typography variant='subtitle1'>
                   <pre>{JSON.stringify(strings, undefined, 2)}</pre>
