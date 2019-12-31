@@ -656,6 +656,28 @@ export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
         : defaultString;
 }
 
+function getGuitarAgeDuration(guitar: Guitar | Project): number {
+    if (isProject(guitar)) {
+        if (guitar.projectComplete) {
+            return Date.now() - Date.parse(guitar.projectComplete);
+        }
+    } 
+    
+    if (guitar.purchaseDate) {
+        return Date.now() - Date.parse(guitar.purchaseDate);
+    }
+    
+    return 0;
+}
+
+export function getGuitarAge(guitar: Guitar | Project): string | null {
+    const duration = getGuitarAgeDuration(guitar);
+
+    return duration > 0
+        ? `${millisecondsToFriendlyString(duration)} old `
+        : null;
+}
+
 export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
     if (guitars.length < 1) {
         return defaultString;
@@ -1426,7 +1448,7 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function summarizeGuitar(guitar: Guitar): string {
-    return `${guitar.name} is a ${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
+    return `${guitar.name} is an ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
         + `guitar with ${summarizePickups(guitar)}, `
         + `${guitar.numberOfFrets ?? 'unknown'} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`.trimRight()
         + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not completed' : ''}`;
