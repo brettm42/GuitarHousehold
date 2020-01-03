@@ -26,6 +26,10 @@ export function isInProgress(guitar: any): guitar is Project {
     return isProject(guitar) && !guitar.projectComplete;
 }
 
+export function isWishlisted(guitar: Guitar | Project): boolean {
+    return !isProject(guitar) && !guitar.purchaseDate;
+}
+
 function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
     if (pickups.length < 1) {
         return true;
@@ -47,13 +51,13 @@ function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
 export function isAcoustic(guitar: Guitar): boolean {
     const acousticStyle = ['Acoustic', 'Flattop', 'Hollowbody', 'Archtop'];
 
-    return acousticStyle.includes(guitar.bodyStyle)
+    return acousticStyle.includes(guitar.bodyStyle ?? '')
         ? isAcousticPickup(guitar.pickups ?? [])
         : false;
 }
 
 export function isElectric(guitar: Guitar): boolean {
-    return !isAcoustic(guitar);
+    return hasPickups(guitar) && !isAcoustic(guitar);
 }
 
 export function hasCase(guitar: Guitar): boolean {
@@ -1456,10 +1460,12 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function summarizeGuitar(guitar: Guitar): string {
-    return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
+    return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle ?? ''} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
         + `guitar ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}, `
-        + `${guitar.numberOfFrets ?? 'unknown'} frets${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`.trimRight()
-        + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not completed' : ''}`;
+        + `${guitar.numberOfFrets ? (guitar.numberOfFrets + ' frets ') : ''}`
+        + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`.trimRight()
+        + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not completed' : ''}`
+        + `${isWishlisted(guitar) ? 'and is on the wishlist.' : ''}`;
 }
 
 export function summarizePickups(guitar: Guitar): string {
