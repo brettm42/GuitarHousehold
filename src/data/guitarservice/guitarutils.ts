@@ -1460,10 +1460,11 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function summarizeGuitar(guitar: Guitar): string {
-    return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle ?? ''} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
+    return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
         + `guitar ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}, `
         + `${guitar.numberOfFrets ? (guitar.numberOfFrets + ' frets') : ''}`
-        + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`.trimRight()
+        + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
+        + `, ${getColorMapping(guitar.color).toLocaleLowerCase()} finish`
         + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not completed' : ''}`
         + `${isWishlisted(guitar) ? 'and is on the wishlist.' : ''}`;
 }
@@ -1484,8 +1485,8 @@ export function summarizePickups(guitar: Guitar): string {
     }
 
     return types.length > 1
-        ? `${pickupCount} pickups - ${types.join(', ')}`
-        : `${pickupCount} ${types.join(', ')} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
+        ? `${pickupCount} pickups - ${types.join(', ').toLocaleLowerCase()}`
+        : `${pickupCount} ${types.join(', ').toLocaleLowerCase()} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
 
 function getColorMapping(color: string): string {
