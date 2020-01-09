@@ -1402,7 +1402,7 @@ export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
     const date = new Date(Date.now());
     const years = guitarPerYearMap(guitars);
 
-    return `${years[date.getFullYear()]} in ${date.getFullYear()}`;
+    return `${years[date.getFullYear()] ?? 0} in ${date.getFullYear()}`;
 }
 
 function casePerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
