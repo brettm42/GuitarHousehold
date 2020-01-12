@@ -40,8 +40,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     img: {
       width: '100%',
+      maxHeight: 800,
       display: 'flex',
       marginLeft: 'auto',
+      marginRight: 0
+    },
+    imgMobile: {
+      maxWidth: '100%',
+      maxHeight: 800,
+      display: 'flex',
+      marginLeft: 0,
       marginRight: 0
     },
     jsonExpander: {
@@ -155,7 +163,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
 
         <Grid item zeroMinWidth xs={12} sm={6}>
           {guitar.picture
-            ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
+            ? <img className={isMobile ? classes.imgMobile : classes.img} src={guitar.picture} alt={guitar.name} />
             : null}
         </Grid>
       </Grid>
