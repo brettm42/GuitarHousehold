@@ -1379,7 +1379,9 @@ export function averageGuitarPerYear(guitars: ReadonlyArray<Guitar>): string {
         length += 1;
     }
 
-    return Math.round(total / length).toString();
+    const avg = Math.round(total / length);
+
+    return avg ? avg.toString() : '0';
 }
 
 export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
@@ -1458,6 +1460,10 @@ export function mostProjectsInAYear(guitars: ReadonlyArray<Guitar>): string {
             maxNumber = years[year];
             maxYear = year;
         }
+    }
+
+    if (maxYear < 1 || maxNumber < 1) {
+        return defaultString;
     }
 
     return `${maxNumber} in ${maxYear}`;

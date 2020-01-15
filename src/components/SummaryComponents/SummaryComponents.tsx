@@ -309,6 +309,10 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   const classes = useStyles();
 
   function buildGuitarGrid(guitar: Guitar): React.ReactElement {
+    if (!guitar) {
+      return <div />;
+    }
+
     return (
       <div>
         <Link href={`/detail?id=${guitar.id}`}>
