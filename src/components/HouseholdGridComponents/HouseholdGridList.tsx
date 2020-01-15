@@ -33,10 +33,13 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: 15
     },
     gridList: {
-      width: 'flex'
+      width: 'flex',
+      transform: 'translateZ(0)'
     },
     gridListTile: {
-      padding: theme.spacing(2)
+      padding: theme.spacing(2),
+      minWidth: imgHeight,
+      minHeight: imgHeight
     },
     imgBackground: {
       background: 'lightgrey'
