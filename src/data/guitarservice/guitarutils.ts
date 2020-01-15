@@ -573,7 +573,7 @@ export function highestPickup(guitars: ReadonlyArray<Guitar>): string {
     }
 
     return (max > 0 && maxPickup && maxGuitar)
-        ? `${maxPickup.output} - ${maxPickup.name} - ${maxPickup.position} (on ${maxGuitar.name})`
+        ? `${maxPickup.output} - ${maxPickup.name ?? 'Pickup'} - ${maxPickup.position} (on ${maxGuitar.name})`
         : defaultString;
 }
 
@@ -602,7 +602,7 @@ export function lowestPickup(guitars: ReadonlyArray<Guitar>): string {
     }
 
     return (min > 0 && minPickup && minGuitar)
-        ? `${minPickup.output} - ${minPickup.name} - ${minPickup.position} (on ${minGuitar.name})`
+        ? `${minPickup.output} - ${minPickup.name ?? 'Pickup'} - ${minPickup.position} (on ${minGuitar.name})`
         : defaultString;
 }
 
@@ -1395,6 +1395,10 @@ export function mostGuitarsInAYear(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
+    if (maxYear < 1 || maxNumber < 1) {
+        return defaultString;
+    }
+
     return `${maxNumber} in ${maxYear}`;
 }
 
@@ -1402,7 +1406,7 @@ export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
     const date = new Date(Date.now());
     const years = guitarPerYearMap(guitars);
 
-    return `${years[date.getFullYear()] ?? 0} in ${date.getFullYear()}`;
+    return `${years[date.getFullYear()] ?? 'None'} in ${date.getFullYear()}`;
 }
 
 function casePerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
@@ -1436,6 +1440,10 @@ export function mostCasesInAYear(guitars: ReadonlyArray<Guitar>): string {
         }
     }
 
+    if (maxYear < 1 || maxNumber < 1) {
+        return defaultString;
+    }
+
     return `${maxNumber} in ${maxYear}`;
 }
 
@@ -1461,12 +1469,12 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 
 export function summarizeGuitar(guitar: Guitar): string {
     return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
-        + `guitar ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}, `
-        + `${guitar.numberOfFrets ? (guitar.numberOfFrets + ' frets') : ''}`
-        + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ' '}`
+        + `guitar ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}`
+        + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
+        + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
         + `, ${getColorMapping(guitar.color).toLocaleLowerCase()} finish`
-        + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not completed' : ''}`
-        + `${isWishlisted(guitar) ? 'and is on the wishlist.' : ''}`;
+        + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not yet completed' : ''}`
+        + `${isWishlisted(guitar) ? ', and is on the wishlist.' : ''}`;
 }
 
 export function summarizePickups(guitar: Guitar): string {

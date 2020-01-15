@@ -112,7 +112,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.projectComplete
                 ? `Project Completed: ${guitar.projectComplete}`
                 : null,
-              `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`,
+              guitar.body
+                ? `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`
+                : null,
               guitar.bodyStyle
                 ? `Body Style: ${guitar.bodyStyle}`
                 : null,

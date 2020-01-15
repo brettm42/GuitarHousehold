@@ -105,8 +105,12 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
           <div>
             {[
-              `Make: ${guitar.make}`,
-              `Model: ${guitar.model}`,
+              guitar.make
+                ? `Make: ${guitar.make}`
+                : null,
+              guitar.model
+                ? `Model: ${guitar.model}`
+                : null,
               guitar.series
                 ? `Series: ${guitar.series}`
                 : null,
