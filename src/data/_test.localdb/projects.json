@@ -73,7 +73,60 @@
         "controls": [
             "4-way rotary: neck, series, parallel, bridge",
             "Master volume",
-            "Master tSone"
+            "Master tone"
+        ]
+    },
+    {
+        "id": 110000,
+        "name": "Project #2",
+        "description": "",
+        "projectStart": "1/06/2020",
+        "projectComplete": "",
+        "purchaseStore": "Amazon",
+        "serialNumber": "",
+        "serialNumberLocation": "",
+        "make": "Project",
+        "bodyStyle": "Telecaster",
+        "body": "",
+        "neck": "",
+        "pickguard": "",
+        "color": "Red",
+        "purchaseComponentPrice": [
+            "189.95",
+            "21.99"
+        ],
+        "pickups": [
+            {
+                "id": 110010,
+                "name": "",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "",
+                "purchasePrice": "",
+                "position": "Bridge",
+                "type": "Telecaster",
+                "size": "Telecaster",
+                "output": "12.0K"
+            }
+        ],
+        "scale": "25.5\"",
+        "numberOfFrets": 22,
+        "neckRadius": "",
+        "nutWidth": "",
+        "strings": {
+            "id": 110009,
+            "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+            "gauge": "13-56",
+            "numberOfStrings": 6,
+            "material": "Pure Nickel",
+            "lastChangeDate": "11/02/2019"
+        },
+        "picture": "",
+        "modifications": [],
+        "controls": [
+            "3-way rotary: neck, parallel, bridge",
+            "Master volume",
+            "Master tone"
         ]
     }
 ]

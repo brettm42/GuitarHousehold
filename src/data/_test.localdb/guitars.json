@@ -3,7 +3,7 @@
         "id": 10000,
         "name": "Guitar #1",
         "description": "",
-        "purchaseDate": "",
+        "purchaseDate": "1/01/2020",
         "purchaseStore": "",
         "make": "Squier",
         "model": "",
@@ -49,7 +49,7 @@
             "material": "80/20 Bronze",
             "lastChangeDate": "11/02/2019"
         },
-        "hasBattery": "true",
+        "hasBattery": true,
         "tremolo": "Stratocaster",
         "case": {
             "id": 10100,
@@ -62,7 +62,7 @@
         },
         "picture": "",
         "productUrl": "",
-        "purchasePrice": "",
+        "purchasePrice": "123.45",
         "modifications": [
             "Removed pickguard", 
             "Added chrome knobs"
