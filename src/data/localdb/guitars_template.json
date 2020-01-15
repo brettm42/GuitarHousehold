@@ -38,6 +38,7 @@
             }
         ],
         "scale": "25.5\"",
+        "numberOfFrets": 21,
         "neckRadius": "",
         "nutWidth": "",
         "strings": {
@@ -60,6 +61,7 @@
             "caseStyle": "Arched"
         },
         "picture": "",
+        "productUrl": "",
         "purchasePrice": "",
         "modifications": [
             "Removed pickguard", 

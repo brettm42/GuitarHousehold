@@ -8,6 +8,7 @@
         "purchaseStore": "",
         "serialNumber": "",
         "serialNumberLocation": "",
+        "make": "Project",
         "bodyStyle": "Jazzmaster",
         "body": "",
         "neck": "",
@@ -44,6 +45,7 @@
             }
         ],
         "scale": "25.5\"",
+        "numberOfFrets": 21,
         "neckRadius": "",
         "nutWidth": "",
         "strings": {
