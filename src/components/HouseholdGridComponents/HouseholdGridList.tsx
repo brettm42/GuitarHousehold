@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: imgHeight,
       minHeight: imgHeight
     },
+    gridListTileMobile: {
+      padding: theme.spacing(2)
+    },
     imgBackground: {
       background: 'lightgrey'
     },
@@ -118,7 +121,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
     <div className={classes.root}>
       <GridList cellHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
         {guitars.map(guitar => (
-          <GridListTile key={guitar.id} className={classes.gridListTile}>
+          <GridListTile key={guitar.id} className={classes.gridListTileMobile}>
             <Link href={`/detail?id=${guitar.id}`}>
               <a>
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
