@@ -39,17 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2)
     },
     img: {
-      width: 'auto',
       maxHeight: 800,
-      display: 'flex',
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(2)
+      marginLeft: theme.spacing(3)
     },
     imgMobile: {
-      maxWidth: '100%',
-      maxHeight: 800,
-      display: 'flex',
-      marginLeft: 0
+      width: '100%'
     },
     jsonExpander: {
       margin: theme.spacing(6, 4, 0, 4)
