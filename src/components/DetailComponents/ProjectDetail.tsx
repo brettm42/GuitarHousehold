@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2)
     },
     img: {
-      maxHeight: 800,
+      width: '100%',
+      // maxHeight: 800,
       marginLeft: theme.spacing(3)
     },
     imgMobile: {
