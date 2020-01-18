@@ -42,7 +42,10 @@ const gridColors = [
 const gridPaperStyle = {
   padding: 1,
   alignSelf: 'stretch',
-  height: '100%'
+  height: '100%',
+  '&:empty': {
+    display: 'none'
+  }
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,6 +54,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       alignItems: 'stretch',
       padding: theme.spacing(1)
+    },
+    mobilePaperGridStyle: {
+      '&:empty': {
+        display: 'none'
+      }
     },
     paper0: {
       ...gridPaperStyle,
@@ -106,29 +114,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   data: guitars, isMobile
 }) => {
   const classes = useStyles();
-
-  const breakdownComponent =
-    (<BreakdownComponent data={guitars} isMobile={isMobile} />);
-  const mostCommonComponent =
-    (<MostCommonComponent data={guitars} isMobile={isMobile} />);
-  const missingCasesComponent =
-    (<MissingCasesComponent data={guitars} isMobile={isMobile} />);
-  const outliersComponent =
-    (<OutliersComponent data={guitars} isMobile={isMobile} />);
-  const partValuesComponent =
-    (<PartValuesComponent data={guitars} isMobile={isMobile} />);
-  const pickupsComponent =
-    (<PickupsComponent data={guitars} isMobile={isMobile} />);
-  const inProgressComponent =
-    (<ProjectInProgressComponent data={guitars} isMobile={isMobile} />);
-  const stringsComponent =
-    (<StringsComponent data={guitars} isMobile={isMobile} />);
-  const randomPickComponent =
-    (<RandomPickComponent data={guitars} isMobile={isMobile} />);
-  const timelineComponent =
-    (<TimelineComponent data={guitars} isMobile={isMobile} />);
-  const valuesComponent =
-    (<ValuesComponent data={guitars} isMobile={isMobile} />);
+  const props = { data: guitars, isMobile: isMobile };
 
   const desktopGrid = (
     <Grid container
@@ -138,63 +124,59 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
     >
       <Grid key={'popular'} item xs={6} sm={4}>
         <Paper className={classes.paper0}>
-          {mostCommonComponent}
+          <MostCommonComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'outliers'} item xs={6} sm={4}>
         <Paper className={classes.paper1}>
-          {outliersComponent}
+          <OutliersComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'randomPick'} item xs={6} sm={4}>
         <Paper className={classes.paper3}>
-          {randomPickComponent}
+          <RandomPickComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'breakdown'} item xs={6} sm={4}>
         <Paper className={classes.paper2}>
-          {breakdownComponent}
+          <BreakdownComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'pickups'} item xs={6} sm={4}>
         <Paper className={classes.paper4}>
-          {pickupsComponent}
+          <PickupsComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'strings'} item xs={6} sm={4}>
         <Paper className={classes.paper4}>
-          {stringsComponent}
+          <StringsComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'timeline'} item xs={6} sm={4}>
         <Paper className={classes.paper5}>
-          {timelineComponent}
+          <TimelineComponent {...props} />
         </Paper>
       </Grid>
-      {missingCasesComponent
-        ? (<Grid key={'cases'} item xs={6} sm={4}>
-            <Paper className={classes.paper6}>
-              {missingCasesComponent}
-            </Paper>
-          </Grid>)
-        : null}
+      <Grid key={'cases'} item xs={6} sm={4}>
+        <Paper className={classes.paper6}>
+          <MissingCasesComponent {...props} />
+        </Paper>
+      </Grid>
       <Grid key={'values'} item xs={6} sm={4}>
         <Paper className={classes.paper8}>
-          {valuesComponent}
+          <ValuesComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'partValues'} item xs={6} sm={4}>
         <Paper className={classes.paper9}>
-          {partValuesComponent}
+          <PartValuesComponent {...props} />
         </Paper>
       </Grid>
-      {inProgressComponent
-        ? (<Grid key={'inProgress'} item xs={6} sm={4}>
-            <Paper className={classes.paper10}>
-              {inProgressComponent}
-            </Paper>
-          </Grid>)
-        : null}
+      <Grid key={'inProgress'} item xs={6} sm={4}>
+        <Paper className={classes.paper10}>
+          <ProjectInProgressComponent {...props} />
+        </Paper>
+      </Grid>
     </Grid>
   );
 
@@ -215,7 +197,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {mostCommonComponent}
+              <MostCommonComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -230,7 +212,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {outliersComponent}
+              <OutliersComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -245,7 +227,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {randomPickComponent}
+              <RandomPickComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -260,7 +242,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {breakdownComponent}
+              <BreakdownComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -275,7 +257,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {valuesComponent}
+              <ValuesComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -290,28 +272,26 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {partValuesComponent}
+              <PartValuesComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
       </Grid>
-      {missingCasesComponent
-        ? (<Grid key={'cases'} item xs={12} sm={6}>
-            <Paper>
-              <ExpansionPanel className={classes.paper5}>
-                <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
-                  <Typography variant='overline'>
-                    {'Missing Cases'}
-                  </Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Divider />
-                  {missingCasesComponent}
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-            </Paper>
-          </Grid>)
-        : null}
+      <Grid key={'cases'} item xs={12} sm={6}>
+        <Paper>
+          <ExpansionPanel className={classes.paper5}>
+            <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
+              <Typography variant='overline'>
+                {'Missing Cases'}
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Divider />
+              <MissingCasesComponent {...props} />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Paper>
+      </Grid>
       <Grid key={'pickups'} item xs={12} sm={6}>
         <Paper>
           <ExpansionPanel className={classes.paper6}>
@@ -322,7 +302,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {pickupsComponent}
+              <PickupsComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -337,7 +317,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {stringsComponent}
+              <StringsComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
@@ -352,28 +332,26 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Divider />
-              {timelineComponent}
+              <TimelineComponent {...props} />
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Paper>
       </Grid>
-      {inProgressComponent
-        ? (<Grid key={'inProgress'} item xs={12} sm={6}>
-            <Paper>
-              <ExpansionPanel className={classes.paper8}>
-                <ExpansionPanelSummary id='panelProjects-header' aria-controls='panelProjects-content'>
-                  <Typography variant='overline'>
-                    {'In Progress Projects'}
-                  </Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Divider />
-                  {inProgressComponent}
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-            </Paper>
-          </Grid>)
-        : null}
+      <Grid key={'inProgress'} item xs={12} sm={6}>
+        <Paper>
+          <ExpansionPanel className={classes.paper8}>
+            <ExpansionPanelSummary id='panelProjects-header' aria-controls='panelProjects-content'>
+              <Typography variant='overline'>
+                {'In Progress Projects'}
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Divider />
+              <ProjectInProgressComponent {...props} />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Paper>
+      </Grid>
     </Grid>
   );
 
