@@ -15,13 +15,16 @@ import { buildPageTitle } from '../components/viewutils';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(4, 2)
+      padding: theme.spacing(4, 2, 0, 2)
     },
     body: {
       padding: theme.spacing(0, 2)
     },
+    imgDiv: {
+      padding: theme.spacing(2)
+    },
     image: {
-      width: '100%',
+      maxWidth: '90%',
       padding: theme.spacing(2)
     }
   })
@@ -39,13 +42,15 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
         </Typography>
       </div>
 
-      <img className={classes.image} src={Constants.AboutPageImg1} />
-      <img className={classes.image} src={Constants.AboutPageImg2} />
-
       <div className={classes.body}>
         <Typography variant='body2' gutterBottom>
           {'This is the about page...'}
         </Typography>
+      </div>
+
+      <div className={classes.imgDiv}>
+        <img className={classes.image} src={Constants.AboutPageImg1} />
+        <img className={classes.image} src={Constants.AboutPageImg2} />
       </div>
     </Layout>
   );

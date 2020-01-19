@@ -21,7 +21,7 @@ type GuitarListProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(2)
+      padding: theme.spacing(2, 2, 0, 2)
     },
     emptyList: {
       padding: theme.spacing(4)
