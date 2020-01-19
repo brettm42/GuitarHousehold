@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     img: {
       width: '100%',
-      // maxHeight: 800,
       marginLeft: theme.spacing(3)
     },
     imgMobile: {
