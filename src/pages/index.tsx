@@ -19,6 +19,7 @@ import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarser
 type IndexProps = {
   data: Guitar[];
   pathname: string;
+  isMobile: boolean;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,8 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IndexPage: NextPage<IndexProps> = ({ data, pathname }) => {
-  const isMobile = IsMobile();
+const IndexPage: NextPage<IndexProps> = ({ data, pathname, isMobile }) => {
   const classes = useStyles();
 
   return (
@@ -62,7 +62,9 @@ const IndexPage: NextPage<IndexProps> = ({ data, pathname }) => {
 IndexPage.getInitialProps = async ({ pathname }) => {
   const data = [...await findAllGuitars(), ...await findAllProjects()];
 
-  return { data, pathname };
+  const isMobile = IsMobile();
+
+  return { data, pathname, isMobile };
 };
 
 export default IndexPage;

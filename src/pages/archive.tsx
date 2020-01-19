@@ -2,34 +2,31 @@ import { NextPage } from 'next';
 
 import GuitarList from '../components/GuitarList';
 
+import { PageProps } from '../infrastructure/shared';
 import { IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllArchived, findAllSold } from '../data/guitarservice/guitarservice';
 
-type ArchiveProps = {
-  items: Guitar[];
-  pathname: string;
-  title: string;
-  isMobile: boolean;
-};
+const pageTitle = 'Archive';
+const pageListColumns = 'archive';
 
-const Archive: NextPage<ArchiveProps> = ({ items, pathname, title, isMobile }) => {
+const Archive: NextPage<PageProps> = ({ items, pathname }) => {
+  const isMobile = IsMobile();
+
   return <GuitarList
     items={items}
     pathname={pathname}
     isMobile={isMobile}
-    title={title}
-    columns={'archive'}
+    title={pageTitle}
+    columns={pageListColumns}
   />;
 };
 
 Archive.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [...await findAllArchived(), ...await findAllSold()];
-  const title = 'Archive';
-  const isMobile = IsMobile();
 
-  return { items, pathname, title, isMobile };
+  return { items, pathname };
 };
 
 export default Archive;

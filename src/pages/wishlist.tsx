@@ -3,33 +3,30 @@ import { NextPage } from 'next';
 import GuitarList from '../components/GuitarList';
 
 import { IsMobile } from '../components/viewutils';
+import { PageProps } from '../infrastructure/shared';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllWishlist } from '../data/guitarservice/guitarservice';
 
-type WishlistProps = {
-  items: Guitar[];
-  pathname: string;
-  title: string;
-  isMobile: boolean;
-};
+const pageTitle = 'Wishlist';
+const pageListColumns = 'wishlist';
 
-const Wishlist: NextPage<WishlistProps> = ({ items, pathname, title, isMobile }) => {
+const Wishlist: NextPage<PageProps> = ({ items, pathname }) => {
+  const isMobile = IsMobile();
+
   return <GuitarList
     items={items}
     pathname={pathname}
     isMobile={isMobile}
-    title={title}
-    columns={'wishlist'}
+    title={pageTitle}
+    columns={pageListColumns}
   />;
 };
 
 Wishlist.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [...await findAllWishlist()];
-  const title = 'Wishlist';
-  const isMobile = IsMobile();
 
-  return { items, pathname, title, isMobile };
+  return { items, pathname };
 };
 
 export default Wishlist;

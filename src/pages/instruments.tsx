@@ -3,33 +3,30 @@ import { NextPage } from 'next';
 import GuitarList from '../components/GuitarList';
 
 import { IsMobile } from '../components/viewutils';
+import { PageProps } from '../infrastructure/shared';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllInstruments } from '../data/guitarservice/guitarservice';
 
-type InstrumentsProps = {
-  items: Guitar[];
-  pathname: string;
-  title: string;
-  isMobile: boolean;
-};
+const pageTitle = 'Instruments';
+const pageListColumns = 'instrument';
 
-const Instruments: NextPage<InstrumentsProps> = ({ items, pathname, title, isMobile }) => {
+const Instruments: NextPage<PageProps> = ({ items, pathname }) => {
+  const isMobile = IsMobile();
+
   return <GuitarList
     items={items}
     pathname={pathname}
     isMobile={isMobile}
-    title={title}
-    columns={'instrument'}
+    title={pageTitle}
+    columns={pageListColumns}
   />;
 };
 
 Instruments.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [...await findAllInstruments()];
-  const title = 'Instruments';
-  const isMobile = IsMobile();
 
-  return { items, pathname, title, isMobile };
+  return { items, pathname };
 };
 
 export default Instruments;
