@@ -15,7 +15,7 @@ import { buildPageTitle } from '../components/viewutils';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(4, 2, 0, 2)
+      padding: theme.spacing(4, 2, 2, 2)
     },
     body: {
       padding: theme.spacing(0, 2)

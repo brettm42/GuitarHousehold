@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       padding: theme.spacing(2)
     },
+    title: {
+      padding: theme.spacing(2, 0)
+    },
     heading: {
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2)
     },
     img: {
-      width: '100%',
+      width: '85%',
       marginLeft: theme.spacing(3)
     },
     imgMobile: {
@@ -91,9 +94,11 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs={12} sm>
-          <Typography variant='h4' gutterBottom>
-            {guitar.name}
-          </Typography>
+          <div className={classes.title}>
+            <Typography variant='h4' gutterBottom>
+              {guitar.name}
+            </Typography>
+          </div>
 
           {guitarSummary}
 

@@ -25,7 +25,7 @@ type IndexProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(4, 0, 2, 1),
+      padding: theme.spacing(4, 0, 4, 1),
     },
     divider: {
       margin: theme.spacing(4, 2),

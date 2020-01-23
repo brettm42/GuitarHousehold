@@ -21,7 +21,7 @@ type GuitarListProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      padding: theme.spacing(2, 2, 0, 2)
+      padding: theme.spacing(4, 2, 0, 2)
     },
     emptyList: {
       padding: theme.spacing(4)
@@ -35,7 +35,7 @@ const GuitarList: NextPage<GuitarListProps> = ({ items, pathname, isMobile, titl
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname}>
       <div className={classes.title}>
-        <Typography variant='h4' gutterBottom>
+        <Typography variant='h4'>
           {title}
         </Typography>
       </div>
