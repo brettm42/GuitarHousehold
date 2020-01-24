@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
       background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
       color: 'white',
     },
-    // toolbar: theme.mixins.toolbar,
     toolbarHeight: {
       paddingTop: 64
     },
@@ -233,7 +232,6 @@ export default function Layout(props: LayoutProps): React.ReactElement {
         </Drawer>
       </div>
 
-      {/* <div className={classes.toolbar} /> */}
       <div className={classes.toolbarHeight}>
         {children}
       </div>
