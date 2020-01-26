@@ -1495,7 +1495,8 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function summarizeGuitar(guitar: Guitar): string {
-  return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} ${isElectric(guitar) ? 'electric' : 'acoustic'} `
+  return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} `
+    + `${isElectric(guitar) ? 'electric' : 'acoustic'} `
     + `guitar ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}`
     + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
     + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
