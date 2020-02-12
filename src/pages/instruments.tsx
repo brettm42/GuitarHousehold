@@ -11,7 +11,7 @@ import { findAllInstruments } from '../data/guitarservice/guitarservice';
 const pageTitle = 'Instruments';
 const pageListColumns = 'instrument';
 
-const Instruments: NextPage<PageProps> = ({ items, pathname }) => {
+const InstrumentsPage: NextPage<PageProps> = ({ items, pathname }) => {
   const isMobile = IsMobile();
 
   return <GuitarList
@@ -23,10 +23,10 @@ const Instruments: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-Instruments.getInitialProps = async ({ pathname }) => {
+InstrumentsPage.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [...await findAllInstruments()];
 
   return { items, pathname };
 };
 
-export default Instruments;
+export default InstrumentsPage;

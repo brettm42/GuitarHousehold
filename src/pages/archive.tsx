@@ -11,7 +11,7 @@ import { findAllArchived, findAllSold } from '../data/guitarservice/guitarservic
 const pageTitle = 'Archive';
 const pageListColumns = 'archive';
 
-const Archive: NextPage<PageProps> = ({ items, pathname }) => {
+const ArchivePage: NextPage<PageProps> = ({ items, pathname }) => {
   const isMobile = IsMobile();
 
   return <GuitarList
@@ -23,10 +23,10 @@ const Archive: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-Archive.getInitialProps = async ({ pathname }) => {
+ArchivePage.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [...await findAllArchived(), ...await findAllSold()];
 
   return { items, pathname };
 };
 
-export default Archive;
+export default ArchivePage;

@@ -9,7 +9,6 @@ import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { PageProps } from '../infrastructure/shared';
-
 import { buildPageTitle } from '../components/viewutils';
 
 const useStyles = makeStyles((theme: Theme) =>

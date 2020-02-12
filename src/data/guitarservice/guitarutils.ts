@@ -1553,7 +1553,8 @@ function getColorMapping(color: string): string {
     'TV Yellow': 'Yellow',
     'Seafoam Green': 'Green',
     'Antique Cherry': 'Red',
-    'Lake Placid Blue': 'Blue'
+    'Lake Placid Blue': 'Blue',
+    'Classic': 'Natural'
   };
 
   if (color in mapping) {

@@ -11,7 +11,7 @@ import { findAllWishlist } from '../data/guitarservice/guitarservice';
 const pageTitle = 'Wishlist';
 const pageListColumns = 'wishlist';
 
-const Wishlist: NextPage<PageProps> = ({ items, pathname }) => {
+const WishlistPage: NextPage<PageProps> = ({ items, pathname }) => {
   const isMobile = IsMobile();
 
   return <GuitarList
@@ -23,10 +23,10 @@ const Wishlist: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-Wishlist.getInitialProps = async ({ pathname }) => {
+WishlistPage.getInitialProps = async ({ pathname }) => {
   const items: Guitar[] = [...await findAllWishlist()];
 
   return { items, pathname };
 };
 
-export default Wishlist;
+export default WishlistPage;
