@@ -14,7 +14,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
-import { findAllGuitars, findAllProjects } from '../data/guitarservice/guitarservice';
+import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
 
 type IndexProps = {
   data: Guitar[];
@@ -60,7 +60,11 @@ const IndexPage: NextPage<IndexProps> = ({ data, pathname, isMobile }) => {
 };
 
 IndexPage.getInitialProps = async ({ pathname }) => {
-  const data = [...await findAllGuitars(), ...await findAllProjects()];
+  const data = [
+    ...await findAllGuitars(),
+    ...await findAllProjects(),
+    ...await findAllInstruments()
+  ];
 
   const isMobile = IsMobile();
 
