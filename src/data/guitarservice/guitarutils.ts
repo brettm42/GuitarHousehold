@@ -1340,6 +1340,10 @@ export function getGuitarCost(guitar: Guitar | Project): number {
     }
   }
 
+  if (guitar.soldDate) {
+    return roundToHundredths(total / -1);
+  }
+
   return roundToHundredths(total);
 }
 
