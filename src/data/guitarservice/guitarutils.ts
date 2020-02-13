@@ -408,6 +408,10 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     if (guitar.strings) {
       if (guitar.strings.numberOfStrings === 12) {
         twelve += 1;
+      } else if (guitar.strings.numberOfStrings ?? 0 > 6) {
+        // continue;
+        // include 'em, why not?
+        twelve += 1;
       } else {
         six += 1;
       }
