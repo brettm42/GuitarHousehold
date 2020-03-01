@@ -9,6 +9,8 @@ import {
   roundToHundredths
 } from '../../infrastructure/datautils';
 
+import * as CurrencyService from '../currencyservice/currencyservice';
+
 const defaultString = 'None';
 const unknownString = 'Unknown';
 const minDefault = 99999999;
@@ -90,6 +92,29 @@ export function hasPurchasePrice(guitar: Guitar): boolean {
   }
 
   return false;
+}
+
+export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
+  if (hasPurchasePrice(guitar)) {
+    return CurrencyService.findCostToday(
+      Number.parseFloat(guitar.purchasePrice ?? '0'), 
+      guitar.purchaseDate ?? '')
+    .catch(() => {
+      return '';
+    })
+    .then(cost => {
+      if (!cost) {
+        return '';
+      }
+  
+      const costToday = Number.parseFloat(cost);
+      const currentDate = new Date(Date.now());
+  
+      return ` ($${roundToHundredths(costToday)} in ${currentDate.getFullYear()})`;
+    });
+  }
+  
+  return '';
 }
 
 export function getPickupCount(guitar: Guitar): number {

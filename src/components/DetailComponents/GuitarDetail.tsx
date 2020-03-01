@@ -124,7 +124,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 ? `Purchased ${guitar.purchaseDate} from ${guitar.purchaseStore}`
                 : null,
               GuitarUtils.hasPurchasePrice(guitar)
-                ? `Purchase Price: \$${guitar.purchasePrice}`
+                ? `Purchase Price: \$${guitar.purchasePrice}${GuitarUtils.findGuitarCostToday(guitar)}`
                 : null,
               guitar.scale
                 ? `Neck Scale: ${guitar.scale}`
