@@ -24,7 +24,9 @@ export async function findCostToday(cost: number, purchaseDate: string): Promise
 
   return await webRequest(url)
     .then(response => {
-      return response;
+      const idx = response.indexOf('answer');
+
+      return response.substring(idx);
     })
     .catch(error => {
       console.log(error);
