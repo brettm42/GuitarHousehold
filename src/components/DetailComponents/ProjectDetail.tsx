@@ -121,6 +121,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               GuitarUtils.hasPurchasePrice(guitar)
                 ? `Project Cost: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
+              guitar.currentPrice
+                ? `Cost today: ${guitar.currentPrice}`
+                : null,
               guitar.neck
                 ? `Neck: ${guitar.neck}`
                 : null,
