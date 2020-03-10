@@ -23,10 +23,20 @@ const ArchivePage: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-ArchivePage.getInitialProps = async ({ pathname }) => {
+// ArchivePage.getInitialProps = async ({ pathname }) => {
+//   const items: Guitar[] = [...await findAllArchived(), ...await findAllSold()];
+
+//   return { items, pathname };
+// };
+
+export async function getStaticProps() {
   const items: Guitar[] = [...await findAllArchived(), ...await findAllSold()];
 
-  return { items, pathname };
-};
+  return {
+    props: {
+      items
+    }
+  };
+}
 
 export default ArchivePage;

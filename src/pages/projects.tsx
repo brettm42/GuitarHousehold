@@ -23,10 +23,20 @@ const ProjectsPage: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-ProjectsPage.getInitialProps = async ({ pathname }) => {
+// ProjectsPage.getInitialProps = async ({ pathname }) => {
+//   const items: Project[] = await findAllProjects();
+
+//   return { items, pathname };
+// };
+
+export async function getStaticProps() {
   const items: Project[] = await findAllProjects();
 
-  return { items, pathname };
-};
+  return {
+    props: {
+      items
+    }
+  };
+}
 
 export default ProjectsPage;

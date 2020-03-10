@@ -23,10 +23,20 @@ const InstrumentsPage: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-InstrumentsPage.getInitialProps = async ({ pathname }) => {
+// InstrumentsPage.getInitialProps = async ({ pathname }) => {
+//   const items: Guitar[] = [...await findAllInstruments()];
+
+//   return { items, pathname };
+// };
+
+export async function getStaticProps() {
   const items: Guitar[] = [...await findAllInstruments()];
 
-  return { items, pathname };
-};
+  return {
+    props: {
+      items
+    }
+  };
+}
 
 export default InstrumentsPage;
