@@ -145,6 +145,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Number of Pickups', GuitarUtils.mostCommonPickupNumber(guitars)],
         ['Tuning', GuitarUtils.mostCommonTuning(guitars)],
         ['Scale Length', GuitarUtils.mostCommonScale(guitars)],
+        ['Nut Width', GuitarUtils.mostCommonNutWidth(guitars)],
         ['Frets', GuitarUtils.averageFrets(guitars)],
         ['Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars)],
         ['Case Style', GuitarUtils.mostCommonCaseStyle(guitars)],
@@ -320,7 +321,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
               : <Typography variant='h4' gutterBottom>
-                 {Constants.ImagePlaceholder}
+                  {Constants.ImagePlaceholder}
                 </Typography>}
           </a>
         </Link>
@@ -369,7 +370,8 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Hollowbody vs. Other Style', GuitarUtils.styleVsOtherStyle('Hollowbody', guitars)],
         ['Tremolo vs. Fixed', GuitarUtils.tremoloVsFixed(guitars)],
         ['Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars)],
-        ['Flat vs. Arched Case', GuitarUtils.flatVsArchedCase(guitars)]
+        ['Flat vs. Arched Case', GuitarUtils.flatVsArchedCase(guitars)],
+        ['Has Battery vs. Not', GuitarUtils.hasBatteryVsNot(guitars)]
       ]}
       style={classes.breakdown} />
   );

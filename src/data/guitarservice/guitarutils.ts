@@ -371,6 +371,12 @@ export function mostCommonScale(guitars: ReadonlyArray<Guitar>): string {
   return mostCommonString(scales);
 }
 
+export function mostCommonNutWidth(guitars: ReadonlyArray<Guitar>): string {
+  const nuts = guitars.filter(g => g.nutWidth).map(g => g.nutWidth);
+
+  return mostCommonString(nuts);
+}
+
 export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
   const makes = guitars.filter(g => !isProject(g)).map(g => g.make);
 
@@ -537,6 +543,21 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return `${flat} vs. ${arched}`;
+}
+
+export function hasBatteryVsNot(guitars: ReadonlyArray<Guitar>): string {
+  let battery = 0;
+  let not = 0;
+
+  for (const guitar of guitars) {
+    if (guitar.hasBattery) {
+      battery += 1;
+    } else {
+      not += 1;
+    }
+  }
+
+  return `${battery} vs. ${not}`;
 }
 
 export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
