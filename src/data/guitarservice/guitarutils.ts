@@ -1546,7 +1546,7 @@ export function summarizeGuitar(guitar: Guitar): string {
 
 export function summarizePickups(guitar: Guitar): string {
   const pickupCount = getPickupCount(guitar);
-  if (pickupCount < 1) {
+  if (!hasPickups(guitar) || pickupCount < 1) {
     return 'no pickups';
   }
 
