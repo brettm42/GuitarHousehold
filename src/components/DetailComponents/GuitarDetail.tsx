@@ -174,14 +174,14 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div>
               <p>Pickups:</p>
               <ul>
-                {(guitar.pickups ?? []).map(i =>
+                {guitar.pickups!.map(i =>
                   <li key={i.id}>
                     <PickupDetail item={i} isMobile={isMobile} />
                   </li>)}
               </ul>
             </div>
           : null}
-        {guitar.strings
+        {GuitarUtils.hasStrings(guitar) && guitar.strings
           ? <div>
               <p>Strings:</p>
               <ul>
@@ -191,15 +191,13 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               </ul>
             </div>
           : null}
-        {GuitarUtils.hasCase(guitar)
+        {GuitarUtils.hasCase(guitar) && guitar.case
           ? <div>
               <p>Case:</p>
               <ul>
-                {guitar.case
-                  ? <li key={guitar.case.id}>
-                      <CaseDetail item={guitar.case} isMobile={isMobile} />
-                    </li>
-                  : null}
+                <li key={guitar.case.id}>
+                  <CaseDetail item={guitar.case} isMobile={isMobile} />
+                </li>
               </ul>
             </div>
           : null}
@@ -207,7 +205,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div className={classes.description}>
               <p>Modifications:</p>
               <ul>
-                {(guitar.modifications ?? []).map((i, idx) =>
+                {guitar.modifications!.map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}
@@ -220,7 +218,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           ? <div className={classes.description}>
               <p>Controls:</p>
               <ul>
-                {(guitar.controls ?? []).map((i, idx) =>
+                {guitar.controls!.map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}

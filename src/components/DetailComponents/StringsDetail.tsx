@@ -82,7 +82,9 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
               strings.numberOfStrings
                 ? `Number of Strings: ${strings.numberOfStrings}`
                 : null,
-              `String Age: ${getStringAge(guitar)}`,
+              strings
+                ? `String Age: ${getStringAge(guitar)}`
+                : null,
               strings.lastChangeDate
                 ? `Last Time Changed: ${strings.lastChangeDate}`
                 : null,

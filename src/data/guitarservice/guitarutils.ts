@@ -74,9 +74,15 @@ export function hasPickups(guitar: Guitar): boolean {
     : false;
 }
 
-export function hasFactoryStrings(guitar: Guitar): boolean {
+export function hasStrings(guitar: Guitar): boolean {
   return (guitar && guitar.strings && guitar.strings.name)
-    ? guitar.strings.name.includes('Factory')
+    ? guitar.strings.id !== undefined
+    : false;
+}
+
+export function hasFactoryStrings(guitar: Guitar): boolean {
+  return hasStrings(guitar)
+    ? (guitar.strings?.name || '').includes('Factory')
     : false;
 }
 
@@ -230,7 +236,7 @@ export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
 }
 
 function getStringAgeDuration(guitar: Guitar): number {
-  if (guitar.strings) {
+  if (hasStrings(guitar)) {
     if (guitar.strings?.lastChangeDate) {
       return Date.now() - Date.parse(guitar.strings.lastChangeDate);
     } else if (hasFactoryStrings(guitar)) {
@@ -430,10 +436,10 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
   let twelve = 0;
 
   for (const guitar of guitars) {
-    if (guitar.strings) {
-      if (guitar.strings.numberOfStrings === 12) {
+    if (hasStrings(guitar)) {
+      if (guitar.strings?.numberOfStrings === 12) {
         twelve += 1;
-      } else if (guitar.strings.numberOfStrings ?? 0 > 6) {
+      } else if (guitar.strings?.numberOfStrings ?? 0 > 6) {
         // continue;
         // include 'em, why not?
         twelve += 1;
@@ -735,11 +741,11 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
   let max;
   let maxDate;
   for (const guitar of guitars) {
-    if (!guitar.strings) {
+    if (!hasStrings(guitar)) {
       continue;
     }
 
-    let lastChangeDate = guitar.strings.lastChangeDate;
+    let lastChangeDate = guitar.strings?.lastChangeDate;
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
         lastChangeDate = guitar.purchaseDate;
@@ -782,11 +788,11 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
   let min;
   let minDate;
   for (const guitar of guitars) {
-    if (!guitar.strings) {
+    if (!hasStrings(guitar)) {
       continue;
     }
 
-    let lastChangeDate = guitar.strings.lastChangeDate;
+    let lastChangeDate = guitar.strings?.lastChangeDate;
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
         lastChangeDate = guitar.purchaseDate;
