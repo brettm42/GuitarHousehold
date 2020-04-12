@@ -123,6 +123,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               guitar.purchaseDate
                 ? `Purchased ${guitar.purchaseDate} from ${guitar.purchaseStore}`
                 : null,
+              guitar.deliveryDate
+                ? `Delivered ${guitar.deliveryDate}`
+                : null,
               GuitarUtils.hasPurchasePrice(guitar)
                 ? `Purchase Price: \$${guitar.purchasePrice}`
                 : null,
