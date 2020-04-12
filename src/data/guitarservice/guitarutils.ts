@@ -366,7 +366,7 @@ export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonScale(guitars: ReadonlyArray<Guitar>): string {
-  const scales = guitars.map(g => g.scale);
+  const scales = guitars.filter(g => g.scale).map(g => g.scale);
 
   return mostCommonString(scales);
 }
@@ -384,7 +384,7 @@ export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
-  const stores = guitars.map(g => g.purchaseStore);
+  const stores = guitars.filter(g => g.purchaseStore).map(g => g.purchaseStore);
 
   return mostCommonString(stores);
 }
@@ -396,7 +396,7 @@ export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
-  const tremolos = guitars.map(g => g.tremolo);
+  const tremolos = guitars.filter(g => g.tremolo).map(g => g.tremolo);
 
   return mostCommonString(tremolos);
 }
