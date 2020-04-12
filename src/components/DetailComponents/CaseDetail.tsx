@@ -77,16 +77,19 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
               `Purchase Store: ${guitarCase.purchaseStore}`,
               guitarCase.purchasePrice
                 ? `Purchase Price: \$${guitarCase.purchasePrice}`
-                : null,
-              guitarCase.productUrl
-                ? `Product Link: ${guitarCase.productUrl}`
                 : null
-            ]
-            .map((text, idx) => (
-              <Typography key={idx} gutterBottom>
-                {text}
-              </Typography>
-            ))}
+              ]
+              .map((text, idx) => (
+                <Typography key={idx} gutterBottom>
+                  {text}
+                </Typography>
+              ))}
+
+            {guitarCase.productUrl
+              ? <Typography key={`${guitarCase.id}-link`} gutterBottom>
+                  Product Link: <a href={guitarCase.productUrl}>{guitarCase.productUrl}</a>
+                </Typography>
+              : null}
           </div>
         </Grid>
 

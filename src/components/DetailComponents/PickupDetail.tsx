@@ -88,9 +88,6 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                 : null,
               pickup.purchaseStore
                 ? `Purchase Store: ${pickup.purchaseStore}`
-                : null,
-              pickup.productUrl
-                ? `Product Link: ${pickup.productUrl}`
                 : null
               ]
               .map((text, idx) => (
@@ -98,6 +95,12 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                   {text}
                 </Typography>
               ))}
+
+            {pickup.productUrl
+              ? <Typography key={`${pickup.id}-link`} gutterBottom>
+                  Product Link: <a href={pickup.productUrl}>{pickup.productUrl}</a>
+                </Typography>
+              : null}
           </div>
         </Grid>
 

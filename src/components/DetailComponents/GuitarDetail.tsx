@@ -147,16 +147,19 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 : null,
               guitar.hasBattery
                 ? `Has Battery: Yes`
-                : null,
-              guitar.productUrl
-                ? `Product Link: ${guitar.productUrl}`
                 : null
-            ]
-            .map((text, idx) => (
-              <Typography key={idx} gutterBottom>
-                {text}
+              ]
+              .map((text, idx) => (
+                <Typography key={idx} gutterBottom>
+                  {text}
+                </Typography>
+              ))}
+
+          {guitar.productUrl
+            ? <Typography key={`${guitar.id}-link`} gutterBottom>
+                Product Link: <a href={guitar.productUrl}>{guitar.productUrl}</a>
               </Typography>
-            ))}
+            : null}
           </div>
         </Grid>
 

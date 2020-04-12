@@ -96,16 +96,19 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
                 : null,
               strings.purchasePrice
                 ? `Purchase Price: \$${strings.purchasePrice}`
-                : null,
-              strings.productUrl
-                ? `Product Link: ${strings.productUrl}`
                 : null
-            ]
-            .map((text, idx) => (
-              <Typography key={idx} gutterBottom>
-                {text}
-              </Typography>
-            ))}
+              ]
+              .map((text, idx) => (
+                <Typography key={idx} gutterBottom>
+                  {text}
+                </Typography>
+              ))}
+            
+            {strings.productUrl
+              ? <Typography key={`${strings.id}-link`} gutterBottom>
+                  Product Link: <a href={strings.productUrl}>{strings.productUrl}</a>
+                </Typography>
+              : null}
           </div>
         </Grid>
 
