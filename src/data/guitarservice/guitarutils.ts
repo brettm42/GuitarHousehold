@@ -87,14 +87,9 @@ export function hasFactoryStrings(guitar: Guitar): boolean {
 }
 
 export function hasPurchasePrice(guitar: Guitar): boolean {
-  if (guitar.purchasePrice) {
+  if (guitar.purchasePrice 
+      || (isProject(guitar) && guitar.purchaseComponentPrice)) {
     return true;
-  }
-
-  if (isProject(guitar)) {
-    if (guitar.purchaseComponentPrice) {
-      return true;
-    }
   }
 
   return false;
@@ -124,12 +119,8 @@ export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
 }
 
 export function getPickupCount(guitar: Guitar): number {
-  if (!hasPickups(guitar)) {
-    return 0;
-  }
-
-  if (guitar.pickups) {
-    return guitar.pickups.length;
+  if (hasPickups(guitar)) {
+    return guitar.pickups?.length ?? 0;
   }
 
   return 0;
@@ -235,17 +226,29 @@ export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-function getStringAgeDuration(guitar: Guitar): number {
-  if (hasStrings(guitar)) {
-    if (guitar.strings?.lastChangeDate) {
-      return Date.now() - Date.parse(guitar.strings.lastChangeDate);
-    } else if (hasFactoryStrings(guitar)) {
-      if (!guitar.purchaseDate) {
-        return 0;
-      }
+export function getStringGauge(guitar: Guitar): string {
+  if (!hasStrings(guitar)) {
+    return defaultString;
+  }
+  
+  return guitar.strings?.gauge
+    ? guitar.strings.gauge
+    : unknownString;
+}
 
-      return Date.now() - Date.parse(guitar.purchaseDate);
+function getStringAgeDuration(guitar: Guitar): number {
+  if (!hasStrings(guitar)) {
+    return 0;
+  }
+  
+  if (guitar.strings?.lastChangeDate) {
+    return Date.now() - Date.parse(guitar.strings.lastChangeDate);
+  } else if (hasFactoryStrings(guitar)) {
+    if (!guitar.purchaseDate) {
+      return 0;
     }
+
+    return Date.now() - Date.parse(guitar.purchaseDate);
   }
 
   return 0;
@@ -348,7 +351,7 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
-  const cases = guitars.map(g => g.case?.caseStyle);
+  const cases = guitars.filter(g => hasCase(g)).map(g => g.case?.caseStyle);
 
   return mostCommonString(cases);
 }
@@ -402,7 +405,7 @@ export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars.map(g => g.strings?.name);
+  const strings = guitars.filter(g => hasStrings(g)).map(g => g.strings?.name);
 
   return mostCommonString(strings);
 }
@@ -442,16 +445,18 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
   let twelve = 0;
 
   for (const guitar of guitars) {
-    if (hasStrings(guitar)) {
-      if (guitar.strings?.numberOfStrings === 12) {
-        twelve += 1;
-      } else if (guitar.strings?.numberOfStrings ?? 0 > 6) {
-        // continue;
-        // include 'em, why not?
-        twelve += 1;
-      } else {
-        six += 1;
-      }
+    if (!hasStrings(guitar)) {
+      continue;
+    }
+    
+    if (guitar.strings?.numberOfStrings === 12) {
+      twelve += 1;
+    } else if (guitar.strings?.numberOfStrings ?? 0 > 6) {
+      // continue;
+      // include 'em, why not?
+      twelve += 1;
+    } else {
+      six += 1;
     }
   }
 
@@ -529,16 +534,14 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
   let arched = 0;
 
   for (const guitar of guitars) {
-    if (hasCase(guitar)) {
-      if (!guitar.case?.caseStyle) {
-        continue;
-      }
-
-      if (guitar.case.caseStyle === 'Flat') {
-        flat += 1;
-      } else if (guitar.case.caseStyle === 'Arched') {
-        arched += 1;
-      }
+    if (!hasCase(guitar) || !guitar.case?.caseStyle) {
+      continue;
+    }
+    
+    if (guitar.case.caseStyle === 'Flat') {
+      flat += 1;
+    } else if (guitar.case.caseStyle === 'Arched') {
+      arched += 1;
     }
   }
 
@@ -561,9 +564,7 @@ export function hasBatteryVsNot(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
-  const strings =
-    guitars.filter(g => g.strings?.gauge)
-      .map(g => g.strings?.gauge);
+  const strings = guitars.map(g => getStringGauge(g));
 
   return mostCommonString(strings);
 }
@@ -589,7 +590,7 @@ export function mostCommonPickupSize(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
-  const pickups = guitars.map(g => g.pickups?.length.toString());
+  const pickups = guitars.map(g => getPickupCount(g).toString());
 
   return mostCommonString(pickups);
 }
@@ -686,7 +687,7 @@ export function oldestGuitar(guitars: ReadonlyArray<Guitar>): string {
     }
 
     if (Date.parse(max.purchaseDate ?? Date.now().toString())
-      > Date.parse(guitar.purchaseDate)) {
+        > Date.parse(guitar.purchaseDate)) {
       max = guitar;
     }
   }
@@ -725,12 +726,10 @@ export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
 }
 
 function getGuitarAgeDuration(guitar: Guitar | Project): number {
-  if (isProject(guitar)) {
-    if (guitar.projectComplete) {
-      return Date.now() - Date.parse(guitar.projectComplete);
-    }
+  if (isProject(guitar) && guitar.projectComplete) {
+    return Date.now() - Date.parse(guitar.projectComplete);
   }
-
+  
   if (guitar.purchaseDate) {
     return Date.now() - Date.parse(guitar.purchaseDate);
   }
@@ -770,8 +769,7 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
         lastChangeDate = guitar.purchaseDate;
-      }
-      else {
+      } else {
         continue;
       }
     }
@@ -1174,9 +1172,10 @@ export function mostExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const cases = guitars
-    .filter(guitar => hasCase(guitar))
-    .map(g => g.case);
+  const cases = 
+    guitars
+      .filter(guitar => hasCase(guitar))
+      .map(g => g.case);
 
   let max;
   let price = 0;
@@ -1207,9 +1206,10 @@ export function leastExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const cases = guitars
-    .filter(guitar => hasCase(guitar))
-    .map(g => g.case);
+  const cases = 
+    guitars
+      .filter(guitar => hasCase(guitar))
+      .map(g => g.case);
 
   let min;
   let minPrice = minDefault;
@@ -1241,7 +1241,8 @@ export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
   }
 
   const cases =
-    guitars.filter(guitar => hasCase(guitar))
+    guitars
+      .filter(guitar => hasCase(guitar))
       .map(g => g.case);
 
   const averagePrice =
@@ -1489,7 +1490,7 @@ export function guitarsThisYear(guitars: ReadonlyArray<Guitar>): string {
   const date = new Date(Date.now());
   const years = guitarPerYearMap(guitars);
 
-  return `${years[date.getFullYear()] ?? 'None'} in ${date.getFullYear()}`;
+  return `${years[date.getFullYear()] ?? defaultString} in ${date.getFullYear()}`;
 }
 
 function casePerYearMap(guitars: ReadonlyArray<Guitar>): YearMap {
