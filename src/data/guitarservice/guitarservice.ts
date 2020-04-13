@@ -6,46 +6,52 @@ import wishlistDb from '../localdb/wishlist.json';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 
-export async function findInstrument(id: number | string): Promise<Guitar> {
+export async function findInstrument(id: number | string, exhaustive: boolean): Promise<Guitar> {
   if (instrumentDb) {
     const instr = (instrumentDb as Guitar[]).find(data => data.id === Number(id));
     if (instr) {
       return instr;
     }
+  }
 
-    return await findGuitar(id);
+  if (exhaustive) {
+    return await findGuitar(id, exhaustive);
   }
 
   throw new Error(`Cannot find instrument database or item ID: ${id}`);
 }
 
-async function findGuitar(id: number | string): Promise<Guitar> {
+export async function findGuitar(id: number | string, exhaustive: boolean): Promise<Guitar> {
   if (guitarDb) {
     const guitar = (guitarDb as Guitar[]).find(data => data.id === Number(id));
     if (guitar) {
       return guitar;
     }
+  }
 
-    return await findProject(id);
+  if (exhaustive) {
+    return await findProject(id, exhaustive);
   }
 
   throw new Error(`Cannot find guitar database or item ID: ${id}`);
 }
 
-async function findProject(id: number | string): Promise<Project | Guitar> {
+export async function findProject(id: number | string, exhaustive: boolean): Promise<Project | Guitar> {
   if (projectDb) {
     const project = (projectDb as Project[]).find(data => data.id === Number(id));
     if (project) {
       return project;
     }
+  }
 
+  if (exhaustive) {
     return await findWishlist(id);
   }
 
   throw new Error(`Cannot find project database or item ID: ${id}`);
 }
 
-async function findWishlist(id: number | string): Promise<Guitar> {
+export async function findWishlist(id: number | string): Promise<Guitar> {
   if (wishlistDb) {
     const wishlist = (wishlistDb as Guitar[]).find(data => data.id === Number(id));
     if (wishlist) {

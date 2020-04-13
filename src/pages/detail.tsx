@@ -28,7 +28,7 @@ class DetailPage extends React.Component<DetailPageProps> {
       const { id } = query;
       const pathname = `/${id}`;
 
-      const item = await findInstrument(Array.isArray(id) ? id[0] : id);
+      const item = await findInstrument(Array.isArray(id) ? id[0] : id, true);
 
       return { item: item, pathname: pathname, isMobile: isMobile };
     } catch (err) {
