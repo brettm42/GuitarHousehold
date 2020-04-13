@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import Error from '../components/Error';
-import GuitarDetail from '../components/DetailComponents/GuitarDetail';
 import Layout from '../components/Layout';
+import GuitarDetail from '../components/DetailComponents/GuitarDetail';
 import ListDetail from '../components/DetailComponents/ListDetail';
 import ProjectDetail from '../components/DetailComponents/ProjectDetail';
 
@@ -11,7 +11,7 @@ import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { findInstrument } from '../data/guitarservice/guitarservice';
-import { isGuitar, isProject, isInstrument } from '../data/guitarservice/guitarutils';
+import { isGuitar, isInstrument, isProject } from '../data/guitarservice/guitarutils';
 
 type DetailPageProps = {
   item?: Guitar;
