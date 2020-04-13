@@ -230,11 +230,15 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Values:'}
       contents={[
-        ['Cheapest', GuitarUtils.leastExpensive(guitars)],
-        ['with case', GuitarUtils.leastExpensiveWithCase(guitars)],
-        ['Most Expensive', GuitarUtils.mostExpensive(guitars)],
-        ['with case', GuitarUtils.mostExpensiveWithCase(guitars)],
-        ['Average Cost', `${GuitarUtils.averageCost(guitars)} (average with case ${GuitarUtils.averageCostWithCase(guitars)})`],
+        ['Cheapest', GuitarUtils.leastExpensiveGuitar(guitars)],
+        ['with case', GuitarUtils.leastExpensiveGuitarWithCase(guitars)],
+        ['Most Expensive', GuitarUtils.mostExpensiveGuitar(guitars)],
+        ['with case', GuitarUtils.mostExpensiveGuitarWithCase(guitars)],
+        ['Average Cost', `${GuitarUtils.averageGuitarCost(guitars)} (average with case ${GuitarUtils.averageGuitarCostWithCase(guitars)})`],
+        ['*', '*'],
+        ['Least Expensive Instrument', GuitarUtils.leastExpensiveInstrument(guitars)],
+        ['Most Expensive Instrument', GuitarUtils.mostExpensiveInstrument(guitars)],
+        ['Average Instrument Cost', GuitarUtils.averageInstrumentCost(guitars)],
         ['*', '*'],
         ['Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars)],
         ['Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars)],
