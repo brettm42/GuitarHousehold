@@ -52,7 +52,8 @@ const pickupTypes = [
   'Wide-range Humbucker',
   'Piezo',
   'Mini-humbucker',
-  'Active Humbucker'
+  'Active Humbucker',
+  'Filtertron'
 ] as const;
 
 export type PickupSize = typeof pickupSizes[number];
@@ -64,6 +65,7 @@ const pickupSizes = [
   'Wide-range Humbucker',
   'Stratocaster',
   'Mini-humbucker',
+  'Filtertron',
   'Telecaster Bridge',
   'Split-coil',
   'Piezo'
