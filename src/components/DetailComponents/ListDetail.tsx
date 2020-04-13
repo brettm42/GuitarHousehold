@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Entry } from '../../interfaces/entry';
 
-type ListDetailProps = {
+export type ListDetailProps = {
   item: Entry;
 };
 
