@@ -21,18 +21,6 @@ export async function findInstrument(id: number | string, exhaustive: boolean): 
   throw new Error(`Cannot find instrument database or item ID: ${id}`);
 }
 
-export function findInstrumentById(id: number | string): Guitar {
-  if (instrumentDb) {
-    const instr = (instrumentDb as Guitar[]).find(data => data.id === Number(id));
-    if (instr) {
-      return instr;
-    }
-  }
-
-  throw new Error(`Cannot find instrument database or item ID: ${id}`);
-}
-
-
 export async function findGuitar(id: number | string, exhaustive: boolean): Promise<Guitar> {
   if (guitarDb) {
     const guitar = (guitarDb as Guitar[]).find(data => data.id === Number(id));

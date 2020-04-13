@@ -11,7 +11,7 @@ import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { findInstrument } from '../data/guitarservice/guitarservice';
-import { isGuitar, isProject } from '../data/guitarservice/guitarutils';
+import { isGuitar, isProject, isInstrument } from '../data/guitarservice/guitarutils';
 
 type DetailPageProps = {
   item?: Guitar;
@@ -46,11 +46,14 @@ class DetailPage extends React.Component<DetailPageProps> {
     }
 
     return (
-      <Layout title={buildPageTitle(item ? item.name : 'Details')} pathname={(isProject(item) ? 'project' : 'guitar') + pathname}>
+      <Layout 
+        title={buildPageTitle(item ? item.name : 'Details')} 
+        pathname={(isProject(item) ? 'project' : isInstrument(item) ? 'instrument' : 'guitar') + pathname}
+      >
         <div>
           {isProject(item)
             ? item && <ProjectDetail item={item} isMobile={isMobile} />
-            : isGuitar(item)
+            : (isGuitar(item) || isInstrument(item))
               ? item && <GuitarDetail item={item} isMobile={isMobile} />
               : item && <ListDetail item={item} />}
         </div>

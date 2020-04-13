@@ -10,7 +10,6 @@ import {
 } from '../../infrastructure/datautils';
 
 import * as CurrencyService from '../currencyservice/currencyservice';
-import * as GuitarService from '../guitarservice/guitarservice';
 
 const defaultString = 'None';
 const unknownString = 'Unknown';
@@ -27,20 +26,14 @@ export function isProject(guitar: any): guitar is Project {
 }
 
 export function isInstrument(guitar: any): guitar is Guitar {
-  // const isMatch = 
-  //   GuitarService.findInstrument(guitar.id, false)
-  //     .catch(() => { return false; })
-  //     .then(g => { return !g; });
+  // try {
+  //   const match = GuitarService.findInstrument(guitar.id, false);
 
-  // return isMatch;
-
-  try {
-    const match = GuitarService.findInstrumentById(guitar.id);
-
-    return !match;
-  } catch {
-    return false;
-  }
+  //   return !match;
+  // } catch {
+  //   return false;
+  // }
+  return guitar?.isInstrument;
 }
 
 export function isInProgress(guitar: any): guitar is Project {

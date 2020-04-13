@@ -238,7 +238,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
 
       <ExpansionPanel className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
         <ExpansionPanelSummary id='projectPanelJson-header' aria-controls='projectPanelJson-content'>
-          <Typography className={classes.heading}>Guitar JSON Data</Typography>
+          <Typography className={classes.heading}>
+          {`${GuitarUtils.isInstrument(guitar) ? 'Instrument' : 'Guitar'} JSON Data`}
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <div className={isMobile ? classes.jsonMobile : classes.json}>
