@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { Entry } from '../../interfaces/entry';
 
-type DataListItemProps = {
+export type DataListItemProps = {
   data: Entry;
 };
 

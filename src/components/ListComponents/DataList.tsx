@@ -4,7 +4,7 @@ import DataListItem from './DataListItem';
 
 import { Entry } from '../../interfaces/entry';
 
-type DataListProps = {
+export type DataListProps = {
   items: Entry[];
 };
 

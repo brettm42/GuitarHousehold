@@ -10,7 +10,7 @@ import { NextPageContext } from 'next';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 import { Guitar } from '../interfaces/models/guitar';
-import { findInstrument } from '../data/guitarservice/guitarservice';
+import { find } from '../data/guitarservice/guitarservice';
 import { isGuitar, isInstrument, isProject } from '../data/guitarservice/guitarutils';
 
 type DetailPageProps = {
@@ -28,7 +28,7 @@ class DetailPage extends React.Component<DetailPageProps> {
       const { id } = query;
       const pathname = `/${id}`;
 
-      const item = await findInstrument(Array.isArray(id) ? id[0] : id, true);
+      const item = await find(Array.isArray(id) ? id[0] : id);
 
       return { item: item, pathname: pathname, isMobile: isMobile };
     } catch (err) {
