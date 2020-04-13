@@ -578,6 +578,17 @@ export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
   return mostCommonString(pickups.map(p => p.type));
 }
 
+export function mostCommonPickupMount(guitars: ReadonlyArray<Guitar>): string {
+  const pickups =
+    guitars.reduce((pickups, guitar) =>
+      [...pickups, ...guitar.pickups ?? []],
+      [] as Pickup[]);
+
+  const mounts = pickups.filter(p => p.mount).map(p => p.mount);
+
+  return mostCommonString(mounts);
+}
+
 export function mostCommonPickupSize(guitars: ReadonlyArray<Guitar>): string {
   const pickups =
     guitars.reduce((pickups, guitar) =>
