@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { Pickup } from '../../interfaces/models/pickup';
+import { isFactoryPickup } from '../../data/guitarservice/guitarutils';
 
 type PickupDetailProps = {
   item: Pickup;
@@ -70,6 +71,9 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 
           <div>
             {[
+              isFactoryPickup(pickup)
+                ? 'Factory Pickup'
+                : null,
               pickup.position
                 ? `Position: ${pickup.position}`
                 : null,

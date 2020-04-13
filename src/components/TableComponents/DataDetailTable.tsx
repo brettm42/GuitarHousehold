@@ -49,7 +49,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: 1,
     },
     description: {
-      maxWidth: 300,
+      width: 250,
       padding: theme.spacing(1, 0, 0, 0)
     }
   }),

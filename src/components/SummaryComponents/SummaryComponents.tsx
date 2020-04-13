@@ -282,6 +282,7 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       contents={[
         ['Most Common Size', GuitarUtils.mostCommonPickupSize(guitars)],
         ['Most Common Type', GuitarUtils.mostCommonPickupType(guitars)],
+        ['Most Common Mount', GuitarUtils.mostCommonPickupMount(guitars)],
         ['Highest Output', GuitarUtils.highestPickup(guitars)],
         ['Lowest Output', GuitarUtils.lowestPickup(guitars)],
         ['Average Output', GuitarUtils.averagePickup(guitars)]
@@ -375,6 +376,7 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Hollowbody vs. Other Style', GuitarUtils.styleVsOtherStyle('Hollowbody', guitars)],
         ['Tremolo vs. Fixed', GuitarUtils.tremoloVsFixed(guitars)],
         ['Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars)],
+        ['Swapped vs. Stock Pickups', GuitarUtils.swappedVsFactoryPickups(guitars)],
         ['Flat vs. Arched Case', GuitarUtils.flatVsArchedCase(guitars)],
         ['Has Battery vs. Not', GuitarUtils.hasBatteryVsNot(guitars)]
       ]}

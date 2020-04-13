@@ -14,6 +14,7 @@ import * as GuitarService from '../guitarservice/guitarservice';
 
 const defaultString = 'None';
 const unknownString = 'Unknown';
+const factoryString = 'Factory';
 const minDefault = 99999999;
 const pastDate = '1/03/1977';
 
@@ -92,6 +93,18 @@ export function hasPickups(guitar: Guitar): boolean {
     : false;
 }
 
+export function hasFactoryPickups(guitar: Guitar): boolean {
+  return hasPickups(guitar)
+    ? guitar.pickups!.every(p => isFactoryPickup(p))
+    : false;
+}
+
+export function isFactoryPickup(pickup: Pickup): boolean {
+  return pickup
+    ? !pickup.purchaseStore || pickup.purchaseStore.includes(factoryString)
+    : false;
+}
+
 export function hasStrings(guitar: Guitar): boolean {
   return (guitar && guitar.strings && guitar.strings.name)
     ? guitar.strings.id !== undefined
@@ -100,7 +113,7 @@ export function hasStrings(guitar: Guitar): boolean {
 
 export function hasFactoryStrings(guitar: Guitar): boolean {
   return hasStrings(guitar)
-    ? (guitar.strings?.name || '').includes('Factory')
+    ? (guitar.strings?.name || '').includes(factoryString)
     : false;
 }
 
@@ -545,6 +558,25 @@ export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return `${humbucker} vs. ${singleCoil}`;
+}
+
+export function swappedVsFactoryPickups(guitars: ReadonlyArray<Guitar>): string {
+  let factory = 0;
+  let swapped = 0;
+
+  for (const guitar of guitars) {
+    if (!hasPickups(guitar)) {
+      continue;
+    }
+
+    if (hasFactoryPickups(guitar)) {
+      factory += 1;
+    } else {
+      swapped += 1;
+    }
+  }
+
+  return `${swapped} vs. ${factory}`;
 }
 
 export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
