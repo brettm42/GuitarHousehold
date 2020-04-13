@@ -65,7 +65,8 @@ const pickupSizes = [
   'Stratocaster',
   'Mini-humbucker',
   'Telecaster Bridge',
-  'Split-coil'
+  'Split-coil',
+  'Piezo'
 ] as const;
 
 export type CaseStyle = typeof caseStyles[number];
