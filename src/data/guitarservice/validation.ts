@@ -9,7 +9,7 @@ import { isProject } from './guitarutils';
 
 const missingString = 'Missing';
 
-export function validateGuitar(guitar: Guitar): Map<string, string> {
+export function validateGuitar(guitar: Guitar): Map<string, string>[] {
   const prefix = 'guitar';
   const guitarResults = validateRetailItem(guitar, prefix);
   if (!guitar.make) { guitarResults.set(`${prefix}-make`, missingString); }
@@ -48,28 +48,26 @@ export function validateGuitar(guitar: Guitar): Map<string, string> {
   }
 
   let caseResults = new Map<string, string>();
-  if (guitar.case) {
+  if (guitar.case && guitar.case.id) {
     caseResults = validateCase(guitar.case);
   } else {
     caseResults.set('case', missingString);
   }
 
   let stringsResults = new Map<string, string>();
-  if (guitar.strings) {
+  if (guitar.strings && guitar.strings.id) {
     stringsResults = validateStrings(guitar.strings);
   } else {
     stringsResults.set('strings', missingString);
   }
 
-  return new Map(
-    [
-      ...guitarResults,
-      ...projectResults,
-      ...pickupResults,
-      ...caseResults,
-      ...stringsResults
-    ]
-  );
+  return [
+    guitarResults,
+    projectResults,
+    pickupResults,
+    caseResults,
+    stringsResults
+  ];
 }
 
 function validateProject(project: Project): Map<string, string> {
