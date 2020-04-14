@@ -26,6 +26,7 @@ export function isProject(guitar: any): guitar is Project {
 }
 
 export function isInstrument(guitar: any): guitar is Guitar {
+  // TODO: commented out until model flag property can be removed
   // try {
   //   const match = GuitarService.findInstrument(guitar.id, false);
 
