@@ -7,35 +7,17 @@ import { Strings } from '../../interfaces/models/strings';
 
 import { isProject } from './guitarutils';
 
-const missingString = 'Missing';
+import { ValidationFlag } from '../../infrastructure/shared';
 
-export function validateGuitar(guitar: Guitar): Map<string, string>[] {
-  const prefix = 'guitar';
-  const guitarResults = validateRetailItem(guitar, prefix);
-  if (!guitar.make) { guitarResults.set(`${prefix}-make`, missingString); }
-  if (!guitar.model) { guitarResults.set(`${prefix}-model`, missingString); }
-  if (!guitar.series) { guitarResults.set(`${prefix}-series`, missingString); }
-  if (!guitar.serialNumber) { guitarResults.set(`${prefix}-serialNumber`, missingString); }
-  if (!guitar.serialNumberLocation) { guitarResults.set(`${prefix}-serialNumberLocation`, missingString); }
-  if (!guitar.bodyStyle) { guitarResults.set(`${prefix}-bodyStyle`, missingString); }
-  if (!guitar.color) { guitarResults.set(`${prefix}-color`, missingString); }
-  if (!guitar.tremolo) { guitarResults.set(`${prefix}-tremolo`, missingString); }
-  if (!guitar.scale) { guitarResults.set(`${prefix}-scale`, missingString); }
-  if (!guitar.numberOfFrets) { guitarResults.set(`${prefix}-numberOfFrets`, missingString); }
-  if (!guitar.tuning) { guitarResults.set(`${prefix}-tuning`, missingString); }
-  if (!guitar.neckRadius) { guitarResults.set(`${prefix}-neckRadius`, missingString); }
-  if (!guitar.nutWidth) { guitarResults.set(`${prefix}-nutWidth`, missingString); }
-  if (!guitar.picture) { guitarResults.set(`${prefix}-picture`, missingString); }
-  if (!guitar.modifications) { guitarResults.set(`${prefix}-modifications`, missingString); }
-  if (!guitar.controls) { guitarResults.set(`${prefix}-controls`, missingString); }
-  if (!guitar.hasBattery) { guitarResults.set(`${prefix}-hasBattery`, missingString); }
+export function validate(guitar: Guitar): Map<string, ValidationFlag>[] {
+  const guitarResults = validateGuitar(guitar);  
 
-  let projectResults = new Map<string, string>();
+  let projectResults = new Map<string, ValidationFlag>();
   if (isProject(guitar)) {
     projectResults = validateProject(guitar);
   }
 
-  let pickupResults = new Map<string, string>();
+  let pickupResults = new Map<string, ValidationFlag>();
   if (guitar.pickups) {
     let idx = 0;
     for (const pickup of guitar.pickups) {
@@ -44,21 +26,21 @@ export function validateGuitar(guitar: Guitar): Map<string, string>[] {
       idx++;
     }
   } else {
-    pickupResults.set('pickups', missingString);
+    pickupResults.set('pickups', ValidationFlag.Critical);
   }
 
-  let caseResults = new Map<string, string>();
+  let caseResults = new Map<string, ValidationFlag>();
   if (guitar.case && guitar.case.id) {
     caseResults = validateCase(guitar.case);
   } else {
-    caseResults.set('case', missingString);
+    caseResults.set('case', ValidationFlag.Critical);
   }
 
-  let stringsResults = new Map<string, string>();
+  let stringsResults = new Map<string, ValidationFlag>();
   if (guitar.strings && guitar.strings.id) {
     stringsResults = validateStrings(guitar.strings);
   } else {
-    stringsResults.set('strings', missingString);
+    stringsResults.set('strings', ValidationFlag.Critical);
   }
 
   return [
@@ -70,69 +52,93 @@ export function validateGuitar(guitar: Guitar): Map<string, string>[] {
   ];
 }
 
-function validateProject(project: Project): Map<string, string> {
+function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
+  const prefix = 'guitar';
+  const result = validateRetailItem(guitar, prefix);
+  if (!guitar.make) { result.set(`${prefix}-make`, ValidationFlag.Warning); }
+  if (!guitar.model) { result.set(`${prefix}-model`, ValidationFlag.Missing); }
+  if (!guitar.series) { result.set(`${prefix}-series`, ValidationFlag.Missing); }
+  if (!guitar.serialNumber) { result.set(`${prefix}-serialNumber`, ValidationFlag.Missing); }
+  if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Missing); }
+  if (!guitar.bodyStyle) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
+  if (!guitar.color) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
+  if (!guitar.tremolo) { result.set(`${prefix}-tremolo`, ValidationFlag.Missing); }
+  if (!guitar.scale) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
+  if (!guitar.numberOfFrets) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
+  if (!guitar.tuning) { result.set(`${prefix}-tuning`, ValidationFlag.Missing); }
+  if (!guitar.neckRadius) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
+  if (!guitar.nutWidth) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
+  if (!guitar.picture) { result.set(`${prefix}-picture`, ValidationFlag.Missing); }
+  if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
+  if (!guitar.controls) { result.set(`${prefix}-controls`, ValidationFlag.Missing); }
+  if (!guitar.hasBattery) { result.set(`${prefix}-hasBattery`, ValidationFlag.Missing); }
+
+  return result;
+}
+
+function validateProject(project: Project): Map<string, ValidationFlag> {
   const prefix = 'project';
   const result = validateRetailItem(project, prefix);
-  if (!project.projectStart) { result.set(`${prefix}-projectStart`, missingString); }
-  if (!project.projectComplete) { result.set(`${prefix}-projectComplete`, missingString); }
-  if (!project.body) { result.set(`${prefix}-body`, missingString); }
-  if (!project.neck) { result.set(`${prefix}-neck`, missingString); }
-  if (!project.pickguard) { result.set(`${prefix}-pickguard`, missingString); }
-  if (!project.purchaseComponentPrice) { result.set(`${prefix}-purchaseComponentPrice`, missingString); }
+  if (!project.projectStart) { result.set(`${prefix}-projectStart`, ValidationFlag.Warning); }
+  if (!project.projectComplete) { result.set(`${prefix}-projectComplete`, ValidationFlag.Missing); }
+  if (!project.body) { result.set(`${prefix}-body`, ValidationFlag.Missing); }
+  if (!project.neck) { result.set(`${prefix}-neck`, ValidationFlag.Missing); }
+  if (!project.pickguard) { result.set(`${prefix}-pickguard`, ValidationFlag.Missing); }
+  if (!project.purchaseComponentPrice) { result.set(`${prefix}-purchaseComponentPrice`, ValidationFlag.Missing); }
 
   return result;
 }
 
-function validatePickup(pickup: Pickup, idx: number): Map<string, string> {
+function validatePickup(pickup: Pickup, idx: number): Map<string, ValidationFlag> {
   const prefix = 'pickup' + idx;
   const result = validateRetailItem(pickup, prefix);
-  if (!pickup.type) { result.set(`${prefix}-type`, missingString); }
-  if (!pickup.size) { result.set(`${prefix}-size`, missingString); }
-  if (!pickup.position) { result.set(`${prefix}-position`, missingString); }
-  if (!pickup.output) { result.set(`${prefix}-output`, missingString); }
-  if (!pickup.mount) { result.set(`${prefix}-mount`, missingString); }
+  if (!pickup.type) { result.set(`${prefix}-type`, ValidationFlag.Warning); }
+  if (!pickup.size) { result.set(`${prefix}-size`, ValidationFlag.Missing); }
+  if (!pickup.position) { result.set(`${prefix}-position`, ValidationFlag.Missing); }
+  if (!pickup.output) { result.set(`${prefix}-output`, ValidationFlag.Missing); }
+  if (!pickup.mount) { result.set(`${prefix}-mount`, ValidationFlag.Missing); }
 
   return result;
 }
 
-function validateCase(guitarCase: Case): Map<string, string> {
+function validateCase(guitarCase: Case): Map<string, ValidationFlag> {
   const prefix = 'case';
   const result = validateRetailItem(guitarCase, prefix);
-  if (!guitarCase.caseStyle) { result.set(`${prefix}-caseStyle`, missingString); }
+  if (!guitarCase.caseStyle) { result.set(`${prefix}-caseStyle`, ValidationFlag.Missing); }
 
   return result;
 }
 
-function validateStrings(strings: Strings): Map<string, string> {
+function validateStrings(strings: Strings): Map<string, ValidationFlag> {
   const prefix = 'strings';
   const result = validateRetailItem(strings, prefix);
-  if (!strings.gauge) { result.set(`${prefix}-gauge`, missingString); }
-  if (!strings.numberOfStrings) { result.set(`${prefix}-numberOfStrings`, missingString); }
-  if (!strings.material) { result.set(`${prefix}-material`, missingString); }
-  if (!strings.lastChangeDate) { result.set(`${prefix}-lastChangeDate`, missingString); }
+  if (!strings.gauge) { result.set(`${prefix}-gauge`, ValidationFlag.Missing); }
+  if (!strings.numberOfStrings) { result.set(`${prefix}-numberOfStrings`, ValidationFlag.Missing); }
+  if (!strings.material) { result.set(`${prefix}-material`, ValidationFlag.Missing); }
+  if (!strings.lastChangeDate) { result.set(`${prefix}-lastChangeDate`, ValidationFlag.Missing); }
 
   return result;
 }
 
-function validateRetailItem(item: RetailItem, prefix: string): Map<string, string> {
-  const result = new Map<string, string>();
+function validateRetailItem(item: RetailItem, prefix: string): Map<string, ValidationFlag> {
+  const result = new Map<string, ValidationFlag>();
   if (!item) {
-    result.set('Item null', missingString);
+    result.set('Item null', ValidationFlag.Critical);
   } else {
     // entry.ts
-    if (!item.id) { result.set(`${prefix}-id`, missingString); }
-    if (!item.name) { result.set(`${prefix}-name`, missingString); }
-    if (!item.description) { result.set(`${prefix}-description`, missingString); }
-    if (!item.archive) { result.set(`${prefix}-archiveFlag`, missingString); }
+    if (!item.id) { result.set(`${prefix}-id`, ValidationFlag.Missing); }
+    if (!item.name) { result.set(`${prefix}-name`, ValidationFlag.Missing); }
+    if (!item.description) { result.set(`${prefix}-description`, ValidationFlag.Missing); }
+    if (!item.archive) { result.set(`${prefix}-archiveFlag`, ValidationFlag.Missing); }
 
     // retailitem.ts
-    if (!item.purchaseDate) { result.set(`${prefix}-purchaseDate`, missingString); }
-    if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, missingString); }
-    if (!item.purchaseStore) { result.set(`${prefix}-purchaseStore`, missingString); }
-    if (!item.purchasePrice) { result.set(`${prefix}-purchasePrice`, missingString); }
-    if (!item.currentPrice) { result.set(`${prefix}-currentPrice`, missingString); }
-    if (!item.productUrl) { result.set(`${prefix}-productUrl`, missingString); }
-    if (!item.soldDate) { result.set(`${prefix}-soldDate`, missingString); }
+    if (!item.purchaseDate) { result.set(`${prefix}-purchaseDate`, ValidationFlag.Missing); }
+    if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, ValidationFlag.Missing); }
+    if (!item.purchaseStore) { result.set(`${prefix}-purchaseStore`, ValidationFlag.Missing); }
+    if (!item.purchasePrice) { result.set(`${prefix}-purchasePrice`, ValidationFlag.Missing); }
+    if (!item.currentPrice) { result.set(`${prefix}-currentPrice`, ValidationFlag.Missing); }
+    if (!item.productUrl) { result.set(`${prefix}-productUrl`, ValidationFlag.Missing); }
+    if (!item.soldDate) { result.set(`${prefix}-soldDate`, ValidationFlag.Missing); }
   }
 
   return result;

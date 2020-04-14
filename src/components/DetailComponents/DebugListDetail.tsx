@@ -3,10 +3,11 @@ import * as React from 'react';
 import { ListDetailProps } from './ListDetail';
 
 import { Guitar } from '../../interfaces/models/guitar';
+import { ValidationFlag } from '../../infrastructure/shared';
 
-import { validateGuitar } from '../../data/guitarservice/validation';
+import { validate } from '../../data/guitarservice/validation';
 
-function getValidationCount(results: Map<string, string>[]): number {
+function getValidationCount(results: Map<string, ValidationFlag>[]): number {
   let count = 0;
   for (const cat of results) {
     count += cat.size;
@@ -15,7 +16,7 @@ function getValidationCount(results: Map<string, string>[]): number {
   return count;
 }
 
-function getValidationPrefix(cat: Map<string, string>, fallbackString: string | number): string {
+function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackString: string | number): string {
   const firstEntry = [ ...cat.keys() ][0];
 
   return firstEntry
@@ -26,14 +27,14 @@ function getValidationPrefix(cat: Map<string, string>, fallbackString: string | 
 const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
 }) => {
-  const validation = validateGuitar(entry as Guitar);
+  const validation = validate(entry as Guitar);
   const validationCount = getValidationCount(validation);
 
   return (
     <div>
       <h1>Debug {entry.id}</h1>
       <p>{entry.name}</p>
-      <p>{validationCount} properties missing from model</p>
+      <p>{validationCount} warnings for model</p>
       <hr />
       <div>
         {validation.map((t, idx) => {
