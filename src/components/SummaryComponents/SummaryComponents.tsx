@@ -146,6 +146,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Tuning', GuitarUtils.mostCommonTuning(guitars)],
         ['Scale Length', GuitarUtils.mostCommonScale(guitars)],
         ['Nut Width', GuitarUtils.mostCommonNutWidth(guitars)],
+        ['Neck Radius', GuitarUtils.mostCommonNeckRadius(guitars)],
         ['Frets', GuitarUtils.averageFrets(guitars)],
         ['Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars)],
         ['Case Style', GuitarUtils.mostCommonCaseStyle(guitars)],

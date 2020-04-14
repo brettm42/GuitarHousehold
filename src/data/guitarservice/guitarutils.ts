@@ -405,6 +405,12 @@ export function mostCommonNutWidth(guitars: ReadonlyArray<Guitar>): string {
   return mostCommonString(nuts);
 }
 
+export function mostCommonNeckRadius(guitars: ReadonlyArray<Guitar>): string {
+  const nuts = guitars.filter(g => g.neckRadius).map(g => g.neckRadius);
+
+  return mostCommonString(nuts);
+}
+
 export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
   const makes = guitars.filter(g => !isProject(g)).map(g => g.make);
 
