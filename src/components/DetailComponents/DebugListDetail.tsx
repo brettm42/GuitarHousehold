@@ -7,10 +7,23 @@ import { ValidationFlag } from '../../infrastructure/shared';
 
 import { validate } from '../../data/guitarservice/validation';
 
-function getValidationCount(results: Map<string, ValidationFlag>[]): number {
+function getValidationCount(results: Map<string, ValidationFlag>[], flag: ValidationFlag | null = null): number {
   let count = 0;
-  for (const cat of results) {
-    count += cat.size;
+
+  if (!flag) {  
+    for (const cat of results) {
+      count += cat.size;
+    }
+
+    return count;
+  } else {
+    for (const cat of results) {
+      for (const item of cat.values()) {
+        if (item === flag) {
+          count += 1;
+        }
+      }
+    }
   }
 
   return count;
@@ -28,14 +41,29 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
 }) => {
   const validation = validate(entry as Guitar);
-  const validationCount = getValidationCount(validation);
+  const issueCount = getValidationCount(validation);
+  const criticalCount = getValidationCount(validation, ValidationFlag.Critical);
+  const warningCount = getValidationCount(validation, ValidationFlag.Warning);
+  const missingCount = getValidationCount(validation, ValidationFlag.Missing);
 
   return (
     <div>
       <h1>Debug {entry.id}</h1>
       <p>{entry.name}</p>
-      <p>{validationCount} warnings for model</p>
+      {issueCount > 0 
+        ? (
+          <div>
+            <p>{issueCount} issues for model:</p>
+            <ul>
+              <li>{criticalCount} critical issues</li>
+              <li>{warningCount} warnings</li>
+              <li>{missingCount} missing properties</li>
+            </ul>
+          </div>
+        )
+        : null}
       <hr />
+
       <div>
         {validation.map((t, idx) => {
           if (t.size > 0) {

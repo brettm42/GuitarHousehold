@@ -1,9 +1,10 @@
 import { Guitar } from '../interfaces/models/guitar';
 
 export enum ValidationFlag {
-  'Critical',
-  'Warning',
-  'Missing'
+  None = 'None',
+  Critical = 'Critical',
+  Warning = 'Warning',
+  Missing = 'Missing'
 }
 
 export interface PageProps {

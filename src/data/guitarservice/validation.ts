@@ -5,9 +5,14 @@ import { Project } from '../../interfaces/models/project';
 import { RetailItem } from '../../interfaces/retailitem';
 import { Strings } from '../../interfaces/models/strings';
 
-import { isProject } from './guitarutils';
-
 import { ValidationFlag } from '../../infrastructure/shared';
+
+import {
+  hasCase, 
+  hasPickups, 
+  hasStrings, 
+  isProject 
+} from './guitarutils';
 
 export function validate(guitar: Guitar): Map<string, ValidationFlag>[] {
   const guitarResults = validateGuitar(guitar);  
@@ -72,6 +77,8 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
   if (!guitar.controls) { result.set(`${prefix}-controls`, ValidationFlag.Missing); }
   if (!guitar.hasBattery) { result.set(`${prefix}-hasBattery`, ValidationFlag.Missing); }
+
+  if (!validateGuitarId(guitar)) { result.set(`${prefix}-id`, ValidationFlag.Critical); }
 
   return result;
 }
@@ -142,4 +149,47 @@ function validateRetailItem(item: RetailItem, prefix: string): Map<string, Valid
   }
 
   return result;
+}
+
+function validateGuitarId(guitar: Guitar): boolean {
+  if (!guitar.id) {
+    return false;
+  }
+
+  let valid = true;
+  const id = guitar.id.toString().substring(0, 2);
+
+  // Guitar ID must match xx0000
+  valid = guitar.id.toString().match(`^${id}0+$`) ? true : false;
+  
+  if (hasCase(guitar)) {
+    // Confirm case starts with guitar ID
+    valid = guitar.case!.id.toString().startsWith(id);
+
+    // Confirm case uses 2nd from last set of digits
+    valid = guitar.case!.id.toString().match(`^${id}0+?100`) ? true : false;
+  }
+
+  if (hasStrings(guitar)) {
+    // Confirm strings starts with guitar ID
+    valid = guitar.strings!.id.toString().startsWith(id)
+
+    // Confirm strings use last digit of ID and set to 9
+    valid = guitar.strings!.id.toString().match(`^${id}0+?9$`) ? true : false;
+  }
+
+  if (hasPickups(guitar)) {
+    const pickupCount = guitar.pickups?.length ?? 0;
+    for (let idx = 0; idx < pickupCount; idx++) {
+      const pickupId = (guitar.pickups ?? [])[idx].id.toString();
+
+      // Confirm each pickup starts with guitar ID
+      valid = pickupId.startsWith(id);
+
+      // Confirm pickup uses last two digits of the ID
+      valid = pickupId.match(`^${id}.+1${idx}$`) ? true : false;
+    }
+  }
+
+  return valid;
 }
