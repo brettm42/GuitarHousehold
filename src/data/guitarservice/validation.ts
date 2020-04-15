@@ -11,7 +11,9 @@ import {
   hasCase, 
   hasPickups, 
   hasStrings, 
-  isProject 
+  isAcoustic,
+  isProject,  
+  isWishlisted
 } from './guitarutils';
 
 export function validate(guitar: Guitar): Map<string, ValidationFlag>[] {
@@ -30,21 +32,21 @@ export function validate(guitar: Guitar): Map<string, ValidationFlag>[] {
         new Map([ ...pickupResults, ...validatePickup(pickup, idx) ]);
       idx++;
     }
-  } else {
+  } else if (!isAcoustic(guitar) && !isWishlisted(guitar)) {
     pickupResults.set('pickups', ValidationFlag.Critical);
   }
 
   let caseResults = new Map<string, ValidationFlag>();
   if (guitar.case && guitar.case.id) {
     caseResults = validateCase(guitar.case);
-  } else {
+  } else if (!isWishlisted(guitar)) {
     caseResults.set('case', ValidationFlag.Critical);
   }
 
   let stringsResults = new Map<string, ValidationFlag>();
   if (guitar.strings && guitar.strings.id) {
     stringsResults = validateStrings(guitar.strings);
-  } else {
+  } else if (!isWishlisted(guitar)) {
     stringsResults.set('strings', ValidationFlag.Critical);
   }
 
