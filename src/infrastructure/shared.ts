@@ -4,7 +4,8 @@ export enum ValidationFlag {
   None = 'None',
   Critical = 'Critical',
   Warning = 'Warning',
-  Missing = 'Missing'
+  Missing = 'Missing',
+  Optional = 'Optional'
 }
 
 export interface PageProps {

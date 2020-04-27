@@ -44,6 +44,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   const criticalCount = getValidationCount(validation, ValidationFlag.Critical);
   const warningCount = getValidationCount(validation, ValidationFlag.Warning);
   const missingCount = getValidationCount(validation, ValidationFlag.Missing);
+  const optionalCount = getValidationCount(validation, ValidationFlag.Optional);
 
   return (
     <div>
@@ -57,6 +58,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
               <li>{criticalCount} critical issues</li>
               <li>{warningCount} warnings</li>
               <li>{missingCount} missing properties</li>
+              <li>{optionalCount} missing optional properties</li>
             </ul>
           </div>
         )

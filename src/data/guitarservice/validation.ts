@@ -33,6 +33,8 @@ export function getValidationStatus (guitar: Guitar | any): string {
           case ValidationFlag.Missing:
             missing += 1;
             break;
+          case ValidationFlag.Optional:
+            break;
           case ValidationFlag.Warning:
             warning += 1;
             break;
@@ -103,10 +105,10 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Missing); }
   if (!guitar.bodyStyle) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
   if (!guitar.color) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
-  if (!guitar.tremolo) { result.set(`${prefix}-tremolo`, ValidationFlag.Missing); }
+  if (!guitar.tremolo) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }
   if (!guitar.scale) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
   if (!guitar.numberOfFrets) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
-  if (!guitar.tuning) { result.set(`${prefix}-tuning`, ValidationFlag.Missing); }
+  if (!guitar.tuning) { result.set(`${prefix}-tuning`, ValidationFlag.Optional); }
   if (!guitar.neckRadius) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
   if (!guitar.nutWidth) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
   if (!guitar.picture) { result.set(`${prefix}-picture`, ValidationFlag.Missing); }
@@ -172,16 +174,16 @@ function validateRetailItem(item: RetailItem, prefix: string): Map<string, Valid
     if (!item.id) { result.set(`${prefix}-id`, ValidationFlag.Missing); }
     if (!item.name) { result.set(`${prefix}-name`, ValidationFlag.Missing); }
     if (!item.description) { result.set(`${prefix}-description`, ValidationFlag.Missing); }
-    if (!item.archive) { result.set(`${prefix}-archiveFlag`, ValidationFlag.Missing); }
+    if (!item.archive) { result.set(`${prefix}-archiveFlag`, ValidationFlag.Optional); }
 
     // retailitem.ts
     if (!item.purchaseDate) { result.set(`${prefix}-purchaseDate`, ValidationFlag.Missing); }
-    if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, ValidationFlag.Missing); }
+    if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, ValidationFlag.Optional); }
     if (!item.purchaseStore) { result.set(`${prefix}-purchaseStore`, ValidationFlag.Missing); }
     if (!item.purchasePrice) { result.set(`${prefix}-purchasePrice`, ValidationFlag.Missing); }
     if (!item.currentPrice) { result.set(`${prefix}-currentPrice`, ValidationFlag.Missing); }
     if (!item.productUrl) { result.set(`${prefix}-productUrl`, ValidationFlag.Missing); }
-    if (!item.soldDate) { result.set(`${prefix}-soldDate`, ValidationFlag.Missing); }
+    if (!item.soldDate) { result.set(`${prefix}-soldDate`, ValidationFlag.Optional); }
   }
 
   return result;
