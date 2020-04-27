@@ -8,16 +8,50 @@ import { Strings } from '../../interfaces/models/strings';
 import { ValidationFlag } from '../../infrastructure/shared';
 
 import {
-  hasCase, 
-  hasPickups, 
-  hasStrings, 
+  hasCase,
+  hasPickups,
+  hasStrings,
   isAcoustic,
-  isProject,  
+  isProject,
   isWishlisted
 } from './guitarutils';
 
-export function validate(guitar: Guitar): Map<string, ValidationFlag>[] {
-  const guitarResults = validateGuitar(guitar);  
+export function getValidationStatus (guitar: Guitar | any): string {
+  const validation =
+    guitar.validation 
+      ? (guitar.validation as ReadonlyArray<Map<string, ValidationFlag>>)
+      : validate(guitar);
+
+  let missing = 0;
+  let warning = 0;
+  for (const entry of validation) {
+    for (const flag of entry.values()) {
+      switch (flag) {
+        case ValidationFlag.Critical:
+          return `${ValidationFlag.Critical}!`;
+        case ValidationFlag.Missing:
+          missing += 1;
+          break;
+        case ValidationFlag.Warning:
+          warning += 1;
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  if (missing < 1 && warning < 1) {
+    return 'Valid';
+  } else if (warning > 0) {
+    return `${warning} ${ValidationFlag.Warning}`;
+  } else {
+    return `${missing} ${ValidationFlag.Missing}`;
+  }
+}
+
+export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
+  const guitarResults = validateGuitar(guitar);
 
   let projectResults = new Map<string, ValidationFlag>();
   if (isProject(guitar)) {
@@ -28,7 +62,7 @@ export function validate(guitar: Guitar): Map<string, ValidationFlag>[] {
   if (guitar.pickups) {
     let idx = 0;
     for (const pickup of guitar.pickups) {
-      pickupResults = 
+      pickupResults =
         new Map([ ...pickupResults, ...validatePickup(pickup, idx) ]);
       idx++;
     }
@@ -163,7 +197,7 @@ function validateGuitarId(guitar: Guitar): boolean {
 
   // Guitar ID must match xx0000
   valid = guitar.id.toString().match(`^${id}0+$`) ? true : false;
-  
+
   if (hasCase(guitar)) {
     // Confirm case starts with guitar ID
     valid = guitar.case!.id.toString().startsWith(id);

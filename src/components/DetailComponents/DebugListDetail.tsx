@@ -2,12 +2,11 @@ import * as React from 'react';
 
 import { ListDetailProps } from './ListDetail';
 
-import { Guitar } from '../../interfaces/models/guitar';
 import { ValidationFlag } from '../../infrastructure/shared';
 
 import { validate } from '../../data/guitarservice/validation';
 
-function getValidationCount(results: Map<string, ValidationFlag>[], flag: ValidationFlag | null = null): number {
+function getValidationCount(results: ReadonlyArray<Map<string, ValidationFlag>>, flag: ValidationFlag | null = null): number {
   let count = 0;
 
   if (!flag) {  
@@ -40,7 +39,7 @@ function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackString: s
 const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
 }) => {
-  const validation = validate(entry as Guitar);
+  const validation = entry.validation ? entry.validation : validate(entry);
   const issueCount = getValidationCount(validation);
   const criticalCount = getValidationCount(validation, ValidationFlag.Critical);
   const warningCount = getValidationCount(validation, ValidationFlag.Warning);

@@ -9,6 +9,7 @@ import DebugListDetail from '../components/DetailComponents/DebugListDetail';
 
 import { Guitar } from '../interfaces/models/guitar';
 import { find, findEverything } from '../data/guitarservice/guitarservice';
+import { validate } from '../data/guitarservice/validation';
 
 type DebugPageProps = {
   items?: Guitar[];
@@ -30,6 +31,10 @@ class DebugPage extends React.Component<DebugPageProps> {
       }
 
       const items: Guitar[] = await findEverything();
+      
+      for (const item of items) {
+        item.validation = validate(item);
+      }
 
       return { items: items };
     } catch (err) {
