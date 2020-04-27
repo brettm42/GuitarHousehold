@@ -24,30 +24,30 @@ export function getValidationStatus (guitar: Guitar | any): string {
 
   let missing = 0;
   let warning = 0;
-  for (const entry of validation) {
-    for (const flag of entry.values()) {
-      switch (flag) {
-        case ValidationFlag.Critical:
-          return `${ValidationFlag.Critical}!`;
-        case ValidationFlag.Missing:
-          missing += 1;
-          break;
-        case ValidationFlag.Warning:
-          warning += 1;
-          break;
-        default:
-          break;
+  try {
+    for (const validationEntry of validation) {
+      for (const flag of validationEntry.values()) {
+        switch (flag) {
+          case ValidationFlag.Critical:
+            return `${ValidationFlag.Critical}!`;
+          case ValidationFlag.Missing:
+            missing += 1;
+            break;
+          case ValidationFlag.Warning:
+            warning += 1;
+            break;
+          default:
+            break;
+        }
       }
     }
-  }
+  } catch {} 
 
-  if (missing < 1 && warning < 1) {
-    return 'Valid';
-  } else if (warning > 0) {
-    return `${warning} ${ValidationFlag.Warning}`;
-  } else {
-    return `${missing} ${ValidationFlag.Missing}`;
-  }
+  return (missing < 1 && warning < 1)
+    ? 'Valid'
+    : warning > 0
+      ? `${warning} ${ValidationFlag.Warning}`
+      : `${missing} ${ValidationFlag.Missing}`;
 }
 
 export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
