@@ -3,6 +3,8 @@ import instrumentDb from '../localdb/instruments.json';
 import projectDb from '../localdb/projects.json';
 import wishlistDb from '../localdb/wishlist.json';
 
+import { hasSold, isArchived } from './guitarutils';
+
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 
@@ -90,7 +92,7 @@ export async function findAllGuitars(): Promise<Guitar[]> {
     throw new Error('Cannot find guitars');
   }
 
-  return (guitarDb as Guitar[]).filter(g => !g.archive);
+  return (guitarDb as Guitar[]).filter(g => !isArchived(g));
 }
 
 export async function findAllProjects(): Promise<Project[]> {
@@ -98,7 +100,7 @@ export async function findAllProjects(): Promise<Project[]> {
     throw new Error('Cannot find project guitars');
   }
 
-  return (projectDb as Project[]).filter(g => !g.archive);
+  return (projectDb as Project[]).filter(g => !isArchived(g));
 }
 
 export async function findAllArchived(): Promise<Guitar[]> {
@@ -106,7 +108,7 @@ export async function findAllArchived(): Promise<Guitar[]> {
     throw new Error('Cannot find guitars');
   }
 
-  return (guitarDb as Guitar[]).filter(g => g.archive);
+  return (guitarDb as Guitar[]).filter(g => isArchived(g));
 }
 
 export async function findAllSold(): Promise<Guitar[]> {
@@ -114,7 +116,7 @@ export async function findAllSold(): Promise<Guitar[]> {
     throw new Error('Cannot find guitars');
   }
 
-  return (guitarDb as Guitar[]).filter(g => g.soldDate);
+  return (guitarDb as Guitar[]).filter(g => hasSold(g));
 }
 
 export async function findAllWishlist(): Promise<Guitar[]> {

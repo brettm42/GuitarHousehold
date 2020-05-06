@@ -45,6 +45,10 @@ export function isWishlisted(guitar: Guitar | Project): boolean {
   return !isProject(guitar) && !guitar.purchaseDate;
 }
 
+export function isArchived(guitar: Guitar |  Project): boolean {
+  return guitar && (guitar.archive ?? false);
+}
+
 function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
   if (pickups.length < 1) {
     return true;
@@ -118,6 +122,13 @@ export function hasPurchasePrice(guitar: Guitar): boolean {
   }
 
   return false;
+}
+
+export function hasSold(guitar: Guitar): boolean {
+  return guitar && 
+    (guitar.soldDate 
+      ? guitar.soldDate !== '' 
+      : false);
 }
 
 export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
