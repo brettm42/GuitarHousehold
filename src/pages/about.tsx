@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
 
+import Link from 'next/link';
+
 import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
@@ -15,6 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       padding: theme.spacing(4, 2, 2, 2)
+    },
+    titleRight: {
+      padding: theme.spacing(5, 2, 2, 2),
+      float: 'right'
     },
     body: {
       padding: theme.spacing(0, 2)
@@ -35,6 +41,16 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname}>
+      <div className={classes.titleRight}>
+        <Typography variant='h5' gutterBottom>
+          <Link href='/debug'>
+            <a>
+              {'?'}
+            </a>
+          </Link>
+        </Typography>
+      </div>
+      
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
           {title}

@@ -2,9 +2,21 @@ import * as React from 'react';
 
 import { ListDetailProps } from './ListDetail';
 
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+
 import { ValidationFlag } from '../../infrastructure/shared';
 
 import { validate } from '../../data/guitarservice/validation';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    jsonDiv: {
+      whiteSpace: 'nowrap',
+      overflowY: 'hidden',
+      overflowX: 'scroll'
+    }
+  }
+));
 
 function getValidationCount(results: ReadonlyArray<Map<string, ValidationFlag>>, flag: ValidationFlag | null = null): number {
   let count = 0;
@@ -39,6 +51,7 @@ function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackString: s
 const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
 }) => {
+  const classes = useStyles();
   const validation = entry.validation ? entry.validation : validate(entry);
   const issueCount = getValidationCount(validation);
   const criticalCount = getValidationCount(validation, ValidationFlag.Critical);
@@ -83,7 +96,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
         })}
       </div>
       <hr />
-      <div>
+      <div className={classes.jsonDiv}>
         <pre>{JSON.stringify(entry, undefined, 2)}</pre>
       </div>
     </div>
