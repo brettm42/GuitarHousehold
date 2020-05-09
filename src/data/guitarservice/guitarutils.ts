@@ -49,6 +49,16 @@ export function isArchived(guitar: Guitar |  Project): boolean {
   return guitar && (guitar.archive ?? false);
 }
 
+export function isDelivered(guitar: Guitar): boolean {
+  if (guitar) {
+    return guitar.deliveryDate == null
+      ? true
+      : (guitar.purchaseDate != '') && (guitar.deliveryDate != '');
+  }
+
+  return true;
+}
+
 function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
   if (pickups.length < 1) {
     return true;
@@ -428,6 +438,12 @@ export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
   return mostCommonString(makes);
 }
 
+export function mostCommonAge(guitars: ReadonlyArray<Guitar>): string {
+  const ages = guitars.map(g => getGuitarAge(g, true));
+
+  return mostCommonString(ages);
+}
+
 export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
   const stores = guitars.filter(g => g.purchaseStore).map(g => g.purchaseStore);
 
@@ -802,6 +818,10 @@ function getGuitarAgeDuration(guitar: Guitar | Project): number {
     return Date.now() - Date.parse(guitar.projectComplete);
   }
   
+  if (!isDelivered(guitar)) {
+    return 0;
+  }
+
   if (guitar.purchaseDate) {
     return Date.now() - Date.parse(guitar.purchaseDate);
   }
@@ -809,17 +829,21 @@ function getGuitarAgeDuration(guitar: Guitar | Project): number {
   return 0;
 }
 
-export function getGuitarAge(guitar: Guitar | Project): string | null {
+export function getGuitarAge(guitar: Guitar | Project, suffix?: boolean): string | null {
   const duration = getGuitarAgeDuration(guitar);
 
   if (duration > 0) {
     let durationString = millisecondsToFriendlyString(duration);
 
-    if (durationString.endsWith('s')) {
+    if (durationString.endsWith('s') && !suffix) {
       durationString = durationString.slice(0, -1);
     }
 
     return `${durationString} old `;
+  }
+
+  if (!isDelivered(guitar)) {
+    return 'not yet delivered ';
   }
 
   return null;

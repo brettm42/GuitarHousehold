@@ -150,6 +150,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Frets', GuitarUtils.averageFrets(guitars)],
         ['Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars)],
         ['Case Style', GuitarUtils.mostCommonCaseStyle(guitars)],
+        ['Age', GuitarUtils.mostCommonAge(guitars)],
         ['Store', GuitarUtils.mostCommonStore(guitars)]
       ]}
       style={classes.mostCommon} />
