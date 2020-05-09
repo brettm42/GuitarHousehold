@@ -809,7 +809,7 @@ export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return min
-    ? `${min.name} (bought ${min.purchaseDate})`
+    ? `${min.name} (bought ${min.purchaseDate}${!isDelivered(min) ? ', not yet delivered' : ''})`
     : defaultString;
 }
 
