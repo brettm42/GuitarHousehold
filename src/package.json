@@ -8,17 +8,17 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.13",
+    "@material-ui/core": "^4.9.14",
     "@material-ui/icons": "^4.9.1",
-    "next": "^9.3.6",
+    "next": "^9.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@types/node": "^11.15.12",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.7",
-    "typescript": "^3.8.3"
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "typescript": "^3.9.2"
   },
   "license": "ISC"
 }
