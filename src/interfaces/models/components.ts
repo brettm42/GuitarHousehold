@@ -86,5 +86,6 @@ const tremoloTypes = [
   'Floyd-rose',
   'Stratocaster',
   'Les Paul',
-  'Mustang'
+  'Mustang',
+  'Hagstrom Tremar'
 ] as const;
