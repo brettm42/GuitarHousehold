@@ -1790,7 +1790,8 @@ function getColorMapping(color: string): string {
     'Seafoam Green': 'Green',
     'Antique Cherry': 'Red',
     'Lake Placid Blue': 'Blue',
-    'Classic': 'Natural'
+    'Classic': 'Natural',
+    'Copperburst': 'Sunburst'
   };
 
   if (color in mapping) {
