@@ -380,7 +380,8 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars)],
         ['Swapped vs. Stock Pickups', GuitarUtils.swappedVsFactoryPickups(guitars)],
         ['Flat vs. Arched Case', GuitarUtils.flatVsArchedCase(guitars)],
-        ['Has Battery vs. Not', GuitarUtils.hasBatteryVsNot(guitars)]
+        ['Has Battery vs. Not', GuitarUtils.hasBatteryVsNot(guitars)],
+        ['Bolt-On vs. Set Neck', GuitarUtils.boltOnVsSetNeck(guitars)]
       ]}
       style={classes.breakdown} />
   );

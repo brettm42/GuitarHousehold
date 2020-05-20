@@ -112,6 +112,7 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.tuning) { result.set(`${prefix}-tuning`, ValidationFlag.Optional); }
   if (!guitar.neckRadius) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
   if (!guitar.nutWidth) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
+  if (!guitar.neckBoltOn) { result.set(`${prefix}-neckBoltOn`, ValidationFlag.Optional); }
   if (!guitar.picture) { result.set(`${prefix}-picture`, ValidationFlag.Missing); }
   if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
   if (!guitar.controls) { result.set(`${prefix}-controls`, ValidationFlag.Missing); }

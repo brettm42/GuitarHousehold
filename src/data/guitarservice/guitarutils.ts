@@ -640,6 +640,21 @@ export function hasBatteryVsNot(guitars: ReadonlyArray<Guitar>): string {
   return `${battery} vs. ${not}`;
 }
 
+export function boltOnVsSetNeck(guitars: ReadonlyArray<Guitar>): string {
+  let boltOn = 0;
+  let setNeck = 0;
+
+  for (const guitar of guitars) {
+    if (guitar.neckBoltOn) {
+      boltOn += 1;
+    } else {
+      setNeck += 1;
+    }
+  }
+
+  return `${boltOn} vs. ${setNeck}`;
+}
+
 export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
   const strings = guitars.map(g => getStringGauge(g));
 
