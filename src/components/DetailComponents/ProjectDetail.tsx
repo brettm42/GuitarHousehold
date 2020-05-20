@@ -145,6 +145,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.nutWidth
                 ? `Nut Width: ${guitar.nutWidth}`
                 : null,
+              guitar.neckBoltOn
+                ? `Bolt-on Neck: Yes`
+                : null,
               `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
               guitar.tremolo
                 ? `Tremolo: ${guitar.tremolo}`
