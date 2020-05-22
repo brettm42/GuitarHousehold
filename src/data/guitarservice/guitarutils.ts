@@ -1806,7 +1806,8 @@ function getColorMapping(color: string): string {
     'Antique Cherry': 'Red',
     'Lake Placid Blue': 'Blue',
     'Classic': 'Natural',
-    'Copperburst': 'Sunburst'
+    'Copperburst': 'Sunburst',
+    'Rocket Red': 'Red'
   };
 
   if (color in mapping) {
