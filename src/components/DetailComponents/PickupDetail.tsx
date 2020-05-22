@@ -85,7 +85,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                 ? `Output: ${pickup.output}`
                 : null,
               pickup.purchaseDate
-                ? `Purchase Date: ${pickup.purchaseDate}`
+                ? `Purchased: ${pickup.purchaseDate}`
                 : null,
               pickup.purchasePrice
                 ? `Purchase Price: \$${pickup.purchasePrice}`
@@ -94,7 +94,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                 ? `Purchase Store: ${pickup.purchaseStore}`
                 : null,
               pickup.deliveryDate
-                ? `Delivery Date: ${pickup.deliveryDate}`
+                ? `Delivered: ${pickup.deliveryDate}`
                 : null,
               ]
               .map((text, idx) => (
