@@ -122,7 +122,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
                 ? `Project Cost: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,
               guitar.currentPrice
-                ? `Cost today: ${guitar.currentPrice}`
+                ? `Cost Today: ${guitar.currentPrice}`
                 : null,
               guitar.neck
                 ? `Neck: ${guitar.neck}`
