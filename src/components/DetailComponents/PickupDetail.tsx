@@ -92,7 +92,10 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                 : null,
               pickup.purchaseStore
                 ? `Purchase Store: ${pickup.purchaseStore}`
-                : null
+                : null,
+              pickup.deliveryDate
+                ? `Delivery Date: ${pickup.deliveryDate}`
+                : null,
               ]
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>

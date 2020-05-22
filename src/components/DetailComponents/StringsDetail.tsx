@@ -94,6 +94,9 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
               strings.purchaseStore
                 ? `Purchase Store: ${strings.purchaseStore}`
                 : null,
+              strings.deliveryDate
+                ? `Delivery Date: ${strings.deliveryDate}`
+                : null,
               strings.purchasePrice
                 ? `Purchase Price: \$${strings.purchasePrice}`
                 : null

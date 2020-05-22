@@ -74,7 +74,12 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
               guitarCase.purchaseDate
                 ? `Purchased ${guitarCase.purchaseDate}`
                 : null,
-              `Purchase Store: ${guitarCase.purchaseStore}`,
+              guitarCase.purchaseStore
+                ? `Purchase Store: ${guitarCase.purchaseStore}`
+                : null,
+              guitarCase.deliveryDate
+                ? `Delivery Date: ${guitarCase.deliveryDate}`
+                : null,
               guitarCase.purchasePrice
                 ? `Purchase Price: \$${guitarCase.purchasePrice}`
                 : null
