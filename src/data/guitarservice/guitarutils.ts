@@ -1807,7 +1807,8 @@ function getColorMapping(color: string): string {
     'Lake Placid Blue': 'Blue',
     'Classic': 'Natural',
     'Copperburst': 'Sunburst',
-    'Rocket Red': 'Red'
+    'Rocket Red': 'Red',
+    'Walnut': 'Natural'
   };
 
   if (color in mapping) {
