@@ -1808,7 +1808,9 @@ function getColorMapping(color: string): string {
     'Classic': 'Natural',
     'Copperburst': 'Sunburst',
     'Rocket Red': 'Red',
-    'Walnut': 'Natural'
+    'Walnut': 'Natural',
+    'Rose Gold Metallic': 'Pink',
+    'Shell Pink': 'Pink'
   };
 
   if (color in mapping) {
