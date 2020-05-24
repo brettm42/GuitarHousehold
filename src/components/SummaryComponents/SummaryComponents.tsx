@@ -26,6 +26,8 @@ type SummaryComponentsProps = {
   isMobile: boolean;
 };
 
+const dividerPlaceholder: [string, string | readonly string[]] = ['*', '*'];
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -84,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function gridLineFormatter(line: [string, string | ReadonlyArray<string>], idx: number, classes: any): JSX.Element {
-  if (line[0].startsWith('*')) {
+  if (line === dividerPlaceholder || line[0].startsWith('*')) {
     return (
       <Grid item className={classes.detailDivider} key={idx} xs={12} zeroMinWidth>
         <Divider variant='middle' />
@@ -215,7 +217,7 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Most Controls', GuitarUtils.mostControls(guitars)],
         ['Most Frets', GuitarUtils.mostFrets(guitars)],
         ['Least Frets', GuitarUtils.leastFrets(guitars)],
-        ['*', '*'],
+        dividerPlaceholder,
         ['Longest Project', GuitarUtils.longestProject(guitars)],
         ['Shortest Project', GuitarUtils.shortestProject(guitars)]
       ]}
@@ -237,15 +239,15 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Most Expensive', GuitarUtils.mostExpensiveGuitar(guitars)],
         ['with case', GuitarUtils.mostExpensiveGuitarWithCase(guitars)],
         ['Average Cost', `${GuitarUtils.averageGuitarCost(guitars)} (average with case ${GuitarUtils.averageGuitarCostWithCase(guitars)})`],
-        ['*', '*'],
+        dividerPlaceholder,
         ['Least Expensive Instrument', GuitarUtils.leastExpensiveInstrument(guitars)],
         ['Most Expensive Instrument', GuitarUtils.mostExpensiveInstrument(guitars)],
         ['Average Instrument Cost', GuitarUtils.averageInstrumentCost(guitars)],
-        ['*', '*'],
+        dividerPlaceholder,
         ['Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars)],
         ['Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars)],
         ['Average Project Cost', GuitarUtils.averageProjectCost(guitars)],
-        ['*', '*'],
+        dividerPlaceholder,
         ['Household Total', `${GuitarUtils.getHouseholdCost(guitars)} (with cases ${GuitarUtils.getHouseholdCostWithCases(guitars)})`],
       ]}
       style={classes.values} />
@@ -264,7 +266,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars)],
         ['Cheapest Case', GuitarUtils.leastExpensiveCase(guitars)],
         ['Average Case Cost', GuitarUtils.averageCaseCost(guitars)],
-        ['*', '*'],
+        dividerPlaceholder,
         ['Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars)],
         ['Cheapest Pickup', GuitarUtils.leastExpensivePickup(guitars)],
         ['Average Pickup Cost', GuitarUtils.averagePickupCost(guitars)]
@@ -402,6 +404,8 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Guitars This Year', GuitarUtils.guitarsThisYear(guitars)],
         ['Guitars per Year', GuitarUtils.guitarsPerYear(guitars)],
         ['Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars)],
+        dividerPlaceholder,
+        ['Not Yet Delivered', `${GuitarUtils.notYetDelivered(guitars)} guitars`]
       ]}
       style={classes.timeline} />
   );

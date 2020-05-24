@@ -1741,6 +1741,10 @@ export function mostProjectsInAYear(guitars: ReadonlyArray<Guitar>): string {
   return `${maxNumber} in ${maxYear}`;
 }
 
+export function notYetDelivered(guitars: ReadonlyArray<Guitar>): number {
+  return guitars.filter(g => !isDelivered(g)).length;
+}
+
 export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
   return `Household has ${guitars.length} guitars...`;
 }
