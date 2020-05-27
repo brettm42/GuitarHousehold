@@ -405,7 +405,7 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Guitars per Year', GuitarUtils.guitarsPerYear(guitars)],
         ['Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars)],
         dividerPlaceholder,
-        ['Not Yet Delivered', `${GuitarUtils.notYetDelivered(guitars)} guitars`]
+        ['Not Yet Delivered', `${GuitarUtils.notYetDelivered(guitars)} instruments`]
       ]}
       style={classes.timeline} />
   );
