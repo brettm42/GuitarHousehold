@@ -1,6 +1,7 @@
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
+import { RetailItem } from '../../interfaces/retailitem';
 
 import {
   millisecondsToFriendlyString,
@@ -49,11 +50,11 @@ export function isArchived(guitar: Guitar |  Project): boolean {
   return guitar && (guitar.archive ?? false);
 }
 
-export function isDelivered(guitar: Guitar): boolean {
-  if (guitar) {
-    return guitar.deliveryDate == null
+export function isDelivered(item: RetailItem): boolean {
+  if (item) {
+    return item.deliveryDate == null
       ? true
-      : (guitar.purchaseDate != '') && (guitar.deliveryDate != '');
+      : (item.purchaseDate != '') && (item.deliveryDate != '');
   }
 
   return true;
@@ -91,7 +92,7 @@ export function isElectric(guitar: Guitar): boolean {
 
 export function hasCase(guitar: Guitar): boolean {
   return guitar.case
-    ? guitar.case.id !== undefined
+    ? guitar.case.id !== undefined && isDelivered(guitar.case)
     : false;
 }
 

@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import { isDelivered } from '../../data/guitarservice/guitarutils';
+
 import { Case } from '../../interfaces/models/case';
 
 type CaseDetailProps = {
@@ -78,7 +80,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
                 ? `Purchase Store: ${guitarCase.purchaseStore}`
                 : null,
               guitarCase.deliveryDate
-                ? `Delivered: ${guitarCase.deliveryDate}`
+                ? `Delivered: ${isDelivered(guitarCase) ? guitarCase.deliveryDate : 'not yet delivered'}`
                 : null,
               guitarCase.purchasePrice
                 ? `Purchase Price: \$${guitarCase.purchasePrice}`

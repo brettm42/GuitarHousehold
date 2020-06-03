@@ -9,8 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import { isDelivered, isFactoryPickup } from '../../data/guitarservice/guitarutils';
+
 import { Pickup } from '../../interfaces/models/pickup';
-import { isFactoryPickup } from '../../data/guitarservice/guitarutils';
 
 type PickupDetailProps = {
   item: Pickup;
@@ -94,7 +95,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
                 ? `Purchase Store: ${pickup.purchaseStore}`
                 : null,
               pickup.deliveryDate
-                ? `Delivered: ${pickup.deliveryDate}`
+                ? `Delivered: ${isDelivered(pickup) ? pickup.deliveryDate : 'not yet delivered'}`
                 : null,
               ]
               .map((text, idx) => (
