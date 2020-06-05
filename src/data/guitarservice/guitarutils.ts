@@ -92,7 +92,7 @@ export function isElectric(guitar: Guitar): boolean {
 
 export function hasCase(guitar: Guitar): boolean {
   return guitar.case
-    ? guitar.case.id !== undefined && isDelivered(guitar.case)
+    ? guitar.case.id !== undefined
     : false;
 }
 
