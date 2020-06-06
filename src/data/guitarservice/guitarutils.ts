@@ -1815,7 +1815,8 @@ function getColorMapping(color: string): string {
     'Rocket Red': 'Red',
     'Walnut': 'Natural',
     'Rose Gold Metallic': 'Pink',
-    'Shell Pink': 'Pink'
+    'Shell Pink': 'Pink',
+    'Fiesta Red': 'Red'
   };
 
   if (color in mapping) {
