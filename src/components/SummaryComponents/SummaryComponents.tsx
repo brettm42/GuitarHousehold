@@ -73,8 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 'auto'
     },
     randomPickImg: {
-      maxWidth: '100%',
-      maxHeight: 300
+      maxWidth: '90%',
+      maxHeight: 400,
+      boxShadow: theme.shadows[2]
     },
     randomPickCaption: {
       textAlign: 'left',
@@ -330,7 +331,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
           <a>
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
-              : <Typography variant='h4' gutterBottom>
+              : <Typography variant='h4'>
                   {Constants.ImagePlaceholder}
                 </Typography>}
           </a>

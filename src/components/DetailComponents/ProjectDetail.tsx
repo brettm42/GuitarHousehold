@@ -43,10 +43,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     img: {
       width: '85%',
-      marginLeft: theme.spacing(3)
+      marginLeft: theme.spacing(3),
+      boxShadow: theme.shadows[2]
     },
     imgMobile: {
-      width: '100%'
+      width: '100%',
+      boxShadow: theme.shadows[2]
     },
     jsonExpander: {
       margin: theme.spacing(6, 4, 0, 4)

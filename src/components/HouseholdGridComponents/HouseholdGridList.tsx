@@ -79,6 +79,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center'
     },
+    mobileImgPlaceholderText: {
+      marginBottom: theme.spacing(8)
+    }
   })
 );
 
@@ -98,7 +101,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                   {guitar.picture
                     ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
                     : <div className={classes.imgPlaceholder}>
-                        <Typography variant='h4' gutterBottom>
+                        <Typography variant='h4'>
                           {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
@@ -128,7 +131,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                   {guitar.picture
                     ? <img className={classes.mobileImg} src={guitar.picture} alt={guitar.name} />
                     : <div className={classes.mobileImgPlaceholder}>
-                        <Typography variant='h4' gutterBottom>
+                        <Typography className={classes.mobileImgPlaceholderText} variant='h4'>
                           {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
