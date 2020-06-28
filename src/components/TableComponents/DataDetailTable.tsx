@@ -99,8 +99,8 @@ export default function DataDetailTable(props: DataDetailTableProps) {
               onRequestSort={handleRequestSort} />
             <TableBody>
               {tableSort(guitars, getTableSorting(order, orderBy))
-                .map(guitar =>
-                  <DataDetailTableRow classes={classes} columns={tableCells} guitar={guitar} />)}
+                .map((guitar, idx) =>
+                  <DataDetailTableRow key={idx} classes={classes} columns={tableCells} guitar={guitar} />)}
             </TableBody>
           </Table>
         </div>

@@ -31,13 +31,14 @@ type ImagePanelProps = {
   value: any;
   index: any;
   altText?: string;
+  onTouchStart: (event: React.TouchEvent<{}>) => void;
+  onTouchEnd: (event: React.TouchEvent<{}>) => void;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     img: {
-      width: '80%',
-      marginLeft: theme.spacing(9),
+      width: '100%',
       boxShadow: theme.shadows[2]
     },
     imgMobile: {
@@ -46,8 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     tabRoot: {
       flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-      marginLeft: theme.spacing(3)
+      backgroundColor: theme.palette.background.paper
     },
     labelRoot: {
       flexGrow: 1
@@ -62,6 +62,8 @@ function ImagePanel(props: ImagePanelProps) {
       hidden={props.value !== props.index}
       id={`image-tabpanel-${props.index}`}
       aria-label={props.altText}
+      onTouchStart={props.onTouchStart}
+      onTouchEnd={props.onTouchEnd}
     >
       {props.value === props.index && (
         <Box p={3}>
@@ -92,20 +94,47 @@ export default function Image(props: ImageProps): React.ReactElement {
 
   const ImageTabs = (props: ImageTabProps) => {
     const [value, setValue] = React.useState(0);
+    let touchStart = 0;
 
     const handleChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
       setValue(newValue);
     };
 
+    const handleTouchStart = (event: React.TouchEvent<{}>) => {
+      touchStart = event.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (event: React.TouchEvent<{}>) => {
+      const touchThreshold = 90;
+      const touchEnd = event.changedTouches[0].clientX;
+
+      if (touchStart > touchEnd + touchThreshold) {
+        const newIdx = value - 1;
+        if (newIdx < 0) {
+          setValue(imageSet.length - 1);
+        } else {
+          setValue(newIdx);
+        }
+      } else if (touchStart < touchEnd - touchThreshold) {
+        const newIdx = value + 1;
+        if (newIdx >= imageSet.length) {
+          setValue(0);
+        } else {
+          setValue(newIdx);
+        }
+      }
+    };
+
     return (
       <div className={classes.tabRoot}>
         {imageSet.map((image, idx) => 
-          <ImagePanel key={idx} value={value} index={idx} altText={`${props.altText}-${idx}`}>
+          <ImagePanel key={idx} value={value} index={idx} altText={`${props.altText}-${idx}`} 
+              onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <SingleImage image={image} isMobile={props.isMobile} altText={`${props.altText}-${idx}`} />
           </ImagePanel>
         )}
         <Paper className={classes.labelRoot}>
-          <Tabs value={value} onChange={handleChange} aria-label="image tab navigation">
+          <Tabs value={value} onChange={handleChange} aria-label='image tab navigation'>
             {imageSet.map((_, idx) => 
               <Tab key={idx} label={`Image ${idx + 1}`} />
             )}
