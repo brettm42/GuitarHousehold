@@ -114,6 +114,7 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.nutWidth) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
   if (!guitar.neckBoltOn) { result.set(`${prefix}-neckBoltOn`, ValidationFlag.Optional); }
   if (!guitar.picture) { result.set(`${prefix}-picture`, ValidationFlag.Missing); }
+  if (!guitar.additionalPictures) { result.set(`${prefix}-additionalPictures`, ValidationFlag.Missing); }
   if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
   if (!guitar.controls) { result.set(`${prefix}-controls`, ValidationFlag.Missing); }
   if (!guitar.hasBattery) { result.set(`${prefix}-hasBattery`, ValidationFlag.Missing); }

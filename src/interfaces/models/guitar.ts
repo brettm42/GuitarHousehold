@@ -26,6 +26,7 @@ export interface Guitar extends RetailItem {
   readonly neckRadius?: string;
   readonly nutWidth?: string;
   readonly picture?: string;
+  readonly additionalPictures?: ReadonlyArray<string>;
   readonly modifications?: ReadonlyArray<string>;
   readonly controls?: ReadonlyArray<string>;
   readonly hasBattery?: boolean;
