@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 import StringsDetail from './StringsDetail';
+import Image from '../Image';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -41,30 +42,21 @@ const useStyles = makeStyles((theme: Theme) =>
     summary: {
       paddingBottom: theme.spacing(2)
     },
-    img: {
-      width: '85%',
-      marginLeft: theme.spacing(3),
-      boxShadow: theme.shadows[2]
-    },
-    imgMobile: {
-      width: '100%',
-      boxShadow: theme.shadows[2]
-    },
-    jsonExpander: {
-      margin: theme.spacing(6, 4, 0, 4)
-    },
     json: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis'
     },
-    jsonExpanderMobile: {
-      margin: theme.spacing(6, 0, 0, 0)
+    jsonExpander: {
+      margin: theme.spacing(6, 4, 0, 4)
     },
     jsonMobile: {
       whiteSpace: 'nowrap',
       overflowY: 'hidden',
       overflowX: 'scroll'
+    },
+    jsonExpanderMobile: {
+      margin: theme.spacing(6, 0, 0, 0)
     }
   })
 );
@@ -172,9 +164,10 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
         </Grid>
 
         <Grid item zeroMinWidth xs={12} sm={6}>
-          {guitar.picture
-            ? <img className={isMobile ? classes.imgMobile : classes.img} src={guitar.picture} alt={guitar.name} />
-            : null}
+          <Image 
+            imageSet={[guitar.picture].concat(guitar.additionalPictures)}
+            isMobile={isMobile} 
+            altText={guitar.name} />
         </Grid>
       </Grid>
 
