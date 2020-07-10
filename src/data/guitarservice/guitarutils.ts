@@ -1755,7 +1755,7 @@ export function summarizeGuitar(guitar: Guitar): string {
     + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}`
     + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
     + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
-    + `, ${getColorMapping(guitar.color).toLocaleLowerCase()} finish`
+    + `, ${(getColorMapping(guitar.color) ?? 'unfinished').toLocaleLowerCase()} finish`
     + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not yet completed' : ''}`
     + `${isWishlisted(guitar) ? ', and is on the wishlist.' : ''}`;
 }
@@ -1819,7 +1819,9 @@ function getColorMapping(color: string): string {
     'Redburst': 'Red'
   };
 
-  if (color in mapping) {
+  if (!color) {
+    return 'Unfinished';
+  } else if (color in mapping) {
     return mapping[color];
   }
 

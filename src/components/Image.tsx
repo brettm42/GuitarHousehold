@@ -77,7 +77,7 @@ function ImagePanel(props: ImagePanelProps) {
 export default function Image(props: ImageProps): React.ReactElement {
   const classes = useStyles();
 
-  const imageSet = props.imageSet.filter(i => i !== undefined);
+  const imageSet = props.imageSet.filter(i => i || false);
 
   const SingleImage = (props: SingleImageProps) => {
     if (!props.image) {
