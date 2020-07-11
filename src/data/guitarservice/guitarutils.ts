@@ -837,6 +837,10 @@ function getGuitarAgeDuration(guitar: Guitar | Project): number {
     return 0;
   }
 
+  if (guitar.deliveryDate) {
+    return Date.now() - Date.parse(guitar.deliveryDate);
+  }
+
   if (guitar.purchaseDate) {
     return Date.now() - Date.parse(guitar.purchaseDate);
   }
