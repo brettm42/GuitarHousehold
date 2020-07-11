@@ -111,7 +111,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.bodyStyle
                 ? `Body Style: ${guitar.bodyStyle}`
                 : null,
-              `Color: ${guitar.color}`,
+              `Color: ${guitar.color ?? 'Unfinished'}`,
               GuitarUtils.hasPurchasePrice(guitar)
                 ? `Project Cost: \$${GuitarUtils.getGuitarCost(guitar)}`
                 : null,

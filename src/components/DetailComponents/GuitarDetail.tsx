@@ -110,7 +110,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               guitar.bodyStyle
                 ? `Body Style: ${guitar.bodyStyle}`
                 : null,
-              `Color: ${guitar.color}`,
+              `Color: ${guitar.color ?? 'Unfinished'}`,
               guitar.serialNumber 
                 ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})` 
                 : null,
