@@ -1127,13 +1127,15 @@ export function leastExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
   let min;
   let price = minDefault;
   for (const guitar of guitars) {
-    if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
+    if (!hasPurchasePrice(guitar) 
+        || !isProject(guitar)
+        || isInProgress(guitar)) {
       continue;
     }
 
     const guitarCost = getGuitarCost(guitar);
     if (!min) {
-      min = guitar;
+      min = guitar as Guitar;
       price = guitarCost;
 
       continue;
@@ -1247,7 +1249,8 @@ export function mostExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
   let max;
   let price = 0;
   for (const guitar of guitars) {
-    if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
+    if (!hasPurchasePrice(guitar) 
+        || !isProject(guitar)) {
       continue;
     }
 
@@ -1348,7 +1351,10 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
   }
 
   const purchases =
-    guitars.filter(guitar => isProject(guitar) && hasPurchasePrice(guitar));
+    guitars.filter(
+      guitar => isProject(guitar) 
+        && !isInProgress(guitar) 
+        && hasPurchasePrice(guitar));
 
   const averagePrice =
     purchases.reduce((avg, guitar) =>
