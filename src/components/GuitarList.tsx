@@ -46,7 +46,7 @@ const GuitarList: NextPage<GuitarListProps> = ({ items, pathname, isMobile, titl
           : <DataDetailTable items={items} columns={columns} />
         : <div className={classes.emptyList}>
             <Typography>
-              {`Nothing to see here... looks like no ${title.toLocaleLowerCase()} results were found`}
+              {`Nothing to see here, looks like no ${title.toLocaleLowerCase()} results were found`}
             </Typography>
           </div>}
     </Layout>
