@@ -134,7 +134,7 @@ export default function Image(props: ImageProps): React.ReactElement {
           </ImagePanel>
         )}
         <Paper className={classes.labelRoot}>
-          <Tabs value={value} onChange={handleChange} aria-label='image tab navigation'>
+          <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons='auto' aria-label='image tab navigation'>
             {imageSet.map((_, idx) => 
               <Tab key={idx} label={`Image ${idx + 1}`} />
             )}
