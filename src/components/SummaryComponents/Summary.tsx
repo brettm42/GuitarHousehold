@@ -1,9 +1,9 @@
 import * as React from 'react';
 
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Divider from '@material-ui/core/Divider';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -189,167 +189,167 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
     >
       <Grid key={'popular'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper0}>
-            <ExpansionPanelSummary id='panelMostCommon-header' aria-controls='panelMostCommon-content'>
+          <Accordion className={classes.paper0}>
+            <AccordionSummary id='panelMostCommon-header' aria-controls='panelMostCommon-content'>
               <Typography variant='overline'>
                 {'Most Common'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <MostCommonComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'outliers'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper1}>
-            <ExpansionPanelSummary id='panelOutliers-header' aria-controls='panelOutliers-content'>
+          <Accordion className={classes.paper1}>
+            <AccordionSummary id='panelOutliers-header' aria-controls='panelOutliers-content'>
               <Typography variant='overline'>
                 {'Outliers'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <OutliersComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'randomPick'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper2}>
-            <ExpansionPanelSummary id='panelRandom-header' aria-controls='panelRandom-content'>
+          <Accordion className={classes.paper2}>
+            <AccordionSummary id='panelRandom-header' aria-controls='panelRandom-content'>
               <Typography variant='overline'>
                 {'Random Pick'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <RandomPickComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'breakdown'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper3}>
-            <ExpansionPanelSummary id='panelBreakdown-header' aria-controls='panelBreakdown-content'>
+          <Accordion className={classes.paper3}>
+            <AccordionSummary id='panelBreakdown-header' aria-controls='panelBreakdown-content'>
               <Typography variant='overline'>
                 {'Breakdown'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <BreakdownComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'values'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper4}>
-            <ExpansionPanelSummary id='panelValues-header' aria-controls='panelValues-content'>
+          <Accordion className={classes.paper4}>
+            <AccordionSummary id='panelValues-header' aria-controls='panelValues-content'>
               <Typography variant='overline'>
                 {'Values'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <ValuesComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'partValues'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper9}>
-            <ExpansionPanelSummary id='panelPartValues-header' aria-controls='panelPartValues-content'>
+          <Accordion className={classes.paper9}>
+            <AccordionSummary id='panelPartValues-header' aria-controls='panelPartValues-content'>
               <Typography variant='overline'>
                 {'Case/Pickup Values'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <PartValuesComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'cases'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper5}>
-            <ExpansionPanelSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
+          <Accordion className={classes.paper5}>
+            <AccordionSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
               <Typography variant='overline'>
                 {'Missing Cases'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <MissingCasesComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'pickups'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper6}>
-            <ExpansionPanelSummary id='panelPickups-header' aria-controls='panelPickups-content'>
+          <Accordion className={classes.paper6}>
+            <AccordionSummary id='panelPickups-header' aria-controls='panelPickups-content'>
               <Typography variant='overline'>
                 {'Pickups'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <PickupsComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'strings'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper4}>
-            <ExpansionPanelSummary id='panelStrings-header' aria-controls='panelStrings-content'>
+          <Accordion className={classes.paper4}>
+            <AccordionSummary id='panelStrings-header' aria-controls='panelStrings-content'>
               <Typography variant='overline'>
                 {'Strings'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <StringsComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'timeline'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper7}>
-            <ExpansionPanelSummary id='panelTimeline-header' aria-controls='panelTimeline-content'>
+          <Accordion className={classes.paper7}>
+            <AccordionSummary id='panelTimeline-header' aria-controls='panelTimeline-content'>
               <Typography variant='overline'>
                 {'Timeline'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <TimelineComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
       <Grid key={'inProgress'} item xs={12} sm={6}>
         <Paper>
-          <ExpansionPanel className={classes.paper8}>
-            <ExpansionPanelSummary id='panelProjects-header' aria-controls='panelProjects-content'>
+          <Accordion className={classes.paper8}>
+            <AccordionSummary id='panelProjects-header' aria-controls='panelProjects-content'>
               <Typography variant='overline'>
                 {'In Progress Projects'}
               </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Divider />
               <ProjectInProgressComponent {...props} />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Paper>
       </Grid>
     </Grid>

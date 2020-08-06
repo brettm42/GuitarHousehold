@@ -1,9 +1,9 @@
 import * as React from 'react';
 
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Divider from '@material-ui/core/Divider';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -117,19 +117,19 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
         </Grid>
 
         <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} xs zeroMinWidth>
-          <ExpansionPanel>
-            <ExpansionPanelSummary id='stringsPanelJson-header' aria-controls='stringsPanelJson-content'>
+          <Accordion>
+            <AccordionSummary id='stringsPanelJson-header' aria-controls='stringsPanelJson-content'>
               <Typography className={classes.heading}>Strings JSON Data</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <div className={isMobile ? classes.jsonMobile : classes.json}>
                 <Divider />
                 <Typography variant='subtitle1'>
                   <pre>{JSON.stringify(strings, undefined, 2)}</pre>
                 </Typography>
               </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         </Grid>
       </Grid>
     </div>
