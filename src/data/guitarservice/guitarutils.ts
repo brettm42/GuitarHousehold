@@ -1826,7 +1826,8 @@ function getColorMapping(color: string): string {
     'Rose Gold Metallic': 'Pink',
     'Shell Pink': 'Pink',
     'Fiesta Red': 'Red',
-    'Redburst': 'Red'
+    'Redburst': 'Red',
+    'Vintage Wine Metallic': 'Red'
   };
 
   if (!color) {
