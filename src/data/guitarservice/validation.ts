@@ -145,6 +145,7 @@ function validatePickup(pickup: Pickup, idx: number): Map<string, ValidationFlag
   if (!pickup.position) { result.set(`${prefix}-position`, ValidationFlag.Missing); }
   if (!pickup.output) { result.set(`${prefix}-output`, ValidationFlag.Missing); }
   if (!pickup.mount) { result.set(`${prefix}-mount`, ValidationFlag.Missing); }
+  if (!pickup.magnetType) { result.set(`${prefix}-magnetType`, ValidationFlag.Missing); }
 
   return result;
 }

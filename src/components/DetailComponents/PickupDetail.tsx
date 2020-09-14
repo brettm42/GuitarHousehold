@@ -85,6 +85,9 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
               pickup.output
                 ? `Output: ${pickup.output}`
                 : null,
+              pickup.magnetType
+                ? `Magnet Type: ${pickup.magnetType}`
+                : null,
               pickup.purchaseDate
                 ? `Purchased: ${pickup.purchaseDate}`
                 : null,

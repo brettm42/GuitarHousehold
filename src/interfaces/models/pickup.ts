@@ -12,4 +12,5 @@ export interface Pickup extends RetailItem {
   readonly position?: PickupPosition;
   readonly output?: string;
   readonly mount?: PickupMount;
+  readonly magnetType?: string;
 }
