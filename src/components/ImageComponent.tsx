@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import Image from 'next/image';
+
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Tab from '@material-ui/core/Tab';
@@ -74,7 +76,7 @@ function ImagePanel(props: ImagePanelProps) {
   );
 };
 
-export default function Image(props: ImageProps): React.ReactElement {
+export default function ImageComponent(props: ImageProps): React.ReactElement {
   const classes = useStyles();
 
   const imageSet = props.imageSet.filter(i => i || false);
@@ -85,10 +87,11 @@ export default function Image(props: ImageProps): React.ReactElement {
     }
     
     return (
-      <img  
+      <Image 
         className={props.isMobile ? classes.imgMobile : classes.img} 
         src={props.image} 
         alt={props.altText} 
+        unsized={true}
       />);
   }
 

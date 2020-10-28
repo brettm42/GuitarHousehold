@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import * as Constants from '../../infrastructure/constants';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import GridList from '@material-ui/core/GridList';
@@ -99,7 +100,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
               <a>
                 <div className={classes.imgBackground} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
+                    ? <Image className={classes.img} src={guitar.picture} alt={guitar.name} unsized={true} />
                     : <div className={classes.imgPlaceholder}>
                         <Typography variant='h4'>
                           {Constants.ImagePlaceholder}
@@ -129,7 +130,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
               <a>
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <img className={classes.mobileImg} src={guitar.picture} alt={guitar.name} />
+                    ? <Image className={classes.mobileImg} src={guitar.picture} alt={guitar.name} unsized={true} />
                     : <div className={classes.mobileImgPlaceholder}>
                         <Typography className={classes.mobileImgPlaceholderText} variant='h4'>
                           {Constants.ImagePlaceholder}

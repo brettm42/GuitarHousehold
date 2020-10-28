@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 import StringsDetail from './StringsDetail';
-import Image from '../Image';
+import Image from '../ImageComponent';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 

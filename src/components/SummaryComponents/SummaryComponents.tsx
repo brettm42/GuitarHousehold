@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import * as Constants from '../../infrastructure/constants';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Divider from '@material-ui/core/Divider';
@@ -331,7 +332,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         <Link href={`/detail?id=${guitar.id}`}>
           <a>
             {guitar.picture
-              ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
+              ? <Image className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} unsized={true} />
               : <Typography variant='h4'>
                   {Constants.ImagePlaceholder}
                 </Typography>}
