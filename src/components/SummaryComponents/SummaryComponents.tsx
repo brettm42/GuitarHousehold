@@ -396,6 +396,7 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
   const classes = useStyles();
+  const notYetDelivered = GuitarUtils.notYetDelivered(guitars);
 
   return (
     <SummaryComponent
@@ -408,7 +409,9 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Guitars per Year', GuitarUtils.guitarsPerYear(guitars)],
         ['Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars)],
         dividerPlaceholder,
-        ['Not Yet Delivered', `${GuitarUtils.notYetDelivered(guitars)} instruments`]
+        notYetDelivered > 0 
+          ? ['Not Yet Delivered', `${notYetDelivered} instruments`] 
+          : ['', '']
       ]}
       style={classes.timeline} />
   );
