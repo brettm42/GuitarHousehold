@@ -90,8 +90,8 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
       <Image 
         className={props.isMobile ? classes.imgMobile : classes.img} 
         src={props.image} 
-        alt={props.altText} 
-        unsized={true}
+        alt={props.altText}
+        layout={'fill'}
       />);
   }
 

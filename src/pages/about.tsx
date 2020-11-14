@@ -65,8 +65,8 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
       </div>
 
       <div className={classes.imgDiv}>
-        <Image className={classes.image} src={Constants.AboutPageImg1} unsized={true} />
-        <Image className={classes.image} src={Constants.AboutPageImg2} unsized={true} />
+        <Image className={classes.image} src={Constants.AboutPageImg1} layout={'fill'} />
+        <Image className={classes.image} src={Constants.AboutPageImg2} layout={'fill'} />
       </div>
     </Layout>
   );

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 import StringsDetail from './StringsDetail';
-import Image from '../ImageComponent';
+import ImageComponent from '../ImageComponent';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -164,7 +164,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
         </Grid>
 
         <Grid item zeroMinWidth xs={12} sm={6}>
-          <Image 
+          <ImageComponent 
             imageSet={[guitar.picture].concat(guitar.additionalPictures)}
             isMobile={isMobile} 
             altText={guitar.name} />

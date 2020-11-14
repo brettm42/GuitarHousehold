@@ -100,7 +100,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
               <a>
                 <div className={classes.imgBackground} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <Image className={classes.img} src={guitar.picture} alt={guitar.name} unsized={true} />
+                    ? <Image className={classes.img} src={guitar.picture} alt={guitar.name} layout={'fill'} />
                     : <div className={classes.imgPlaceholder}>
                         <Typography variant='h4'>
                           {Constants.ImagePlaceholder}
@@ -130,7 +130,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
               <a>
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <Image className={classes.mobileImg} src={guitar.picture} alt={guitar.name} unsized={true} />
+                    ? <Image className={classes.mobileImg} src={guitar.picture} alt={guitar.name} layout={'fill'} />
                     : <div className={classes.mobileImgPlaceholder}>
                         <Typography className={classes.mobileImgPlaceholderText} variant='h4'>
                           {Constants.ImagePlaceholder}
