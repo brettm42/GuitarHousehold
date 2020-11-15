@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import Image from 'next/image';
-
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Tab from '@material-ui/core/Tab';
@@ -87,11 +85,10 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
     }
     
     return (
-      <Image 
+      <img 
         className={props.isMobile ? classes.imgMobile : classes.img} 
         src={props.image} 
         alt={props.altText}
-        layout={'fill'}
       />);
   }
 

@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import Grid from '@material-ui/core/Grid';
@@ -61,7 +60,7 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
             <Paper className={classes.paper}>
               <Link href={`/detail?id=${guitar.id}`}>
                 <a>
-                  <Image className={classes.img} src={guitar.picture || ''} alt={guitar.name} layout={'fill'} />
+                  <img className={classes.img} src={guitar.picture || ''} alt={guitar.name} />
                   <GridListTileBar
                     title={guitar.name}
                     subtitle={

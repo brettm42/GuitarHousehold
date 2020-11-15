@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import Typography from '@material-ui/core/Typography';
@@ -65,8 +64,8 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
       </div>
 
       <div className={classes.imgDiv}>
-        <Image className={classes.image} src={Constants.AboutPageImg1} layout={'fill'} />
-        <Image className={classes.image} src={Constants.AboutPageImg2} layout={'fill'} />
+        <img className={classes.image} src={Constants.AboutPageImg1} />
+        <img className={classes.image} src={Constants.AboutPageImg2} />
       </div>
     </Layout>
   );
