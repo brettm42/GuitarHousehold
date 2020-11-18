@@ -5,5 +5,8 @@
     "aboutPage": {
         "image1": "",
         "image2": ""
+    },
+    "tokens": {
+      "reverb": "abc"
     }
 }

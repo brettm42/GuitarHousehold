@@ -12,3 +12,8 @@ export interface PageProps {
   items: Guitar[];
   pathname: string;
 };
+
+export interface TextPageProps {
+  response: string;
+  pathname: string;
+}
