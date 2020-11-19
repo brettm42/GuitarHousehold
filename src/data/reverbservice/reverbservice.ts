@@ -2,6 +2,7 @@ import { Tokens } from '../../infrastructure/constants';
 import { roundToHundredths } from '../../infrastructure/datautils';
 
 const maxPagesPerRequest = 35;
+const reverbEndpoint = 'https://reverb.com';
 const reverbApiEndpoint = 'https://api.reverb.com/api';
 
 let recentSearches: RecentSearches = {};
@@ -85,10 +86,14 @@ async function fetchQueryKeywordsWithPageAsync(keywords: string, page: number | 
     .then(res => res ? res.json() : '');
 }
 
-export async function testParsedResponseJsonAsync(keywords: string) {
+export function getReverbUserFriendlyUrl(keywords: string): string {
+  return `${reverbEndpoint}/marketplace?query=${encodeURI(keywords)}`;
+}
+
+export async function parsedResponseJsonAsync(keywords: string) {
   if (recentSearches[keywords]) {
     console.log(`Found cached search: ${keywords}`);
-    
+
     return recentSearches[keywords].results.map(i => JSON.stringify(i));
   }
 
@@ -133,7 +138,7 @@ export async function testParsedResponseJsonAsync(keywords: string) {
     });
 }
 
-export async function testParsedResponseAsync(keywords: string): Promise<Listing[]> {
+export async function parsedResponseAsync(keywords: string): Promise<Listing[]> {
   if (recentSearches[keywords]) {
     console.log(`Found cached search: ${keywords}`);
 
@@ -186,16 +191,26 @@ export async function testResponseAsync(keywords: string): Promise<string> {
   return res;
 }
 
-export async function testAveragePriceForKeywordsASync(keywords: string, monetarySymbol: string): Promise<string> {
-  const results = await testParsedResponseAsync(keywords);
+export async function averagePriceForKeywordsAsync(keywords: string): Promise<string> {
+  const results = await parsedResponseAsync(keywords);
 
   if (results.length < 1) {
-    return `ReverbServiceError: no results for ${keywords}`;
+    return `No results for ${keywords}`;
   }
 
   const average = results.reduce(
       (a: number, i: Listing) => +a + +i.price, 0) 
     / results.length;
 
-  return `Average Price for ${keywords}: ${monetarySymbol}${roundToHundredths(average)}`;
+  return `${roundToHundredths(average)}`;
+}
+
+export async function numberOfListingsForKeywordsAsync(keywords: string): Promise<string> {
+  const results = await parsedResponseAsync(keywords);
+
+  if (results.length < 1) {
+    return '0';
+  }
+
+  return `${results.length}`;
 }
