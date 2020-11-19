@@ -4,7 +4,7 @@ import { roundToHundredths } from '../../infrastructure/datautils';
 const maxPagesPerRequest = 35;
 const reverbApiEndpoint = 'https://api.reverb.com/api';
 
-let recentSearches: RecentSearches;
+let recentSearches: RecentSearches = {};
 
 interface RecentSearches {
   [keywords: string]: Search
@@ -32,7 +32,7 @@ function addRecentSearch(keywords: string, results: Listing[]) {
       results: results
     };
 
-  console.log(`Recent searches now @${recentSearches.length}`);
+  console.log(`Recent searches now with: ${Object.keys(recentSearches)}`);
 }
 
 function buildReverbRequestAsync(): RequestInit {
@@ -85,7 +85,13 @@ async function fetchQueryKeywordsWithPageAsync(keywords: string, page: number | 
     .then(res => res ? res.json() : '');
 }
 
-export async function testParsedResponseJsonAsync(keywords: string) {  
+export async function testParsedResponseJsonAsync(keywords: string) {
+  if (recentSearches[keywords]) {
+    console.log(`Found cached search: ${keywords}`);
+    
+    return recentSearches[keywords].results.map(i => JSON.stringify(i));
+  }
+
   // Page indexing on Reverb start at 1
   let currentPage = 1;
   let totalPages = 1;
@@ -127,7 +133,13 @@ export async function testParsedResponseJsonAsync(keywords: string) {
     });
 }
 
-export async function testParsedResponseAsync(keywords: string): Promise<Listing[]> {  
+export async function testParsedResponseAsync(keywords: string): Promise<Listing[]> {
+  if (recentSearches[keywords]) {
+    console.log(`Found cached search: ${keywords}`);
+
+    return recentSearches[keywords].results;
+  }
+
   // Page indexing on Reverb start at 1
   let currentPage = 1;
   let totalPages = 1;
