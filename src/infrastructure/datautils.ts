@@ -48,17 +48,25 @@ export function millisecondsToFriendlyString(duration: number): string {
         if (duration < oneDay) {
           return 'less than a day';
         }
+        
+        const time = Math.round(duration / oneDay);
 
-        return `${Math.round(duration / oneDay)} days`;
+        return `${time} day${time === 1 ? '' : 's'}`;
       }
 
-      return `${Math.round(duration / oneWeek)} weeks`;
+      const time = Math.round(duration / oneWeek);
+
+      return `${time} week${time === 1 ? '' : 's'}`;
     }
 
-    return `${Math.round(duration / oneMonth)} months`;
+    const time = Math.round(duration / oneMonth);
+
+    return `${time} month${time === 1 ? '' : 's'}`;
   }
 
-  return `${Math.round(duration / oneYear)} years`;
+  const time = Math.round(duration / oneYear);
+
+  return `${time} year${time === 1 ? '' : 's'}`;
 }
 
 export function roundToHundredths(value: number): number {
