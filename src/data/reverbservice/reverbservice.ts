@@ -1,6 +1,20 @@
 import { Tokens } from '../../infrastructure/constants';
+import { roundToHundredths } from '../../infrastructure/datautils';
 
+const maxPagesPerRequest = 35;
 const reverbApiEndpoint = 'https://api.reverb.com/api';
+
+let recentSearches: RecentSearches;
+
+interface RecentSearches {
+  [keywords: string]: Search
+}
+
+interface Search {
+  keywords: string;
+  date: number;
+  results: Listing[];
+}
 
 class Listing {
   make?: string;
@@ -9,6 +23,17 @@ class Listing {
   title?: string;
   price: number = 0;
 };
+
+function addRecentSearch(keywords: string, results: Listing[]) {
+  recentSearches[keywords] =
+    {
+      keywords: keywords, 
+      date: Date.now(), 
+      results: results
+    };
+
+  console.log(`Recent searches now @${recentSearches.length}`);
+}
 
 function buildReverbRequestAsync(): RequestInit {
   const requestHeaders = new Headers();
@@ -73,7 +98,7 @@ export async function testParsedResponseJsonAsync(keywords: string) {
   let listings = [ ...initialResponse.listings];
   totalPages = initialResponse.total_pages;
 
-  while (currentPage < totalPages) {
+  while (currentPage < totalPages && currentPage < maxPagesPerRequest) {
     currentPage++;
 
     const response: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage);
@@ -85,6 +110,10 @@ export async function testParsedResponseJsonAsync(keywords: string) {
     currentPage = response.current_page;
   }
   console.log(`Requested up to page: ${currentPage}`);
+
+ addRecentSearch(
+   keywords, 
+   listings.map((response: any) => parseReverbResponse(response)));
 
   return listings.map(
     (response: any) => {
@@ -111,7 +140,7 @@ export async function testParsedResponseAsync(keywords: string): Promise<Listing
   let listings = [ ...initialResponse.listings];
   totalPages = initialResponse.total_pages;
 
-  while (currentPage < totalPages) {
+  while (currentPage < totalPages && currentPage < maxPagesPerRequest) {
     currentPage++;
 
     const response: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage);
@@ -123,6 +152,10 @@ export async function testParsedResponseAsync(keywords: string): Promise<Listing
     currentPage = response.current_page;
   }
   console.log(`Requested up to page: ${currentPage}`);
+
+  addRecentSearch(
+    keywords, 
+    listings.map((response: any) => parseReverbResponse(response)));
 
   return listings
     .map((response: any) => parseReverbResponse(response));
@@ -152,5 +185,5 @@ export async function testAveragePriceForKeywordsASync(keywords: string, monetar
       (a: number, i: Listing) => +a + +i.price, 0) 
     / results.length;
 
-  return `Average Price for ${keywords}: ${monetarySymbol}${Math.round(average)}`;
+  return `Average Price for ${keywords}: ${monetarySymbol}${roundToHundredths(average)}`;
 }
