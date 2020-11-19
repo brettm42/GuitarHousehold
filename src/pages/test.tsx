@@ -4,7 +4,9 @@ import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
 
-import { findSimilarListingCountAsync } from '../data/reverbservice/reverbservice';
+import { 
+  testAveragePriceForKeywordsASync
+} from '../data/reverbservice/reverbservice';
 
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -12,7 +14,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { TextPageProps } from '../infrastructure/shared';
 import { buildPageTitle } from '../components/viewutils';
 
-const searchKeyword = 'eastman+mandolin';
+const searchKeyword = 'eastman md515';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TestPage: NextPage<TextPageProps> = ({ response, pathname }) => {
+const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
   const title = 'Test';
   const classes = useStyles();
 
@@ -47,20 +49,39 @@ const TestPage: NextPage<TextPageProps> = ({ response, pathname }) => {
       </div>
 
       <div className={classes.responseDiv}>
-        <Typography variant='caption' gutterBottom>
-          {response}
-        </Typography>
+        {responses?.map((response, idx) => (
+          <div key={idx}>
+            <Typography variant='caption' gutterBottom>
+              {response}
+            </Typography>
+          </div>
+        ))}
       </div>
     </Layout>
   );
 };
 
-export async function getStaticProps() {
-  return {
-    props: {
-      response: await findSimilarListingCountAsync(searchKeyword)
-    }
-  };
-}
+TestPage.getInitialProps = async ({ pathname }) => {
+  const responses = 
+    [
+      await testAveragePriceForKeywordsASync(searchKeyword, '$')
+    ];
+  
+  return { responses, pathname };
+};
+
+// export async function getStaticProps() {
+//   const data = 
+//     [
+//       await testParsedResponseAsync(searchKeyword),
+//       await testResponseAsync(searchKeyword)
+//     ];
+  
+//   return {
+//     props: {
+//       data
+//     }
+//   };
+// }
 
 export default TestPage;

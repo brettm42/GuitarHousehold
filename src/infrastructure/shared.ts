@@ -14,6 +14,6 @@ export interface PageProps {
 };
 
 export interface TextPageProps {
-  response: string;
+  responses: string[];
   pathname: string;
 }
