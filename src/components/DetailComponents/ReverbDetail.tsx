@@ -7,8 +7,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import {
   averagePriceForKeywordsAsync,
+  getRecentSearchCacheStatsAsync,
   getReverbUserFriendlyUrl,
-  numberOfListingsForKeywordsAsync  
+  numberOfListingsForKeywordsAsync
 } from '../../data/reverbservice/reverbservice';
 
 type ReverbDetailProps = {
@@ -26,15 +27,18 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular
     },
-    summary: {
+    title: {
+      paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(2)
     },
+    body: {
+      paddingLeft: theme.spacing(2)
+    },
     link: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4)
+      paddingTop: theme.spacing(2)
     },
     footer: {
-      paddingTop: theme.spacing(2)
+      paddingTop: theme.spacing(4)
     }
   })
 );
@@ -45,6 +49,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
   const classes = useStyles();
   const [ averagePrice, setAveragePrice ] = React.useState('');
   const [ numberOfListings, setNumberOfListings ] = React.useState('');
+  const [ reverbCacheStats, setReverbCacheStats ] = React.useState('');
 
   React.useEffect(() => {
     async function getReverbData(keywords: string) {
@@ -55,20 +60,27 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
       setNumberOfListings(numOfListings);
     }
 
+    async function getCacheStats() {
+      const cacheStats = await getRecentSearchCacheStatsAsync();
+
+      setReverbCacheStats(cacheStats);
+    }
+
     getReverbData(keywords);
+    getCacheStats();
   }, []);
 
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs sm={6}>
-          <div>
+          <div className={classes.title}>
             <Typography variant='h5' gutterBottom>
               Now on Reverb:
             </Typography>
           </div>
 
-          <div>
+          <div className={classes.body}>
             {
               [
                 averagePrice.startsWith('No')
@@ -81,18 +93,18 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
                   {text}
                 </Typography>
               ))}
-          </div>
-          
-          <div className={classes.link}>
-            <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
-              Search Reverb.com: <a href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
-            </Typography>
-          </div>
+            
+            <div className={classes.link}>
+              <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
+                Search on Reverb.com - <a href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
+              </Typography>
+            </div>
 
-          <div className={classes.footer}>
-            <Typography key={'reverb-plug'} variant='caption'>
-              {`Data pulled from api.reverb.com, searching for ${encodeURI(keywords)}`}
-            </Typography>
+            <div className={classes.footer}>
+              <Typography key={'reverb-plug'} variant='caption'>
+                {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
+              </Typography>
+            </div>
           </div>
         </Grid>
       </Grid>

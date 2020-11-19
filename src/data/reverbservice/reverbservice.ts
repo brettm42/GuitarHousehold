@@ -6,6 +6,7 @@ const reverbEndpoint = 'https://reverb.com';
 const reverbApiEndpoint = 'https://api.reverb.com/api';
 
 let recentSearches: RecentSearches = {};
+let cacheHits = 0;
 
 interface RecentSearches {
   [keywords: string]: Search
@@ -32,8 +33,6 @@ function addRecentSearch(keywords: string, results: Listing[]) {
       date: Date.now(), 
       results: results
     };
-
-  console.log(`Recent searches now with: ${Object.keys(recentSearches)}`);
 }
 
 function buildReverbRequestAsync(): RequestInit {
@@ -79,11 +78,15 @@ async function fetchQueryKeywordsWithPageAsync(keywords: string, page: number | 
     fetch(`${reverbApiEndpoint}/listings/all?query=${encodeURI(keywords)}&page=${page}`, buildReverbRequestAsync())
     .catch(error => 
       {
-        console.log(`ReverbServiceError: ${error}`, error);
-        
-        return null;
+        throw new Error(`ReverbServiceError: ${error}`);
       })
     .then(res => res ? res.json() : '');
+}
+
+export async function getRecentSearchCacheStatsAsync(): Promise<string> {
+  const result = Object.keys(recentSearches).length;
+
+  return `cached ${result} search${result === 1 ? '' : 'es'} with ${cacheHits} hit${cacheHits === 1 ? '' : 's'}`;
 }
 
 export function getReverbUserFriendlyUrl(keywords: string): string {
@@ -92,7 +95,7 @@ export function getReverbUserFriendlyUrl(keywords: string): string {
 
 export async function parsedResponseJsonAsync(keywords: string) {
   if (recentSearches[keywords]) {
-    console.log(`Found cached search: ${keywords}`);
+    cacheHits++;
 
     return recentSearches[keywords].results.map(i => JSON.stringify(i));
   }
@@ -120,7 +123,6 @@ export async function parsedResponseJsonAsync(keywords: string) {
     listings = [ ...listings, ...response.listings ];
     currentPage = response.current_page;
   }
-  console.log(`Requested up to page: ${currentPage}`);
 
  addRecentSearch(
    keywords, 
@@ -140,7 +142,7 @@ export async function parsedResponseJsonAsync(keywords: string) {
 
 export async function parsedResponseAsync(keywords: string): Promise<Listing[]> {
   if (recentSearches[keywords]) {
-    console.log(`Found cached search: ${keywords}`);
+    cacheHits++;
 
     return recentSearches[keywords].results;
   }
@@ -168,7 +170,6 @@ export async function parsedResponseAsync(keywords: string): Promise<Listing[]> 
     listings = [ ...listings, ...response.listings ];
     currentPage = response.current_page;
   }
-  console.log(`Requested up to page: ${currentPage}`);
 
   addRecentSearch(
     keywords, 
@@ -176,19 +177,6 @@ export async function parsedResponseAsync(keywords: string): Promise<Listing[]> 
 
   return listings
     .map((response: any) => parseReverbResponse(response));
-}
-
-export async function testResponseAsync(keywords: string): Promise<string> {
-  const res = await fetch(`${reverbApiEndpoint}/listings/all?query=${keywords}`, buildReverbRequestAsync())
-    .then(response => response.text())
-    .catch(error => 
-      {
-        console.log(`ReverbServiceError: ${error}`, error);
-        
-        return '';
-      });
-    
-  return res;
 }
 
 export async function averagePriceForKeywordsAsync(keywords: string): Promise<string> {

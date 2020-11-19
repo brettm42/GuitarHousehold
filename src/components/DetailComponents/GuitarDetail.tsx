@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
     summary: {
       paddingBottom: theme.spacing(2)
     },
-    reverbDiv: {
+    reverb: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2)
     },
@@ -242,7 +242,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
       <Divider variant='middle'/>
 
-      <div className={classes.reverbDiv}>
+      <div className={classes.reverb}>
         <ReverbDetail keywords={guitar.name} isMobile={isMobile} />
       </div>
 
