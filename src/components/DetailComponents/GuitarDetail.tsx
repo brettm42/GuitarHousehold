@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
+import ReverbDetail from './ReverbDetail';
 import StringsDetail from './StringsDetail';
 import ImageComponent from '../ImageComponent';
 
@@ -40,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 500
     },
     summary: {
+      paddingBottom: theme.spacing(2)
+    },
+    reverbDiv: {
+      paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2)
     },
     json: {
@@ -232,6 +237,14 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
             </div>
           : null}
       </Typography>
+
+      <Divider variant='middle'/>
+
+      <div className={classes.reverbDiv}>
+        <ReverbDetail keywords={guitar.name} isMobile={isMobile} />
+      </div>
+
+      <Divider variant='middle'/>
 
       <Accordion className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
         <AccordionSummary id='guitarPanelJson-header' aria-controls='guitarPanelJson-content'>
