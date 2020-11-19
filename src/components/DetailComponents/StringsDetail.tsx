@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { getStringAge, isDelivered } from '../../data/guitarservice/guitarutils';
+import { getDeliveryTime, getStringAge, isDelivered } from '../../data/guitarservice/guitarutils';
 
 import { Guitar } from '../../interfaces/models/guitar';
 import { Strings } from '../../interfaces/models/strings';
@@ -96,7 +96,9 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
                 ? `Purchase Store: ${strings.purchaseStore}`
                 : null,
               strings.deliveryDate
-                ? `Delivered: ${isDelivered(strings) ? strings.deliveryDate : 'not yet delivered'}`
+                ? `Delivered: ${isDelivered(strings) 
+                  ? `${strings.deliveryDate} (${getDeliveryTime(strings)})`
+                  : 'not yet delivered'}`
                 : null,
               strings.purchasePrice
                 ? `Purchase Price: \$${strings.purchasePrice}`

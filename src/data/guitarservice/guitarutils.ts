@@ -330,6 +330,47 @@ export function averageStringAge(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
+function getDeliveryTimeDuration(item: RetailItem): number {
+  if (!item.deliveryDate
+      || !item.purchaseDate
+      || item.deliveryDate === '' 
+      || item.purchaseDate === '') {
+    return 0;
+  }
+  
+  return Date.parse(item.deliveryDate) - Date.parse(item.purchaseDate);
+}
+
+export function getDeliveryTime(item: RetailItem): string {
+  const duration = getDeliveryTimeDuration(item);
+
+  return duration > 0
+    ? millisecondsToFriendlyString(duration)
+    : unknownString;
+}
+
+export function averageDeliveryTime(guitars: ReadonlyArray<Guitar>): string {
+  if (guitars.length < 1) {
+    return defaultString;
+  }
+
+  let total = 0;
+  let count = 0;
+  for (const guitar of guitars) {
+    const deliveryTime = getDeliveryTimeDuration(guitar);
+    if (deliveryTime > 0) {
+      total += deliveryTime;
+      count++;
+    }
+  }
+
+  const averageTime = total / count;
+
+  return averageTime
+    ? `${millisecondsToFriendlyString(averageTime)}`
+    : defaultString;
+}
+
 export function hasModifications(guitar: Guitar): boolean {
   return guitar.modifications
     ? guitar.modifications.length > 0
@@ -968,6 +1009,40 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
     ? minDate === min?.purchaseDate
       ? `${min.strings?.name} strings (came with ${min.name}) - ${duration}`
       : `${min.strings?.name} strings (changed ${minDate} on ${min.name}) - ${duration}`
+    : defaultString;
+}
+
+export function longestDelivery(guitars: ReadonlyArray<Guitar>): string {
+  if (guitars.length < 1) {
+    return defaultString;
+  }
+
+  let max;
+  let maxLength = 0;
+  for (const guitar of guitars) {
+    if (!guitar.deliveryDate || !guitar.purchaseDate) {
+      continue;
+    }
+
+    const deliveryLength =
+      Date.parse(guitar.deliveryDate ?? Date.now().toString())
+        - Date.parse(guitar.purchaseDate);
+
+    if (!max) {
+      max = guitar;
+      maxLength = deliveryLength;  
+
+      continue;
+    }
+
+    if (maxLength < deliveryLength) {
+      max = guitar;
+      maxLength = deliveryLength;
+    }
+  }
+
+  return max
+    ? `${max.name} (purchased ${max.purchaseDate}, delivered ${millisecondsToFriendlyString(maxLength)} later)`
     : defaultString;
 }
 

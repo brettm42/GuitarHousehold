@@ -220,7 +220,9 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Least Frets', GuitarUtils.leastFrets(guitars)],
         dividerPlaceholder,
         ['Longest Project', GuitarUtils.longestProject(guitars)],
-        ['Shortest Project', GuitarUtils.shortestProject(guitars)]
+        ['Shortest Project', GuitarUtils.shortestProject(guitars)],
+        dividerPlaceholder,
+        ['Longest Delivery', GuitarUtils.longestDelivery(guitars)]
       ]}
       style={classes.outliers} />
   );
@@ -410,7 +412,8 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         dividerPlaceholder,
         notYetDelivered > 0 
           ? ['Not Yet Delivered', `${notYetDelivered} instruments`] 
-          : ['', '']
+          : ['', ''],
+        ['Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars)]
       ]}
       style={classes.timeline} />
   );
