@@ -4,15 +4,11 @@ import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
 
-import { parsedResponseJsonAsync } from '../data/reverbservice/reverbservice';
-
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { TextPageProps } from '../infrastructure/shared';
 import { buildPageTitle } from '../components/viewutils';
-
-const searchKeyword = 'eastman md515';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(4, 2, 2, 2)
     },
     body: {
+      padding: theme.spacing(2)
+    },
+    body2: {
       padding: theme.spacing(2)
     },
     responseDiv: {
@@ -42,7 +41,13 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
 
       <div className={classes.body}>
         <Typography variant='body2' gutterBottom>
-          {`This is the test page for: ${searchKeyword}`}
+          {`This is the test page for: ${responses}`}
+        </Typography>
+      </div>
+
+      <div className={classes.body2}>
+        <Typography variant='subtitle1' gutterBottom>
+          {pathname}
         </Typography>
       </div>
 
@@ -60,10 +65,7 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
 };
 
 TestPage.getInitialProps = async ({ pathname }) => {
-  const responses = 
-    [
-      ... await parsedResponseJsonAsync(searchKeyword)
-    ];
+  const responses = [ "test", "test" ];
   
   return { responses, pathname };
 };
