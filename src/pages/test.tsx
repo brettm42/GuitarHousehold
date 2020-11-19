@@ -4,9 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Layout from '../components/Layout';
 
-import { 
-  testAveragePriceForKeywordsASync
-} from '../data/reverbservice/reverbservice';
+import { parsedResponseJsonAsync } from '../data/reverbservice/reverbservice';
 
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -64,24 +62,10 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
 TestPage.getInitialProps = async ({ pathname }) => {
   const responses = 
     [
-      await testAveragePriceForKeywordsASync(searchKeyword, '$')
+      ... await parsedResponseJsonAsync(searchKeyword)
     ];
   
   return { responses, pathname };
 };
-
-// export async function getStaticProps() {
-//   const data = 
-//     [
-//       await testParsedResponseAsync(searchKeyword),
-//       await testResponseAsync(searchKeyword)
-//     ];
-  
-//   return {
-//     props: {
-//       data
-//     }
-//   };
-// }
 
 export default TestPage;
