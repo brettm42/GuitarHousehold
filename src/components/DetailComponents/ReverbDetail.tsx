@@ -99,15 +99,15 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
                 Search on Reverb.com - <a href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
               </Typography>
             </div>
-
-            <div className={classes.footer}>
-              <Typography key={'reverb-plug'} variant='caption'>
-                {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
-              </Typography>
-            </div>
           </div>
         </Grid>
       </Grid>
+
+      <div className={classes.footer}>
+        <Typography key={'reverb-plug'} variant='caption'>
+          {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
+        </Typography>
+      </div>
     </div>
   );
 };
