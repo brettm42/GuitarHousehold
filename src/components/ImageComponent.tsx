@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function ImagePanel(props: ImagePanelProps) {
   return (
-    <div 
+    <div
       role='tabpanel'
       hidden={props.value !== props.index}
       id={`image-tabpanel-${props.index}`}
@@ -83,14 +83,14 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
     if (!props.image) {
       return null;
     }
-    
+
     return (
-      <img 
-        className={props.isMobile ? classes.imgMobile : classes.img} 
-        src={props.image} 
+      <img
+        className={props.isMobile ? classes.imgMobile : classes.img}
+        src={props.image}
         alt={props.altText}
       />);
-  }
+  };
 
   const ImageTabs = (props: ImageTabProps) => {
     const [value, setValue] = React.useState(0);
@@ -127,15 +127,15 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
 
     return (
       <div className={classes.tabRoot}>
-        {imageSet.map((image, idx) => 
-          <ImagePanel key={idx} value={value} index={idx} altText={`${props.altText}-${idx}`} 
-              onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+        {imageSet.map((image, idx) =>
+          <ImagePanel key={idx} value={value} index={idx} altText={`${props.altText}-${idx}`}
+            onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <SingleImage image={image} isMobile={props.isMobile} altText={`${props.altText}-${idx}`} />
           </ImagePanel>
         )}
         <Paper className={classes.labelRoot}>
           <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons='auto' aria-label='image tab navigation'>
-            {imageSet.map((_, idx) => 
+            {imageSet.map((_, idx) =>
               <Tab key={idx} label={`Image ${idx + 1}`} />
             )}
           </Tabs>
@@ -148,17 +148,17 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
     return <span />;
   } else if (imageSet.length === 1) {
     return (
-      <SingleImage 
-        image={imageSet[0]} 
-        isMobile={props.isMobile} 
-        altText={`${props.title ? props.title + props.altText : props.altText}`} 
+      <SingleImage
+        image={imageSet[0]}
+        isMobile={props.isMobile}
+        altText={`${props.title ? props.title + props.altText : props.altText}`}
       />);
   }
 
   return (
-    <ImageTabs 
-      imageSet={imageSet} 
-      isMobile={props.isMobile} 
-      altText={`${props.title ? props.title + props.altText : props.altText}`} 
+    <ImageTabs
+      imageSet={imageSet}
+      isMobile={props.isMobile}
+      altText={`${props.title ? props.title + props.altText : props.altText}`}
     />);
 }

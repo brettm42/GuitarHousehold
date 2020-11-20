@@ -24,7 +24,7 @@ const WishlistPage: NextPage<PageProps> = ({ items, pathname }) => {
 };
 
 export async function getStaticProps() {
-  const items: Guitar[] = [...await findAllWishlist()];
+  const items: Guitar[] = [ ...await findAllWishlist() ];
 
   return {
     props: {

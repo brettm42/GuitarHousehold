@@ -48,7 +48,7 @@ export function millisecondsToFriendlyString(duration: number): string {
         if (duration < oneDay) {
           return 'less than a day';
         }
-        
+
         const time = Math.round(duration / oneDay);
 
         return `${time} day${time === 1 ? '' : 's'}`;
@@ -83,6 +83,6 @@ export function randomElementWithSeed(array: any[], seed: number): any {
 
 function random(seed: number): number {
   const i = Math.sin(seed++) * 10000;
-  
+
   return i - Math.floor(i);
 }

@@ -80,14 +80,14 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
                 ? `Purchase Store: ${guitarCase.purchaseStore}`
                 : null,
               guitarCase.deliveryDate
-                ? `Delivered: ${isDelivered(guitarCase) 
+                ? `Delivered: ${isDelivered(guitarCase)
                   ? `${guitarCase.deliveryDate} (${getDeliveryTime(guitarCase)})`
                   : 'not yet delivered'}`
                 : null,
               guitarCase.purchasePrice
                 ? `Purchase Price: \$${guitarCase.purchasePrice}`
                 : null
-              ]
+            ]
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}

@@ -32,7 +32,7 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
   const classes = useStyles();
 
   return (
-    <Layout title={buildPageTitle(title)} pathname={pathname}>      
+    <Layout title={buildPageTitle(title)} pathname={pathname}>
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
           {title}
@@ -66,7 +66,7 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
 
 TestPage.getInitialProps = async ({ pathname }) => {
   const responses = [ "test", "test" ];
-  
+
   return { responses, pathname };
 };
 

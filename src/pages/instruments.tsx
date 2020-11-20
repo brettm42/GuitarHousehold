@@ -24,7 +24,7 @@ const InstrumentsPage: NextPage<PageProps> = ({ items, pathname }) => {
 };
 
 export async function getStaticProps() {
-  const items: Guitar[] = [...await findAllInstruments()];
+  const items: Guitar[] = [ ...await findAllInstruments() ];
 
   return {
     props: {

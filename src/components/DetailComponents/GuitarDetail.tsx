@@ -116,14 +116,14 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
                 ? `Body Style: ${guitar.bodyStyle}`
                 : null,
               `Color: ${guitar.color ?? 'Unfinished'}`,
-              guitar.serialNumber 
-                ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})` 
+              guitar.serialNumber
+                ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
                 : null,
               guitar.purchaseDate
                 ? `Purchased: ${guitar.purchaseDate} from ${guitar.purchaseStore}`
                 : null,
               guitar.deliveryDate != null
-                ? `Delivered: ${GuitarUtils.isDelivered(guitar) 
+                ? `Delivered: ${GuitarUtils.isDelivered(guitar)
                   ? `${guitar.deliveryDate} (${GuitarUtils.getDeliveryTime(guitar)})`
                   : 'not yet delivered'}`
                 : null,
@@ -155,30 +155,30 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               guitar.hasBattery
                 ? `Has Battery: Yes`
                 : null
-              ]
+            ]
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}
                 </Typography>
               ))}
 
-          {guitar.productUrl
-            ? <Typography key={`${guitar.id}-link`} gutterBottom>
-                Product Link: <a href={guitar.productUrl}>{guitar.productUrl}</a>
-              </Typography>
-            : null}
+            {guitar.productUrl
+              ? <Typography key={`${guitar.id}-link`} gutterBottom>
+                  Product Link: <a href={guitar.productUrl}>{guitar.productUrl}</a>
+                </Typography>
+              : null}
           </div>
         </Grid>
 
         <Grid item zeroMinWidth xs={12} sm={6}>
-          <ImageComponent 
+          <ImageComponent
             imageSet={[guitar.picture].concat(guitar.additionalPictures)}
-            isMobile={isMobile} 
+            isMobile={isMobile}
             altText={guitar.name} />
         </Grid>
       </Grid>
 
-      <Divider variant='middle'/>
+      <Divider variant='middle' />
 
       <Typography variant='h5'>
         {GuitarUtils.hasPickups(guitar)
@@ -240,13 +240,13 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           : null}
       </Typography>
 
-      <Divider variant='middle'/>
+      <Divider variant='middle' />
 
       <div className={classes.reverb}>
         <ReverbDetail keywords={guitar.name} isMobile={isMobile} />
       </div>
 
-      <Divider variant='middle'/>
+      <Divider variant='middle' />
 
       <Accordion className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
         <AccordionSummary id='guitarPanelJson-header' aria-controls='guitarPanelJson-content'>

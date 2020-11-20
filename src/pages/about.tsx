@@ -50,7 +50,7 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
           </Link>
         </Typography>
       </div>
-      
+
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
           {title}

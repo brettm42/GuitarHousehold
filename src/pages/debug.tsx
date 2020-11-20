@@ -31,7 +31,7 @@ class DebugPage extends React.Component<DebugPageProps> {
       }
 
       const items: Guitar[] = await findEverything();
-      
+
       for (const item of items) {
         item.validation = validate(item);
       }
@@ -51,8 +51,8 @@ class DebugPage extends React.Component<DebugPageProps> {
           <DebugListDetail item={item} />
         </div>
       );
-    } 
-    
+    }
+
     if (items) {
       return (
         <div>
@@ -60,7 +60,7 @@ class DebugPage extends React.Component<DebugPageProps> {
         </div>
       );
     }
-    
+
     return (
       <Error errors={errors || 'No debug items'} pathname={pathname} />
     );

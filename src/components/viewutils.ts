@@ -21,9 +21,9 @@ type Complete<T> = {
 };
 
 export function tableSort<T>(array: T[], compare: (a: Complete<T>, b: Complete<T>) => number) {
-  const stableThis = 
+  const stableThis =
     array.map((i, idx) => [i, idx] as [Complete<T>, number]);
-  
+
   stableThis.sort((a, b) => {
     const order = compare(a[0], b[0]);
     if (order !== 0) {
