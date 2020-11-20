@@ -1,11 +1,11 @@
+import { ValidationFlag } from '../../infrastructure/shared';
+
 import { Case } from '../../interfaces/models/case';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
-import { RetailItem } from '../../interfaces/retailitem';
 import { Strings } from '../../interfaces/models/strings';
-
-import { ValidationFlag } from '../../infrastructure/shared';
+import { RetailItem } from '../../interfaces/retailitem';
 
 import {
   hasCase,
@@ -13,9 +13,109 @@ import {
   hasStrings,
   isAcoustic,
   isArchived,
+  isDelivered,
+  isInProgress,
   isProject,
   isWishlisted
 } from './guitarutils';
+
+export function summarizeValidation(items: [string, ReadonlyArray<Map<string, ValidationFlag>>][]): string[] {
+  const fallbackString = 'Loading...';
+
+  if (!items) {
+    return [ fallbackString ];
+  }
+
+  try {
+    let preamble = `${items.length} items checked!`;
+    let criticalCount = 0;
+    let pleaseCheck = '';
+    let missingItem = 0;
+    let missingStrings = 0;
+    let missingCases = 0;
+    let missingPickups = 0;
+    let pleaseUpdate = '';
+    
+    for (const item of items) {
+      if (!item || !item[1]) {
+        continue;
+      }
+
+      const [ name, validationMap ] = item;
+
+      const count = getValidationCount(validationMap, ValidationFlag.Critical);
+      if (count > 0) {
+        pleaseCheck += `${name}, `
+        criticalCount += count;
+      }
+
+      for (const entry of validationMap.values()) {
+        let needsUpdate = false;
+        
+        if (entry.has('pickups')) {
+          missingItem++;
+          missingPickups++;
+          needsUpdate = true;
+        } else if (entry.has('case')) {
+          missingItem++;
+          missingCases++;
+          needsUpdate = true;
+        } else if (entry.has('strings')) {
+          missingItem++;
+          missingStrings++;
+          needsUpdate = true;
+        }
+
+        pleaseUpdate += needsUpdate ? `${name}, ` : '';
+      }
+    }
+
+    return [
+      preamble,
+      `${criticalCount} critical issues${pleaseCheck ? `, please check: ${pleaseCheck}` : ''}`,
+      `${missingItem ? `${missingItem} missing items though - ${missingCases} missing cases, ${missingPickups} missing pickups, ${missingStrings} missing strings` : ''}`,
+      `${missingItem ? `Please update missing items in: ${pleaseUpdate}` : ''}`
+    ];
+  } catch {
+    return [ fallbackString ];
+  }
+}
+
+export function getValidationCount(results: ReadonlyArray<Map<string, ValidationFlag>>, flag: ValidationFlag | null = null): number {
+  let count = 0;
+
+  if (!flag) {  
+    for (const cat of results) {
+      count += cat.size;
+    }
+
+    return count;
+  } else {
+    for (const cat of results) {
+      if (cat.size < 1) {
+        continue;
+      }
+
+      try {
+        for (const item of cat.values()) {
+          if (item === flag) {
+            count += 1;
+          }
+        }
+      } catch { continue; }
+    }
+  }
+
+  return count;
+}
+
+export function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackString: string | number): string {
+  const firstEntry = [ ...cat.keys() ][0];
+
+  return firstEntry
+    ? firstEntry.split('-')[0] ?? fallbackString.toString()
+    : fallbackString.toString();
+}
 
 export function getValidationStatus (guitar: Guitar | any): string {
   const validation =
@@ -70,21 +170,26 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
       idx++;
     }
   } else if (!isAcoustic(guitar) && !isWishlisted(guitar)) {
-    pickupResults.set('pickups', ValidationFlag.Critical);
+    pickupResults.set('pickups', ValidationFlag.Missing);
   }
 
   let caseResults = new Map<string, ValidationFlag>();
   if (guitar.case && !isArchived(guitar) && guitar.case.id) {
     caseResults = validateCase(guitar.case);
-  } else if (!isWishlisted(guitar)) {
-    caseResults.set('case', ValidationFlag.Critical);
+  } else if (!isWishlisted(guitar) 
+      && !isArchived(guitar)
+      && isDelivered(guitar)) {
+    caseResults.set('case', ValidationFlag.Missing);
   }
 
   let stringsResults = new Map<string, ValidationFlag>();
   if (guitar.strings && !isArchived(guitar) && guitar.strings.id) {
     stringsResults = validateStrings(guitar.strings);
-  } else if (!isWishlisted(guitar)) {
-    stringsResults.set('strings', ValidationFlag.Critical);
+  } else if (!isWishlisted(guitar) 
+      && isDelivered(guitar) 
+      && !isInProgress(guitar)
+      && !isArchived(guitar)) {
+    stringsResults.set('strings', ValidationFlag.Missing);
   }
 
   return [

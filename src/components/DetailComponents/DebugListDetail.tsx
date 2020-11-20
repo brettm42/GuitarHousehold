@@ -6,7 +6,11 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { ValidationFlag } from '../../infrastructure/shared';
 
-import { validate } from '../../data/guitarservice/validation';
+import { 
+  getValidationCount, 
+  getValidationPrefix, 
+  validate 
+} from '../../data/guitarservice/validation';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,36 +21,6 @@ const useStyles = makeStyles(() =>
     }
   }
 ));
-
-function getValidationCount(results: ReadonlyArray<Map<string, ValidationFlag>>, flag: ValidationFlag | null = null): number {
-  let count = 0;
-
-  if (!flag) {  
-    for (const cat of results) {
-      count += cat.size;
-    }
-
-    return count;
-  } else {
-    for (const cat of results) {
-      for (const item of cat.values()) {
-        if (item === flag) {
-          count += 1;
-        }
-      }
-    }
-  }
-
-  return count;
-}
-
-function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackString: string | number): string {
-  const firstEntry = [ ...cat.keys() ][0];
-
-  return firstEntry
-    ? firstEntry.split('-')[0] ?? fallbackString.toString()
-    : fallbackString.toString();
-}
 
 const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
@@ -68,14 +42,15 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
           <div>
             <p>{issueCount} issues for model:</p>
             <ul>
-              <li>{criticalCount} critical issues</li>
-              <li>{warningCount} warnings</li>
-              <li>{missingCount} missing properties</li>
-              <li>{optionalCount} missing optional properties</li>
+              <li key='critical'>{criticalCount} critical issues</li>
+              <li key='warning'>{warningCount} warnings</li>
+              <li key='missing'>{missingCount} missing properties</li>
+              <li key='optional'>{optionalCount} missing optional properties</li>
             </ul>
           </div>
         )
         : null}
+
       <hr />
 
       <div>
@@ -95,7 +70,9 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
           return null;
         })}
       </div>
+
       <hr />
+      
       <div className={classes.json}>
         <pre>{JSON.stringify(entry, undefined, 2)}</pre>
       </div>
