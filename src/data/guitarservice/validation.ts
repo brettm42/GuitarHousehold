@@ -35,7 +35,7 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
     let missingCases = 0;
     let missingPickups = 0;
     let pleaseUpdate = '';
-    
+
     for (const item of items) {
       if (!item || !item[1]) {
         continue;
@@ -45,13 +45,13 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
 
       const count = getValidationCount(validationMap, ValidationFlag.Critical);
       if (count > 0) {
-        pleaseCheck += `${name}, `
+        pleaseCheck += `${name}, `;
         criticalCount += count;
       }
 
       for (const entry of validationMap.values()) {
         let needsUpdate = false;
-        
+
         if (entry.has('pickups')) {
           missingItem++;
           missingPickups++;
@@ -84,7 +84,7 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
 export function getValidationCount(results: ReadonlyArray<Map<string, ValidationFlag>>, flag: ValidationFlag | null = null): number {
   let count = 0;
 
-  if (!flag) {  
+  if (!flag) {
     for (const cat of results) {
       count += cat.size;
     }
@@ -117,9 +117,9 @@ export function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackSt
     : fallbackString.toString();
 }
 
-export function getValidationStatus (guitar: Guitar | any): string {
+export function getValidationStatus(guitar: Guitar | any): string {
   const validation =
-    guitar.validation 
+    guitar.validation
       ? (guitar.validation as ReadonlyArray<Map<string, ValidationFlag>>)
       : validate(guitar);
 
@@ -144,7 +144,7 @@ export function getValidationStatus (guitar: Guitar | any): string {
         }
       }
     }
-  } catch {} 
+  } catch { }
 
   return (missing < 1 && warning < 1)
     ? 'Valid'
@@ -176,7 +176,7 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
   let caseResults = new Map<string, ValidationFlag>();
   if (guitar.case && !isArchived(guitar) && guitar.case.id) {
     caseResults = validateCase(guitar.case);
-  } else if (!isWishlisted(guitar) 
+  } else if (!isWishlisted(guitar)
       && !isArchived(guitar)
       && isDelivered(guitar)) {
     caseResults.set('case', ValidationFlag.Missing);
@@ -185,8 +185,8 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
   let stringsResults = new Map<string, ValidationFlag>();
   if (guitar.strings && !isArchived(guitar) && guitar.strings.id) {
     stringsResults = validateStrings(guitar.strings);
-  } else if (!isWishlisted(guitar) 
-      && isDelivered(guitar) 
+  } else if (!isWishlisted(guitar)
+      && isDelivered(guitar)
       && !isInProgress(guitar)
       && !isArchived(guitar)) {
     stringsResults.set('strings', ValidationFlag.Missing);
@@ -319,7 +319,7 @@ function validateGuitarId(guitar: Guitar): boolean {
 
   if (hasStrings(guitar)) {
     // Confirm strings starts with guitar ID
-    valid = guitar.strings!.id.toString().startsWith(id)
+    valid = guitar.strings!.id.toString().startsWith(id);
 
     // Confirm strings use last digit of ID and set to 9
     valid = guitar.strings!.id.toString().match(`^${id}0+?9$`) ? true : false;
