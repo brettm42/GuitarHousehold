@@ -12,7 +12,7 @@ export type DataListItemProps = {
 
 const DataListItem: React.FunctionComponent<DataListItemProps> = ({ data }) => (
   <Typography>
-    <Link href={`/detail?id=${data.id}`}>
+    <Link href={`/detail/${data.id}`}>
       <a>
         {data.id}: {data.name}
       </a>

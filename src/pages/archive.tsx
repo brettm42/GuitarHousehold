@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, GetStaticProps } from 'next';
 
 import GuitarList from '../components/GuitarList';
 
@@ -23,14 +23,18 @@ const ArchivePage: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-export async function getStaticProps() {
-  const items: Guitar[] = [...await findAllArchived(), ...await findAllSold()];
+export const getStaticProps: GetStaticProps = async () => {
+  const items: Guitar[] = 
+    [
+      ...await findAllArchived(), 
+      ...await findAllSold()
+    ];
 
   return {
     props: {
       items
     }
   };
-}
+};
 
 export default ArchivePage;

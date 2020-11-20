@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import * as Constants from '../infrastructure/constants';
-
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+
+import * as Constants from '../infrastructure/constants';
 
 import HouseholdGridList from '../components/HouseholdGridComponents/HouseholdGridList';
 import Layout from '../components/Layout';
 import Summary from '../components/SummaryComponents/Summary';
 
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
@@ -59,19 +59,7 @@ const IndexPage: NextPage<IndexProps> = ({ data, pathname }) => {
   );
 };
 
-// IndexPage.getInitialProps = async ({ pathname }) => {
-//   const data = [
-//     ...await findAllGuitars(),
-//     ...await findAllProjects(),
-//     ...await findAllInstruments()
-//   ];
-
-//   const isMobile = IsMobile();
-
-//   return { data, pathname, isMobile };
-// };
-
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const data = [
     ...await findAllGuitars(),
     ...await findAllProjects(),
@@ -83,6 +71,6 @@ export async function getStaticProps() {
       data
     }
   };
-}
+};
 
 export default IndexPage;

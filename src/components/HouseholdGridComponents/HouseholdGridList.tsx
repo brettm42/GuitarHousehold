@@ -95,7 +95,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
       <GridList cellHeight={imgHeight} cols={3} className={classes.gridList}>
         {guitars.map(guitar => (
           <GridListTile key={guitar.id} className={classes.gridListTile}>
-            <Link href={`/detail?id=${guitar.id}`}>
+            <Link href={`/detail/${guitar.id}`}>
               <a>
                 <div className={classes.imgBackground} aria-label={guitar.name}>
                   {guitar.picture
@@ -125,7 +125,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
       <GridList cellHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
         {guitars.map(guitar => (
           <GridListTile key={guitar.id} className={classes.gridListTileMobile}>
-            <Link href={`/detail?id=${guitar.id}`}>
+            <Link href={`/detail/${guitar.id}`}>
               <a>
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
                   {guitar.picture

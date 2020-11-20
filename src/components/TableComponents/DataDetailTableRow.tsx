@@ -35,7 +35,7 @@ const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ 
       </TableCell>
 
       <TableCell key={`${guitar.id}-name`}>
-        <Link href={`/detail?id=${guitar.id}`}>
+        <Link href={`/detail/${guitar.id}`}>
           <a>
             <Typography>
               {guitar.name}

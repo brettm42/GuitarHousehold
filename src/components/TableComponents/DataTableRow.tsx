@@ -43,7 +43,7 @@ const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
       </TableCell>
 
       <TableCell>
-        <Link href={`/detail?id=${item.id}`}>
+        <Link href={`/detail/${item.id}`}>
           <a>
             <Typography>
               {item.name}

@@ -58,7 +58,7 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
         {guitars.map(guitar => (
           <Grid item xs key={guitar.id} zeroMinWidth>
             <Paper className={classes.paper}>
-              <Link href={`/detail?id=${guitar.id}`}>
+              <Link href={`/detail/${guitar.id}`}>
                 <a>
                   <img className={classes.img} src={guitar.picture || ''} alt={guitar.name} />
                   <GridListTileBar

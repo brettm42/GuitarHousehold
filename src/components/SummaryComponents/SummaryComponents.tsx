@@ -57,10 +57,10 @@ const useStyles = makeStyles((theme: Theme) =>
     values: {},
     caseValues: {},
     timeline: {},
-    randomPickDiv: {
+    randomPick: {
       textAlign: 'center'
     },
-    randomPick: {
+    randomPickDesktop: {
       display: 'inline-block',
       margin: '0 auto',
       paddingTop: theme.spacing(1)
@@ -330,7 +330,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 
     return (
       <div>
-        <Link href={`/detail?id=${guitar.id}`}>
+        <Link href={`/detail/${guitar.id}`}>
           <a>
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
@@ -352,7 +352,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   }
 
   return (
-    <div className={classes.randomPickDiv}>
+    <div className={classes.randomPick}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {'Pick of the Day!'}
       </Typography>
@@ -360,7 +360,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ? <div className={classes.randomPickMobile}>
             {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
           </div>
-        : <div className={classes.randomPick}>
+        : <div className={classes.randomPickDesktop}>
             {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
           </div>}
     </div>
