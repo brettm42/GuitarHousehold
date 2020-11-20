@@ -1,9 +1,9 @@
 import { Project } from '../../interfaces/models/project';
 
-import { 
-  getGuitarCost, 
-  getPickupCount, 
-  getStringGauge 
+import {
+  getGuitarCost,
+  getPickupCount,
+  getStringGauge
 } from '../../data/guitarservice/guitarutils';
 
 export interface TableDataCell {

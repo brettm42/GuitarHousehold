@@ -45,7 +45,7 @@ export function isWishlisted(guitar: Guitar | Project): boolean {
   return !isProject(guitar) && !guitar.purchaseDate;
 }
 
-export function isArchived(guitar: Guitar |  Project): boolean {
+export function isArchived(guitar: Guitar | Project): boolean {
   return guitar && (guitar.archive ?? false);
 }
 
@@ -126,8 +126,7 @@ export function hasFactoryStrings(guitar: Guitar): boolean {
 }
 
 export function hasPurchasePrice(guitar: Guitar): boolean {
-  if (guitar.purchasePrice 
-      || (isProject(guitar) && guitar.purchaseComponentPrice)) {
+  if (guitar.purchasePrice || (isProject(guitar) && guitar.purchaseComponentPrice)) {
     return true;
   }
 
@@ -135,32 +134,30 @@ export function hasPurchasePrice(guitar: Guitar): boolean {
 }
 
 export function hasSold(guitar: Guitar): boolean {
-  return guitar && 
-    (guitar.soldDate 
-      ? guitar.soldDate !== '' 
-      : false);
+  return guitar
+    && (guitar.soldDate ? guitar.soldDate !== '' : false);
 }
 
 export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
   if (hasPurchasePrice(guitar)) {
     return CurrencyService.findCostToday(
-      Number.parseFloat(guitar.purchasePrice ?? '0'), 
-      guitar.purchaseDate ?? '')
-    .catch(() => {
-      return '';
-    })
-    .then(cost => {
-      if (!cost) {
+        Number.parseFloat(guitar.purchasePrice ?? '0'),
+        guitar.purchaseDate ?? '')
+      .catch(() => {
         return '';
-      }
-  
-      const costToday = Number.parseFloat(cost);
-      const currentDate = new Date(Date.now());
-  
-      return ` ($${roundToHundredths(costToday)} in ${currentDate.getFullYear()})`;
-    });
+      })
+      .then(cost => {
+        if (!cost) {
+          return '';
+        }
+
+        const costToday = Number.parseFloat(cost);
+        const currentDate = new Date(Date.now());
+
+        return ` ($${roundToHundredths(costToday)} in ${currentDate.getFullYear()})`;
+      });
   }
-  
+
   return '';
 }
 
@@ -276,7 +273,7 @@ export function getStringGauge(guitar: Guitar): string {
   if (!hasStrings(guitar)) {
     return defaultString;
   }
-  
+
   return guitar.strings?.gauge
     ? guitar.strings.gauge
     : unknownString;
@@ -286,7 +283,7 @@ function getStringAgeDuration(guitar: Guitar): number {
   if (!hasStrings(guitar)) {
     return 0;
   }
-  
+
   if (guitar.strings?.lastChangeDate) {
     return Date.now() - Date.parse(guitar.strings.lastChangeDate);
   } else if (hasFactoryStrings(guitar)) {
@@ -333,11 +330,11 @@ export function averageStringAge(guitars: ReadonlyArray<Guitar>): string {
 function getDeliveryTimeDuration(item: RetailItem): number {
   if (!item.deliveryDate
       || !item.purchaseDate
-      || item.deliveryDate === '' 
+      || item.deliveryDate === ''
       || item.purchaseDate === '') {
     return 0;
   }
-  
+
   return Date.parse(item.deliveryDate) - Date.parse(item.purchaseDate);
 }
 
@@ -547,7 +544,7 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     if (!hasStrings(guitar)) {
       continue;
     }
-    
+
     if (guitar.strings?.numberOfStrings === 12) {
       twelve += 1;
     } else if (guitar.strings?.numberOfStrings ?? 0 > 6) {
@@ -655,7 +652,7 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
     if (!hasCase(guitar) || !guitar.case?.caseStyle) {
       continue;
     }
-    
+
     if (guitar.case.caseStyle === 'Flat') {
       flat += 1;
     } else if (guitar.case.caseStyle === 'Arched') {
@@ -884,7 +881,7 @@ function getGuitarAgeDuration(guitar: Guitar | Project): number {
   if (isProject(guitar) && guitar.projectComplete) {
     return Date.now() - Date.parse(guitar.projectComplete);
   }
-  
+
   if (!isDelivered(guitar)) {
     return 0;
   }
@@ -944,7 +941,7 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
     if (!max) {
       max = guitar;
       maxDate = lastChangeDate;
-      
+
       continue;
     }
 
@@ -1026,11 +1023,11 @@ export function longestDelivery(guitars: ReadonlyArray<Guitar>): string {
 
     const deliveryLength =
       Date.parse(guitar.deliveryDate ?? Date.now().toString())
-        - Date.parse(guitar.purchaseDate);
+      - Date.parse(guitar.purchaseDate);
 
     if (!max) {
       max = guitar;
-      maxLength = deliveryLength;  
+      maxLength = deliveryLength;
 
       continue;
     }
@@ -1060,11 +1057,11 @@ export function longestProject(guitars: ReadonlyArray<Guitar>): string {
 
     const projectLength =
       Date.parse(guitar.projectComplete ?? Date.now().toString())
-        - Date.parse(guitar.projectStart);
+      - Date.parse(guitar.projectStart);
 
     if (!max) {
       max = guitar;
-      maxLength = projectLength;  
+      maxLength = projectLength;
 
       continue;
     }
@@ -1094,7 +1091,7 @@ export function shortestProject(guitars: ReadonlyArray<Guitar>): string {
 
     const projectLength =
       Date.parse(guitar.projectComplete ?? Date.now().toString())
-        - Date.parse(guitar.projectStart);
+      - Date.parse(guitar.projectStart);
 
     if (!min) {
       min = guitar;
@@ -1213,9 +1210,7 @@ export function leastExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
   let min;
   let price = minDefault;
   for (const guitar of guitars) {
-    if (!hasPurchasePrice(guitar) 
-        || !isProject(guitar)
-        || isInProgress(guitar)) {
+    if (!hasPurchasePrice(guitar) || !isProject(guitar) || isInProgress(guitar)) {
       continue;
     }
 
@@ -1335,8 +1330,7 @@ export function mostExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
   let max;
   let price = 0;
   for (const guitar of guitars) {
-    if (!hasPurchasePrice(guitar) 
-        || !isProject(guitar)) {
+    if (!hasPurchasePrice(guitar) || !isProject(guitar)) {
       continue;
     }
 
@@ -1400,7 +1394,7 @@ export function averageGuitarCost(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const purchases = 
+  const purchases =
     guitars.filter(guitar => isGuitar(guitar) && hasPurchasePrice(guitar));
 
   const averagePrice =
@@ -1418,7 +1412,7 @@ export function averageInstrumentCost(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const purchases = 
+  const purchases =
     guitars.filter(guitar => isInstrument(guitar) && hasPurchasePrice(guitar));
 
   const averagePrice =
@@ -1438,8 +1432,8 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
 
   const purchases =
     guitars.filter(
-      guitar => isProject(guitar) 
-        && !isInProgress(guitar) 
+      guitar => isProject(guitar)
+        && !isInProgress(guitar)
         && hasPurchasePrice(guitar));
 
   const averagePrice =
@@ -1457,7 +1451,7 @@ export function mostExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const cases = 
+  const cases =
     guitars
       .filter(guitar => hasCase(guitar))
       .map(g => g.case);
@@ -1491,7 +1485,7 @@ export function leastExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const cases = 
+  const cases =
     guitars
       .filter(guitar => hasCase(guitar))
       .map(g => g.case);
@@ -1545,7 +1539,7 @@ export function averageGuitarCostWithCase(guitars: ReadonlyArray<Guitar>): strin
     return defaultString;
   }
 
-  const purchases = 
+  const purchases =
     guitars.filter(guitar => isGuitar(guitar) && hasPurchasePrice(guitar));
 
   const averagePrice =

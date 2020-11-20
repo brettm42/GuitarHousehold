@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1, 0)
     }
   }
-));
+  ));
 
 const DebugDataListItem: React.FunctionComponent<DataListItemProps> = ({ data }) => {
   const classes = useStyles();
@@ -40,7 +40,7 @@ const DebugDataListItem: React.FunctionComponent<DataListItemProps> = ({ data })
       </div>
     );
   }
-  
+
   return (
     <div>
       <Typography>
@@ -51,7 +51,7 @@ const DebugDataListItem: React.FunctionComponent<DataListItemProps> = ({ data })
         </Link>
       </Typography>
     </div>
-  )
+  );
 };
 
 export default DebugDataListItem;

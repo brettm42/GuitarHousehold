@@ -58,8 +58,7 @@ const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ 
                   ? cell.formatter(guitar)
                   : guitar[cell.id]}
               </Typography>
-            </TableCell>
-      )}
+            </TableCell>)}
     </TableRow>
   );
 };

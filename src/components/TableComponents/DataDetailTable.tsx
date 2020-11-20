@@ -56,7 +56,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 );
 
 function getTableSorting<K extends keyof any>(order: Order, orderBy: K):
-    (a: { [key in K]: any }, b: { [key in K]: any }) => number {
+  (a: { [key in K]: any }, b: { [key in K]: any }) => number {
   return order === 'desc'
     ? (a, b) => isDescending(a, b, orderBy)
     : (a, b) => -isDescending(a, b, orderBy);
