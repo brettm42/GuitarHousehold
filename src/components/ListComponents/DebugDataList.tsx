@@ -7,7 +7,7 @@ import { summarizeValidation } from '../../data/guitarservice/validation';
 
 const DebugDataList: React.FunctionComponent<DataListProps> = ({ items }) => {
   const summary = summarizeValidation(
-    items.map(i => [i.name, i.validation || [] ]));
+    items.map(i => [ i.name, i.validation || [] ]));
 
   return (
     <div>

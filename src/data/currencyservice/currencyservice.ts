@@ -17,7 +17,7 @@ export async function findCostToday(cost: number, purchaseDate: string): Promise
   currentDate.setDate(0);
   currentDate.setDate(1);
 
-  const url = 
+  const url =
     `${blsCalculatorEndpoint}?cost1=${cost}`
     + `&year1=${parseDate.getFullYear()}${('0' + (parseDate.getMonth() + 1)).slice(-2)}`
     + `&year2=${currentDate.getFullYear()}${('0' + (currentDate.getMonth() + 1)).slice(-2)}`;

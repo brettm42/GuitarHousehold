@@ -101,14 +101,14 @@ function gridLineFormatter(line: [string, string | ReadonlyArray<string>], idx: 
       </Typography>
       {Array.isArray(line[1])
         ? <div className={classes.detailChildren}>
-            {line[1].map((i, idx) =>
-              <Typography key={idx} variant='caption' display='block'>
-                {i}
-              </Typography>)}
-          </div>
+          {line[1].map((i, idx) =>
+            <Typography key={idx} variant='caption' display='block'>
+              {i}
+            </Typography>)}
+        </div>
         : <Typography gutterBottom>
-            {line[1]}
-          </Typography>
+          {line[1]}
+        </Typography>
       }
     </Grid>);
 }
@@ -335,8 +335,8 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
               : <Typography variant='h4'>
-                  {Constants.ImagePlaceholder}
-                </Typography>}
+                {Constants.ImagePlaceholder}
+              </Typography>}
           </a>
         </Link>
         <div className={classes.randomPickCaption}>
@@ -358,11 +358,11 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       </Typography>
       {isMobile
         ? <div className={classes.randomPickMobile}>
-            {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
-          </div>
+          {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
+        </div>
         : <div className={classes.randomPickDesktop}>
-            {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
-          </div>}
+          {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
+        </div>}
     </div>
   );
 };
@@ -410,8 +410,8 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         ['Guitars per Year', GuitarUtils.guitarsPerYear(guitars)],
         ['Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars)],
         dividerPlaceholder,
-        notYetDelivered > 0 
-          ? ['Not Yet Delivered', `${notYetDelivered} instruments`] 
+        notYetDelivered > 0
+          ? ['Not Yet Delivered', `${notYetDelivered} instruments`]
           : ['', ''],
         ['Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars)]
       ]}

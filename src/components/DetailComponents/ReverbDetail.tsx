@@ -88,12 +88,12 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
                   : `Average Price: \$${averagePrice}`,
                 `Number of Active Listings: ${numberOfListings}`
               ]
-              .map((text, idx) => (
-                <Typography key={idx} gutterBottom>
-                  {text}
-                </Typography>
-              ))}
-            
+                .map((text, idx) => (
+                  <Typography key={idx} gutterBottom>
+                    {text}
+                  </Typography>
+                ))}
+
             <div className={classes.link}>
               <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
                 Search on Reverb.com - <a href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>

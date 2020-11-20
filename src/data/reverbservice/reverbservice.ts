@@ -9,7 +9,7 @@ let recentSearches: RecentSearches = {};
 let cacheHits = 0;
 
 interface RecentSearches {
-  [keywords: string]: Search
+  [keywords: string]: Search;
 }
 
 interface Search {
@@ -28,11 +28,11 @@ class Listing {
 
 function addRecentSearch(keywords: string, results: Listing[]) {
   recentSearches[keywords] =
-    {
-      keywords: keywords, 
-      date: Date.now(), 
-      results: results
-    };
+  {
+    keywords: keywords,
+    date: Date.now(),
+    results: results
+  };
 }
 
 function buildReverbRequestAsync(): RequestInit {
@@ -74,13 +74,12 @@ function parseReverbResponse(response: any): Listing {
 }
 
 async function fetchQueryKeywordsWithPageAsync(keywords: string, page: number | string) {
-  return await 
+  return await
     fetch(`${reverbApiEndpoint}/listings/all?query=${encodeURI(keywords)}&page=${page}`, buildReverbRequestAsync())
-    .catch(error => 
-      {
+      .catch(error => {
         throw new Error(`ReverbServiceError: ${error}`);
       })
-    .then(res => res ? res.json() : '');
+      .then(res => res ? res.json() : '');
 }
 
 export async function getRecentSearchCacheStatsAsync(): Promise<string> {
@@ -109,7 +108,7 @@ export async function parsedResponseJsonAsync(keywords: string) {
     return [];
   }
 
-  let listings = [ ...initialResponse.listings];
+  let listings = [ ...initialResponse.listings ];
   totalPages = initialResponse.total_pages;
 
   while (currentPage < totalPages && currentPage < maxPagesPerRequest) {
@@ -124,9 +123,9 @@ export async function parsedResponseJsonAsync(keywords: string) {
     currentPage = response.current_page;
   }
 
- addRecentSearch(
-   keywords, 
-   listings.map((response: any) => parseReverbResponse(response)));
+  addRecentSearch(
+    keywords,
+    listings.map((response: any) => parseReverbResponse(response)));
 
   return listings.map(
     (response: any) => {
@@ -156,7 +155,7 @@ export async function parsedResponseAsync(keywords: string): Promise<Listing[]> 
     return [];
   }
 
-  let listings = [ ...initialResponse.listings];
+  let listings = [ ...initialResponse.listings ];
   totalPages = initialResponse.total_pages;
 
   while (currentPage < totalPages && currentPage < maxPagesPerRequest) {
@@ -172,7 +171,7 @@ export async function parsedResponseAsync(keywords: string): Promise<Listing[]> 
   }
 
   addRecentSearch(
-    keywords, 
+    keywords,
     listings.map((response: any) => parseReverbResponse(response)));
 
   return listings
@@ -187,7 +186,7 @@ export async function averagePriceForKeywordsAsync(keywords: string): Promise<st
   }
 
   const average = results.reduce(
-      (a: number, i: Listing) => +a + +i.price, 0) 
+    (a: number, i: Listing) => +a + +i.price, 0)
     / results.length;
 
   return `${roundToHundredths(average)}`;

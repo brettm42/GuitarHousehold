@@ -6,10 +6,10 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import { ValidationFlag } from '../../infrastructure/shared';
 
-import { 
-  getValidationCount, 
-  getValidationPrefix, 
-  validate 
+import {
+  getValidationCount,
+  getValidationPrefix,
+  validate
 } from '../../data/guitarservice/validation';
 
 const useStyles = makeStyles(() =>
@@ -19,8 +19,7 @@ const useStyles = makeStyles(() =>
       overflowY: 'hidden',
       overflowX: 'scroll'
     }
-  }
-));
+  }));
 
 const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
@@ -37,7 +36,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
     <div>
       <h1>Debug {entry.id}</h1>
       <p>{entry.name}</p>
-      {issueCount > 0 
+      {issueCount > 0
         ? (
           <div>
             <p>{issueCount} issues for model:</p>
@@ -64,7 +63,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
                     <p>{JSON.stringify(i, undefined, 2)}</p>
                   );
                 })}
-              </div>)
+              </div>);
           }
 
           return null;
@@ -72,12 +71,12 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
       </div>
 
       <hr />
-      
+
       <div className={classes.json}>
         <pre>{JSON.stringify(entry, undefined, 2)}</pre>
       </div>
     </div>
   );
-}
+};
 
 export default DebugListDetail;

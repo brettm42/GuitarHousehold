@@ -70,10 +70,10 @@ export async function findWishlist(id: number | string, exhaustive: boolean = fa
 
 export async function findEverything(): Promise<Guitar[]> {
   return [
-    ... await findAllGuitars(), 
-    ... await findAllProjects(), 
-    ... await findAllInstruments(), 
-    ... await findAllArchived(), 
+    ... await findAllGuitars(),
+    ... await findAllProjects(),
+    ... await findAllInstruments(),
+    ... await findAllArchived(),
     ... await findAllWishlist(),
     ... await findAllSold()
   ];

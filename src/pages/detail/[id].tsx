@@ -32,8 +32,8 @@ class DetailPage extends React.Component<DetailPageProps> {
     }
 
     return (
-      <Layout 
-        title={buildPageTitle(item ? item.name : 'Details')} 
+      <Layout
+        title={buildPageTitle(item ? item.name : 'Details')}
         pathname={(isProject(item) ? 'project' : isInstrument(item) ? 'instrument' : 'guitar') + pathname}
       >
         <div>
@@ -51,7 +51,7 @@ class DetailPage extends React.Component<DetailPageProps> {
 export const getStaticPaths: GetStaticPaths = async () => {
   const items = await findEverything();
 
-  const paths = 
+  const paths =
     items.map((i: RetailItem) => (
       {
         params: { id: i.id.toString() }
@@ -78,17 +78,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const item = await find(Array.isArray(id) ? id[0] : id);
 
-    return { 
+    return {
       props: {
-        item: item, 
-        pathname: pathname, 
-        isMobile: isMobile 
+        item: item,
+        pathname: pathname,
+        isMobile: isMobile
       }
     };
   } catch (err) {
-    return { 
+    return {
       props: {
-        errors: err.message 
+        errors: err.message
       }
     };
   }
