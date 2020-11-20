@@ -23,12 +23,6 @@ const GuitarsPage: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-// GuitarsPage.getInitialProps = async ({ pathname }) => {
-//   const items: Guitar[] = await findAllGuitars();
-
-//   return { items, pathname };
-// };
-
 export async function getStaticProps() {
   const items: Guitar[] = await findAllGuitars();
 

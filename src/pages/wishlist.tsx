@@ -23,12 +23,6 @@ const WishlistPage: NextPage<PageProps> = ({ items, pathname }) => {
   />;
 };
 
-// WishlistPage.getInitialProps = async ({ pathname }) => {
-//   const items: Guitar[] = [...await findAllWishlist()];
-
-//   return { items, pathname };
-// };
-
 export async function getStaticProps() {
   const items: Guitar[] = [...await findAllWishlist()];
 
