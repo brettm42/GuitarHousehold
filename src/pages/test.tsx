@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     body2: {
       padding: theme.spacing(2)
     },
-    responseDiv: {
+    response: {
       padding: theme.spacing(2)
     }
   })
@@ -51,7 +51,7 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
         </Typography>
       </div>
 
-      <div className={classes.responseDiv}>
+      <div className={classes.response}>
         {responses?.map((response, idx) => (
           <div key={idx}>
             <Typography variant='caption' gutterBottom>

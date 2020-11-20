@@ -10,7 +10,7 @@ import { validate } from '../../data/guitarservice/validation';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    jsonDiv: {
+    json: {
       whiteSpace: 'nowrap',
       overflowY: 'hidden',
       overflowX: 'scroll'
@@ -96,7 +96,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
         })}
       </div>
       <hr />
-      <div className={classes.jsonDiv}>
+      <div className={classes.json}>
         <pre>{JSON.stringify(entry, undefined, 2)}</pre>
       </div>
     </div>

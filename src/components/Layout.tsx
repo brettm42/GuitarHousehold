@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
       overflowX: 'hidden'
     },
-    appBarDiv: {
+    appBar: {
       flexGrow: 1
     },
-    appBar: {
+    appBarElement: {
       background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
       color: 'white',
     },
@@ -203,8 +203,8 @@ export default function Layout(props: LayoutProps): React.ReactElement {
         <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
       </Head>
 
-      <div id='back-to-top-anchor' className={classes.appBarDiv}>
-        <AppBar position='absolute' className={classes.appBar}>
+      <div id='back-to-top-anchor' className={classes.appBar}>
+        <AppBar position='absolute' className={classes.appBarElement}>
           <Toolbar>
             <IconButton className={classes.menuButton}
               edge='start'

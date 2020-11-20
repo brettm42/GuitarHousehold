@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
     body: {
       padding: theme.spacing(0, 2)
     },
-    imgDiv: {
+    image: {
       padding: theme.spacing(2)
     },
-    image: {
+    img: {
       maxWidth: '90%',
       padding: theme.spacing(2)
     }
@@ -63,9 +63,9 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
         </Typography>
       </div>
 
-      <div className={classes.imgDiv}>
-        <img className={classes.image} src={Constants.AboutPageImg1} />
-        <img className={classes.image} src={Constants.AboutPageImg2} />
+      <div className={classes.image}>
+        <img className={classes.img} src={Constants.AboutPageImg1} />
+        <img className={classes.img} src={Constants.AboutPageImg2} />
       </div>
     </Layout>
   );
