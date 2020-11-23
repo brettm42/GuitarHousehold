@@ -102,7 +102,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} xs zeroMinWidth>
+        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} zeroMinWidth>
           <Accordion>
             <AccordionSummary id='casePanelJson-header' aria-controls='casePanelJson-content'>
               <Typography className={classes.heading}>Case JSON Data</Typography>

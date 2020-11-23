@@ -101,13 +101,15 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
             </div>
           </div>
         </Grid>
-      </Grid>
 
-      <div className={classes.footer}>
-        <Typography key={'reverb-plug'} variant='caption'>
-          {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
-        </Typography>
-      </div>
+        <Grid item>
+          <div className={classes.footer}>
+            <Typography key={'reverb-plug'} variant='caption'>
+              {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
+            </Typography>
+          </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -121,8 +121,8 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.neck
                 ? `Neck: ${guitar.neck}`
                 : null,
-              guitar.serialNumber 
-                ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})` 
+              guitar.serialNumber
+                ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
                 : null,
               guitar.pickguard
                 ? `Pickguard: ${guitar.pickguard}`
@@ -149,7 +149,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.hasBattery
                 ? `Has Battery: Yes`
                 : null
-              ]
+            ]
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}
@@ -165,9 +165,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
         </Grid>
 
         <Grid item zeroMinWidth xs={12} sm={6}>
-          <ImageComponent 
+          <ImageComponent
             imageSet={[guitar.picture].concat(guitar.additionalPictures)}
-            isMobile={isMobile} 
+            isMobile={isMobile}
             altText={guitar.name} />
         </Grid>
       </Grid>
@@ -237,7 +237,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       <Accordion className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
         <AccordionSummary id='projectPanelJson-header' aria-controls='projectPanelJson-content'>
           <Typography className={classes.heading}>
-          {`${GuitarUtils.isInstrument(guitar) ? 'Instrument' : 'Guitar'} JSON Data`}
+            {`${GuitarUtils.isInstrument(guitar) ? 'Instrument' : 'Guitar'} JSON Data`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>

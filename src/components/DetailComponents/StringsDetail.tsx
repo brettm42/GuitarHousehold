@@ -118,7 +118,7 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} xs zeroMinWidth>
+        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} zeroMinWidth>
           <Accordion>
             <AccordionSummary id='stringsPanelJson-header' aria-controls='stringsPanelJson-content'>
               <Typography className={classes.heading}>Strings JSON Data</Typography>

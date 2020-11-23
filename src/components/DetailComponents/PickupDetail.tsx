@@ -121,7 +121,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} xs zeroMinWidth>
+        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} zeroMinWidth>
           <Accordion>
             <AccordionSummary id='pickupPanelJson-header' aria-controls='pickupPanelJson-content'>
               <Typography className={classes.heading}>Pickup JSON Data</Typography>
