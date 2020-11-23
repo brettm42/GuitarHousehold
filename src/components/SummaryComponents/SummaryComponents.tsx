@@ -17,7 +17,7 @@ import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
 type SummaryComponentProps = {
   title: string;
-  contents: [string, string | ReadonlyArray<string>][];
+  contents: [ string, string | ReadonlyArray<string> ][];
   style: string;
 };
 
@@ -26,7 +26,7 @@ type SummaryComponentsProps = {
   isMobile: boolean;
 };
 
-const dividerPlaceholder: [string, string | readonly string[]] = ['*', '*'];
+const dividerPlaceholder: [ string, string | readonly string[] ] = [ '*', '*' ];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function gridLineFormatter(line: [string, string | ReadonlyArray<string>], idx: number, classes: any): JSX.Element {
+function gridLineFormatter(line: [ string, string | ReadonlyArray<string> ], idx: number, classes: any): JSX.Element {
   if (line === dividerPlaceholder || line[0].startsWith('*')) {
     return (
       <Grid item className={classes.detailDivider} key={idx} xs={12} zeroMinWidth>
@@ -101,14 +101,14 @@ function gridLineFormatter(line: [string, string | ReadonlyArray<string>], idx: 
       </Typography>
       {Array.isArray(line[1])
         ? <div className={classes.detailChildren}>
-          {line[1].map((i, idx) =>
-            <Typography key={idx} variant='caption' display='block'>
-              {i}
-            </Typography>)}
-        </div>
+            {line[1].map((i, idx) =>
+              <Typography key={idx} variant='caption' display='block'>
+                {i}
+              </Typography>)}
+          </div>
         : <Typography gutterBottom>
-          {line[1]}
-        </Typography>
+            {line[1]}
+          </Typography>
       }
     </Grid>);
 }
@@ -141,20 +141,20 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Most Common...'}
       contents={[
-        ['Make', GuitarUtils.mostCommonMake(guitars)],
-        ['Body', GuitarUtils.mostCommonBody(guitars)],
-        ['Color', GuitarUtils.mostCommonColor(guitars)],
-        ['Pickup', GuitarUtils.mostCommonPickupType(guitars)],
-        ['Number of Pickups', GuitarUtils.mostCommonPickupNumber(guitars)],
-        ['Tuning', GuitarUtils.mostCommonTuning(guitars)],
-        ['Scale Length', GuitarUtils.mostCommonScale(guitars)],
-        ['Nut Width', GuitarUtils.mostCommonNutWidth(guitars)],
-        ['Neck Radius', GuitarUtils.mostCommonNeckRadius(guitars)],
-        ['Frets', GuitarUtils.averageFrets(guitars)],
-        ['Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars)],
-        ['Case Style', GuitarUtils.mostCommonCaseStyle(guitars)],
-        ['Age', GuitarUtils.mostCommonAge(guitars)],
-        ['Store', GuitarUtils.mostCommonStore(guitars)]
+        [ 'Make', GuitarUtils.mostCommonMake(guitars)  ],
+        [ 'Body', GuitarUtils.mostCommonBody(guitars)  ],
+        [ 'Color', GuitarUtils.mostCommonColor(guitars) ],
+        [ 'Pickup', GuitarUtils.mostCommonPickupType(guitars) ],
+        [ 'Number of Pickups', GuitarUtils.mostCommonPickupNumber(guitars) ],
+        [ 'Tuning', GuitarUtils.mostCommonTuning(guitars) ],
+        [ 'Scale Length', GuitarUtils.mostCommonScale(guitars) ],
+        [ 'Nut Width', GuitarUtils.mostCommonNutWidth(guitars) ],
+        [ 'Neck Radius', GuitarUtils.mostCommonNeckRadius(guitars) ],
+        [ 'Frets', GuitarUtils.averageFrets(guitars) ],
+        [ 'Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars) ],
+        [ 'Case Style', GuitarUtils.mostCommonCaseStyle(guitars) ],
+        [ 'Age', GuitarUtils.mostCommonAge(guitars) ],
+        [ 'Store', GuitarUtils.mostCommonStore(guitars) ]
       ]}
       style={classes.mostCommon} />
   );
@@ -166,7 +166,6 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
   const classes = useStyles();
 
   const data = guitars.filter(g => !GuitarUtils.hasCase(g));
-
   if (!data || data.length < 1) {
     return null;
   }
@@ -187,7 +186,6 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
   const classes = useStyles();
 
   const data = guitars.filter(g => GuitarUtils.isInProgress(g));
-
   if (!data || data.length < 1) {
     return null;
   }
@@ -211,18 +209,18 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Outliers:'}
       contents={[
-        ['Oldest', GuitarUtils.oldestGuitar(guitars)],
-        ['Newest', GuitarUtils.newestGuitar(guitars)],
-        ['Most Pickups', GuitarUtils.mostPickups(guitars)],
-        ['Most Modifications', GuitarUtils.mostModifications(guitars)],
-        ['Most Controls', GuitarUtils.mostControls(guitars)],
-        ['Most Frets', GuitarUtils.mostFrets(guitars)],
-        ['Least Frets', GuitarUtils.leastFrets(guitars)],
+        [ 'Oldest', GuitarUtils.oldestGuitar(guitars) ],
+        [ 'Newest', GuitarUtils.newestGuitar(guitars) ],
+        [ 'Most Pickups', GuitarUtils.mostPickups(guitars) ],
+        [ 'Most Modifications', GuitarUtils.mostModifications(guitars) ],
+        [ 'Most Controls', GuitarUtils.mostControls(guitars) ],
+        [ 'Most Frets', GuitarUtils.mostFrets(guitars) ],
+        [ 'Least Frets', GuitarUtils.leastFrets(guitars) ],
         dividerPlaceholder,
-        ['Longest Project', GuitarUtils.longestProject(guitars)],
-        ['Shortest Project', GuitarUtils.shortestProject(guitars)],
+        [ 'Longest Project', GuitarUtils.longestProject(guitars) ],
+        [ 'Shortest Project', GuitarUtils.shortestProject(guitars) ],
         dividerPlaceholder,
-        ['Longest Delivery', GuitarUtils.longestDelivery(guitars)]
+        [ 'Longest Delivery', GuitarUtils.longestDelivery(guitars) ]
       ]}
       style={classes.outliers} />
   );
@@ -237,21 +235,21 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Values:'}
       contents={[
-        ['Cheapest', GuitarUtils.leastExpensiveGuitar(guitars)],
-        ['with case', GuitarUtils.leastExpensiveGuitarWithCase(guitars)],
-        ['Most Expensive', GuitarUtils.mostExpensiveGuitar(guitars)],
-        ['with case', GuitarUtils.mostExpensiveGuitarWithCase(guitars)],
-        ['Average Cost', `${GuitarUtils.averageGuitarCost(guitars)} (average with case ${GuitarUtils.averageGuitarCostWithCase(guitars)})`],
+        [ 'Cheapest', GuitarUtils.leastExpensiveGuitar(guitars) ],
+        [ 'with case', GuitarUtils.leastExpensiveGuitarWithCase(guitars) ],
+        [ 'Most Expensive', GuitarUtils.mostExpensiveGuitar(guitars) ],
+        [ 'with case', GuitarUtils.mostExpensiveGuitarWithCase(guitars) ],
+        [ 'Average Cost', `${GuitarUtils.averageGuitarCost(guitars)} (average with case ${GuitarUtils.averageGuitarCostWithCase(guitars)})` ],
         dividerPlaceholder,
-        ['Least Expensive Instrument', GuitarUtils.leastExpensiveInstrument(guitars)],
-        ['Most Expensive Instrument', GuitarUtils.mostExpensiveInstrument(guitars)],
-        ['Average Instrument Cost', GuitarUtils.averageInstrumentCost(guitars)],
+        [ 'Least Expensive Instrument', GuitarUtils.leastExpensiveInstrument(guitars) ],
+        [ 'Most Expensive Instrument', GuitarUtils.mostExpensiveInstrument(guitars) ],
+        [ 'Average Instrument Cost', GuitarUtils.averageInstrumentCost(guitars) ],
         dividerPlaceholder,
-        ['Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars)],
-        ['Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars)],
-        ['Average Project Cost', GuitarUtils.averageProjectCost(guitars)],
+        [ 'Least Expensive Project', GuitarUtils.leastExpensiveProject(guitars) ],
+        [ 'Most Expensive Project', GuitarUtils.mostExpensiveProject(guitars) ],
+        [ 'Average Project Cost', GuitarUtils.averageProjectCost(guitars) ],
         dividerPlaceholder,
-        ['Household Total', `${GuitarUtils.getHouseholdCost(guitars)} (with cases ${GuitarUtils.getHouseholdCostWithCases(guitars)})`],
+        [ 'Household Total', `${GuitarUtils.getHouseholdCost(guitars)} (with cases ${GuitarUtils.getHouseholdCostWithCases(guitars)})` ]
       ]}
       style={classes.values} />
   );
@@ -266,13 +264,13 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Case/Pickup Values:'}
       contents={[
-        ['Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars)],
-        ['Cheapest Case', GuitarUtils.leastExpensiveCase(guitars)],
-        ['Average Case Cost', GuitarUtils.averageCaseCost(guitars)],
+        [ 'Most Expensive Case', GuitarUtils.mostExpensiveCase(guitars) ],
+        [ 'Cheapest Case', GuitarUtils.leastExpensiveCase(guitars) ],
+        [ 'Average Case Cost', GuitarUtils.averageCaseCost(guitars) ],
         dividerPlaceholder,
-        ['Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars)],
-        ['Cheapest Pickup', GuitarUtils.leastExpensivePickup(guitars)],
-        ['Average Pickup Cost', GuitarUtils.averagePickupCost(guitars)]
+        [ 'Most Expensive Pickup', GuitarUtils.mostExpensivePickup(guitars) ],
+        [ 'Cheapest Pickup', GuitarUtils.leastExpensivePickup(guitars) ],
+        [ 'Average Pickup Cost', GuitarUtils.averagePickupCost(guitars) ]
       ]}
       style={classes.caseValues} />
   );
@@ -287,13 +285,13 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Pickups:'}
       contents={[
-        ['Most Common Size', GuitarUtils.mostCommonPickupSize(guitars)],
-        ['Most Common Type', GuitarUtils.mostCommonPickupType(guitars)],
-        ['Most Common Mount', GuitarUtils.mostCommonPickupMount(guitars)],
-        ['Most Common Magnet Type', GuitarUtils.mostCommonPickupMagnetType(guitars)],
-        ['Highest Output', GuitarUtils.highestPickup(guitars)],
-        ['Lowest Output', GuitarUtils.lowestPickup(guitars)],
-        ['Average Output', GuitarUtils.averagePickup(guitars)]
+        [ 'Most Common Size', GuitarUtils.mostCommonPickupSize(guitars) ],
+        [ 'Most Common Type', GuitarUtils.mostCommonPickupType(guitars) ],
+        [ 'Most Common Mount', GuitarUtils.mostCommonPickupMount(guitars) ],
+        [ 'Most Common Magnet Type', GuitarUtils.mostCommonPickupMagnetType(guitars) ],
+        [ 'Highest Output', GuitarUtils.highestPickup(guitars) ],
+        [ 'Lowest Output', GuitarUtils.lowestPickup(guitars) ],
+        [ 'Average Output', GuitarUtils.averagePickup(guitars) ]
       ]}
       style={classes.pickups} />
   );
@@ -308,11 +306,11 @@ const StringsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Strings:'}
       contents={[
-        ['On Most Guitars', GuitarUtils.mostCommonStrings(guitars)],
-        ['Most Common Gauge', GuitarUtils.mostCommonStringGauge(guitars)],
-        ['Average String Age', GuitarUtils.averageStringAge(guitars)],
-        ['Oldest Strings', GuitarUtils.oldestStrings(guitars)],
-        ['Newest Strings', GuitarUtils.newestStrings(guitars)]
+        [ 'On Most Guitars', GuitarUtils.mostCommonStrings(guitars) ],
+        [ 'Most Common Gauge', GuitarUtils.mostCommonStringGauge(guitars) ],
+        [ 'Average String Age', GuitarUtils.averageStringAge(guitars) ],
+        [ 'Oldest Strings', GuitarUtils.oldestStrings(guitars) ],
+        [ 'Newest Strings', GuitarUtils.newestStrings(guitars) ]
       ]}
       style={classes.strings} />
   );
@@ -335,8 +333,8 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
             {guitar.picture
               ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
               : <Typography variant='h4'>
-                {Constants.ImagePlaceholder}
-              </Typography>}
+                  {Constants.ImagePlaceholder}
+                </Typography>}
           </a>
         </Link>
         <div className={classes.randomPickCaption}>
@@ -358,11 +356,11 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
       </Typography>
       {isMobile
         ? <div className={classes.randomPickMobile}>
-          {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
-        </div>
+            {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
+          </div>
         : <div className={classes.randomPickDesktop}>
-          {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
-        </div>}
+            {buildGuitarGrid(GuitarUtils.randomPick(guitars))}
+          </div>}
     </div>
   );
 };
@@ -376,18 +374,18 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Breakdown:'}
       contents={[
-        ['Acoustic vs. Electric', GuitarUtils.acousticVsElectric(guitars)],
-        ['Factory vs. Project', GuitarUtils.factoryVsProject(guitars)],
-        ['Sunburst vs. Other Color', GuitarUtils.sunburstVsColor(guitars)],
-        ['6 String vs. 12 String', GuitarUtils.sixStringVs12string(guitars)],
-        ['Jazzmaster vs. Other Style', GuitarUtils.styleVsOtherStyle('Jazzmaster', guitars)],
-        ['Hollowbody vs. Other Style', GuitarUtils.styleVsOtherStyle('Hollowbody', guitars)],
-        ['Tremolo vs. Fixed', GuitarUtils.tremoloVsFixed(guitars)],
-        ['Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars)],
-        ['Swapped vs. Stock Pickups', GuitarUtils.swappedVsFactoryPickups(guitars)],
-        ['Flat vs. Arched Case', GuitarUtils.flatVsArchedCase(guitars)],
-        ['Has Battery vs. Not', GuitarUtils.hasBatteryVsNot(guitars)],
-        ['Bolt-On vs. Set Neck', GuitarUtils.boltOnVsSetNeck(guitars)]
+        [ 'Acoustic vs. Electric', GuitarUtils.acousticVsElectric(guitars) ],
+        [ 'Factory vs. Project', GuitarUtils.factoryVsProject(guitars) ],
+        [ 'Sunburst vs. Other Color', GuitarUtils.sunburstVsColor(guitars) ],
+        [ '6 String vs. 12 String', GuitarUtils.sixStringVs12string(guitars) ],
+        [ 'Jazzmaster vs. Other Style', GuitarUtils.styleVsOtherStyle('Jazzmaster', guitars) ],
+        [ 'Hollowbody vs. Other Style', GuitarUtils.styleVsOtherStyle('Hollowbody', guitars) ],
+        [ 'Tremolo vs. Fixed', GuitarUtils.tremoloVsFixed(guitars) ],
+        [ 'Humbucker vs. Single Coil', GuitarUtils.humbuckerVsSingleCoil(guitars) ],
+        [ 'Swapped vs. Stock Pickups', GuitarUtils.swappedVsFactoryPickups(guitars) ],
+        [ 'Flat vs. Arched Case', GuitarUtils.flatVsArchedCase(guitars) ],
+        [ 'Has Battery vs. Not', GuitarUtils.hasBatteryVsNot(guitars) ],
+        [ 'Bolt-On vs. Set Neck', GuitarUtils.boltOnVsSetNeck(guitars) ]
       ]}
       style={classes.breakdown} />
   );
@@ -403,17 +401,17 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Timeline:'}
       contents={[
-        ['Average per Year', `${GuitarUtils.averageGuitarPerYear(guitars)} guitars`],
-        ['Most Guitars Acquired', GuitarUtils.mostGuitarsInAYear(guitars)],
-        ['Most Cases Acquired', GuitarUtils.mostCasesInAYear(guitars)],
-        ['Guitars This Year', GuitarUtils.guitarsThisYear(guitars)],
-        ['Guitars per Year', GuitarUtils.guitarsPerYear(guitars)],
-        ['Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars)],
+        [ 'Average per Year', `${GuitarUtils.averageGuitarPerYear(guitars)} guitars` ],
+        [ 'Most Guitars Acquired', GuitarUtils.mostGuitarsInAYear(guitars) ],
+        [ 'Most Cases Acquired', GuitarUtils.mostCasesInAYear(guitars) ],
+        [ 'Guitars This Year', GuitarUtils.guitarsThisYear(guitars) ],
+        [ 'Guitars per Year', GuitarUtils.guitarsPerYear(guitars) ],
+        [ 'Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars) ],
         dividerPlaceholder,
         notYetDelivered > 0
-          ? ['Not Yet Delivered', `${notYetDelivered} instruments`]
-          : ['', ''],
-        ['Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars)]
+          ? [ 'Not Yet Delivered', `${notYetDelivered} instruments` ]
+          : [ '', '' ],
+        [ 'Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars) ]
       ]}
       style={classes.timeline} />
   );
