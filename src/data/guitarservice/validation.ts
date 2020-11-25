@@ -340,7 +340,7 @@ function validateGuitarId(guitar: Guitar): boolean {
     result.valid = guitar.case!.id.toString().startsWith(id);
 
     // Confirm case ends with 100
-    result.valid = guitar.case!.id.toString().match(`^${id}[0-9]?100`) ? true : false;
+    result.valid = guitar.case!.id.toString().match(`^${id}[0-9]?100$`) ? true : false;
   }
 
   if (hasStrings(guitar)) {
