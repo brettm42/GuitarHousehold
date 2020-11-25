@@ -60,7 +60,7 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
                 <p>{getValidationPrefix(t, idx)}</p>
                 {[ ...t ].map(i => {
                   return (
-                    <p>{JSON.stringify(i, undefined, 2)}</p>
+                    <p key={idx}>{JSON.stringify(i, undefined, 2)}</p>
                   );
                 })}
               </div>);

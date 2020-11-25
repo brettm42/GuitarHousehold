@@ -27,7 +27,7 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
   }
 
   try {
-    let preamble = `${items.length} items checked!`;
+    let preamble = `${items.length} items evaluated`;
     let criticalCount = 0;
     let pleaseCheck = '';
     let missingItem = 0;
@@ -303,26 +303,52 @@ function validateGuitarId(guitar: Guitar): boolean {
     return false;
   }
 
-  let valid = true;
+  class Evaluation {
+    private _valid = true;
+    private _category = ''
+
+    public get valid() {
+      return this._valid;
+    }
+
+    public get category() {
+      return this._category;
+    }
+
+    public set valid(result: boolean) {
+      if (result === false) {
+        this._valid = false;
+      }
+    }
+
+    public set category(result: string) {
+      this._category += `${result}, `;
+    }
+  }
+
+  let result = new Evaluation();
   const id = guitar.id.toString().substring(0, 2);
 
+  // ID must be numeric
+  result.valid = id.match('[0-9]+') ? true : false;
+
   // Guitar ID must match xx0000
-  valid = guitar.id.toString().match(`^${id}0+$`) ? true : false;
+  result.valid = guitar.id.toString().match(`^${id}0+$`) ? true : false;
 
   if (hasCase(guitar)) {
     // Confirm case starts with guitar ID
-    valid = guitar.case!.id.toString().startsWith(id);
+    result.valid = guitar.case!.id.toString().startsWith(id);
 
-    // Confirm case uses 2nd from last set of digits
-    valid = guitar.case!.id.toString().match(`^${id}0+?100`) ? true : false;
+    // Confirm case ends with 100
+    result.valid = guitar.case!.id.toString().match(`^${id}[0-9]?100`) ? true : false;
   }
 
   if (hasStrings(guitar)) {
     // Confirm strings starts with guitar ID
-    valid = guitar.strings!.id.toString().startsWith(id);
+    result.valid = guitar.strings!.id.toString().startsWith(id);
 
-    // Confirm strings use last digit of ID and set to 9
-    valid = guitar.strings!.id.toString().match(`^${id}0+?9$`) ? true : false;
+    // Confirm strings end with 9
+    result.valid = guitar.strings!.id.toString().match(`^${id}0+9$`) ? true : false;
   }
 
   if (hasPickups(guitar)) {
@@ -331,12 +357,12 @@ function validateGuitarId(guitar: Guitar): boolean {
       const pickupId = (guitar.pickups ?? [])[idx].id.toString();
 
       // Confirm each pickup starts with guitar ID
-      valid = pickupId.startsWith(id);
+      result.valid = pickupId.startsWith(id);
 
-      // Confirm pickup uses last two digits of the ID
-      valid = pickupId.match(`^${id}.+1${idx}$`) ? true : false;
+      // Confirm pickup increments ID in last two digits with a preceeding 1
+      result.valid = pickupId.match(`^${id}[0-9]+1${idx}$`) ? true : false;
     }
   }
 
-  return valid;
+  return result.valid;
 }
