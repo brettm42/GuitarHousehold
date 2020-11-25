@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2)
     },
     footer: {
-      paddingTop: theme.spacing(4)
+      paddingTop: theme.spacing(2)
     }
   })
 );
@@ -73,7 +73,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
-        <Grid item zeroMinWidth xs sm={6}>
+        <Grid item zeroMinWidth xs={12} sm={6}>
           <div className={classes.title}>
             <Typography variant='h5' gutterBottom>
               Now on Reverb:
@@ -102,7 +102,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item>
+        <Grid item xs={12}>
           <div className={classes.footer}>
             <Typography key={'reverb-plug'} variant='caption'>
               {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}

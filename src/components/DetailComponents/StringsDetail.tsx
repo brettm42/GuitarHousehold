@@ -61,7 +61,7 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
-        <Grid item zeroMinWidth xs sm={6}>
+        <Grid item zeroMinWidth xs={12} sm={6}>
           <Typography variant='h6' gutterBottom>
             {strings.name}
           </Typography>
@@ -118,7 +118,8 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
           </div>
         </Grid>
 
-        <Grid item className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander} zeroMinWidth>
+        <Grid item zeroMinWidth xs={12} sm={6}
+            className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
           <Accordion>
             <AccordionSummary id='stringsPanelJson-header' aria-controls='stringsPanelJson-content'>
               <Typography className={classes.heading}>Strings JSON Data</Typography>
