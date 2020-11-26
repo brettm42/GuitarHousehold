@@ -87,6 +87,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function gridLineFormatter(line: [ string, string | ReadonlyArray<string> ], idx: number, classes: any): JSX.Element {
+  if (line[0] === '') {
+    return <div />;
+  }
+
   if (line === dividerPlaceholder || line[0].startsWith('*')) {
     return (
       <Grid item className={classes.detailDivider} key={idx} xs={12} zeroMinWidth>
@@ -120,7 +124,7 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
 }) => {
   const classes = useStyles();
 
-  if ((!title && !contents) || contents[0][0] === '') {
+  if (!title && !contents) {
     return null;
   }
 
