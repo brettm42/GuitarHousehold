@@ -120,6 +120,10 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
 }) => {
   const classes = useStyles();
 
+  if ((!title && !contents) || contents[0][0] === '') {
+    return null;
+  }
+
   return (
     <div className={style}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
