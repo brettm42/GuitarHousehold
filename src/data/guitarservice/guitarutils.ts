@@ -1875,52 +1875,82 @@ export function summarizeConstruction(guitar: Guitar): string {
     return '';
   }
 
-  return `${guitar.construction.topMaterial ? `${guitar.construction.topMaterial} top, ` : ''}`
-    + (`${guitar.construction.backMaterial ? `${guitar.construction.backMaterial} back, ` : ''}`
+  let veneer = '';
+  if (guitar.construction.bodyMaterial && (guitar.construction.topMaterial || guitar.construction.backMaterial)) {
+    veneer = 
+      `${guitar.construction.topMaterial ? `${guitar.construction.topMaterial} top veneer, `: ''}` 
+      + `${guitar.construction.backMaterial ? `${guitar.construction.backMaterial} back veneer, `: ''}`;
+  }
+
+  return `${guitar.construction.bodyMaterial ? `${guitar.construction.bodyMaterial} body, ` : ''}`
+    + `${!veneer && guitar.construction.topMaterial ? `${guitar.construction.topMaterial} top, ` : ''}`
+    + (`${veneer ? veneer : ''}`
+    + `${!veneer && guitar.construction.backMaterial ? `${guitar.construction.backMaterial} back, ` : ''}`
     + `${guitar.construction.sidesMaterial ? `${guitar.construction.sidesMaterial} sides, ` : ''}`
-    + `${guitar.construction.bodyMaterial ? `${guitar.construction.bodyMaterial} body, ` : ''}`
     + `${guitar.construction.neckMaterial ? `${guitar.construction.neckMaterial} neck, ` : ''}`
     + `${guitar.construction.fingerboardMaterial ? `${guitar.construction.fingerboardMaterial} fingerboard` : ''}`).toLocaleLowerCase();
 }
 
 function getColorMapping(color: string): string {
   const mapping: { [key: string]: string; } = {
-    'Shoreline Gold': 'Gold',
-    'Red Stain Brown': 'Red',
+    // Sunburst variants
     'Tobacco Burst': 'Sunburst',
-    'Sunrise Orange': 'Orange',
-    'Candy Apple Red': 'Red',
     'Honeyburst': 'Sunburst',
-    'Sonic Blue': 'Blue',
-    'Butterscotch': 'Natural',
-    'Sherwood Green': 'Green',
-    'Mahogany': 'Natural',
-    'Metallic Gold': 'Gold',
-    'Vintage Natural': 'Natural',
-    'Vintage Green': 'Green',
-    'Powder Blue': 'Blue',
-    'Metallic Teal': 'Blue',
-    'Surf Green': 'Green',
-    'Ice Blue Metallic': 'Blue',
     'Vintage Sunburst': 'Sunburst',
-    'Cobalt Blue Metallic': 'Blue',
-    'Old Army Green': 'Green',
-    'Purple Haze Metalflake': 'Purple',
-    'Aztec Gold Metalflake': 'Gold',
-    'Olympic White': 'White',
-    'TV Yellow': 'Yellow',
-    'Seafoam Green': 'Green',
-    'Antique Cherry': 'Red',
-    'Lake Placid Blue': 'Blue',
-    'Classic': 'Natural',
     'Copperburst': 'Sunburst',
-    'Rocket Red': 'Red',
+
+    // Natural variants
+    'Butterscotch': 'Natural',
+    'Vintage Natural': 'Natural',
     'Walnut': 'Natural',
-    'Rose Gold Metallic': 'Pink',
-    'Shell Pink': 'Pink',
+    'Varnish': "Natural",
+    'Classic': 'Natural',
+    'Mahogany': 'Natural',
+
+    // Green variants
+    'Sherwood Green': 'Green',
+    'Vintage Green': 'Green',
+    'Surf Green': 'Green',
+    'Old Army Green': 'Green',
+    'Seafoam Green': 'Green',
+
+    // Red variants
+    'Red Stain Brown': 'Red',
+    'Candy Apple Red': 'Red',
+    'Rocket Red': 'Red',
+    'Antique Cherry': 'Red',
     'Fiesta Red': 'Red',
     'Redburst': 'Red',
-    'Vintage Wine Metallic': 'Red'
+    'Vintage Wine Metallic': 'Red',
+
+    // Blue variants
+    'Sonic Blue': 'Blue',
+    'Powder Blue': 'Blue',
+    'Lake Placid Blue': 'Blue',
+    'Metallic Teal': 'Blue',
+    'Ice Blue Metallic': 'Blue',
+    'Cobalt Blue Metallic': 'Blue',
+
+    // Gold variants
+    'Shoreline Gold': 'Gold',
+    'Metallic Gold': 'Gold',
+    'Aztec Gold Metalflake': 'Gold',
+
+    // Orange variants
+    'Sunrise Orange': 'Orange',
+    
+    // Purple variants
+    'Purple Haze Metalflake': 'Purple',
+    
+    // White variants
+    'Olympic White': 'White',
+
+    // Yellow variants
+    'TV Yellow': 'Yellow',
+    
+    // Pink variants
+    'Rose Gold Metallic': 'Pink',
+    'Shell Pink': 'Pink'
   };
 
   if (!color) {

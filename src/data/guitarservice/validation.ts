@@ -28,13 +28,13 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
 
   try {
     let preamble = `${items.length} items evaluated`;
-    let criticalCount = 0;
     let pleaseCheck = '';
+    let pleaseUpdate = '';
+    let criticalCount = 0;
     let missingItem = 0;
     let missingStrings = 0;
     let missingCases = 0;
     let missingPickups = 0;
-    let pleaseUpdate = '';
 
     for (const item of items) {
       if (!item || !item[1]) {
@@ -208,7 +208,7 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.model) { result.set(`${prefix}-model`, ValidationFlag.Missing); }
   if (!guitar.series) { result.set(`${prefix}-series`, ValidationFlag.Missing); }
   if (!guitar.serialNumber) { result.set(`${prefix}-serialNumber`, ValidationFlag.Missing); }
-  if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Missing); }
+  if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Critical); }
   if (!guitar.bodyStyle) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
   if (!guitar.color) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
   if (!guitar.tremolo) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }
@@ -223,6 +223,7 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
   if (!guitar.controls) { result.set(`${prefix}-controls`, ValidationFlag.Missing); }
   if (!guitar.hasBattery) { result.set(`${prefix}-hasBattery`, ValidationFlag.Missing); }
+  if (!guitar.construction) { result.set(`${prefix}-construction`, ValidationFlag.Missing); }
 
   if (!validateGuitarId(guitar)) { result.set(`${prefix}-id`, ValidationFlag.Critical); }
 
