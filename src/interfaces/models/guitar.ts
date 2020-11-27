@@ -1,4 +1,5 @@
 import { Case } from './case';
+import { Construction } from './construction';
 import { Pickup } from './pickup';
 import { Strings } from './strings';
 import {
@@ -25,11 +26,12 @@ export interface Guitar extends RetailItem {
   readonly tuning?: string;
   readonly neckRadius?: string;
   readonly nutWidth?: string;
-  readonly picture?: string;
-  readonly additionalPictures?: ReadonlyArray<string>;
-  readonly modifications?: ReadonlyArray<string>;
-  readonly controls?: ReadonlyArray<string>;
   readonly hasBattery?: boolean;
   readonly neckBoltOn?: boolean;
-  isInstrument?: boolean;
+  readonly isInstrument?: boolean;
+  readonly construction?: Construction;
+  readonly picture?: string;
+  readonly additionalPictures?: ReadonlyArray<string>;
+  readonly controls?: ReadonlyArray<string>;
+  readonly modifications?: ReadonlyArray<string>;
 }
