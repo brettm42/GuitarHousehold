@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 function gridLineFormatter(line: [ string, string | ReadonlyArray<string> ], idx: number, classes: any): JSX.Element {
   if (line[0] === '') {
-    return <div />;
+    return <div key={idx} />;
   }
 
   if (line === dividerPlaceholder || line[0].startsWith('*')) {

@@ -1870,6 +1870,19 @@ export function summarizePickups(guitar: Guitar): string {
     : `${pickupCount} ${types.join(', ').toLocaleLowerCase()} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
 
+export function summarizeConstruction(guitar: Guitar): string {
+  if (!guitar.construction) {
+    return '';
+  }
+
+  return `${guitar.construction.topMaterial ? `${guitar.construction.topMaterial} top, ` : ''}`
+    + (`${guitar.construction.backMaterial ? `${guitar.construction.backMaterial} back, ` : ''}`
+    + `${guitar.construction.sidesMaterial ? `${guitar.construction.sidesMaterial} sides, ` : ''}`
+    + `${guitar.construction.bodyMaterial ? `${guitar.construction.bodyMaterial} body, ` : ''}`
+    + `${guitar.construction.neckMaterial ? `${guitar.construction.neckMaterial} neck, ` : ''}`
+    + `${guitar.construction.fingerboardMaterial ? `${guitar.construction.fingerboardMaterial} fingerboard` : ''}`).toLocaleLowerCase();
+}
+
 function getColorMapping(color: string): string {
   const mapping: { [key: string]: string; } = {
     'Shoreline Gold': 'Gold',

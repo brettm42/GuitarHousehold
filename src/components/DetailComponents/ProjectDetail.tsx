@@ -40,7 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 500
     },
     summary: {
-      paddingBottom: theme.spacing(2)
+      paddingBottom: theme.spacing(2),
+      '& h6:last-of-type': {
+        paddingTop: theme.spacing(2)
+      }
     },
     json: {
       whiteSpace: 'nowrap',
@@ -67,19 +70,31 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
   const classes = useStyles();
 
   const projectSummary = (
-    <div>
+    <div className={classes.summary}>
       {guitar.description
         ? <div>
-            <Typography variant='subtitle2' gutterBottom>
+            <Typography variant='subtitle1' gutterBottom>
               {GuitarUtils.summarizeGuitar(guitar)}
             </Typography>
-            <Typography className={classes.summary} variant='subtitle2' gutterBottom>
+            <Typography variant='subtitle1' gutterBottom>
               {guitar.description}
             </Typography>
+            {guitar.construction 
+              ? <Typography variant='subtitle2' gutterBottom>
+                  {GuitarUtils.summarizeConstruction(guitar)}
+                </Typography>
+              : null}
           </div>
-        : <Typography className={classes.summary} variant='subtitle2' gutterBottom>
-            {GuitarUtils.summarizeGuitar(guitar)}
-          </Typography>
+        : <div>
+            <Typography variant='subtitle1' gutterBottom>
+              {GuitarUtils.summarizeGuitar(guitar)}
+            </Typography>
+            {guitar.construction 
+              ? <Typography variant='subtitle2' gutterBottom>
+                  {GuitarUtils.summarizeConstruction(guitar)}
+                </Typography>
+              : null}
+          </div>
       }
     </div>
   );
