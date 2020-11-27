@@ -56,11 +56,11 @@ const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
         {validation.map((t, idx) => {
           if (t.size > 0) {
             return (
-              <div>
+              <div key={idx}>
                 <p>{getValidationPrefix(t, idx)}</p>
-                {[ ...t ].map(i => {
+                {[ ...t ].map((i, pIdx) => {
                   return (
-                    <p key={idx}>{JSON.stringify(i, undefined, 2)}</p>
+                    <p key={pIdx}>{JSON.stringify(i, undefined, 2)}</p>
                   );
                 })}
               </div>);
