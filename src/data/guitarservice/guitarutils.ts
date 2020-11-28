@@ -437,13 +437,13 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
   const cases = guitars.filter(g => hasCase(g)).map(g => g.case?.caseStyle);
 
-  return mostCommonString(cases);
+  return mostCommonString(cases, true);
 }
 
 export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
   const colors = guitars.map(g => getColorMapping(g.color));
 
-  return mostCommonString(colors);
+  return mostCommonString(colors, true);
 }
 
 export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
@@ -455,25 +455,25 @@ export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
 export function mostCommonScale(guitars: ReadonlyArray<Guitar>): string {
   const scales = guitars.filter(g => g.scale).map(g => g.scale);
 
-  return mostCommonString(scales);
+  return mostCommonString(scales, true);
 }
 
 export function mostCommonNutWidth(guitars: ReadonlyArray<Guitar>): string {
   const nuts = guitars.filter(g => g.nutWidth).map(g => g.nutWidth);
 
-  return mostCommonString(nuts);
+  return mostCommonString(nuts, true);
 }
 
 export function mostCommonNeckRadius(guitars: ReadonlyArray<Guitar>): string {
-  const nuts = guitars.filter(g => g.neckRadius).map(g => g.neckRadius);
+  const radii = guitars.filter(g => g.neckRadius).map(g => g.neckRadius);
 
-  return mostCommonString(nuts);
+  return mostCommonString(radii, true);
 }
 
 export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
   const makes = guitars.filter(g => !isProject(g)).map(g => g.make);
 
-  return mostCommonString(makes);
+  return mostCommonString(makes, true);
 }
 
 export function mostCommonAge(guitars: ReadonlyArray<Guitar>): string {
@@ -485,25 +485,73 @@ export function mostCommonAge(guitars: ReadonlyArray<Guitar>): string {
 export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
   const stores = guitars.filter(g => g.purchaseStore).map(g => g.purchaseStore);
 
-  return mostCommonString(stores);
+  return mostCommonString(stores, true);
 }
 
 export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
   const bodies = guitars.map(g => g.bodyStyle);
 
-  return mostCommonString(bodies);
+  return mostCommonString(bodies, true);
 }
 
 export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
   const tremolos = guitars.filter(g => g.tremolo).map(g => g.tremolo);
 
-  return mostCommonString(tremolos);
+  return mostCommonString(tremolos, true);
 }
 
 export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
   const strings = guitars.filter(g => hasStrings(g)).map(g => g.strings?.name);
 
-  return mostCommonString(strings);
+  return mostCommonString(strings, true);
+}
+
+export function mostCommonMaterial(guitars: ReadonlyArray<Guitar>): string {
+  const strings = guitars
+    .filter(g => g.construction)
+    .map(g => [ 
+      g.construction?.backMaterial,
+      g.construction?.bodyMaterial,
+      g.construction?.fingerboardMaterial,
+      g.construction?.neckMaterial,
+      g.construction?.sidesMaterial,
+      g.construction?.topMaterial
+    ])
+    .reduce((items, construction) => [ ...items, ...construction || [] ], [] as string[]);
+
+  return mostCommonString(strings, true);
+}
+
+export function mostCommonMaterialTop(guitars: ReadonlyArray<Guitar>): string {
+  const strings = guitars
+    .filter(g => g.construction?.topMaterial)
+    .map(g => g.construction?.topMaterial);    
+
+  return mostCommonString(strings, true);
+}
+
+export function mostCommonMaterialBack(guitars: ReadonlyArray<Guitar>): string {
+  const strings = guitars
+    .filter(g => g.construction?.backMaterial)
+    .map(g => g.construction?.backMaterial);    
+
+  return mostCommonString(strings, true);
+}
+
+export function mostCommonMaterialNeck(guitars: ReadonlyArray<Guitar>): string {
+  const strings = guitars
+    .filter(g => g.construction?.neckMaterial)
+    .map(g => g.construction?.neckMaterial);    
+
+  return mostCommonString(strings, true);
+}
+
+export function mostCommonMaterialFingerboard(guitars: ReadonlyArray<Guitar>): string {
+  const strings = guitars
+    .filter(g => g.construction?.fingerboardMaterial)
+    .map(g => g.construction?.fingerboardMaterial);    
+
+  return mostCommonString(strings, true);
 }
 
 export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
@@ -696,7 +744,7 @@ export function boltOnVsSetNeck(guitars: ReadonlyArray<Guitar>): string {
 export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
   const strings = guitars.map(g => getStringGauge(g));
 
-  return mostCommonString(strings);
+  return mostCommonString(strings, true);
 }
 
 export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
@@ -705,7 +753,7 @@ export function mostCommonPickupType(guitars: ReadonlyArray<Guitar>): string {
       [...pickups, ...guitar.pickups ?? []],
       [] as Pickup[]);
 
-  return mostCommonString(pickups.map(p => p.type));
+  return mostCommonString(pickups.map(p => p.type), true);
 }
 
 export function mostCommonPickupMagnetType(guitars: ReadonlyArray<Guitar>): string {
@@ -716,7 +764,7 @@ export function mostCommonPickupMagnetType(guitars: ReadonlyArray<Guitar>): stri
 
   const magnetTypes = pickups.filter(p => p.magnetType).map(p => p.magnetType);
 
-  return mostCommonString(magnetTypes);
+  return mostCommonString(magnetTypes, true);
 }
 
 export function mostCommonPickupMount(guitars: ReadonlyArray<Guitar>): string {
@@ -727,7 +775,7 @@ export function mostCommonPickupMount(guitars: ReadonlyArray<Guitar>): string {
 
   const mounts = pickups.filter(p => p.mount).map(p => p.mount);
 
-  return mostCommonString(mounts);
+  return mostCommonString(mounts, true);
 }
 
 export function mostCommonPickupSize(guitars: ReadonlyArray<Guitar>): string {
@@ -738,7 +786,7 @@ export function mostCommonPickupSize(guitars: ReadonlyArray<Guitar>): string {
 
   const sizes = pickups.filter(p => p.size).map(p => p.size);
 
-  return mostCommonString(sizes);
+  return mostCommonString(sizes, true);
 }
 
 export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {

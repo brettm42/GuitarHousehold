@@ -5,7 +5,7 @@ export function StringEnum<T extends string>(i: Array<T>): { [K in T]: K } {
   }, Object.create(null));
 }
 
-export function mostCommonString(items: ReadonlyArray<string | null | undefined>): string {
+export function mostCommonString(items: ReadonlyArray<string | null | undefined>, skipEmptyStrings = false): string {
   const fallbackString = 'None';
   if (items.length === 0) {
     return fallbackString;
@@ -18,6 +18,10 @@ export function mostCommonString(items: ReadonlyArray<string | null | undefined>
   for (let i = 0; i < items.length; i++) {
     let elem = items[i];
     if (!elem) {
+      if (skipEmptyStrings) {
+        continue;
+      }
+      
       elem = fallbackString;
     }
 
