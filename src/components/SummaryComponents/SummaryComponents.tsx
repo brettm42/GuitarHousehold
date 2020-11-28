@@ -425,8 +425,28 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   );
 };
 
+const ConstructionComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const classes = useStyles();
+
+  return (
+    <SummaryComponent
+      title={'Construction:'}
+      contents={[
+        [ 'Most Common Material', GuitarUtils.mostCommonMaterial(guitars) ],
+        [ 'Most Common Top', GuitarUtils.mostCommonMaterialTop(guitars) ],
+        [ 'Most Common Back', GuitarUtils.mostCommonMaterialBack(guitars) ],
+        [ 'Most Common Neck', GuitarUtils.mostCommonMaterialNeck(guitars) ],
+        [ 'Most Common Fingerboard', GuitarUtils.mostCommonMaterialFingerboard(guitars) ]
+      ]}
+      style={classes.strings} />
+  );
+};
+
 export {
   BreakdownComponent,
+  ConstructionComponent,
   MissingCasesComponent,
   MostCommonComponent,
   OutliersComponent,

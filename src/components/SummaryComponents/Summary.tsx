@@ -12,6 +12,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import {
   BreakdownComponent,
+  ConstructionComponent,
   MissingCasesComponent,
   MostCommonComponent,
   OutliersComponent,
@@ -104,6 +105,10 @@ const useStyles = makeStyles((theme: Theme) =>
       ...gridPaperStyle,
       background: gridColors[4]
     },
+    paper11: {
+      ...gridPaperStyle,
+      background: gridColors[0]
+    },
     control: {
       padding: theme.spacing(2),
     }
@@ -175,6 +180,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'inProgress'} item xs={6} sm={4}>
         <Paper className={classes.paper10}>
           <ProjectInProgressComponent {...props} />
+        </Paper>
+      </Grid>
+      <Grid key={'construction'} item xs={6} sm={4}>
+        <Paper className={classes.paper11}>
+          <ConstructionComponent {...props} />
         </Paper>
       </Grid>
     </Grid>
@@ -348,6 +358,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <AccordionDetails>
               <Divider />
               <ProjectInProgressComponent {...props} />
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
+      <Grid key={'construction'} item xs={12} sm={6}>
+        <Paper>
+          <Accordion className={classes.paper11}>
+            <AccordionSummary id='panelConstruction-header' aria-controls='panelConstruction-content'>
+              <Typography variant='overline'>
+                {'Construction'}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Divider />
+              <ConstructionComponent {...props} />
             </AccordionDetails>
           </Accordion>
         </Paper>
