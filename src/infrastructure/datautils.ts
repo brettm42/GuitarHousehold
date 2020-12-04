@@ -79,10 +79,9 @@ export function roundToHundredths(value: number): number {
 
 export function roundToHundredthsString(value: number): string {
   const rounded = roundToHundredths(value).toString();
-
   const decimalIdx = rounded.indexOf('.');
   
-  return decimalIdx === rounded.length - 1
+  return decimalIdx === (rounded.length - 2)
     ? `${rounded}0`
     : rounded;
 }
