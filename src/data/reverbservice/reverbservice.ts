@@ -1,5 +1,5 @@
 import { Tokens } from '../../infrastructure/constants';
-import { roundToHundredths } from '../../infrastructure/datautils';
+import { roundToHundredthsString } from '../../infrastructure/datautils';
 
 const maxPagesPerRequest = 35;
 const reverbEndpoint = 'https://reverb.com';
@@ -189,7 +189,7 @@ export async function averagePriceForKeywordsAsync(keywords: string): Promise<st
     (a: number, i: Listing) => +a + +i.price, 0)
     / results.length;
 
-  return `${roundToHundredths(average)}`;
+  return `${roundToHundredthsString(average)}`;
 }
 
 export async function numberOfListingsForKeywordsAsync(keywords: string): Promise<string> {

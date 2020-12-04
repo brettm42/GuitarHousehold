@@ -7,7 +7,8 @@ import {
   millisecondsToFriendlyString,
   mostCommonString,
   randomElementWithSeed,
-  roundToHundredths
+  roundToHundredths,
+  roundToHundredthsString
 } from '../../infrastructure/datautils';
 
 import * as CurrencyService from '../currencyservice/currencyservice';
@@ -154,7 +155,7 @@ export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
         const costToday = Number.parseFloat(cost);
         const currentDate = new Date(Date.now());
 
-        return ` ($${roundToHundredths(costToday)} in ${currentDate.getFullYear()})`;
+        return ` ($${roundToHundredthsString(costToday)} in ${currentDate.getFullYear()})`;
       });
   }
 
@@ -1411,7 +1412,7 @@ function getTotalCost(guitars: ReadonlyArray<Guitar>): number {
 export function getHouseholdCost(guitars: ReadonlyArray<Guitar>): string {
   const price = getTotalCost(guitars);
 
-  return price > 0 ? `\$${roundToHundredths(price)}` : defaultString;
+  return price > 0 ? `\$${roundToHundredthsString(price)}` : defaultString;
 }
 
 function getTotalCostWithCases(guitars: ReadonlyArray<Guitar>): number {
@@ -1434,7 +1435,7 @@ function getTotalCostWithCases(guitars: ReadonlyArray<Guitar>): number {
 export function getHouseholdCostWithCases(guitars: ReadonlyArray<Guitar>): string {
   const price = getTotalCostWithCases(guitars);
 
-  return price > 0 ? `\$${roundToHundredths(price)}` : defaultString;
+  return price > 0 ? `\$${roundToHundredthsString(price)}` : defaultString;
 }
 
 export function averageGuitarCost(guitars: ReadonlyArray<Guitar>): string {
@@ -1451,7 +1452,7 @@ export function averageGuitarCost(guitars: ReadonlyArray<Guitar>): string {
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredths(averagePrice)}`
+    ? `\$${roundToHundredthsString(averagePrice)}`
     : defaultString;
 }
 
@@ -1469,7 +1470,7 @@ export function averageInstrumentCost(guitars: ReadonlyArray<Guitar>): string {
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredths(averagePrice)}`
+    ? `\$${roundToHundredthsString(averagePrice)}`
     : defaultString;
 }
 
@@ -1490,7 +1491,7 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredths(averagePrice)}`
+    ? `\$${roundToHundredthsString(averagePrice)}`
     : defaultString;
 }
 
@@ -1578,7 +1579,7 @@ export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
       0) / cases.length;
 
   return averagePrice
-    ? `\$${roundToHundredths(averagePrice)}`
+    ? `\$${roundToHundredthsString(averagePrice)}`
     : defaultString;
 }
 
@@ -1600,7 +1601,7 @@ export function averageGuitarCostWithCase(guitars: ReadonlyArray<Guitar>): strin
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredths(averagePrice)}`
+    ? `\$${roundToHundredthsString(averagePrice)}`
     : defaultString;
 }
 
@@ -1691,7 +1692,7 @@ export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
       0) / pickups.length;
 
   return averagePrice
-    ? `\$${roundToHundredths(averagePrice)}`
+    ? `\$${roundToHundredthsString(averagePrice)}`
     : defaultString;
 }
 

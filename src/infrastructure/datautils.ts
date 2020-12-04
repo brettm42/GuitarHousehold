@@ -77,6 +77,16 @@ export function roundToHundredths(value: number): number {
   return Math.round(value * 100) / 100;
 }
 
+export function roundToHundredthsString(value: number): string {
+  const rounded = roundToHundredths(value).toString();
+
+  const decimalIdx = rounded.indexOf('.');
+  
+  return decimalIdx === rounded.length - 1
+    ? `${rounded}0`
+    : rounded;
+}
+
 export function randomElement(array: any[]): any {
   return array[Math.floor(Math.random() * array.length)];
 }
