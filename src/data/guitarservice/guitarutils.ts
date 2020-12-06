@@ -28,16 +28,18 @@ export function isProject(guitar: any): guitar is Project {
 }
 
 export function isInstrument(guitar: any): guitar is Guitar {
-  // TODO: commented out until model flag property can be removed
-  // try {
-  //   const match = GuitarService.findInstrument(guitar.id, false);
-  //   return !match;
-  // } catch {
-  //   return false;
-  // }
+  /* TODO: commented out until model flag property can be removed
+  try {
+    const match = GuitarService.findInstrument(guitar.id, false);
+
+    return !match;
+  } catch {
+    return false;
+  } */
+
   return guitar?.isInstrument;
 }
-
+  
 export function isInProgress(guitar: any): guitar is Project {
   return isProject(guitar) && !guitar.projectComplete;
 }
@@ -611,8 +613,8 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     if (guitar.strings?.numberOfStrings === 12) {
       twelve += 1;
     } else if (guitar.strings?.numberOfStrings ?? 0 > 6) {
-      // continue;
-      // include 'em, why not?
+      /* include 'em, why not?
+      continue; */
       twelve += 1;
     } else {
       six += 1;

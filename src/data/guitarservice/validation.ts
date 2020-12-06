@@ -1,5 +1,4 @@
 import { ValidationFlag } from '../../infrastructure/shared';
-
 import { Case } from '../../interfaces/models/case';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
@@ -109,8 +108,8 @@ export function getValidationCount(results: ReadonlyArray<Map<string, Validation
   return count;
 }
 
-export function getValidationPrefix(cat: Map<string, ValidationFlag>, fallbackString: string | number): string {
-  const firstEntry = [ ...cat.keys() ][0];
+export function getValidationPrefix(category: Map<string, ValidationFlag>, fallbackString: string | number): string {
+  const firstEntry = [ ...category.keys() ][0];
 
   return firstEntry
     ? firstEntry.split('-')[0] ?? fallbackString.toString()
@@ -201,6 +200,12 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
   ];
 }
 
+/**
+ * Validate guitar object
+ * @see {@link Guitar | guitar.ts}
+ * 
+ * @param guitar - object to validate
+ */
 function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   const prefix = 'guitar';
   const result = validateRetailItem(guitar, prefix);
@@ -230,6 +235,12 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   return result;
 }
 
+/**
+ * Validate project object
+ * @see {@link Project | project.ts}
+ * 
+ * @param project - object to validate
+ */
 function validateProject(project: Project): Map<string, ValidationFlag> {
   const prefix = 'project';
   const result = validateRetailItem(project, prefix);
@@ -243,6 +254,13 @@ function validateProject(project: Project): Map<string, ValidationFlag> {
   return result;
 }
 
+/**
+ * Validate pickup object
+ * @see {@link Pickup | pickup.ts}
+ * 
+ * @param pickup - object to validate
+ * @param idx - pickup index
+ */
 function validatePickup(pickup: Pickup, idx: number): Map<string, ValidationFlag> {
   const prefix = 'pickup' + idx;
   const result = validateRetailItem(pickup, prefix);
@@ -256,6 +274,12 @@ function validatePickup(pickup: Pickup, idx: number): Map<string, ValidationFlag
   return result;
 }
 
+/**
+ * Validate case object
+ * @see {@link Case | case.ts}
+ * 
+ * @param guitarCase - object to validate
+ */
 function validateCase(guitarCase: Case): Map<string, ValidationFlag> {
   const prefix = 'case';
   const result = validateRetailItem(guitarCase, prefix);
@@ -264,6 +288,12 @@ function validateCase(guitarCase: Case): Map<string, ValidationFlag> {
   return result;
 }
 
+/**
+ * Validate strings object
+ * @see {@link Strings | string.ts}
+ * 
+ * @param strings - object to validate
+ */
 function validateStrings(strings: Strings): Map<string, ValidationFlag> {
   const prefix = 'strings';
   const result = validateRetailItem(strings, prefix);
@@ -275,20 +305,27 @@ function validateStrings(strings: Strings): Map<string, ValidationFlag> {
   return result;
 }
 
+/**
+ * Validate retail item object
+ * @see {@link RetailItem | retailitem.ts}
+ * 
+ * @param item - object to validate
+ * @param prefix - retail item category to prefix validation messages
+ */
 function validateRetailItem(item: RetailItem, prefix: string): Map<string, ValidationFlag> {
   const result = new Map<string, ValidationFlag>();
   if (!item) {
     result.set('Item null', ValidationFlag.Critical);
   } else {
-    // entry.ts
+    /** @see {@link entry.ts} */
     if (!item.id) { result.set(`${prefix}-id`, ValidationFlag.Missing); }
     if (!item.name) { result.set(`${prefix}-name`, ValidationFlag.Missing); }
     if (!item.description) { result.set(`${prefix}-description`, ValidationFlag.Missing); }
     if (!item.archive) { result.set(`${prefix}-archiveFlag`, ValidationFlag.Optional); }
 
-    // retailitem.ts
+    /** @see {@link retailitem.ts} */
     if (!item.purchaseDate) { result.set(`${prefix}-purchaseDate`, ValidationFlag.Missing); }
-    if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, ValidationFlag.Optional); }
+    if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, ValidationFlag.Missing); }
     if (!item.purchaseStore) { result.set(`${prefix}-purchaseStore`, ValidationFlag.Missing); }
     if (!item.purchasePrice) { result.set(`${prefix}-purchasePrice`, ValidationFlag.Missing); }
     if (!item.currentPrice) { result.set(`${prefix}-currentPrice`, ValidationFlag.Missing); }
@@ -299,6 +336,11 @@ function validateRetailItem(item: RetailItem, prefix: string): Map<string, Valid
   return result;
 }
 
+/**
+ * Validate guitar object ID is consistent across child properties
+ * 
+ * @param guitar - object to validate
+ */
 function validateGuitarId(guitar: Guitar): boolean {
   if (!guitar.id) {
     return false;
@@ -306,7 +348,7 @@ function validateGuitarId(guitar: Guitar): boolean {
 
   class Evaluation {
     private _valid = true;
-    private _category = ''
+    private _category = '';
 
     public get valid() {
       return this._valid;
@@ -330,25 +372,25 @@ function validateGuitarId(guitar: Guitar): boolean {
   let result = new Evaluation();
   const id = guitar.id.toString().substring(0, 2);
 
-  // ID must be numeric
+  /** ID must be numeric */
   result.valid = id.match('[0-9]+') ? true : false;
 
-  // Guitar ID must match xx0000
+  /** Guitar ID must match xx0000 */
   result.valid = guitar.id.toString().match(`^${id}0+$`) ? true : false;
 
   if (hasCase(guitar)) {
-    // Confirm case starts with guitar ID
+    /** Confirm case starts with guitar ID */
     result.valid = guitar.case!.id.toString().startsWith(id);
 
-    // Confirm case ends with 100
+    /** Confirm case ends with 100 */
     result.valid = guitar.case!.id.toString().match(`^${id}0*100$`) ? true : false;
   }
 
   if (hasStrings(guitar)) {
-    // Confirm strings starts with guitar ID
+    /** Confirm strings starts with guitar ID */
     result.valid = guitar.strings!.id.toString().startsWith(id);
 
-    // Confirm strings end with 9
+    /** Confirm strings end with 9 */
     result.valid = guitar.strings!.id.toString().match(`^${id}0+9$`) ? true : false;
   }
 
@@ -357,10 +399,10 @@ function validateGuitarId(guitar: Guitar): boolean {
     for (let idx = 0; idx < pickupCount; idx++) {
       const pickupId = (guitar.pickups ?? [])[idx].id.toString();
 
-      // Confirm each pickup starts with guitar ID
+      /** Confirm each pickup starts with guitar ID */
       result.valid = pickupId.startsWith(id);
 
-      // Confirm pickup increments ID in last two digits with a preceeding 1
+      /** Confirm pickup increments ID in last two digits with a preceeding 1 */
       result.valid = pickupId.match(`^${id}[0-9]+1${idx}$`) ? true : false;
     }
   }

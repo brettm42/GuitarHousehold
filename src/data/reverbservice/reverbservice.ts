@@ -99,7 +99,7 @@ export async function parsedResponseJsonAsync(keywords: string) {
     return recentSearches[keywords].results.map(i => JSON.stringify(i));
   }
 
-  // Page indexing on Reverb start at 1
+  /** Page indexing on Reverb start at 1 */
   let currentPage = 1;
   let totalPages = 1;
 
@@ -146,7 +146,7 @@ export async function parsedResponseAsync(keywords: string): Promise<Listing[]> 
     return recentSearches[keywords].results;
   }
 
-  // Page indexing on Reverb start at 1
+  /** Page indexing on Reverb start at 1 */
   let currentPage = 1;
   let totalPages = 1;
 
