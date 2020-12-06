@@ -438,7 +438,10 @@ const ConstructionComponent: React.FunctionComponent<SummaryComponentsProps> = (
         [ 'Most Common Top', GuitarUtils.mostCommonMaterialTop(guitars) ],
         [ 'Most Common Back', GuitarUtils.mostCommonMaterialBack(guitars) ],
         [ 'Most Common Neck', GuitarUtils.mostCommonMaterialNeck(guitars) ],
-        [ 'Most Common Fingerboard', GuitarUtils.mostCommonMaterialFingerboard(guitars) ]
+        [ 'Most Common Fingerboard', GuitarUtils.mostCommonMaterialFingerboard(guitars) ],
+        dividerPlaceholder,
+        [ 'With Veneer Tops', `${GuitarUtils.madeWithVeneerTop(guitars)} instruments`],
+        [ 'With Veneer Backs', `${GuitarUtils.madeWithVeneerBack(guitars)} instruments`]
       ]}
       style={classes.strings} />
   );

@@ -555,6 +555,20 @@ export function mostCommonMaterialFingerboard(guitars: ReadonlyArray<Guitar>): s
   return mostCommonString(strings, true);
 }
 
+export function madeWithVeneerTop(guitars: ReadonlyArray<Guitar>): number {
+  return guitars
+    .filter(g => g.construction)
+    .reduce((count, item) => 
+      count += (item.construction?.topMaterial && item.construction.bodyMaterial) ? 1 : 0, 0);
+}
+
+export function madeWithVeneerBack(guitars: ReadonlyArray<Guitar>): number {
+  return guitars
+    .filter(g => g.construction)
+    .reduce((count, item) => 
+      count += (item.construction?.backMaterial && item.construction.bodyMaterial) ? 1 : 0, 0);
+}
+
 export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
   let electric = 0;
   let acoustic = 0;
