@@ -214,6 +214,7 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.series) { result.set(`${prefix}-series`, ValidationFlag.Missing); }
   if (!guitar.serialNumber) { result.set(`${prefix}-serialNumber`, ValidationFlag.Missing); }
   if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Critical); }
+  if (!guitar.manufactureYear) { result.set(`${prefix}-manufactureYear`, ValidationFlag.Optional); }
   if (!guitar.bodyStyle) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
   if (!guitar.color) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
   if (!guitar.tremolo) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }

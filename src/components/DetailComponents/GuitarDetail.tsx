@@ -134,6 +134,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
               guitar.serialNumber
                 ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
                 : null,
+              guitar.manufactureYear
+                ? `Manufacture Year: ${guitar.manufactureYear}`
+                : null,
               guitar.purchaseDate
                 ? `Purchased: ${guitar.purchaseDate} from ${guitar.purchaseStore}`
                 : null,

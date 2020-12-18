@@ -139,6 +139,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               guitar.serialNumber
                 ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
                 : null,
+              guitar.manufactureYear
+                ? `Manufacture Year: ${guitar.manufactureYear}`
+                : null,
               guitar.pickguard
                 ? `Pickguard: ${guitar.pickguard}`
                 : null,
