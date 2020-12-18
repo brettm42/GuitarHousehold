@@ -217,8 +217,8 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Outliers:'}
       contents={[
-        [ 'Oldest', GuitarUtils.oldestGuitar(guitars) ],
-        [ 'Newest', GuitarUtils.newestGuitar(guitars) ],
+        [ 'Oldest', GuitarUtils.oldestGuitarPurchase(guitars) ],
+        [ 'Newest', GuitarUtils.newestGuitarPurchase(guitars) ],
         [ 'Most Pickups', GuitarUtils.mostPickups(guitars) ],
         [ 'Most Modifications', GuitarUtils.mostModifications(guitars) ],
         [ 'Most Controls', GuitarUtils.mostControls(guitars) ],
@@ -419,7 +419,10 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         notYetDelivered > 0
           ? [ 'Not Yet Delivered', `${notYetDelivered} instruments` ]
           : [ '', '' ],
-        [ 'Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars) ]
+        [ 'Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars) ],
+        dividerPlaceholder,
+        [ 'Oldest Guitar', GuitarUtils.oldestGuitar(guitars) ],
+        [ 'Youngest Guitar', GuitarUtils.newestGuitar(guitars) ]
       ]}
       style={classes.timeline} />
   );

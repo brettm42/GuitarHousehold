@@ -16,6 +16,7 @@ import * as CurrencyService from '../currencyservice/currencyservice';
 const defaultString = 'None';
 const unknownString = 'Unknown';
 const factoryString = 'Factory';
+const maxDefault = 0;
 const minDefault = 99999999;
 const pastDate = '1/03/1977';
 
@@ -219,7 +220,7 @@ export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((max.numberOfFrets ?? 0) < guitar.numberOfFrets) {
+    if ((max.numberOfFrets ?? maxDefault) < guitar.numberOfFrets) {
       max = guitar;
     }
   }
@@ -394,7 +395,7 @@ export function mostModifications(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((max.modifications?.length ?? 0) < guitar.modifications.length) {
+    if ((max.modifications?.length ?? maxDefault) < guitar.modifications.length) {
       max = guitar;
     }
   }
@@ -427,7 +428,7 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((max.controls?.length ?? 0) < guitar.controls.length) {
+    if ((max.controls?.length ?? maxDefault) < guitar.controls.length) {
       max = guitar;
     }
   }
@@ -893,6 +894,60 @@ export function oldestGuitar(guitars: ReadonlyArray<Guitar>): string {
 
   let max;
   for (const guitar of guitars) {
+    if (!guitar.manufactureYear) {
+      continue;
+    }
+
+    if (!max) {
+      max = guitar;
+
+      continue;
+    }
+
+    if (guitar.manufactureYear < (max.manufactureYear ?? maxDefault)) {
+      max = guitar;
+    }
+  }
+
+  return max
+    ? `${max.name} (manufactured ${max.manufactureYear})`
+    : defaultString;
+}
+
+export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
+  if (guitars.length < 1) {
+    return defaultString;
+  }
+
+  let min;
+  for (const guitar of guitars) {
+    if (!guitar.manufactureYear) {
+      continue;
+    }
+
+    if (!min) {
+      min = guitar;
+
+      continue;
+    }
+
+    if (guitar.manufactureYear > (min.manufactureYear ?? minDefault)) {
+      min = guitar;
+    }
+  }
+
+  return min
+    ? `${min.name} (manufactured ${min.manufactureYear})`
+    : defaultString;
+}
+
+export function oldestGuitarPurchase(guitars: ReadonlyArray<Guitar>): string {
+  if (guitars.length < 1) {
+    return defaultString;
+  }
+
+  let max;
+  for (const guitar of guitars) {
     if (!guitar.purchaseDate) {
       continue;
     }
@@ -914,7 +969,7 @@ export function oldestGuitar(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
+export function newestGuitarPurchase(guitars: ReadonlyArray<Guitar>): string {
   if (guitars.length < 1) {
     return defaultString;
   }
