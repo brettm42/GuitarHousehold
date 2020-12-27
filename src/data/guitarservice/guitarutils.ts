@@ -2018,12 +2018,14 @@ function getColorMapping(color: string): string {
     'Honeyburst': 'Sunburst',
     'Vintage Sunburst': 'Sunburst',
     'Copperburst': 'Sunburst',
+    'Sunburst Varnish': 'Sunburst',
 
     // Natural variants
     'Butterscotch': 'Natural',
     'Vintage Natural': 'Natural',
     'Walnut': 'Natural',
     'Varnish': "Natural",
+    'Antique Varnish': 'Natural',
     'Classic': 'Natural',
     'Mahogany': 'Natural',
 
