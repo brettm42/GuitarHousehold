@@ -443,8 +443,8 @@ const ConstructionComponent: React.FunctionComponent<SummaryComponentsProps> = (
         [ 'Most Common Neck', GuitarUtils.mostCommonMaterialNeck(guitars) ],
         [ 'Most Common Fingerboard', GuitarUtils.mostCommonMaterialFingerboard(guitars) ],
         dividerPlaceholder,
-        [ 'With Veneer Tops', `${GuitarUtils.madeWithVeneerTop(guitars)} instruments`],
-        [ 'With Veneer Backs', `${GuitarUtils.madeWithVeneerBack(guitars)} instruments`]
+        [ 'with Veneer Tops', `${GuitarUtils.madeWithVeneerTop(guitars)} instruments`],
+        [ 'with Veneer Backs', `${GuitarUtils.madeWithVeneerBack(guitars)} instruments`]
       ]}
       style={classes.strings} />
   );
