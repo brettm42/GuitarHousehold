@@ -38,6 +38,7 @@ const pickupMounts = [
   'Neck',
   'Pickguard',
   'Top',
+  'Under-bridge',
   'Under-saddle'
 ] as const;
 
