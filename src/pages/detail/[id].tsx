@@ -76,6 +76,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = params.id;
     const pathname = `/${id}`;
 
+    if (!id) {
+      return {
+        props: {
+          errors: 'No id param supplied to detail page'
+        }
+      };
+    }
+
     const item = await find(Array.isArray(id) ? id[0] : id);
 
     return {
