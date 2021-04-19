@@ -2028,6 +2028,7 @@ function getColorMapping(color: string): string {
     'Antique Varnish': 'Natural',
     'Classic': 'Natural',
     'Mahogany': 'Natural',
+    'Antique Natural': 'Natural',
 
     // Green variants
     'Sherwood Green': 'Green',
