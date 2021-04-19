@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { getDeliveryTime, isDelivered } from '../../data/guitarservice/guitarutils';
+import { getDeliveryTime, isDelivered, isFactoryCase } from '../../data/guitarservice/guitarutils';
 
 import { Case } from '../../interfaces/models/case';
 
@@ -88,6 +88,9 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
                 : null,
               guitarCase.purchasePrice
                 ? `Purchase Price: \$${guitarCase.purchasePrice}`
+                : null,
+              isFactoryCase(guitarCase) 
+                ? `Case came with guitar`
                 : null
             ]
               .map((text, idx) => (

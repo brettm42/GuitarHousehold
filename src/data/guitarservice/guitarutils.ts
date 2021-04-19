@@ -1,3 +1,4 @@
+import { Case } from '../../interfaces/models/case';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
@@ -97,6 +98,12 @@ export function hasCase(guitar: Guitar): boolean {
   return guitar.case
     ? guitar.case.id !== undefined
     : false;
+}
+
+export function isFactoryCase(guitarCase: Case): boolean {
+    return guitarCase
+      ? !guitarCase.purchaseStore || guitarCase.purchaseStore.includes(factoryString)
+      : false;
 }
 
 export function hasPickups(guitar: Guitar): boolean {
