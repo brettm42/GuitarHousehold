@@ -2022,6 +2022,7 @@ function getColorMapping(color: string): string {
   const mapping: { [key: string]: string; } = {
     // Sunburst variants
     'Tobacco Burst': 'Sunburst',
+    'Tobacco Sunburst': 'Sunburst',
     'Honeyburst': 'Sunburst',
     'Vintage Sunburst': 'Sunburst',
     'Copperburst': 'Sunburst',
