@@ -112,7 +112,7 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
             
             {strings.productUrl
               ? <Typography key={`${strings.id}-link`} gutterBottom>
-                  Product Link: <a target='_blank' href={strings.productUrl}>{strings.productUrl}</a>
+                  Product Link: <a target={isMobile ? '' : '_blank'} href={strings.productUrl}>{strings.productUrl}</a>
                 </Typography>
               : null}
           </div>

@@ -182,7 +182,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
 
             {guitar.productUrl
               ? <Typography key={`${guitar.id}-link`} gutterBottom>
-                  Product Link: <a target='_blank' href={guitar.productUrl}>{guitar.productUrl}</a>
+                  Product Link: <a target={isMobile ? '' : '_blank'} href={guitar.productUrl}>{guitar.productUrl}</a>
                 </Typography>
               : null}
           </div>
