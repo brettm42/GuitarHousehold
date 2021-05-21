@@ -1,0 +1,520 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+      "$ref": "#/definitions/Project"
+    },
+    "definitions": {
+        "Project": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "archive": {
+                    "type": "boolean"
+                },
+                "validation": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "size": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "size"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "purchaseDate": {
+                    "type": "string"
+                },
+                "deliveryDate": {
+                    "type": "string"
+                },
+                "purchaseStore": {
+                    "type": "string"
+                },
+                "purchasePrice": {
+                    "type": "string"
+                },
+                "currentPrice": {
+                    "type": "string"
+                },
+                "productUrl": {
+                    "type": "string"
+                },
+                "soldDate": {
+                    "type": "string"
+                },
+                "make": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "series": {
+                    "type": "string"
+                },
+                "serialNumber": {
+                    "type": "string"
+                },
+                "serialNumberLocation": {
+                    "$ref": "#/definitions/SerialNumberLocation"
+                },
+                "manufactureYear": {
+                    "type": "number"
+                },
+                "bodyStyle": {
+                    "$ref": "#/definitions/BodyStyle"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "pickups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Pickup"
+                    }
+                },
+                "strings": {
+                    "$ref": "#/definitions/Strings"
+                },
+                "tremolo": {
+                    "$ref": "#/definitions/TremoloType"
+                },
+                "case": {
+                    "$ref": "#/definitions/Case"
+                },
+                "scale": {
+                    "type": "string"
+                },
+                "numberOfFrets": {
+                    "type": "number"
+                },
+                "tuning": {
+                    "type": "string"
+                },
+                "neckRadius": {
+                    "type": "string"
+                },
+                "nutWidth": {
+                    "type": "string"
+                },
+                "hasBattery": {
+                    "type": "boolean"
+                },
+                "neckBoltOn": {
+                    "type": "boolean"
+                },
+                "isInstrument": {
+                    "type": "boolean"
+                },
+                "construction": {
+                    "$ref": "#/definitions/Construction"
+                },
+                "picture": {
+                    "type": "string"
+                },
+                "additionalPictures": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "controls": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "modifications": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "projectStart": {
+                    "type": "string"
+                },
+                "projectComplete": {
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "neck": {
+                    "type": "string"
+                },
+                "pickguard": {
+                    "type": "string"
+                },
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "size": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "size"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": [
+                "color",
+                "id",
+                "make",
+                "name",
+                "projectStart"
+            ],
+            "additionalProperties": false
+        },
+        "SerialNumberLocation": {
+            "type": "string",
+            "enum": [
+                "Neck",
+                "Body",
+                "Neck Heel",
+                "Neck Plate",
+                "None"
+            ]
+        },
+        "BodyStyle": {
+            "type": "string",
+            "enum": [
+                "Telecaster",
+                "Stratocaster",
+                "Jazzmaster",
+                "Jaguar",
+                "Mustang",
+                "Les Paul",
+                "SG",
+                "Offset",
+                "Archtop",
+                "Hollowbody",
+                "Semi-Hollowbody",
+                "Starcaster",
+                "Flattop",
+                "Resonator",
+                "Unique"
+            ]
+        },
+        "Pickup": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "archive": {
+                    "type": "boolean"
+                },
+                "validation": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "size": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "size"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "purchaseDate": {
+                    "type": "string"
+                },
+                "deliveryDate": {
+                    "type": "string"
+                },
+                "purchaseStore": {
+                    "type": "string"
+                },
+                "purchasePrice": {
+                    "type": "string"
+                },
+                "currentPrice": {
+                    "type": "string"
+                },
+                "productUrl": {
+                    "type": "string"
+                },
+                "soldDate": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/PickupType"
+                },
+                "size": {
+                    "$ref": "#/definitions/PickupSize"
+                },
+                "position": {
+                    "$ref": "#/definitions/PickupPosition"
+                },
+                "output": {
+                    "type": "string"
+                },
+                "mount": {
+                    "$ref": "#/definitions/PickupMount"
+                },
+                "magnetType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "type"
+            ],
+            "additionalProperties": false
+        },
+        "PickupType": {
+            "type": "string",
+            "enum": [
+                "Humbucker",
+                "P90",
+                "Dog-ear P90",
+                "Single-coil",
+                "Jazzmaster",
+                "Jaguar",
+                "Wide-range Humbucker",
+                "Piezo",
+                "Mini-humbucker",
+                "Active Humbucker",
+                "Filtertron",
+                "Goldfoil"
+            ]
+        },
+        "PickupSize": {
+            "type": "string",
+            "enum": [
+                "Humbucker",
+                "Soapbar",
+                "Dog-ear",
+                "Jazzmaster",
+                "Wide-range Humbucker",
+                "Stratocaster",
+                "Mini-humbucker",
+                "Surface-mount",
+                "Telecaster Bridge",
+                "Split-coil",
+                "Piezo"
+            ]
+        },
+        "PickupPosition": {
+            "type": "string",
+            "enum": [
+                "Neck",
+                "Middle",
+                "Bridge"
+            ]
+        },
+        "PickupMount": {
+            "type": "string",
+            "enum": [
+                "Neck",
+                "Pickguard",
+                "Top",
+                "Under-bridge",
+                "Under-saddle"
+            ]
+        },
+        "Strings": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "archive": {
+                    "type": "boolean"
+                },
+                "validation": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "size": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "size"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "purchaseDate": {
+                    "type": "string"
+                },
+                "deliveryDate": {
+                    "type": "string"
+                },
+                "purchaseStore": {
+                    "type": "string"
+                },
+                "purchasePrice": {
+                    "type": "string"
+                },
+                "currentPrice": {
+                    "type": "string"
+                },
+                "productUrl": {
+                    "type": "string"
+                },
+                "soldDate": {
+                    "type": "string"
+                },
+                "gauge": {
+                    "type": "string"
+                },
+                "numberOfStrings": {
+                    "type": "number"
+                },
+                "material": {
+                    "type": "string"
+                },
+                "lastChangeDate": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name"
+            ]
+        },
+        "TremoloType": {
+            "type": "string",
+            "enum": [
+                "Jazzmaster",
+                "Bigsby",
+                "Floyd-rose",
+                "Stratocaster",
+                "Les Paul",
+                "Mustang",
+                "Hagstrom Tremar"
+            ]
+        },
+        "Case": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "archive": {
+                    "type": "boolean"
+                },
+                "validation": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "size": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "size"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "purchaseDate": {
+                    "type": "string"
+                },
+                "deliveryDate": {
+                    "type": "string"
+                },
+                "purchaseStore": {
+                    "type": "string"
+                },
+                "purchasePrice": {
+                    "type": "string"
+                },
+                "currentPrice": {
+                    "type": "string"
+                },
+                "productUrl": {
+                    "type": "string"
+                },
+                "soldDate": {
+                    "type": "string"
+                },
+                "caseStyle": {
+                    "$ref": "#/definitions/CaseStyle"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "name"
+            ]
+        },
+        "CaseStyle": {
+            "type": "string",
+            "enum": [
+                "Flat",
+                "Arched",
+                "Gig Bag"
+            ]
+        },
+        "Construction": {
+            "type": "object",
+            "properties": {
+                "neckMaterial": {
+                    "type": "string"
+                },
+                "fingerboardMaterial": {
+                    "type": "string"
+                },
+                "topMaterial": {
+                    "type": "string"
+                },
+                "backMaterial": {
+                    "type": "string"
+                },
+                "sidesMaterial": {
+                    "type": "string"
+                },
+                "bodyMaterial": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}
