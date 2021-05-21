@@ -159,18 +159,9 @@
                     "type": "string"
                 },
                 "components": {
-                    "type": "array",
+                  "type": "array",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "size": {
-                                "type": "number"
-                            }
-                        },
-                        "required": [
-                            "size"
-                        ],
-                        "additionalProperties": false
+                        "type": "string"
                     }
                 }
             },

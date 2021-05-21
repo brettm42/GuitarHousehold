@@ -6,5 +6,5 @@ export interface Project extends Guitar {
   readonly body?: string;
   readonly neck?: string;
   readonly pickguard?: string;
-  readonly purchaseComponentPrice?: string[];
+  readonly components?: ReadonlyArray<string>;
 }

@@ -250,7 +250,7 @@ function validateProject(project: Project): Map<string, ValidationFlag> {
   if (!project.body) { result.set(`${prefix}-body`, ValidationFlag.Missing); }
   if (!project.neck) { result.set(`${prefix}-neck`, ValidationFlag.Missing); }
   if (!project.pickguard) { result.set(`${prefix}-pickguard`, ValidationFlag.Missing); }
-  if (!project.purchaseComponentPrice) { result.set(`${prefix}-purchaseComponentPrice`, ValidationFlag.Missing); }
+  if (!project.components) { result.set(`${prefix}-components`, ValidationFlag.Missing); }
 
   return result;
 }

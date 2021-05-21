@@ -137,7 +137,7 @@ export function hasFactoryStrings(guitar: Guitar): boolean {
 }
 
 export function hasPurchasePrice(guitar: Guitar): boolean {
-  if (guitar.purchasePrice || (isProject(guitar) && guitar.purchaseComponentPrice)) {
+  if (guitar.purchasePrice || (isProject(guitar) && guitar.components)) {
     return true;
   }
 
@@ -443,6 +443,12 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
   return max?.controls
     ? `${max.name} (${max.controls.length} controls)`
     : defaultString;
+}
+
+export function hasComponents(guitar: Project): boolean {
+  return guitar.components
+    ? guitar.components.length > 0
+    : false;
 }
 
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
@@ -1787,9 +1793,13 @@ export function getGuitarCost(guitar: Guitar | Project): number {
   }
 
   if (isProject(guitar)) {
-    if (guitar.purchaseComponentPrice && guitar.purchaseComponentPrice.length > 0) {
-      for (const item of guitar.purchaseComponentPrice) {
-        total += Number.parseFloat(item);
+    if (guitar.components && guitar.components.length > 0) {
+      for (const item of guitar.components) {
+        const componentPair = item.split(';');
+        
+        if (componentPair[1]) {
+          total += Number.parseFloat(componentPair[1].trim());
+        }
       }
     }
   } else if (guitar.purchasePrice) {

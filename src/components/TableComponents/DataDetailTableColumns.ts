@@ -39,5 +39,5 @@ export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'strings', label: 'Strings', formatter: getStringGauge },
   { id: 'scale', label: 'Scale' },
   { id: 'nutWidth', label: 'Nut Width' },
-  { id: 'purchaseComponentPrice', label: 'Project Cost', formatter: getGuitarCost }
+  { id: 'components', label: 'Project Cost', formatter: getGuitarCost }
 ];
