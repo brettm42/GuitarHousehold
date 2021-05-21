@@ -272,7 +272,7 @@ export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
   const items = guitars.filter(c => c.numberOfFrets);
   const averageFrets =
     items.reduce((avg, g) =>
-      avg + (g.numberOfFrets ?? 0),
+        avg + (g.numberOfFrets ?? 0),
       0) / items.length;
 
   return averageFrets
@@ -844,7 +844,7 @@ export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
 
   const avgOutput =
     pickups.reduce((avg, pickup) =>
-      avg + Number.parseFloat((pickup.output ?? '').split('K')[0]),
+        avg + Number.parseFloat((pickup.output ?? '').split('K')[0]),
       0) / pickups.length;
 
   return avgOutput ? `${roundToHundredths(avgOutput)}K` : defaultString;
@@ -1164,7 +1164,7 @@ export function longestDelivery(guitars: ReadonlyArray<Guitar>): string {
 
     const deliveryLength =
       Date.parse(guitar.deliveryDate ?? Date.now().toString())
-      - Date.parse(guitar.purchaseDate);
+        - Date.parse(guitar.purchaseDate);
 
     if (!max) {
       max = guitar;
@@ -1198,7 +1198,7 @@ export function longestProject(guitars: ReadonlyArray<Guitar>): string {
 
     const projectLength =
       Date.parse(guitar.projectComplete ?? Date.now().toString())
-      - Date.parse(guitar.projectStart);
+        - Date.parse(guitar.projectStart);
 
     if (!max) {
       max = guitar;
@@ -1232,7 +1232,7 @@ export function shortestProject(guitars: ReadonlyArray<Guitar>): string {
 
     const projectLength =
       Date.parse(guitar.projectComplete ?? Date.now().toString())
-      - Date.parse(guitar.projectStart);
+        - Date.parse(guitar.projectStart);
 
     if (!min) {
       min = guitar;
@@ -1540,7 +1540,7 @@ export function averageGuitarCost(guitars: ReadonlyArray<Guitar>): string {
 
   const averagePrice =
     purchases.reduce((avg, guitar) =>
-      avg + getGuitarCost(guitar),
+        avg + getGuitarCost(guitar),
       0) / purchases.length;
 
   return averagePrice
@@ -1558,7 +1558,7 @@ export function averageInstrumentCost(guitars: ReadonlyArray<Guitar>): string {
 
   const averagePrice =
     purchases.reduce((avg, guitar) =>
-      avg + getGuitarCost(guitar),
+        avg + getGuitarCost(guitar),
       0) / purchases.length;
 
   return averagePrice
@@ -1579,7 +1579,7 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
 
   const averagePrice =
     purchases.reduce((avg, guitar) =>
-      avg + getGuitarCost(guitar),
+        avg + getGuitarCost(guitar),
       0) / purchases.length;
 
   return averagePrice
@@ -1667,7 +1667,7 @@ export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
 
   const averagePrice =
     cases.reduce((avg, c) =>
-      avg + (c?.purchasePrice ? Number.parseFloat(c.purchasePrice) : 0),
+        avg + (c?.purchasePrice ? Number.parseFloat(c.purchasePrice) : 0),
       0) / cases.length;
 
   return averagePrice
@@ -1686,10 +1686,10 @@ export function averageGuitarCostWithCase(guitars: ReadonlyArray<Guitar>): strin
   const averagePrice =
     purchases.reduce((avg, g) =>
       avg
-      + getGuitarCost(g)
-      + ((hasCase(g) && g.case?.purchasePrice)
-        ? Number.parseFloat(g.case.purchasePrice)
-        : 0),
+        + getGuitarCost(g)
+        + ((hasCase(g) && g.case?.purchasePrice)
+          ? Number.parseFloat(g.case.purchasePrice)
+          : 0),
       0) / purchases.length;
 
   return averagePrice
@@ -1780,7 +1780,7 @@ export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
 
   const averagePrice =
     pickups.reduce((avg, p) =>
-      avg + (p.purchasePrice ? Number.parseFloat(p.purchasePrice) : 0),
+        avg + (p.purchasePrice ? Number.parseFloat(p.purchasePrice) : 0),
       0) / pickups.length;
 
   return averagePrice
