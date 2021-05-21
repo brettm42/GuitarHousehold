@@ -28,7 +28,7 @@ const DataDetailTableHead: React.FunctionComponent<DataDetailTableHeadProps> =
       <TableHead>
         <TableRow key='header'>
           {columns.map(cell => (
-            <TableCell key={cell.id} sortDirection={orderBy === cell.id ? order : false}>
+            <TableCell align={cell.label === 'id' ? 'center' : 'left' } key={cell.id} sortDirection={orderBy === cell.id ? order : false}>
               <TableSortLabel active={orderBy === cell.id} direction={order} onClick={createSortHandler(cell.id)}>
                 <Typography variant='subtitle1'>
                   {cell.label}

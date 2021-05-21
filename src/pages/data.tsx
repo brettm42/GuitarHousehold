@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-import * as Constants from '../infrastructure/constants';
-
 import ChartComponent from '../components/DataComponents/ChartComponent';
 import Layout from '../components/Layout';
 
@@ -28,12 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
 const DataPage: NextPage<PageProps> = ({ items, pathname }) => {
   const classes = useStyles();
   const isMobile = IsMobile();
+  const title = 'Data';
 
   return (
-    <Layout title={buildPageTitle('Data')} pathname={pathname}>
+    <Layout title={buildPageTitle(title)} pathname={pathname}>
       <div className={classes.title}>
-        <Typography variant='h3'>
-          {Constants.SiteTitle}
+        <Typography variant='h4'>
+          {title}
         </Typography>
       </div>
 
