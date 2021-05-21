@@ -12,14 +12,9 @@ import Summary from '../components/SummaryComponents/Summary';
 import { GetStaticProps, NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
+import { PageProps } from '../infrastructure/shared';
 
-import { Guitar } from '../interfaces/models/guitar';
 import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
-
-type IndexProps = {
-  data: Guitar[];
-  pathname: string;
-};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const IndexPage: NextPage<IndexProps> = ({ data, pathname }) => {
+const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
   const classes = useStyles();
   const isMobile = IsMobile();
 
@@ -47,13 +42,13 @@ const IndexPage: NextPage<IndexProps> = ({ data, pathname }) => {
       </div>
 
       <div>
-        <Summary data={data} isMobile={isMobile} />
+        <Summary data={items} isMobile={isMobile} />
       </div>
 
       <Divider className={classes.divider} />
 
       <div>
-        <HouseholdGridList data={data} isMobile={isMobile} />
+        <HouseholdGridList data={items} isMobile={isMobile} />
       </div>
     </Layout>
   );
@@ -68,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      data
+      items: data
     }
   };
 };
