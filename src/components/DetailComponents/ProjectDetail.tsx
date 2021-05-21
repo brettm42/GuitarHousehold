@@ -224,24 +224,24 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               </ul>
             </div>
           : null}
-        {GuitarUtils.hasModifications(guitar)
-          ? <div className={classes.description}>
-              <p>Modifications:</p>
-              <ul>
-                {guitar.modifications!.map((i, idx) =>
-                  <li key={idx}>
-                    <Typography>
-                      {i}
-                    </Typography>
-                  </li>)}
-              </ul>
-            </div>
-          : null}
         {GuitarUtils.hasComponents(guitar)
           ? <div className={classes.description}>
               <p>Additional Components:</p>
               <ul>
                 {guitar.components!.map((i, idx) =>
+                  <li key={idx}>
+                    <Typography>
+                      {`${i.split(';')[0]}: ${i.split(';')[1] ? "$" + i.split(';')[1].trim() : ''}`}
+                    </Typography>
+                  </li>)}
+              </ul>
+            </div>
+          : null}
+        {GuitarUtils.hasModifications(guitar)
+          ? <div className={classes.description}>
+              <p>Modifications:</p>
+              <ul>
+                {guitar.modifications!.map((i, idx) =>
                   <li key={idx}>
                     <Typography>
                       {i}

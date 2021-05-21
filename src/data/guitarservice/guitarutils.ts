@@ -524,7 +524,7 @@ export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonMaterial(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars
+  const materials = guitars
     .filter(g => g.construction)
     .map(g => [ 
       g.construction?.backMaterial,
@@ -536,39 +536,47 @@ export function mostCommonMaterial(guitars: ReadonlyArray<Guitar>): string {
     ])
     .reduce((items, construction) => [ ...items, ...construction || [] ], [] as string[]);
 
-  return mostCommonString(strings, true);
+  return mostCommonString(materials, true);
 }
 
 export function mostCommonMaterialTop(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars
+  const materials = guitars
     .filter(g => g.construction?.topMaterial)
     .map(g => g.construction?.topMaterial);    
 
-  return mostCommonString(strings, true);
+  return mostCommonString(materials, true);
 }
 
 export function mostCommonMaterialBack(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars
+  const materials = guitars
     .filter(g => g.construction?.backMaterial)
     .map(g => g.construction?.backMaterial);    
 
-  return mostCommonString(strings, true);
+  return mostCommonString(materials, true);
 }
 
 export function mostCommonMaterialNeck(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars
+  const materials = guitars
     .filter(g => g.construction?.neckMaterial)
     .map(g => g.construction?.neckMaterial);    
 
-  return mostCommonString(strings, true);
+  return mostCommonString(materials, true);
+}
+
+export function mostCommonMaterialSides(guitars: ReadonlyArray<Guitar>): string {
+  const materials = guitars
+    .filter(g => g.construction?.sidesMaterial)
+    .map(g => g.construction?.sidesMaterial);    
+
+  return mostCommonString(materials, true);
 }
 
 export function mostCommonMaterialFingerboard(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars
+  const materials = guitars
     .filter(g => g.construction?.fingerboardMaterial)
     .map(g => g.construction?.fingerboardMaterial);    
 
-  return mostCommonString(strings, true);
+  return mostCommonString(materials, true);
 }
 
 export function madeWithVeneerTop(guitars: ReadonlyArray<Guitar>): number {
