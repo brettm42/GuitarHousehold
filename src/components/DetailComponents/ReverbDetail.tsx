@@ -96,7 +96,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
 
             <div className={classes.link}>
               <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
-                Search on Reverb.com - <a href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
+                Search on Reverb.com - <a target='_blank' href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
               </Typography>
             </div>
           </div>

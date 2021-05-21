@@ -115,7 +115,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 
             {pickup.productUrl
               ? <Typography key={`${pickup.id}-link`} gutterBottom>
-                  Product Link: <a href={pickup.productUrl}>{pickup.productUrl}</a>
+                  Product Link: <a target='_blank' href={pickup.productUrl}>{pickup.productUrl}</a>
                 </Typography>
               : null}
           </div>

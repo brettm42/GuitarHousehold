@@ -176,7 +176,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
 
             {guitar.productUrl
               ? <Typography key={`${guitar.id}-link`} gutterBottom>
-                  Product Link: <a href={guitar.productUrl}>{guitar.productUrl}</a>
+                  Product Link: <a target='_blank' href={guitar.productUrl}>{guitar.productUrl}</a>
                 </Typography>
               : null}
           </div>
