@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Zoom from '@material-ui/core/Zoom';
 
+import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import FeaturedPlayListRoundedIcon from '@material-ui/icons/FeaturedPlayListRounded';
 import FeaturedVideoRoundedIcon from '@material-ui/icons/FeaturedVideoRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
@@ -25,6 +26,8 @@ import InboxRoundedIcon from '@material-ui/icons/InboxRounded';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import MailRoundedIcon from '@material-ui/icons/MailRounded';
 import MenuIcon from '@material-ui/icons/Menu';
+import StorageIcon from '@material-ui/icons/Storage';
+import ViewListIcon from '@material-ui/icons/ViewList';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -144,32 +147,58 @@ export default function Layout(props: LayoutProps): React.ReactElement {
         onKeyDown={toggleDrawer(true)}
       >
         <List>
-          {['Home', 'Guitars', 'Projects', 'Instruments', 'Archive']
+          <Link key={0} href={'/'} passHref>
+            <ListItemLink>
+              <ListItemIcon>
+                <HomeRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Home'} />
+            </ListItemLink>
+          </Link>
+
+          <Link key={1} href={'/data'} passHref>
+            <ListItemLink>
+              <ListItemIcon>
+                <StorageIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Data'} />
+            </ListItemLink>
+          </Link>
+
+          <Divider />
+
+          {['Guitars', 'Projects', 'Instruments']
             .map((text, idx) => (
-              <Link key={idx} href={`/${text === 'Home' ? '' : text.toLocaleLowerCase()}`} passHref>
+              <Link key={idx + 2} href={`/${text.toLocaleLowerCase()}`} passHref>
                 <ListItemLink>
                   <ListItemIcon>
                     {idx === 0
-                      ? <HomeRoundedIcon />
+                      ? <FeaturedPlayListRoundedIcon />
                       : idx === 1
-                        ? <FeaturedPlayListRoundedIcon />
+                        ? <FeaturedVideoRoundedIcon />
                         : idx === 2
-                          ? <FeaturedVideoRoundedIcon />
+                          ? <InboxRoundedIcon />
                           : idx === 3
-                            ? <InboxRoundedIcon />
+                            ? <FeaturedPlayListRoundedIcon />
                             : idx === 4
-                              ? <FeaturedPlayListRoundedIcon />
+                              ? <ViewListIcon />
                               : <MailRoundedIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemLink>
               </Link>
             ))}
-        </List>
 
-        <Divider />
+          <Divider />
 
-        <List>
+          <Link key={97} href={'/archive'} passHref>
+            <ListItemLink>
+              <ListItemIcon>
+                <FeaturedPlayListIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Archive'} />
+            </ListItemLink>
+          </Link>
           <Link key={98} href={'/wishlist'} passHref>
             <ListItemLink>
               <ListItemIcon>
@@ -178,6 +207,9 @@ export default function Layout(props: LayoutProps): React.ReactElement {
               <ListItemText primary={'Wishlist'} />
             </ListItemLink>
           </Link>
+
+          <Divider />
+
           <Link key={99} href={'/about'} passHref>
             <ListItemLink>
               <ListItemIcon>
