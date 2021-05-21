@@ -4,6 +4,7 @@ const serialNumberLocations = [
   'Body',
   'Neck Heel',
   'Neck Plate',
+  'Headstock',
   'None'
 ] as const;
 
@@ -14,6 +15,7 @@ const bodyStyles = [
   'Jazzmaster',
   'Jaguar',
   'Mustang',
+  'Jazzcaster',
   'Les Paul',
   'SG',
   'Offset',
@@ -38,6 +40,7 @@ const pickupMounts = [
   'Neck',
   'Pickguard',
   'Top',
+  'Body',
   'Under-bridge',
   'Under-saddle'
 ] as const;

@@ -7,16 +7,16 @@
         "projectComplete": "1/8/2016",
         "purchaseStore": "",
         "serialNumber": "",
-        "serialNumberLocation": "",
+        "serialNumberLocation": "Body",
         "make": "Project",
         "bodyStyle": "Jazzmaster",
         "body": "",
         "neck": "",
         "pickguard": "",
         "color": "Sunburst",
-        "purchaseComponentPrice": [
-            "89.95",
-            "15.99"
+        "components": [
+            { "Neck": "89.95" },
+            { "Tremolo": "15.99" }
         ],
         "pickups": [
             {
@@ -84,16 +84,16 @@
         "projectComplete": "",
         "purchaseStore": "Amazon",
         "serialNumber": "",
-        "serialNumberLocation": "",
+        "serialNumberLocation": "None",
         "make": "Project",
         "bodyStyle": "Telecaster",
         "body": "",
         "neck": "",
         "pickguard": "",
         "color": "Red",
-        "purchaseComponentPrice": [
-            "189.95",
-            "21.99"
+        "components": [
+          { "Guitar body": "189.95" },
+          { "Pickguard": "21.99" }
         ],
         "pickups": [
             {
@@ -104,8 +104,8 @@
                 "purchaseStore": "",
                 "purchasePrice": "",
                 "position": "Bridge",
-                "type": "Telecaster",
-                "size": "Telecaster",
+                "type": "Single-coil",
+                "size": "Telecaster Bridge",
                 "output": "12.0K"
             }
         ],

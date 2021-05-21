@@ -190,6 +190,7 @@
                 "Body",
                 "Neck Heel",
                 "Neck Plate",
+                "Headstock",
                 "None"
             ]
         },
@@ -201,6 +202,7 @@
                 "Jazzmaster",
                 "Jaguar",
                 "Mustang",
+                "Jazzcaster",
                 "Les Paul",
                 "SG",
                 "Offset",
@@ -337,6 +339,7 @@
                 "Neck",
                 "Pickguard",
                 "Top",
+                "Body",
                 "Under-bridge",
                 "Under-saddle"
             ]
