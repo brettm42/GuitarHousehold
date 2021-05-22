@@ -101,7 +101,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
     indexAxis: 'y',
     elements: {
       bar: {
-        borderWidth: 2
+        borderWidth: 1
       }
     },
     responsive: true,
@@ -184,7 +184,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
     indexAxis: 'y',
     elements: {
       bar: {
-        borderWidth: 2
+        borderWidth: 1
       }
     },
     responsive: true,
@@ -237,9 +237,6 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
   const chartTitle = 'Guitar Purchase by Year';
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
-
-  console.log(Object.entries(data2).length);
-  console.log(JSON.stringify(data2));
 
   const chartData = () => ({
     labels: Object.keys(data1),
@@ -296,7 +293,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
     indexAxis: 'y',
     elements: {
       bar: {
-        borderWidth: 2
+        borderWidth: 1
       }
     },
     responsive: true,
