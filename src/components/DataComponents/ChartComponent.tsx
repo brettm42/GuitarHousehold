@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import {
+  AllPurchaseStoreChart,
   PurchaseStoreChart, 
   PurchaseYearChart
 } from './ChartComponents';
@@ -120,14 +121,19 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
     >
       <Grid key={'popular'} item xs={6} sm={4}>
         <Paper className={classes.paper0}>
+          <PurchaseYearChart {...props} />
+        </Paper>
+      </Grid>
+      <Grid key={'popular'} item xs={6} sm={4}>
+        <Paper className={classes.paper1}>
           <PurchaseStoreChart {...props} />
         </Paper>
       </Grid>
       <Grid key={'popular'} item xs={6} sm={4}>
-        <Paper className={classes.paper0}>
-          <PurchaseYearChart {...props} />
+        <Paper className={classes.paper2}>
+          <AllPurchaseStoreChart {...props} />
         </Paper>
-      </Grid>
+      </Grid>      
     </Grid>
   );
 
@@ -138,24 +144,9 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
       direction='column'
       spacing={2}
     >
-      <Grid key={'stores'} item xs={12} sm={6}>
-        <Paper>
-          <Accordion className={classes.paper0}>
-            <AccordionSummary id='panelstores-header' aria-controls='panelstores-content'>
-              <Typography variant='overline'>
-                {'Purchase Store'}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Divider />
-              <PurchaseStoreChart {...props} />
-            </AccordionDetails>
-          </Accordion>
-        </Paper>
-      </Grid>
       <Grid key={'years'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper1}>
+          <Accordion className={classes.paper0}>
             <AccordionSummary id='panelyears-header' aria-controls='panelyears-content'>
               <Typography variant='overline'>
                 {'Purchase Year'}
@@ -168,17 +159,32 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
           </Accordion>
         </Paper>
       </Grid>
-      <Grid key={'randomPick'} item xs={12} sm={6}>
+      <Grid key={'stores'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper2}>
-            <AccordionSummary id='panelRandom-header' aria-controls='panelRandom-content'>
+          <Accordion className={classes.paper1}>
+            <AccordionSummary id='panelstores-header' aria-controls='panelstores-content'>
               <Typography variant='overline'>
-                {'Random Pick'}
+                {'Purchase Store'}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Divider />
-              {/* <RandomPickComponent {...props} /> */}
+              <PurchaseStoreChart {...props} />
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
+      <Grid key={'allPurchase'} item xs={12} sm={6}>
+        <Paper>
+          <Accordion className={classes.paper2}>
+            <AccordionSummary id='panelallPurchase-header' aria-controls='panelallPurchase-content'>
+              <Typography variant='overline'>
+                {'All Purchases'}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Divider />
+              <AllPurchaseStoreChart {...props} />
             </AccordionDetails>
           </Accordion>
         </Paper>

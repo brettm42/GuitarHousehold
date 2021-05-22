@@ -3,10 +3,11 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { Guitar } from '../../interfaces/models/guitar';
+import * as GuitarDataUtils from '../../data/guitarservice/guitardatautils';
 
 type ChartComponentsProps = {
   data: Guitar[];
@@ -67,16 +68,31 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
   isMobile: isMobile
 }) => {
   const classes = useStyles();
-  const chartTitle = 'Purchase Store';
+  const chartTitle = 'Guitar Purchase by Store';
+  const data = GuitarDataUtils.guitarPurchasePerStore(guitars);
 
   const chartData = () => ({
-    labels: guitars.map(g => g.purchaseStore),
+    labels: Object.keys(data),
     datasets: [
       {
-        data: guitars.map(g => g.purchaseStore),
+        data: Object.values(data),
         fill: true,
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192,1)'
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
       }
     ]
   });
@@ -91,6 +107,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: 'bottom',
         labels: {
           fontColor: '#323130',
@@ -98,16 +115,24 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
         }
       },
       title: {
-        display: true,
+        display: false,
         text: chartTitle
       }
     },
     scales: {
+      xAxes: [
+        {
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: isMobile ? 8 : 10
+          }
+        }
+      ],
       yAxes: [
         {
           ticks: {
             suggestedMin: 0,
-            suggestedMax: isMobile ? 50 : 100
+            suggestedMax: isMobile ? 8 : 10
           }
         }
       ]
@@ -116,7 +141,90 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.purchaseStore}>
-      <Line type='line' data={chartData} options={chartOptions} />
+      <Bar type='bar' data={chartData} options={chartOptions} />
+    </ChartContainerComponent>
+  );
+};
+
+const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
+  data: guitars,
+  isMobile: isMobile
+}) => {
+  const classes = useStyles();
+  const chartTitle = 'Every Purchase by Store';
+  const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars);
+
+  const chartData = () => ({
+    labels: Object.keys(data),
+    datasets: [
+      {
+        data: Object.values(data),
+        fill: true,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+      }
+    ]
+  });
+
+  const chartOptions = {
+    indexAxis: 'y',
+    elements: {
+      bar: {
+        borderWidth: 2
+      }
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: 'bottom',
+        labels: {
+          fontColor: '#323130',
+          fontSize: 14
+        }
+      },
+      title: {
+        display: false,
+        text: chartTitle
+      }
+    },
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: isMobile ? 8 : 10
+          }
+        }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: isMobile ? 8 : 10
+          }
+        }
+      ]
+    }
+  };
+
+  return (
+    <ChartContainerComponent title={chartTitle} style={classes.purchaseStore}>
+      <Bar type='bar' data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
@@ -126,16 +234,59 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
   isMobile: isMobile
 }) => {
   const classes = useStyles();
-  const chartTitle = 'Purchase Store';
+  const chartTitle = 'Guitar Purchase by Year';
+  const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
+  const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
+
+  console.log(Object.entries(data2).length);
+  console.log(JSON.stringify(data2));
 
   const chartData = () => ({
-    labels: guitars.map(g => g.purchaseDate),
+    labels: Object.keys(data1),
     datasets: [
       {
-        data: guitars.map(g => g.purchaseDate),
+        type: 'bar',
+        data: Object.values(data1),
         fill: true,
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1
+      },
+      {
+        type: 'line',
+        label: 'Total',
+        data: Object.values(data2),
+        fill: true,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
         borderWidth: 1
       }
     ]
@@ -151,6 +302,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: 'bottom',
         labels: {
           fontColor: '#323130',
@@ -158,14 +310,23 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
         }
       },
       title: {
-        display: true,
+        display: false,
         text: chartTitle
       }
     },
     scales: {
+      xAxes: [
+        {
+          ticks: {
+            suggestedMin: 1950,
+            suggestedMax: 2070
+          }
+        }
+      ],
       yAxes: [
         {
           ticks: {
+            beginAtZero: true,
             suggestedMin: 0,
             suggestedMax: isMobile ? 50 : 100
           }
@@ -176,12 +337,13 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.purchaseYear}>
-      <Bar type='horizontalBar' data={chartData} options={chartOptions} />
+      <Bar type='bar' data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
 
 export {
+  AllPurchaseStoreChart,
   PurchaseStoreChart,
   PurchaseYearChart
 };
