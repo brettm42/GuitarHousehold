@@ -69,13 +69,13 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
 }) => {
   const classes = useStyles();
   const chartTitle = 'Guitar Purchase by Store';
-  const data = GuitarDataUtils.guitarPurchasePerStore(guitars);
+  const data = GuitarDataUtils.guitarPurchasePerStore(guitars, 1);
 
   const chartData = () => ({
-    labels: Object.keys(data),
+    labels: data.map(i => i[0]),
     datasets: [
       {
-        data: Object.values(data),
+        data: data.map(i => i[1]),
         fill: true,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -152,13 +152,13 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
 }) => {
   const classes = useStyles();
   const chartTitle = 'Every Purchase by Store';
-  const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars);
+  const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars, 1);
 
   const chartData = () => ({
-    labels: Object.keys(data),
+    labels: data.map(i => i[0]),
     datasets: [
       {
-        data: Object.values(data),
+        data: data.map(i => i[1]),
         fill: true,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -243,7 +243,9 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
     datasets: [
       {
         type: 'bar',
+        label: 'Year',
         data: Object.values(data1),
+        yAxisId: 'yAxis0',
         fill: true,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -267,6 +269,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
         type: 'line',
         label: 'Total',
         data: Object.values(data2),
+        yAxisId: 'yAxis1',
         fill: true,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -322,10 +325,21 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
       ],
       yAxes: [
         {
+          id: 'yAxis0',
+          position: 'right',
           ticks: {
             beginAtZero: true,
             suggestedMin: 0,
-            suggestedMax: isMobile ? 50 : 100
+            suggestedMax: isMobile ? 70 : 150
+          }
+        },
+        {
+          id: 'yAxis1',
+          position: 'left',
+          ticks: {
+            beginAtZero: true,
+            suggestedMin: 0,
+            suggestedMax: isMobile ? 70 : 150
           }
         }
       ]

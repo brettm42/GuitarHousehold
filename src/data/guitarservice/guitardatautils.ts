@@ -39,9 +39,9 @@ export function guitarTotalPerYear(guitars: ReadonlyArray<Guitar>): Record<numbe
   return yearMap;
 }
 
-export function guitarPurchasePerStore(guitars: ReadonlyArray<Guitar>): Record<string, number> {
+export function guitarPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): [string, number][] {
   if (guitars.length < 1) {
-    return {};
+    return [];
   }
 
   const stores: Record<string, number> = {};
@@ -53,12 +53,14 @@ export function guitarPurchasePerStore(guitars: ReadonlyArray<Guitar>): Record<s
     }
   }
 
-  return stores;
+  return Object.entries(stores)
+  .filter(i => i[1] > minimumCount)
+  .sort((a, b) => b[1] - a[1]);
 }
 
-export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>): Record<string, number> {
+export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): [string, number][] {
   if (guitars.length < 1) {
-    return {};
+    return [];
   }
 
   const stores: Record<string, number> = {};
@@ -96,5 +98,7 @@ export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>):
     }
   }
 
-  return stores;
+  return Object.entries(stores)
+    .filter(i => i[1] > minimumCount)
+    .sort((a, b) => b[1] - a[1]);
 }
