@@ -40,7 +40,7 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
         continue;
       }
 
-      const [ name, validationMap ] = item;
+      const [name, validationMap] = item;
 
       const count = getValidationCount(validationMap, ValidationFlag.Critical);
       if (count > 0) {
@@ -76,7 +76,7 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
       `${missingItem ? `Please update missing items in: ${pleaseUpdate}` : ''}`
     ];
   } catch {
-    return [ fallbackString ];
+    return [fallbackString];
   }
 }
 
@@ -109,7 +109,7 @@ export function getValidationCount(results: ReadonlyArray<Map<string, Validation
 }
 
 export function getValidationPrefix(category: Map<string, ValidationFlag>, fallbackString: string | number): string {
-  const firstEntry = [ ...category.keys() ][0];
+  const firstEntry = [...category.keys()][0];
 
   return firstEntry
     ? firstEntry.split('-')[0] ?? fallbackString.toString()
@@ -291,7 +291,7 @@ function validateCase(guitarCase: Case): Map<string, ValidationFlag> {
 
 /**
  * Validate strings object
- * @see {@link Strings | string.ts}
+ * @see {@link Strings} | string.ts
  * 
  * @param strings - object to validate
  */
@@ -318,13 +318,13 @@ function validateRetailItem(item: RetailItem, prefix: string): Map<string, Valid
   if (!item) {
     result.set('Item null', ValidationFlag.Critical);
   } else {
-    /** @see {@link entry.ts} */
+    /** @see {@link Entry} in entry.ts */
     if (!item.id) { result.set(`${prefix}-id`, ValidationFlag.Missing); }
     if (!item.name) { result.set(`${prefix}-name`, ValidationFlag.Missing); }
     if (!item.description) { result.set(`${prefix}-description`, ValidationFlag.Missing); }
     if (!item.archive) { result.set(`${prefix}-archiveFlag`, ValidationFlag.Optional); }
 
-    /** @see {@link retailitem.ts} */
+    /** @see {@link RetailItem} in retailitem.ts */
     if (!item.purchaseDate) { result.set(`${prefix}-purchaseDate`, ValidationFlag.Missing); }
     if (!item.deliveryDate) { result.set(`${prefix}-deliveryDate`, ValidationFlag.Missing); }
     if (!item.purchaseStore) { result.set(`${prefix}-purchaseStore`, ValidationFlag.Missing); }
@@ -340,7 +340,7 @@ function validateRetailItem(item: RetailItem, prefix: string): Map<string, Valid
 /**
  * Validate guitar object ID is consistent across child properties
  * 
- * @param guitar - object to validate
+ * @param guitar - {@link Guitar} object to validate
  */
 function validateGuitarId(guitar: Guitar): boolean {
   if (!guitar.id) {
@@ -348,25 +348,25 @@ function validateGuitarId(guitar: Guitar): boolean {
   }
 
   class Evaluation {
-    private _valid = true;
-    private _category = '';
+    #valid = true;
+    #category = '';
 
     public get valid() {
-      return this._valid;
+      return this.#valid;
     }
 
     public get category() {
-      return this._category;
+      return this.#category;
     }
 
     public set valid(result: boolean) {
       if (result === false) {
-        this._valid = false;
+        this.#valid = false;
       }
     }
 
     public set category(result: string) {
-      this._category += `${result}, `;
+      this.#category += `${result}, `;
     }
   }
 
