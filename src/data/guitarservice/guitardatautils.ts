@@ -39,7 +39,7 @@ export function guitarTotalPerYear(guitars: ReadonlyArray<Guitar>): Record<numbe
   return yearMap;
 }
 
-export function guitarPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): [string, number][] {
+export function guitarPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): ReadonlyArray<[string, number]> {
   if (guitars.length < 1) {
     return [];
   }
@@ -58,7 +58,7 @@ export function guitarPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCo
   .sort((a, b) => b[1] - a[1]);
 }
 
-export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): [string, number][] {
+export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): ReadonlyArray<[string, number]> {
   if (guitars.length < 1) {
     return [];
   }
@@ -101,4 +101,42 @@ export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>, 
   return Object.entries(stores)
     .filter(i => i[1] > minimumCount)
     .sort((a, b) => b[1] - a[1]);
+}
+
+export function guitarColorData(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): ReadonlyArray<[string, number]> {
+  if (guitars.length < 1) {
+    return [];
+  }
+
+  const colors: Record<string, number> = {};
+  for (const guitar of guitars) {
+    if (guitar.color) {
+      const total = colors[GuitarUtils.getColorMapping(guitar.color)] ?? 0;
+
+      colors[GuitarUtils.getColorMapping(guitar.color)] = 1 + total;
+    }
+  }
+  
+  return Object.entries(colors)
+    .filter(i => i[1] > minimumCount)
+    .sort((a, b) => b[1] - a[1]);
+}
+
+export function guitarMakeData(guitars: ReadonlyArray<Guitar>, minimumCount: number = 0): ReadonlyArray<[string, number]> {
+  if (guitars.length < 1) {
+    return [];
+  }
+
+  const makes: Record<string, number> = {};
+  for (const guitar of guitars) {
+    if (guitar.make) {
+      const total = makes[guitar.make] ?? 0;
+
+      makes[guitar.make] = 1 + total;
+    }
+  }
+
+  return Object.entries(makes)
+    .filter(i => i[1] > minimumCount)
+    .sort((a, b) => b[1] - a[1]);  
 }

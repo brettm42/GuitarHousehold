@@ -2036,7 +2036,7 @@ export function summarizeConstruction(guitar: Guitar): string {
     + `${guitar.construction.fingerboardMaterial ? `${guitar.construction.fingerboardMaterial} fingerboard` : ''}`).toLocaleLowerCase();
 }
 
-function getColorMapping(color: string): string {
+export function getColorMapping(color: string): string {
   const mapping: { [key: string]: string; } = {
     // Sunburst variants
     'Tobacco Burst': 'Sunburst',

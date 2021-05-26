@@ -7,6 +7,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import {
   AllPurchaseStoreChart,
+  GuitarColorChart,
+  GuitarMakeChart,
   PurchaseStoreChart, 
   PurchaseYearChart
 } from './ChartComponents';
@@ -113,19 +115,29 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
         justify='flex-start'
         spacing={3}
       >
-        <Grid key={'popular'} item xs={12} sm={6}>
+        <Grid key={'year'} item xs={12} sm={6}>
           <Paper className={classes.paper0}>
             <PurchaseYearChart {...props} />
           </Paper>
         </Grid>
-        <Grid key={'popular'} item xs={12} sm={6}>
+        <Grid key={'store'} item xs={12} sm={6}>
           <Paper className={classes.paper1}>
             <PurchaseStoreChart {...props} />
           </Paper>
         </Grid>
-        <Grid key={'popular'} item xs={12} sm={6}>
+        <Grid key={'allPurchases'} item xs={12} sm={6}>
           <Paper className={classes.paper2}>
             <AllPurchaseStoreChart {...props} />
+          </Paper>
+        </Grid>
+        <Grid key={'makes'} item xs={12} sm={6}>
+          <Paper className={classes.paper3}>
+            <GuitarMakeChart {...props} />
+          </Paper>
+        </Grid>  
+        <Grid key={'colors'} item xs={12} sm={6}>
+          <Paper className={classes.paper4}>
+            <GuitarColorChart {...props} />
           </Paper>
         </Grid>      
       </Grid>
