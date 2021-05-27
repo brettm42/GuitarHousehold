@@ -129,7 +129,7 @@ export function guitarMakeData(guitars: ReadonlyArray<Guitar>, minimumCount: num
 
   const makes: Record<string, number> = {};
   for (const guitar of guitars) {
-    if (guitar.make) {
+    if (guitar.make && !GuitarUtils.isProject(guitar)) {
       const total = makes[guitar.make] ?? 0;
 
       makes[guitar.make] = 1 + total;
