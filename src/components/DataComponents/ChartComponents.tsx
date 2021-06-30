@@ -110,7 +110,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
   const chartOptions = {
     indexAxis: 'y',
     elements: {
-      bar: {
+      rectangle: {
         borderWidth: 1
       }
     },
@@ -179,7 +179,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
   const chartOptions = {
     indexAxis: 'y',
     elements: {
-      bar: {
+      rectangle: {
         borderWidth: 1
       }
     },
@@ -263,7 +263,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
   const chartOptions = {
     indexAxis: 'y',
     elements: {
-      bar: {
+      rectangle: {
         borderWidth: 1
       }
     },
@@ -344,7 +344,7 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({
   const chartOptions = {
     indexAxis: 'y',
     elements: {
-      bar: {
+      rectangle: {
         borderWidth: 1
       }
     },
@@ -413,7 +413,7 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({
   const chartOptions = {
     indexAxis: 'y',
     elements: {
-      bar: {
+      rectangle: {
         borderWidth: 1
       }
     },
