@@ -151,7 +151,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.purchaseStore}>
-      <Bar type='bar' data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
@@ -220,7 +220,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.purchaseStore}>
-      <Bar type='bar' data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
@@ -316,7 +316,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.purchaseYear}>
-      <Bar type='bar' data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
@@ -385,7 +385,7 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.guitarMake}>
-      <Bar type='bar' data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
@@ -454,7 +454,7 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.guitarColor}>
-      <Bar type='bar' data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };

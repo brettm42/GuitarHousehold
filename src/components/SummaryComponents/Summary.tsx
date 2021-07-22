@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper9: {
       ...gridPaperStyle,
-      background: gridColors[2]
+      background: gridColors[0]
     },
     paper10: {
       ...gridPaperStyle,
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper11: {
       ...gridPaperStyle,
-      background: gridColors[0]
+      background: gridColors[3]
     },
     control: {
       padding: theme.spacing(2),
@@ -138,12 +138,12 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         </Paper>
       </Grid>
       <Grid key={'randomPick'} item xs={6} sm={4}>
-        <Paper className={classes.paper3}>
+        <Paper className={classes.paper2}>
           <RandomPickComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'breakdown'} item xs={6} sm={4}>
-        <Paper className={classes.paper2}>
+        <Paper className={classes.paper3}>
           <BreakdownComponent {...props} />
         </Paper>
       </Grid>
@@ -153,17 +153,17 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
         </Paper>
       </Grid>
       <Grid key={'strings'} item xs={6} sm={4}>
-        <Paper className={classes.paper4}>
+        <Paper className={classes.paper5}>
           <StringsComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'timeline'} item xs={6} sm={4}>
-        <Paper className={classes.paper5}>
+        <Paper className={classes.paper6}>
           <TimelineComponent {...props} />
         </Paper>
       </Grid>
       <Grid key={'cases'} item xs={6} sm={4}>
-        <Paper className={classes.paper6}>
+        <Paper className={classes.paper7}>
           <MissingCasesComponent {...props} />
         </Paper>
       </Grid>
@@ -177,14 +177,14 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <PartValuesComponent {...props} />
         </Paper>
       </Grid>
-      <Grid key={'inProgress'} item xs={6} sm={4}>
+      <Grid key={'construction'} item xs={6} sm={4}>
         <Paper className={classes.paper10}>
-          <ProjectInProgressComponent {...props} />
+          <ConstructionComponent {...props} />
         </Paper>
       </Grid>
-      <Grid key={'construction'} item xs={6} sm={4}>
+      <Grid key={'inProgress'} item xs={6} sm={4}>
         <Paper className={classes.paper11}>
-          <ConstructionComponent {...props} />
+          <ProjectInProgressComponent {...props} />
         </Paper>
       </Grid>
     </Grid>
@@ -274,7 +274,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'partValues'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper9}>
+          <Accordion className={classes.paper5}>
             <AccordionSummary id='panelPartValues-header' aria-controls='panelPartValues-content'>
               <Typography variant='overline'>
                 {'Case/Pickup Values'}
@@ -289,7 +289,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'cases'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper5}>
+          <Accordion className={classes.paper6}>
             <AccordionSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
               <Typography variant='overline'>
                 {'Missing Cases'}
@@ -304,7 +304,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'pickups'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper6}>
+          <Accordion className={classes.paper7}>
             <AccordionSummary id='panelPickups-header' aria-controls='panelPickups-content'>
               <Typography variant='overline'>
                 {'Pickups'}
@@ -319,7 +319,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'strings'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper4}>
+          <Accordion className={classes.paper8}>
             <AccordionSummary id='panelStrings-header' aria-controls='panelStrings-content'>
               <Typography variant='overline'>
                 {'Strings'}
@@ -334,7 +334,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       </Grid>
       <Grid key={'timeline'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper7}>
+          <Accordion className={classes.paper9}>
             <AccordionSummary id='panelTimeline-header' aria-controls='panelTimeline-content'>
               <Typography variant='overline'>
                 {'Timeline'}
@@ -347,24 +347,9 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </Accordion>
         </Paper>
       </Grid>
-      <Grid key={'inProgress'} item xs={12} sm={6}>
-        <Paper>
-          <Accordion className={classes.paper8}>
-            <AccordionSummary id='panelProjects-header' aria-controls='panelProjects-content'>
-              <Typography variant='overline'>
-                {'In Progress Projects'}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Divider />
-              <ProjectInProgressComponent {...props} />
-            </AccordionDetails>
-          </Accordion>
-        </Paper>
-      </Grid>
       <Grid key={'construction'} item xs={12} sm={6}>
         <Paper>
-          <Accordion className={classes.paper11}>
+          <Accordion className={classes.paper10}>
             <AccordionSummary id='panelConstruction-header' aria-controls='panelConstruction-content'>
               <Typography variant='overline'>
                 {'Construction'}
@@ -373,6 +358,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <AccordionDetails>
               <Divider />
               <ConstructionComponent {...props} />
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
+      <Grid key={'inProgress'} item xs={12} sm={6}>
+        <Paper>
+          <Accordion className={classes.paper11}>
+            <AccordionSummary id='panelProjects-header' aria-controls='panelProjects-content'>
+              <Typography variant='overline'>
+                {'In Progress Projects'}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Divider />
+              <ProjectInProgressComponent {...props} />
             </AccordionDetails>
           </Accordion>
         </Paper>
