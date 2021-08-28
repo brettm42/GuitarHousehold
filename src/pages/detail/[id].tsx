@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Error from '../../components/Error';
+import ErrorComponent from '../../components/ErrorComponent';
 import Layout from '../../components/Layout';
 import GuitarDetail from '../../components/DetailComponents/GuitarDetail';
 import ListDetail from '../../components/DetailComponents/ListDetail';
@@ -27,7 +27,7 @@ class DetailPage extends React.Component<DetailPageProps> {
 
     if (errors) {
       return (
-        <Error errors={errors} pathname={pathname} />
+        <ErrorComponent errors={errors} pathname={pathname} />
       );
     }
 
@@ -94,11 +94,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       }
     };
   } catch (err) {
-    return {
-      props: {
-        errors: err.message
-      }
-    };
+    if (err instanceof Error) {
+      return {
+        props: { errors: err.message }
+      };
+    } else {
+      return {
+        props: { errors: `Unknown error - ${err}` }
+      };
+    }
   }
 };
 

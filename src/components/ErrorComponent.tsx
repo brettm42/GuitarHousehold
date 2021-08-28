@@ -2,13 +2,13 @@ import * as React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-import Layout from '../components/Layout';
+import Layout from './Layout';
 
 import { NextPage } from 'next';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { buildPageTitle } from '../components/viewutils';
+import { buildPageTitle } from './viewutils';
 
-type ErrorProps = {
+type ErrorComponentProps = {
   errors: string;
   pathname: string;
 };
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Error: NextPage<ErrorProps> = ({ errors, pathname }) => {
+const ErrorComponent: NextPage<ErrorComponentProps> = ({ errors, pathname }) => {
   const classes = useStyles();
 
   return (
@@ -36,4 +36,4 @@ const Error: NextPage<ErrorProps> = ({ errors, pathname }) => {
   );
 };
 
-export default Error;
+export default ErrorComponent;

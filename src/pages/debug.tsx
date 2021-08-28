@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { NextPageContext } from 'next';
 
-import Error from '../components/Error';
+import ErrorComponent from '../components/ErrorComponent';
 
 import DebugDataList from '../components/ListComponents/DebugDataList';
 import DebugListDetail from '../components/DetailComponents/DebugListDetail';
@@ -38,7 +38,11 @@ class DebugPage extends React.Component<DebugPageProps> {
 
       return { items: items };
     } catch (err) {
-      return { errors: err.message };
+      if (err instanceof Error) {
+        return { errors: err.message };
+      } else {
+        return { errors: `Unknown error - ${err}`};
+      }
     }
   };
 
@@ -62,7 +66,7 @@ class DebugPage extends React.Component<DebugPageProps> {
     }
 
     return (
-      <Error errors={errors || 'No debug items'} pathname={pathname} />
+      <ErrorComponent errors={errors || 'No debug items'} pathname={pathname} />
     );
   };
 }
