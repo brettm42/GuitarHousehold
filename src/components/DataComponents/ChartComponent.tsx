@@ -112,7 +112,7 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
     <div>
       <Grid container
         className={classes.root}
-        justify='flex-start'
+        justifyContent='flex-start'
         spacing={3}
       >
         <Grid key={'year'} item xs={12} sm={6}>
