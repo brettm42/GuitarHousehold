@@ -4,9 +4,9 @@ import * as Constants from '../../infrastructure/constants';
 
 import Link from 'next/link';
 
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -92,9 +92,9 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   const desktopGridList = (
     <div className={classes.root}>
-      <GridList cellHeight={imgHeight} cols={3} className={classes.gridList}>
+      <ImageList cellHeight={imgHeight} cols={3} className={classes.gridList}>
         {guitars.map(guitar => (
-          <GridListTile key={guitar.id} className={classes.gridListTile}>
+          <ImageListItem key={guitar.id} className={classes.gridListTile}>
             <Link href={`/detail/${guitar.id}`}>
               <a>
                 <div className={classes.imgBackground} aria-label={guitar.name}>
@@ -105,7 +105,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                           {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
-                  <GridListTileBar
+                  <ImageListItemBar
                     title={guitar.name}
                     subtitle={
                       <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
@@ -114,17 +114,17 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                 </div>
               </a>
             </Link>
-          </GridListTile>
+          </ImageListItem>
         ))}
-      </GridList>
+      </ImageList>
     </div>
   );
 
   const mobileGridList = (
     <div className={classes.root}>
-      <GridList cellHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
+      <ImageList cellHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
         {guitars.map(guitar => (
-          <GridListTile key={guitar.id} className={classes.gridListTileMobile}>
+          <ImageListItem key={guitar.id} className={classes.gridListTileMobile}>
             <Link href={`/detail/${guitar.id}`}>
               <a>
                 <div className={classes.mobileImgBackground} aria-label={guitar.name}>
@@ -135,7 +135,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                           {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
-                  <GridListTileBar
+                  <ImageListItemBar
                     title={guitar.name}
                     subtitle={
                       <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
@@ -144,9 +144,9 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
                 </div>
               </a>
             </Link>
-          </GridListTile>
+          </ImageListItem>
         ))}
-      </GridList>
+      </ImageList>
     </div>
   );
 

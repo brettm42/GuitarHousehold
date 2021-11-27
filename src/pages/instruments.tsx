@@ -27,9 +27,7 @@ export async function getStaticProps() {
   const items: Guitar[] = [ ...await findAllInstruments() ];
 
   return {
-    props: {
-      items
-    }
+    props: { items }
   };
 }
 

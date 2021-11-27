@@ -124,7 +124,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   const desktopGrid = (
     <Grid container
       className={classes.root}
-      justify='flex-start'
+      justifyContent='flex-start'
       spacing={2}
     >
       <Grid key={'popular'} item xs={6} sm={4}>
@@ -193,7 +193,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
   const mobileGrid = (
     <Grid container
       className={classes.root}
-      justify='space-between'
+      justifyContent='space-between'
       direction='column'
       spacing={2}
     >

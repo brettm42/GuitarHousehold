@@ -36,7 +36,7 @@ class DebugPage extends React.Component<DebugPageProps> {
         item.validation = validate(item);
       }
 
-      return { items: items };
+      return { items };
     } catch (err) {
       if (err instanceof Error) {
         return { errors: err.message };

@@ -27,9 +27,7 @@ export async function getStaticProps() {
   const items: Project[] = await findAllProjects();
 
   return {
-    props: {
-      items
-    }
+    props: { items }
   };
 }
 

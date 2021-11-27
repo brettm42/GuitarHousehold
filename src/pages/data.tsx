@@ -51,9 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
   ];
 
   return {
-    props: {
-      items: data
-    }
+    props: { items: data }
   };
 };
 

@@ -87,11 +87,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const item = await find(Array.isArray(id) ? id[0] : id);
 
     return {
-      props: {
-        item: item,
-        pathname: pathname,
-        isMobile: isMobile
-      }
+      props: { isMobile, item, pathname }
     };
   } catch (err) {
     if (err instanceof Error) {

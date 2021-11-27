@@ -3,7 +3,7 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import Grid from '@material-ui/core/Grid';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 
@@ -61,7 +61,7 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
               <Link href={`/detail/${guitar.id}`}>
                 <a>
                   <img className={classes.img} src={guitar.picture || ''} alt={guitar.name} />
-                  <GridListTileBar
+                  <ImageListItemBar
                     title={guitar.name}
                     subtitle={
                       <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>

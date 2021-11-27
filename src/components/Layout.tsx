@@ -89,10 +89,7 @@ export default function Layout(props: LayoutProps): React.ReactElement {
   const classes = useStyles();
   const { children, title, pathname } = props;
 
-  const [state, setState] = React.useState(
-    {
-      drawerOpen: false
-    });
+  const [state, setState] = React.useState({ drawerOpen: false });
 
   const toggleDrawer = (open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
@@ -107,7 +104,7 @@ export default function Layout(props: LayoutProps): React.ReactElement {
     setState({ ...state, drawerOpen: open });
   };
 
-  function ListItemLink(props: ListItemProps<'a', { button?: true; }>) {
+  function ListItemLink(props: ListItemProps<'a', { button?: true; }>) {;
     return <ListItem button component='a' {...props} />;
   };
 

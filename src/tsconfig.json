@@ -3,6 +3,7 @@
     "allowJs": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "esModuleInterop": true,
