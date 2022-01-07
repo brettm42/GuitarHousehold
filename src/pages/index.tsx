@@ -17,8 +17,8 @@ import { PageProps } from '../infrastructure/shared';
 import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
 
 export const muiCache = createCache({
-  "key": "mui",
-  "prepend": true
+  'key': 'mui',
+  'prepend': true
 });
 
 const theme = createTheme();

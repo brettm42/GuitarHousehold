@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { NextPageContext } from 'next';
-
 import ErrorComponent from '../components/ErrorComponent';
 import DebugDataList from '../components/ListComponents/DebugDataList';
 import DebugListDetail from '../components/DetailComponents/DebugListDetail';
 
+import { NextPageContext } from 'next';
 import { Guitar } from '../interfaces/models/guitar';
 import { find, findEverything } from '../data/guitarservice/guitarservice';
 import { validate } from '../data/guitarservice/validation';

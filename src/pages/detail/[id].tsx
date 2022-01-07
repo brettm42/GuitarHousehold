@@ -8,7 +8,6 @@ import ProjectDetail from '../../components/DetailComponents/ProjectDetail';
 
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { buildPageTitle, IsMobile } from '../../components/viewutils';
-
 import { Guitar } from '../../interfaces/models/guitar';
 import { RetailItem } from '../../interfaces/retailitem';
 import { find, findEverything } from '../../data/guitarservice/guitarservice';

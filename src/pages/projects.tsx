@@ -1,7 +1,6 @@
-import { NextPage } from 'next';
-
 import GuitarList from '../components/GuitarList';
 
+import { NextPage } from 'next';
 import { IsMobile } from '../components/viewutils';
 import { PageProps } from '../infrastructure/shared';
 import { Project } from '../interfaces/models/project';
