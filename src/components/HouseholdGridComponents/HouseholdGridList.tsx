@@ -1,17 +1,15 @@
 import * as React from 'react';
-
 import * as Constants from '../../infrastructure/constants';
 
 import Link from 'next/link';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Typography from '@mui/material/Typography';
 
-import ImageList from '@material-ui/core/ImageList';
-import ImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { Guitar } from '../../interfaces/models/guitar';
-import { Typography } from '@material-ui/core';
 
 type HouseholdGridListProps = {
   data: Guitar[];
@@ -22,8 +20,8 @@ const imgHeight = 340;
 const mobileImgHeight = 240;
 const mobileImgBackgroundHeight = 200;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       display: 'inline-flex',
       flexWrap: 'wrap',
@@ -82,17 +80,17 @@ const useStyles = makeStyles((theme: Theme) =>
     mobileImgPlaceholderText: {
       marginBottom: theme.spacing(8)
     }
-  })
-);
+  };
+});
 
 const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
   data: guitars, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const desktopGridList = (
     <div className={classes.root}>
-      <ImageList cellHeight={imgHeight} cols={3} className={classes.gridList}>
+      <ImageList rowHeight={imgHeight} cols={3} className={classes.gridList}>
         {guitars.map(guitar => (
           <ImageListItem key={guitar.id} className={classes.gridListTile}>
             <Link href={`/detail/${guitar.id}`}>
@@ -122,7 +120,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   const mobileGridList = (
     <div className={classes.root}>
-      <ImageList cellHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
+      <ImageList rowHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
         {guitars.map(guitar => (
           <ImageListItem key={guitar.id} className={classes.gridListTileMobile}>
             <Link href={`/detail/${guitar.id}`}>

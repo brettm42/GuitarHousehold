@@ -1,17 +1,16 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-
+import Typography from '@mui/material/Typography';
 import Layout from '../components/Layout';
 
 import { NextPage } from 'next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { TextPageProps } from '../infrastructure/shared';
 import { buildPageTitle } from '../components/viewutils';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     title: {
       padding: theme.spacing(4, 2, 2, 2)
     },
@@ -24,12 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
     response: {
       padding: theme.spacing(2)
     }
-  })
-);
+  };
+});
 
 const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
   const title = 'Test';
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname}>

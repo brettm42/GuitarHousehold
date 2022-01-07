@@ -1,30 +1,29 @@
 import * as React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-
+import Typography from '@mui/material/Typography';
 import ChartComponent from '../components/DataComponents/ChartComponent';
 import Layout from '../components/Layout';
 
 import { GetStaticProps, NextPage } from 'next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { PageProps } from '../infrastructure/shared';
-
 import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     title: {
       padding: theme.spacing(4, 0, 4, 1),
     },
     divider: {
       margin: theme.spacing(4, 2),
     }
-  })
-);
+  };
+});
 
 const DataPage: NextPage<PageProps> = ({ items, pathname }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const isMobile = IsMobile();
   const title = 'Data';
 

@@ -1,17 +1,14 @@
 import * as React from 'react';
-
 import * as Constants from '../../infrastructure/constants';
 
 import Link from 'next/link';
-
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import DataList from '../../components/ListComponents/DataList';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
@@ -28,8 +25,8 @@ type SummaryComponentsProps = {
 
 const dividerPlaceholder: [ string, string | readonly string[] ] = [ '*', '*' ];
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
     },
@@ -83,8 +80,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2)
     },
     inProgress: {}
-  })
-);
+  };
+});
 
 function gridLineFormatter(line: [ string, string | ReadonlyArray<string> ], idx: number, classes: any): JSX.Element {
   if (line[0] === '') {
@@ -122,7 +119,7 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
   contents: contents,
   style: style
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   if (!title && !contents) {
     return null;
@@ -143,7 +140,7 @@ const SummaryComponent: React.FunctionComponent<SummaryComponentProps> = ({
 const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -171,7 +168,7 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const data = guitars.filter(g => !GuitarUtils.hasCase(g));
   if (!data || data.length < 1) {
@@ -191,7 +188,7 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
 const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const data = guitars.filter(g => GuitarUtils.isInProgress(g));
   if (!data || data.length < 1) {
@@ -211,7 +208,7 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
 const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -237,7 +234,7 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -266,7 +263,7 @@ const ValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -287,7 +284,7 @@ const PartValuesComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -308,7 +305,7 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const StringsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -327,7 +324,7 @@ const StringsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   function buildGuitarGrid(guitar: Guitar): React.ReactElement {
     if (!guitar) {
@@ -376,7 +373,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent
@@ -402,7 +399,7 @@ const BreakdownComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const notYetDelivered = GuitarUtils.notYetDelivered(guitars);
 
   return (
@@ -431,7 +428,7 @@ const TimelineComponent: React.FunctionComponent<SummaryComponentsProps> = ({
 const ConstructionComponent: React.FunctionComponent<SummaryComponentsProps> = ({
   data: guitars
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <SummaryComponent

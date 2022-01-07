@@ -1,34 +1,32 @@
 import * as React from 'react';
 
 import Link from 'next/link';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { Entry } from '../../interfaces/entry';
 import { Guitar } from '../../interfaces/models/guitar';
-
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
 
 type DataTableRowProps = {
   item: Entry;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {},
     description: {
       maxWidth: 300,
       padding: theme.spacing(1, 0, 0, 0)
     }
-  })
-);
+  };
+});
 
 const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <TableRow className={classes.root} key={item.id} tabIndex={-1}>

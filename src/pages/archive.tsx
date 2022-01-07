@@ -2,11 +2,11 @@ import { NextPage, GetStaticProps } from 'next';
 
 import GuitarList from '../components/GuitarList';
 
-import { PageProps } from '../infrastructure/shared';
 import { IsMobile } from '../components/viewutils';
-
-import { Guitar } from '../interfaces/models/guitar';
 import { findAllArchived, findAllSold } from '../data/guitarservice/guitarservice';
+import { PageProps } from '../infrastructure/shared';
+import { Guitar } from '../interfaces/models/guitar';
+
 
 const pageTitle = 'Archive';
 const pageListColumns = 'archive';

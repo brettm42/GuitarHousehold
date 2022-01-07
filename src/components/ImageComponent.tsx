@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 
 type ImageProps = {
   imageSet: ReadonlyArray<string | undefined>;
@@ -35,8 +36,8 @@ type ImagePanelProps = {
   onTouchEnd: (event: React.TouchEvent<{}>) => void;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     img: {
       width: '100%',
       boxShadow: theme.shadows[2]
@@ -52,8 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
     labelRoot: {
       flexGrow: 1
     },
-  })
-);
+  };
+});
 
 function ImagePanel(props: ImagePanelProps) {
   return (
@@ -75,7 +76,7 @@ function ImagePanel(props: ImagePanelProps) {
 };
 
 export default function ImageComponent(props: ImageProps): React.ReactElement {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   const imageSet = props.imageSet.filter(i => i || false);
 

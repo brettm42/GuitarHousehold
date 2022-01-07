@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import Link from 'next/link';
-
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 import { Entry } from '../../interfaces/entry';
 

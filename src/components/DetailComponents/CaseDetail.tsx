@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { getDeliveryTime, isDelivered, isFactoryCase } from '../../data/guitarservice/guitarutils';
-
 import { Case } from '../../interfaces/models/case';
 
 type CaseDetailProps = {
@@ -18,8 +17,8 @@ type CaseDetailProps = {
   isMobile: boolean;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
       width: '100%'
@@ -48,13 +47,13 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowY: 'hidden',
       overflowX: 'scroll'
     }
-  })
-);
+  };
+});
 
 const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
   item: guitarCase, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div>

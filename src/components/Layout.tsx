@@ -2,35 +2,34 @@ import * as React from 'react';
 
 import Head from 'next/head';
 import Link from 'next/link';
+import AppBar from '@mui/material/AppBar';
+import ButtonBase from '@mui/material/ButtonBase';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import Fab from '@mui/material/Fab';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem, { ListItemProps } from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Zoom from '@mui/material/Zoom';
 
-import AppBar from '@material-ui/core/AppBar';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Zoom from '@material-ui/core/Zoom';
+import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
+import FeaturedPlayListRoundedIcon from '@mui/icons-material/FeaturedPlayListRounded';
+import FeaturedVideoRoundedIcon from '@mui/icons-material/FeaturedVideoRounded';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import InboxRoundedIcon from '@mui/icons-material/InboxRounded';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import MenuIcon from '@mui/icons-material/Menu';
+import StorageIcon from '@mui/icons-material/Storage';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
-import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
-import FeaturedPlayListRoundedIcon from '@material-ui/icons/FeaturedPlayListRounded';
-import FeaturedVideoRoundedIcon from '@material-ui/icons/FeaturedVideoRounded';
-import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
-import InboxRoundedIcon from '@material-ui/icons/InboxRounded';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import MailRoundedIcon from '@material-ui/icons/MailRounded';
-import MenuIcon from '@material-ui/icons/Menu';
-import StorageIcon from '@material-ui/icons/Storage';
-import ViewListIcon from '@material-ui/icons/ViewList';
-
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { FooterMessage } from '../infrastructure/constants';
 
 type LayoutProps = {
@@ -39,8 +38,8 @@ type LayoutProps = {
   pathname: string;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       maxWidth: '100%',
       overflowX: 'hidden'
@@ -82,11 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
       right: theme.spacing(2),
       zIndex: 10
     }
-  })
-);
+  };
+});
 
 export default function Layout(props: LayoutProps): React.ReactElement {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const { children, title, pathname } = props;
 
   const [state, setState] = React.useState({ drawerOpen: false });
@@ -110,7 +109,7 @@ export default function Layout(props: LayoutProps): React.ReactElement {
 
   function ScrollToTopComponent(props: LayoutProps) {
     const { children } = props;
-    const classes = useStyles();
+    const { classes } = useStyles();
 
     const trigger = useScrollTrigger({
       disableHysteresis: true,

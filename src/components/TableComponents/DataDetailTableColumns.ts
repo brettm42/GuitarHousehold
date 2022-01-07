@@ -1,5 +1,4 @@
 import { Project } from '../../interfaces/models/project';
-
 import {
   getGuitarCost,
   getPickupCount,

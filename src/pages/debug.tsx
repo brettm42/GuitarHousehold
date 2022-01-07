@@ -3,7 +3,6 @@ import * as React from 'react';
 import { NextPageContext } from 'next';
 
 import ErrorComponent from '../components/ErrorComponent';
-
 import DebugDataList from '../components/ListComponents/DebugDataList';
 import DebugListDetail from '../components/DetailComponents/DebugListDetail';
 

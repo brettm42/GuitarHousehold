@@ -1,26 +1,24 @@
 import * as React from 'react';
 
 import Link from 'next/link';
+import Typography from '@mui/material/Typography';
 
-import Typography from '@material-ui/core/Typography';
-
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { IsMobile } from '../viewutils';
-
 import { DataListItemProps } from './DataListItem';
 import { getValidationStatus } from '../../data/guitarservice/validation';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     row: {
       padding: theme.spacing(1, 0)
     }
-  }
-  ));
+  };
+});
 
 const DebugDataListItem: React.FunctionComponent<DataListItemProps> = ({ data }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const isMobile = IsMobile();
 
   if (isMobile) {

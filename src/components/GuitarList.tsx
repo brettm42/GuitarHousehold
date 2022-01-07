@@ -1,13 +1,12 @@
-import Typography from '@material-ui/core/Typography';
-
 import DataDetailTable from '../components/TableComponents/DataDetailTable';
 import DataTable from '../components/TableComponents/DataTable';
 import Layout from '../components/Layout';
+import Typography from '@mui/material/Typography';
 
 import { NextPage } from 'next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { buildPageTitle } from '../components/viewutils';
-
 import { Guitar } from '../interfaces/models/guitar';
 
 type GuitarListProps = {
@@ -18,19 +17,19 @@ type GuitarListProps = {
   columns: string;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     title: {
       padding: theme.spacing(4, 2, 0, 2)
     },
     emptyList: {
       padding: theme.spacing(4)
     }
-  })
-);
+  };
+});
 
 const GuitarList: NextPage<GuitarListProps> = ({ items, pathname, isMobile, title, columns }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname}>

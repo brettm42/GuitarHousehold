@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import {
   AllPurchaseStoreChart,
   GuitarColorChart,
@@ -12,7 +12,6 @@ import {
   PurchaseStoreChart, 
   PurchaseYearChart
 } from './ChartComponents';
-
 import { Guitar } from '../../interfaces/models/guitar';
 
 type SummaryProps = {
@@ -36,8 +35,8 @@ const gridPaperStyle = {
   }
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
       alignItems: 'stretch',
@@ -99,13 +98,13 @@ const useStyles = makeStyles((theme: Theme) =>
     control: {
       padding: theme.spacing(2),
     }
-  })
-);
+  };
+});
 
 const ChartComponent: React.FunctionComponent<SummaryProps> = ({
   data: guitars, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const props = { data: guitars, isMobile: isMobile };
 
   return (

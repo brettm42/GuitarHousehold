@@ -1,25 +1,23 @@
 import * as React from 'react';
 
 import Link from 'next/link';
-
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 
 import { useStyles } from './DataDetailTable';
 import { TableDataCell } from './DataDetailTableColumns';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
-
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
 
 type DataDetailTableRowProps = {
-  classes: ReturnType<typeof useStyles>;
+  styling: ReturnType<typeof useStyles>;
   columns: ReadonlyArray<TableDataCell>;
   guitar: Project;
 };
 
-const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ classes, columns, guitar }) => {
+const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ styling, columns, guitar }) => {
   return (
     <TableRow key={guitar.id} tabIndex={-1} hover>
       <TableCell
@@ -42,7 +40,7 @@ const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ 
             </Typography>
           </a>
         </Link>
-        <div className={classes.description}>
+        <div className={styling.classes.description}>
           <Typography variant='caption' gutterBottom>
             {summarizeGuitar(guitar as Guitar)}
           </Typography>

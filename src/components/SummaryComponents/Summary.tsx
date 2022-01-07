@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import {
   BreakdownComponent,
   ConstructionComponent,
@@ -24,7 +24,6 @@ import {
   TimelineComponent,
   ValuesComponent
 } from './SummaryComponents';
-
 import { Guitar } from '../../interfaces/models/guitar';
 
 type SummaryProps = {
@@ -49,8 +48,8 @@ const gridPaperStyle = {
   }
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
       alignItems: 'stretch',
@@ -112,13 +111,13 @@ const useStyles = makeStyles((theme: Theme) =>
     control: {
       padding: theme.spacing(2),
     }
-  })
-);
+  };
+});
 
 const Summary: React.FunctionComponent<SummaryProps> = ({
   data: guitars, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const props = { data: guitars, isMobile: isMobile };
 
   const desktopGrid = (

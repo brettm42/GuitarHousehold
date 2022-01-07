@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import {
   averagePriceForKeywordsAsync,
   getRecentSearchCacheStatsAsync,
@@ -17,8 +17,8 @@ type ReverbDetailProps = {
   isMobile: boolean;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
       width: '100%'
@@ -40,13 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
     footer: {
       paddingTop: theme.spacing(2)
     }
-  })
-);
+  };
+});
 
 const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
   keywords, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const [ averagePrice, setAveragePrice ] = React.useState('');
   const [ numberOfListings, setNumberOfListings ] = React.useState('');
   const [ reverbCacheStats, setReverbCacheStats ] = React.useState('');

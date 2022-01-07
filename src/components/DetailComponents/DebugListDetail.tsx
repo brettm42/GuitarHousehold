@@ -1,30 +1,28 @@
 import * as React from 'react';
 
 import { ListDetailProps } from './ListDetail';
-
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
 import { ValidationFlag } from '../../infrastructure/shared';
-
 import {
   getValidationCount,
   getValidationPrefix,
   validate
 } from '../../data/guitarservice/validation';
 
-const useStyles = makeStyles(() =>
-  createStyles({
+const useStyles = makeStyles()(() => {
+  return {
     json: {
       whiteSpace: 'nowrap',
       overflowY: 'hidden',
       overflowX: 'scroll'
     }
-  }));
+  };
+});
 
 const DebugListDetail: React.FunctionComponent<ListDetailProps> = ({
   item: entry,
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const validation = entry.validation ? entry.validation : validate(entry);
   const issueCount = getValidationCount(validation);
   const criticalCount = getValidationCount(validation, ValidationFlag.Critical);

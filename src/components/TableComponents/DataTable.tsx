@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
 import DataTableRow from './DataTableRow';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { Entry } from '../../interfaces/entry';
 
 type DataTableProps = {
@@ -15,18 +14,18 @@ type DataTableProps = {
   columns: string;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       overflowX: 'auto',
       margin: theme.spacing(2)
     },
     table: {}
-  })
-);
+  };
+});
 
 export default function DataTable(props: DataTableProps) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Paper className={classes.root}>

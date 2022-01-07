@@ -12,6 +12,7 @@
     "jsx": "preserve",
     "lib": [
       "dom",
+      "es6",
       "es2017"
     ],
     "module": "esnext",

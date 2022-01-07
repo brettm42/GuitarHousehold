@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Typography from '@material-ui/core/Typography';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Typography from '@mui/material/Typography';
 
 import { Order, useStyles } from './DataDetailTable';
 import { TableDataCell } from './DataDetailTableColumns';
 import { Project } from '../../interfaces/models/project';
 
 interface DataDetailTableHeadProps {
-  classes: ReturnType<typeof useStyles>;
+  styling: ReturnType<typeof useStyles>;
   columns: ReadonlyArray<TableDataCell>;
   onRequestSort: (event: React.MouseEvent, property: keyof Project) => void;
   order: Order;
@@ -19,7 +19,7 @@ interface DataDetailTableHeadProps {
 }
 
 const DataDetailTableHead: React.FunctionComponent<DataDetailTableHeadProps> =
-  ({ classes, columns, onRequestSort, order, orderBy }) => {
+  ({ styling, columns, onRequestSort, order, orderBy }) => {
     const createSortHandler = (property: keyof Project) => (event: React.MouseEvent) => {
       onRequestSort(event, property);
     };
@@ -34,7 +34,7 @@ const DataDetailTableHead: React.FunctionComponent<DataDetailTableHeadProps> =
                   {cell.label}
                 </Typography>
                 {orderBy === cell.id
-                  ? (<span className={classes.hidden}>
+                  ? (<span className={styling.classes.hidden}>
                       {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                     </span>)
                   : null}

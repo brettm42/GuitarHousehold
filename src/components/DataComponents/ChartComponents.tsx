@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { ChartData, ChartOptions } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarDataUtils from '../../data/guitarservice/guitardatautils';
 
@@ -42,8 +42,8 @@ const defaultChartBorderColor =
 
 const defaultChartFontColor = '#323130';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
     },
@@ -66,11 +66,11 @@ const useStyles = makeStyles((theme: Theme) =>
     purchaseYear: {},
     guitarColor: {},
     guitarMake: {}
-  })
-);
+  };
+});
 
 const ChartContainerComponent: React.FunctionComponent<ChartComponentProps> = ({ title, style, children }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={style}>
@@ -85,7 +85,7 @@ const ChartContainerComponent: React.FunctionComponent<ChartComponentProps> = ({
 };
 
 const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const chartTitle = 'Guitar Purchase by Store';
   const data = GuitarDataUtils.guitarPurchasePerStore(guitars, 1);
 
@@ -144,7 +144,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
 };
 
 const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const chartTitle = 'Every Purchase by Store';
   const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars, 1);
 
@@ -203,7 +203,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
 };
 
 const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const chartTitle = 'Guitar Purchase by Year';
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
@@ -277,7 +277,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
 };
 
 const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const chartTitle = 'Guitar Makes';
   const data = GuitarDataUtils.guitarMakeData(guitars, 1);
 
@@ -336,7 +336,7 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
 };
 
 const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const chartTitle = 'Guitar Colors';
   const data = GuitarDataUtils.guitarColorData(guitars, 1);
 

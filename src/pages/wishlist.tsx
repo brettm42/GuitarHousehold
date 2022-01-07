@@ -4,7 +4,6 @@ import GuitarList from '../components/GuitarList';
 
 import { IsMobile } from '../components/viewutils';
 import { PageProps } from '../infrastructure/shared';
-
 import { Guitar } from '../interfaces/models/guitar';
 import { findAllWishlist } from '../data/guitarservice/guitarservice';
 

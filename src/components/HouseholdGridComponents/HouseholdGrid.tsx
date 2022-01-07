@@ -1,14 +1,13 @@
 import * as React from 'react';
 
 import Link from 'next/link';
+import Grid from '@mui/material/Grid';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
 
-import Grid from '@material-ui/core/Grid';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
-
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { Guitar } from '../../interfaces/models/guitar';
 
 type HouseholdGridProps = {
@@ -16,8 +15,8 @@ type HouseholdGridProps = {
   isMobile: boolean;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     root: {
       flexGrow: 1,
     },
@@ -44,13 +43,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
       margin: '0 auto'
     }
-  })
-);
+  };
+});
 
 const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
   data: guitars, isMobile
 }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={classes.root}>

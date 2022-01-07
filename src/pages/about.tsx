@@ -2,19 +2,17 @@ import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
 
 import Link from 'next/link';
-
-import Typography from '@material-ui/core/Typography';
-
+import Typography from '@mui/material/Typography';
 import Layout from '../components/Layout';
 
 import { NextPage } from 'next';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-
+import { makeStyles } from 'tss-react/mui';
+import { Theme } from '@mui/material/styles';
 import { PageProps } from '../infrastructure/shared';
 import { buildPageTitle } from '../components/viewutils';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles()((theme: Theme) => {
+  return {
     title: {
       padding: theme.spacing(4, 2, 2, 2)
     },
@@ -32,12 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '90%',
       padding: theme.spacing(2)
     }
-  })
-);
+  };
+});
 
 const AboutPage: NextPage<PageProps> = ({ pathname }) => {
   const title = 'About';
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname}>
