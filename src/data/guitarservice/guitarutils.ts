@@ -833,6 +833,15 @@ export function mostCommonPickupNumber(guitars: ReadonlyArray<Guitar>): string {
   return mostCommonString(pickups);
 }
 
+export function mostCommonManufactureYear(guitars: ReadonlyArray<Guitar>): string {
+  const years =
+    guitars
+      .filter(g => g.manufactureYear)
+      .map(g => g.manufactureYear?.toString());
+
+  return mostCommonString(years, true);
+}
+
 export function averagePickup(guitars: ReadonlyArray<Guitar>): string {
   const pickups =
     guitars.filter(g => g.pickups)
