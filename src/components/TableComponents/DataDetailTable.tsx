@@ -65,7 +65,7 @@ function getTableColumns(columns: string): ReadonlyArray<TableDataCell> {
   return columns.includes('guitar') || columns.includes('archive')
     ? [...BaseColumns, ...GuitarColumns]
     : columns.includes('project')
-      ? [...BaseColumns, ...ProjectColumns]
+      ? [...ProjectColumns]
       : BaseColumns;
 }
 

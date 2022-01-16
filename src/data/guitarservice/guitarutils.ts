@@ -172,6 +172,30 @@ export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
   return '';
 }
 
+export function getControlCount(guitar: Guitar): number {
+  if (hasControls(guitar)) {
+    return guitar.controls?.length ?? 0;
+  }
+
+  return 0;
+}
+
+export function mostCommonControlCount(guitars: ReadonlyArray<Guitar>): string {
+  if (guitars.length < 1) {
+    return defaultString;
+  }
+
+  const items = guitars.filter(g => hasControls(g));
+  const averageCount =
+    items.reduce((avg, g) =>
+        avg + (getControlCount(g) ?? 0),
+      0) / items.length;
+
+  return averageCount
+    ? `${Math.round(averageCount)}`
+    : defaultString;
+}
+
 export function getPickupCount(guitar: Guitar): number {
   if (hasPickups(guitar)) {
     return guitar.pickups?.length ?? 0;
@@ -264,7 +288,7 @@ export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-export function averageFrets(guitars: ReadonlyArray<Guitar>): string {
+export function mostCommonFretCount(guitars: ReadonlyArray<Guitar>): string {
   if (guitars.length < 1) {
     return defaultString;
   }
@@ -377,6 +401,14 @@ export function averageDeliveryTime(guitars: ReadonlyArray<Guitar>): string {
   return averageTime
     ? `${millisecondsToFriendlyString(averageTime)}`
     : defaultString;
+}
+
+export function getModificationCount(guitar: Guitar): number {
+  if (hasModifications(guitar)) {
+    return guitar.modifications?.length ?? 0;
+  }
+
+  return 0;
 }
 
 export function hasModifications(guitar: Guitar): boolean {
@@ -1998,6 +2030,8 @@ export function summarizeGuitar(guitar: Guitar): string {
     + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}`
     + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
     + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
+    + `${guitar.controls ? ', ' + getControlCount(guitar) + ' controls' : ''}`
+    + `${guitar.modifications ? ', ' + getModificationCount(guitar) + ' modifications' : ''}`
     + `, ${(getColorMapping(guitar.color) ?? 'unfinished').toLocaleLowerCase()} finish`
     + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not yet completed' : ''}`
     + `${isWishlisted(guitar) ? ', and is on the wishlist.' : ''}`;
