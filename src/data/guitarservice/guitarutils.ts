@@ -837,6 +837,17 @@ export function mostCommonPickupMagnetType(guitars: ReadonlyArray<Guitar>): stri
   return mostCommonString(magnetTypes, true);
 }
 
+export function mostCommonPickupCover(guitars: ReadonlyArray<Guitar>): string {
+  const pickups =
+    guitars.reduce((pickups, guitar) =>
+      [...pickups, ...guitar.pickups ?? []],
+      [] as Pickup[]);
+
+  const covers = pickups.filter(p => p.cover).map(p => p.cover);
+
+  return mostCommonString(covers, true);
+}
+
 export function mostCommonPickupMount(guitars: ReadonlyArray<Guitar>): string {
   const pickups =
     guitars.reduce((pickups, guitar) =>

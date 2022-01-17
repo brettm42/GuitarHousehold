@@ -296,6 +296,7 @@ const PickupsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Most Common Type', GuitarUtils.mostCommonPickupType(guitars) ],
         [ 'Most Common Mount', GuitarUtils.mostCommonPickupMount(guitars) ],
         [ 'Most Common Magnet Type', GuitarUtils.mostCommonPickupMagnetType(guitars) ],
+        [ 'Most Common Cover', GuitarUtils.mostCommonPickupCover(guitars) ],
         [ 'Highest Output', GuitarUtils.highestPickup(guitars) ],
         [ 'Lowest Output', GuitarUtils.lowestPickup(guitars) ],
         [ 'Average Output', GuitarUtils.averagePickup(guitars) ]

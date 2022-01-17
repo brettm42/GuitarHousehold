@@ -1,4 +1,5 @@
 import {
+  PickupCover,
   PickupMount,
   PickupPosition,
   PickupSize,
@@ -13,4 +14,5 @@ export interface Pickup extends RetailItem {
   readonly output?: string;
   readonly mount?: PickupMount;
   readonly magnetType?: string;
+  readonly cover?: PickupCover;
 }

@@ -28,6 +28,14 @@ const bodyStyles = [
   'Unique'
 ] as const;
 
+export type PickupCover = typeof pickupCovers[number];
+const pickupCovers = [
+  'Foil',
+  'Metal',
+  'None',
+  'Plastic'
+] as const;
+
 export type PickupPosition = typeof pickupPositions[number];
 const pickupPositions = [
   'Neck',
