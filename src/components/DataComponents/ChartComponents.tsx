@@ -5,10 +5,24 @@ import Typography from '@mui/material/Typography';
 
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
-import { ChartData, ChartOptions } from 'chart.js';
+import { 
+  BarController,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS, 
+  ChartData, 
+  ChartOptions, 
+  LinearScale, 
+  LineController,
+  LineElement, 
+  PointElement, 
+  Title 
+} from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarDataUtils from '../../data/guitarservice/guitardatautils';
+
+ChartJS.register(BarController, BarElement, CategoryScale, LinearScale, LineController, LineElement, PointElement, Title);
 
 type ChartComponentsProps = {
   data: Guitar[];
@@ -126,12 +140,10 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
     },
     scales: {
       x: {
-        suggestedMin: 0,
-        max: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: 0,
-        max: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       }
     }
   };
@@ -185,12 +197,10 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
     },
     scales: {
       x: {
-        suggestedMin: 0,
-        max: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: 0,
-        max: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       }
     }
   };
@@ -207,6 +217,9 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
   const chartTitle = 'Guitar Purchase by Year';
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
+
+  const date = new Date(Date.now()); 
+  const currentYear = date.getFullYear(); 
 
   const chartData: ChartData<'bar'> = {
     labels: Object.keys(data1),
@@ -253,8 +266,8 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
     },
     scales: {
       x: {
-        suggestedMin: 1950,
-        max: 2070
+        min: currentYear - 30,
+        max: (isMobile ? 15 : 30) + currentYear
       },
       y0: {
         position: 'right',
@@ -318,12 +331,10 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
     },
     scales: {
       x: {
-        suggestedMin: 0,
-        suggestedMax: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: 0,
-        suggestedMax: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       }
     }
   };
@@ -377,12 +388,10 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
     },
     scales: {
       x: {
-        suggestedMin: 0,
-        suggestedMax: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: 0,
-        suggestedMax: isMobile ? 8 : 10
+        suggestedMin: isMobile ? 2 : 1
       }
     }
   };
