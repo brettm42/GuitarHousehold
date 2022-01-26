@@ -36,16 +36,19 @@
           }
         },
         "purchaseDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "deliveryDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "purchaseStore": {
           "type": "string"
         },
         "purchasePrice": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]+\\.[0-9]{2}$"
         },
         "currentPrice": {
           "type": "string"
@@ -54,7 +57,8 @@
           "type": "string"
         },
         "soldDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "make": {
           "type": "string"
@@ -72,7 +76,8 @@
           "$ref": "#/definitions/SerialNumberLocation"
         },
         "manufactureYear": {
-          "type": "number"
+          "type": "number",
+          "pattern": "[0-9]{4}$"
         },
         "bodyStyle": {
           "$ref": "#/definitions/BodyStyle"
@@ -96,7 +101,8 @@
           "$ref": "#/definitions/Case"
         },
         "scale": {
-          "type": "string"
+          "type": "string",
+          "pattern": ".+\"$"
         },
         "numberOfFrets": {
           "type": "number"
@@ -105,10 +111,12 @@
           "type": "string"
         },
         "neckRadius": {
-          "type": "string"
+          "type": "string",
+          "pattern": ".+\"$"
         },
         "nutWidth": {
-          "type": "string"
+          "type": "string",
+          "pattern": ".+\"$"
         },
         "hasBattery": {
           "type": "boolean"
@@ -215,16 +223,19 @@
           }
         },
         "purchaseDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "deliveryDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "purchaseStore": {
           "type": "string"
         },
         "purchasePrice": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]+\\.[0-9]{2}$"
         },
         "currentPrice": {
           "type": "string"
@@ -233,7 +244,8 @@
           "type": "string"
         },
         "soldDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "type": {
           "$ref": "#/definitions/PickupType"
@@ -245,7 +257,8 @@
           "$ref": "#/definitions/PickupPosition"
         },
         "output": {
-          "type": "string"
+          "type": "string",
+          "pattern": ".+K$"
         },
         "mount": {
           "$ref": "#/definitions/PickupMount"
@@ -356,16 +369,19 @@
           }
         },
         "purchaseDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "deliveryDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "purchaseStore": {
           "type": "string"
         },
         "purchasePrice": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]+\\.[0-9]{2}$"
         },
         "currentPrice": {
           "type": "string"
@@ -374,7 +390,8 @@
           "type": "string"
         },
         "soldDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "gauge": {
           "type": "string"
@@ -386,7 +403,8 @@
           "type": "string"
         },
         "lastChangeDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         }
       },
       "additionalProperties": false,
@@ -438,16 +456,19 @@
           }
         },
         "purchaseDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "deliveryDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "purchaseStore": {
           "type": "string"
         },
         "purchasePrice": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]+\\.[0-9]{2}$"
         },
         "currentPrice": {
           "type": "string"
@@ -456,7 +477,8 @@
           "type": "string"
         },
         "soldDate": {
-          "type": "string"
+          "type": "string",
+          "pattern": "[0-9]{1,2}\/[0-9]{2}\/[0-9]{4}$"
         },
         "caseStyle": {
           "$ref": "#/definitions/CaseStyle"
