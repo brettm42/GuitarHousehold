@@ -2138,6 +2138,10 @@ export function getColorMapping(color: string): string {
     'Metallic Gold': 'Gold',
     'Aztec Gold Metalflake': 'Gold',
 
+    // Silver variants
+    'Silver Sparkle': 'Silver',
+    'Silverburst': 'Silver',
+
     // Orange variants
     'Sunrise Orange': 'Orange',
     

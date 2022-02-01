@@ -28,11 +28,11 @@ class Listing {
 
 function addRecentSearch(keywords: string, results: Listing[]) {
   recentSearches[keywords] =
-  {
-    keywords: keywords,
-    date: Date.now(),
-    results: results
-  };
+    {
+      keywords: keywords,
+      date: Date.now(),
+      results: results
+    };
 }
 
 function buildReverbRequestAsync(): RequestInit {
