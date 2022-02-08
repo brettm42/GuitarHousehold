@@ -79,7 +79,8 @@ const useStyles = makeStyles()((theme: Theme) => {
       padding: theme.spacing(4),
       paddingTop: theme.spacing(2)
     },
-    inProgress: {}
+    inProgress: {},
+    undelivered: {}
   };
 });
 
@@ -201,6 +202,26 @@ const ProjectInProgressComponent: React.FunctionComponent<SummaryComponentsProps
     <div className={classes.inProgress}>
       <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
         {'In Progress Projects:'}
+      </Typography>
+      <DataList items={data} />
+    </div>
+  );
+};
+
+const UndeliveredGuitarsComponent: React.FunctionComponent<SummaryComponentsProps> = ({
+  data: guitars
+}) => {
+  const { classes } = useStyles();
+
+  const data = guitars.filter(g => !GuitarUtils.isDelivered(g));
+  if (!data || data.length < 1) {
+    return null;
+  }
+
+  return (
+    <div className={classes.undelivered}>
+      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
+        {'Undelivered:'}
       </Typography>
       <DataList items={data} />
     </div>
@@ -463,5 +484,6 @@ export {
   RandomPickComponent,
   StringsComponent,
   TimelineComponent,
+  UndeliveredGuitarsComponent,
   ValuesComponent
 };

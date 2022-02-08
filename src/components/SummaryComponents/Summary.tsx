@@ -22,6 +22,7 @@ import {
   RandomPickComponent,
   StringsComponent,
   TimelineComponent,
+  UndeliveredGuitarsComponent,
   ValuesComponent
 } from './SummaryComponents';
 import { Guitar } from '../../interfaces/models/guitar';
@@ -108,6 +109,10 @@ const useStyles = makeStyles()((theme: Theme) => {
       ...gridPaperStyle,
       background: gridColors[3]
     },
+    paper12: {
+      ...gridPaperStyle,
+      background: gridColors[1]
+    },
     control: {
       padding: theme.spacing(2),
     }
@@ -184,6 +189,11 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
       <Grid key={'inProgress'} item xs={6} sm={4}>
         <Paper className={classes.paper11}>
           <ProjectInProgressComponent {...props} />
+        </Paper>
+      </Grid>
+      <Grid key={'undelivered'} item xs={6} sm={4}>
+        <Paper className={classes.paper12}>
+          <UndeliveredGuitarsComponent {...props} />
         </Paper>
       </Grid>
     </Grid>
@@ -372,6 +382,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <AccordionDetails>
               <Divider />
               <ProjectInProgressComponent {...props} />
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
+      <Grid key={'undelivered'} item xs={12} sm={6}>
+        <Paper>
+          <Accordion className={classes.paper12}>
+            <AccordionSummary id='panelUndelivered-header' aria-controls='panelUndelivered-content'>
+              <Typography variant='overline'>
+                {'Undelivered'}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Divider />
+              <UndeliveredGuitarsComponent {...props} />
             </AccordionDetails>
           </Accordion>
         </Paper>
