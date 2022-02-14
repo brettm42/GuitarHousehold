@@ -2092,52 +2092,54 @@ export function summarizeConstruction(guitar: Guitar): string {
 export function getColorMapping(color: string): string {
   const mapping: { [key: string]: string; } = {
     // Sunburst variants
+    'Copperburst': 'Sunburst',
+    'Honeyburst': 'Sunburst',
+    'Royal Tan': 'Sunburst',
+    'Sunburst Varnish': 'Sunburst',
     'Tobacco Burst': 'Sunburst',
     'Tobacco Sunburst': 'Sunburst',
-    'Honeyburst': 'Sunburst',
     'Vintage Sunburst': 'Sunburst',
-    'Copperburst': 'Sunburst',
-    'Sunburst Varnish': 'Sunburst',
 
     // Natural variants
+    'Antique Natural': 'Natural',
+    'Antique Varnish': 'Natural',
     'Butterscotch': 'Natural',
+    'Classic': 'Natural',
+    'Mahogany': 'Natural',    
+    'Varnish': 'Natural',
     'Vintage Natural': 'Natural',
     'Walnut': 'Natural',
-    'Varnish': "Natural",
-    'Antique Varnish': 'Natural',
-    'Classic': 'Natural',
-    'Mahogany': 'Natural',
-    'Antique Natural': 'Natural',
 
     // Green variants
-    'Sherwood Green': 'Green',
-    'Vintage Green': 'Green',
-    'Surf Green': 'Green',
     'Old Army Green': 'Green',
+    'Olive Drab': 'Green',
     'Seafoam Green': 'Green',
+    'Sherwood Green': 'Green',
+    'Surf Green': 'Green',
+    'Vintage Green': 'Green',
 
     // Red variants
-    'Red Stain Brown': 'Red',
-    'Candy Apple Red': 'Red',
-    'Rocket Red': 'Red',
     'Antique Cherry': 'Red',
+    'Candy Apple Red': 'Red',
     'Fiesta Red': 'Red',
+    'Red Stain Brown': 'Red',    
     'Redburst': 'Red',
+    'Rocket Red': 'Red',
     'Vintage Wine Metallic': 'Red',
 
     // Blue variants
-    'Sonic Blue': 'Blue',
-    'Powder Blue': 'Blue',
+    'Cobalt Blue Metallic': 'Blue',
+    'Ice Blue Metallic': 'Blue',
     'Lake Placid Blue': 'Blue',
     'Metallic Teal': 'Blue',
-    'Ice Blue Metallic': 'Blue',
-    'Cobalt Blue Metallic': 'Blue',
+    'Powder Blue': 'Blue',
+    'Sonic Blue': 'Blue',
 
     // Gold variants
-    'Shoreline Gold': 'Gold',
-    'Metallic Gold': 'Gold',
     'Aztec Gold Metalflake': 'Gold',
-
+    'Metallic Gold': 'Gold',
+    'Shoreline Gold': 'Gold',
+    
     // Silver variants
     'Silver Sparkle': 'Silver',
     'Silverburst': 'Silver',
