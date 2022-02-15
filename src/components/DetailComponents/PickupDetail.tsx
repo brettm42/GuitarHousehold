@@ -59,6 +59,43 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
 }) => {
   const { classes } = useStyles();
 
+  const pickupDetails = 
+    [
+      isFactoryPickup(pickup)
+        ? 'Factory Pickup'
+        : null,
+      pickup.position
+        ? `Position: ${pickup.position}`
+        : null,
+      `Type: ${pickup.type}${pickup.size ? ' (' + pickup.size + ' size)' : ''}`,
+      pickup.mount
+        ? `Mount: ${pickup.mount}`
+        : null,
+      pickup.output
+        ? `Output: ${pickup.output}`
+        : null,
+      pickup.magnetType
+        ? `Magnet Type: ${pickup.magnetType}`
+        : null,
+      pickup.cover
+        ? `Cover: ${pickup.cover}`
+        : null,
+      pickup.purchaseDate
+        ? `Purchased: ${pickup.purchaseDate}`
+        : null,
+      pickup.purchasePrice
+        ? `Purchase Price: \$${pickup.purchasePrice}`
+        : null,
+      pickup.purchaseStore
+        ? `Purchase Store: ${pickup.purchaseStore}`
+        : null,
+      pickup.deliveryDate
+        ? `Delivered: ${isDelivered(pickup) 
+          ? `${pickup.deliveryDate} (${getDeliveryTime(pickup)})`
+          : 'not yet delivered'}`
+        : null,
+    ];
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
@@ -74,41 +111,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
             : null}
 
           <div>
-            {[
-              isFactoryPickup(pickup)
-                ? 'Factory Pickup'
-                : null,
-              pickup.position
-                ? `Position: ${pickup.position}`
-                : null,
-              `Type: ${pickup.type}${pickup.size ? ' (' + pickup.size + ' size)' : ''}`,
-              pickup.mount
-                ? `Mount: ${pickup.mount}`
-                : null,
-              pickup.output
-                ? `Output: ${pickup.output}`
-                : null,
-              pickup.magnetType
-                ? `Magnet Type: ${pickup.magnetType}`
-                : null,
-              pickup.cover
-                ? `Cover: ${pickup.cover}`
-                : null,
-              pickup.purchaseDate
-                ? `Purchased: ${pickup.purchaseDate}`
-                : null,
-              pickup.purchasePrice
-                ? `Purchase Price: \$${pickup.purchasePrice}`
-                : null,
-              pickup.purchaseStore
-                ? `Purchase Store: ${pickup.purchaseStore}`
-                : null,
-              pickup.deliveryDate
-                ? `Delivered: ${isDelivered(pickup) 
-                  ? `${pickup.deliveryDate} (${getDeliveryTime(pickup)})`
-                  : 'not yet delivered'}`
-                : null,
-              ]
+            {pickupDetails
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}

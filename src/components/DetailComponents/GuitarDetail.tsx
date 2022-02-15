@@ -103,6 +103,65 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
     </div>
   );
 
+  const guitarDetails = 
+    [
+      guitar.make
+        ? `Make: ${guitar.make}`
+        : null,
+      guitar.model
+        ? `Model: ${guitar.model}`
+        : null,
+      guitar.series
+        ? `Series: ${guitar.series}`
+        : null,
+      guitar.bodyStyle
+        ? `Body Style: ${guitar.bodyStyle}`
+        : null,
+      `Color: ${guitar.color ?? 'Unfinished'}`,
+      guitar.serialNumber
+        ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
+        : null,
+      guitar.manufactureYear
+        ? `Manufacture Year: ${guitar.manufactureYear}`
+        : null,
+      guitar.purchaseDate
+        ? `Purchased: ${guitar.purchaseDate} from ${guitar.purchaseStore}`
+        : null,
+      guitar.deliveryDate != null
+        ? `Delivered: ${GuitarUtils.isDelivered(guitar)
+          ? `${guitar.deliveryDate} (${GuitarUtils.getDeliveryTime(guitar)})`
+          : 'not yet delivered'}`
+        : null,
+      GuitarUtils.hasPurchasePrice(guitar)
+        ? `Purchase Price: \$${guitar.purchasePrice}`
+        : null,
+      guitar.currentPrice
+        ? `Cost Today: ${guitar.currentPrice}`
+        : null,
+      guitar.scale
+        ? `Neck Scale: ${guitar.scale}`
+        : null,
+      guitar.numberOfFrets
+        ? `Number of Frets: ${guitar.numberOfFrets}`
+        : null,
+      guitar.neckRadius
+        ? `Neck Radius: ${guitar.neckRadius}`
+        : null,
+      guitar.nutWidth
+        ? `Nut Width: ${guitar.nutWidth}`
+        : null,
+      guitar.neckBoltOn
+        ? `Bolt-on Neck: Yes`
+        : null,
+      `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
+      guitar.tremolo
+        ? `Tremolo: ${guitar.tremolo}`
+        : null,
+      guitar.hasBattery
+        ? `Has Battery: Yes`
+        : null
+    ];
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
@@ -116,63 +175,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           {guitarSummary}
 
           <div>
-            {[
-              guitar.make
-                ? `Make: ${guitar.make}`
-                : null,
-              guitar.model
-                ? `Model: ${guitar.model}`
-                : null,
-              guitar.series
-                ? `Series: ${guitar.series}`
-                : null,
-              guitar.bodyStyle
-                ? `Body Style: ${guitar.bodyStyle}`
-                : null,
-              `Color: ${guitar.color ?? 'Unfinished'}`,
-              guitar.serialNumber
-                ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
-                : null,
-              guitar.manufactureYear
-                ? `Manufacture Year: ${guitar.manufactureYear}`
-                : null,
-              guitar.purchaseDate
-                ? `Purchased: ${guitar.purchaseDate} from ${guitar.purchaseStore}`
-                : null,
-              guitar.deliveryDate != null
-                ? `Delivered: ${GuitarUtils.isDelivered(guitar)
-                  ? `${guitar.deliveryDate} (${GuitarUtils.getDeliveryTime(guitar)})`
-                  : 'not yet delivered'}`
-                : null,
-              GuitarUtils.hasPurchasePrice(guitar)
-                ? `Purchase Price: \$${guitar.purchasePrice}`
-                : null,
-              guitar.currentPrice
-                ? `Cost Today: ${guitar.currentPrice}`
-                : null,
-              guitar.scale
-                ? `Neck Scale: ${guitar.scale}`
-                : null,
-              guitar.numberOfFrets
-                ? `Number of Frets: ${guitar.numberOfFrets}`
-                : null,
-              guitar.neckRadius
-                ? `Neck Radius: ${guitar.neckRadius}`
-                : null,
-              guitar.nutWidth
-                ? `Nut Width: ${guitar.nutWidth}`
-                : null,
-              guitar.neckBoltOn
-                ? `Bolt-on Neck: Yes`
-                : null,
-              `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
-              guitar.tremolo
-                ? `Tremolo: ${guitar.tremolo}`
-                : null,
-              guitar.hasBattery
-                ? `Has Battery: Yes`
-                : null
-            ]
+            {guitarDetails
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}

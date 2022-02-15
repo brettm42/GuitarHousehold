@@ -55,6 +55,30 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
 }) => {
   const { classes } = useStyles();
 
+  const caseDetails =
+    [
+      guitarCase.caseStyle
+        ? `Case Style: ${guitarCase.caseStyle}`
+        : null,
+      guitarCase.purchaseDate
+        ? `Purchased: ${guitarCase.purchaseDate}`
+        : null,
+      guitarCase.purchaseStore
+        ? `Purchase Store: ${guitarCase.purchaseStore}`
+        : null,
+      guitarCase.deliveryDate
+        ? `Delivered: ${isDelivered(guitarCase)
+          ? `${guitarCase.deliveryDate} (${getDeliveryTime(guitarCase)})`
+          : 'not yet delivered'}`
+        : null,
+      guitarCase.purchasePrice
+        ? `Purchase Price: \$${guitarCase.purchasePrice}`
+        : null,
+      isFactoryCase(guitarCase) 
+        ? `Case came with guitar`
+        : null
+    ];
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
@@ -70,28 +94,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
             : null}
 
           <div>
-            {[
-              guitarCase.caseStyle
-                ? `Case Style: ${guitarCase.caseStyle}`
-                : null,
-              guitarCase.purchaseDate
-                ? `Purchased: ${guitarCase.purchaseDate}`
-                : null,
-              guitarCase.purchaseStore
-                ? `Purchase Store: ${guitarCase.purchaseStore}`
-                : null,
-              guitarCase.deliveryDate
-                ? `Delivered: ${isDelivered(guitarCase)
-                  ? `${guitarCase.deliveryDate} (${getDeliveryTime(guitarCase)})`
-                  : 'not yet delivered'}`
-                : null,
-              guitarCase.purchasePrice
-                ? `Purchase Price: \$${guitarCase.purchasePrice}`
-                : null,
-              isFactoryCase(guitarCase) 
-                ? `Case came with guitar`
-                : null
-            ]
+            {caseDetails
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}

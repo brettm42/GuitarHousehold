@@ -13,6 +13,7 @@ type ImageProps = {
   isMobile: boolean;
   title?: string;
   altText?: string;
+  maxHeight?: number;
 };
 
 type SingleImageProps = {
@@ -39,11 +40,12 @@ type ImagePanelProps = {
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     img: {
-      width: '100%',
+      objectFit: 'cover',
+      width: 'fit-content',
+      height: 800,
       boxShadow: theme.shadows[2]
     },
     imgMobile: {
-      width: '100%',
       boxShadow: theme.shadows[2]
     },
     tabRoot: {

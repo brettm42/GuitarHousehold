@@ -57,6 +57,39 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
 }) => {
   const { classes } = useStyles();
 
+  const stringsDetail = 
+    [
+      strings.gauge
+        ? `Gauge: ${strings.gauge}`
+        : null,
+      strings.material
+        ? `Material: ${strings.material}`
+        : null,
+      strings.numberOfStrings
+        ? `Number of Strings: ${strings.numberOfStrings}`
+        : null,
+      strings
+        ? isDelivered(guitar) ? `String Age: ${getStringAge(guitar)}` : null
+        : null,
+      strings.lastChangeDate
+        ? `Last Time Changed: ${strings.lastChangeDate}`
+        : null,
+      strings.purchaseDate
+        ? `Purchased: ${strings.purchaseDate}`
+        : null,
+      strings.purchaseStore
+        ? `Purchase Store: ${strings.purchaseStore}`
+        : null,
+      strings.deliveryDate
+        ? `Delivered: ${isDelivered(strings) 
+          ? `${strings.deliveryDate} (${getDeliveryTime(strings)})`
+          : 'not yet delivered'}`
+        : null,
+      strings.purchasePrice
+        ? `Purchase Price: \$${strings.purchasePrice}`
+        : null
+    ];
+
   return (
     <div>
       <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
@@ -72,37 +105,7 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
             : null}
 
           <div>
-            {[
-              strings.gauge
-                ? `Gauge: ${strings.gauge}`
-                : null,
-              strings.material
-                ? `Material: ${strings.material}`
-                : null,
-              strings.numberOfStrings
-                ? `Number of Strings: ${strings.numberOfStrings}`
-                : null,
-              strings
-                ? isDelivered(guitar) ? `String Age: ${getStringAge(guitar)}` : null
-                : null,
-              strings.lastChangeDate
-                ? `Last Time Changed: ${strings.lastChangeDate}`
-                : null,
-              strings.purchaseDate
-                ? `Purchased: ${strings.purchaseDate}`
-                : null,
-              strings.purchaseStore
-                ? `Purchase Store: ${strings.purchaseStore}`
-                : null,
-              strings.deliveryDate
-                ? `Delivered: ${isDelivered(strings) 
-                  ? `${strings.deliveryDate} (${getDeliveryTime(strings)})`
-                  : 'not yet delivered'}`
-                : null,
-              strings.purchasePrice
-                ? `Purchase Price: \$${strings.purchasePrice}`
-                : null
-              ]
+            {stringsDetail
               .map((text, idx) => (
                 <Typography key={idx} gutterBottom>
                   {text}
