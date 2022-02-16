@@ -43,10 +43,17 @@ const useStyles = makeStyles()((theme: Theme) => {
       objectFit: 'cover',
       width: 'fit-content',
       height: 800,
-      boxShadow: theme.shadows[2]
+      boxShadow: theme.shadows[2],
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
     imgMobile: {
-      boxShadow: theme.shadows[2]
+      boxShadow: theme.shadows[2],
+      maxWidth: '100%',
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto'
     },
     tabRoot: {
       flexGrow: 1,

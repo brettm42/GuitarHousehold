@@ -186,14 +186,14 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <ConstructionComponent {...props} />
         </Paper>
       </Grid>
-      <Grid key={'inProgress'} item xs={6} sm={4}>
-        <Paper className={classes.paper11}>
-          <ProjectInProgressComponent {...props} />
-        </Paper>
-      </Grid>
       <Grid key={'undelivered'} item xs={6} sm={4}>
         <Paper className={classes.paper12}>
           <UndeliveredGuitarsComponent {...props} />
+        </Paper>
+      </Grid>
+      <Grid key={'inProgress'} item xs={6} sm={4}>
+        <Paper className={classes.paper11}>
+          <ProjectInProgressComponent {...props} />
         </Paper>
       </Grid>
     </Grid>
@@ -371,21 +371,6 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           </Accordion>
         </Paper>
       </Grid>
-      <Grid key={'inProgress'} item xs={12} sm={6}>
-        <Paper>
-          <Accordion className={classes.paper11}>
-            <AccordionSummary id='panelProjects-header' aria-controls='panelProjects-content'>
-              <Typography variant='overline'>
-                {'In Progress Projects'}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Divider />
-              <ProjectInProgressComponent {...props} />
-            </AccordionDetails>
-          </Accordion>
-        </Paper>
-      </Grid>
       <Grid key={'undelivered'} item xs={12} sm={6}>
         <Paper>
           <Accordion className={classes.paper12}>
@@ -397,6 +382,21 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
             <AccordionDetails>
               <Divider />
               <UndeliveredGuitarsComponent {...props} />
+            </AccordionDetails>
+          </Accordion>
+        </Paper>
+      </Grid>
+      <Grid key={'inProgress'} item xs={12} sm={6}>
+        <Paper>
+          <Accordion className={classes.paper11}>
+            <AccordionSummary id='panelProjects-header' aria-controls='panelProjects-content'>
+              <Typography variant='overline'>
+                {'In Progress Projects'}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Divider />
+              <ProjectInProgressComponent {...props} />
             </AccordionDetails>
           </Accordion>
         </Paper>
