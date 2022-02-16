@@ -6,7 +6,7 @@ import Layout from './Layout';
 import { NextPage } from 'next';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
-import { buildPageTitle } from './viewutils';
+import { buildPageTitle, IsMobile } from './viewutils';
 
 type ErrorComponentProps = {
   errors: string;
@@ -24,9 +24,10 @@ const useStyles = makeStyles()((theme: Theme) => {
 
 const ErrorComponent: NextPage<ErrorComponentProps> = ({ errors, pathname }) => {
   const { classes } = useStyles();
+  const isMobile = IsMobile();
 
   return (
-    <Layout title={buildPageTitle('Error')} pathname={pathname}>
+    <Layout title={buildPageTitle('Error')} pathname={pathname} isMobile={isMobile}>
       <div className={classes.body}>
         <Typography>
           <span style={{ color: 'red' }}>Error:</span> {errors}

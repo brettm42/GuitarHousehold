@@ -7,7 +7,7 @@ import { NextPage } from 'next';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { TextPageProps } from '../infrastructure/shared';
-import { buildPageTitle } from '../components/viewutils';
+import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 const useStyles = makeStyles()((theme: Theme) => {
   return {
@@ -28,10 +28,12 @@ const useStyles = makeStyles()((theme: Theme) => {
 
 const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
   const title = 'Test';
+  const isMobile = IsMobile();
+
   const { classes } = useStyles();
 
   return (
-    <Layout title={buildPageTitle(title)} pathname={pathname}>
+    <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
       <div className={classes.title}>
         <Typography variant='h4' gutterBottom>
           {title}

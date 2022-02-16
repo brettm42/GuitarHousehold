@@ -36,6 +36,7 @@ type LayoutProps = {
   children: React.ReactElement | React.ReactElement[] | undefined;
   title?: string;
   pathname: string;
+  isMobile: boolean;
 };
 
 const useStyles = makeStyles()((theme: Theme) => {
@@ -86,7 +87,7 @@ const useStyles = makeStyles()((theme: Theme) => {
 
 export default function Layout(props: LayoutProps): React.ReactElement {
   const { classes } = useStyles();
-  const { children, title, pathname } = props;
+  const { children, title, pathname, isMobile } = props;
 
   const [state, setState] = React.useState({ drawerOpen: false });
 
@@ -242,7 +243,7 @@ export default function Layout(props: LayoutProps): React.ReactElement {
             >
               <MenuIcon />
             </IconButton>
-            <div className={classes.title}>
+            <div className={(isMobile ? 'mobile ' : '') + classes.title}>
               <Link href='/'>
                 <ButtonBase focusRipple key='title'>
                   <Typography variant='h6'>

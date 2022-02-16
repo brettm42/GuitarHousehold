@@ -35,13 +35,13 @@ const useStyles = makeStyles()((theme: Theme) => {
 });
 
 const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
-  const { classes } = useStyles();
   const isMobile = IsMobile();
+  const { classes } = useStyles();
 
   return (
     <CacheProvider value={muiCache}>
       <ThemeProvider theme={theme}>
-        <Layout title={buildPageTitle('Home')} pathname={pathname}>
+        <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
 
           <div className={classes.title}>

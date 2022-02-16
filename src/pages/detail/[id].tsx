@@ -17,12 +17,12 @@ type DetailPageProps = {
   item?: Guitar;
   errors?: string;
   pathname: string;
-  isMobile: boolean;
 };
 
 class DetailPage extends React.Component<DetailPageProps> {
   render() {
-    const { item, errors, pathname, isMobile } = this.props;
+    const { item, errors, pathname } = this.props;
+    const isMobile = IsMobile();
 
     if (errors) {
       return (
@@ -34,6 +34,7 @@ class DetailPage extends React.Component<DetailPageProps> {
       <Layout
         title={buildPageTitle(item ? item.name : 'Details')}
         pathname={(isProject(item) ? 'project' : isInstrument(item) ? 'instrument' : 'guitar') + pathname}
+        isMobile={isMobile}
       >
         <div>
           {isProject(item)
@@ -61,8 +62,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const isMobile = IsMobile();
-
   try {
     if (!params) {
       return {
@@ -86,7 +85,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const item = await find(Array.isArray(id) ? id[0] : id);
 
     return {
-      props: { isMobile, item, pathname }
+      props: { item, pathname }
     };
   } catch (err) {
     if (err instanceof Error) {

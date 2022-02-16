@@ -23,12 +23,13 @@ const useStyles = makeStyles()((theme: Theme) => {
 });
 
 const DataPage: NextPage<PageProps> = ({ items, pathname }) => {
-  const { classes } = useStyles();
-  const isMobile = IsMobile();
   const title = 'Data';
+  const isMobile = IsMobile();
+  
+  const { classes } = useStyles();
 
   return (
-    <Layout title={buildPageTitle(title)} pathname={pathname}>
+    <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
       <div className={classes.title}>
         <Typography variant='h4'>
           {title}

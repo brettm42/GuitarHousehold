@@ -32,7 +32,7 @@ const GuitarList: NextPage<GuitarListProps> = ({ items, pathname, isMobile, titl
   const { classes } = useStyles();
 
   return (
-    <Layout title={buildPageTitle(title)} pathname={pathname}>
+    <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
       <div className={classes.title}>
         <Typography variant='h4'>
           {title}
