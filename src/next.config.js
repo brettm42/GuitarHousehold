@@ -2,7 +2,7 @@
  * @type {import('next').NextConfig}
  */
  const nextConfig = {
-  swcMinify: false,
+  swcMinify: true,
   experimental: {
     concurrentFeatures: false
   }
