@@ -360,7 +360,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         <Link href={`/detail/${guitar.id}`}>
           <a>
             {guitar.picture
-              ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} />
+              ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' />
               : <Typography variant='h4'>
                   {Constants.ImagePlaceholder}
                 </Typography>}

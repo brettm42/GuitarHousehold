@@ -26,10 +26,11 @@ const theme = createTheme();
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     title: {
-      padding: theme.spacing(4, 0, 4, 1),
+      padding: theme.spacing(4, 0),
+      textSizeAdjust: 'auto'
     },
     divider: {
-      margin: theme.spacing(4, 2),
+      margin: theme.spacing(4, 2)
     }
   };
 });
@@ -45,7 +46,7 @@ const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
 
           <div className={classes.title}>
-            <Typography variant='h3'>
+            <Typography variant='h3' noWrap>
               {Constants.SiteTitle}
             </Typography>
           </div>
@@ -67,10 +68,10 @@ const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = [
-    ...await findAllGuitars(),
-    ...await findAllProjects(),
-    ...await findAllInstruments()
-  ];
+      ...await findAllGuitars(),
+      ...await findAllProjects(),
+      ...await findAllInstruments()
+    ];
 
   return {
     props: { items: data }

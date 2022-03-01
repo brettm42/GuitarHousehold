@@ -4,7 +4,6 @@ import { NextPage, GetStaticProps } from 'next';
 import { IsMobile } from '../components/viewutils';
 import { findAllArchived, findAllSold } from '../data/guitarservice/guitarservice';
 import { PageProps } from '../infrastructure/shared';
-import { Guitar } from '../interfaces/models/guitar';
 
 
 const pageTitle = 'Archive';
@@ -23,14 +22,13 @@ const ArchivePage: NextPage<PageProps> = ({ items, pathname }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const items: Guitar[] = 
-    [
+  const data = [
       ...await findAllArchived(), 
       ...await findAllSold()
     ];
 
   return {
-    props: { items }
+    props: { items: data }
   };
 };
 

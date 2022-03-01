@@ -16,31 +16,31 @@ type HouseholdGridListProps = {
   isMobile: boolean;
 };
 
-const imgHeight = 340;
-const mobileImgHeight = 240;
-const mobileImgBackgroundHeight = 200;
+const imgHeight = 360;
+const imgHeightMobile = 260;
+const imgBackgroundHeightMobile = 200;
 
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     root: {
       display: 'inline-flex',
-      flexWrap: 'wrap',
       justifyContent: 'space-around',
-      overflow: 'hidden',
       backgroundColor: theme.palette.background.paper,
-      paddingLeft: 15
+      paddingLeft: theme.spacing(2)
     },
     gridList: {
-      width: 'flex',
+      display: 'block',
       transform: 'translateZ(0)'
     },
     gridListTile: {
-      padding: theme.spacing(2),
       minWidth: imgHeight,
-      minHeight: imgHeight
+      minHeight: imgHeight,
+      margin: theme.spacing(1)
     },
     gridListTileMobile: {
-      padding: theme.spacing(2)
+      minWidth: imgHeightMobile,
+      minHeight: imgHeightMobile,
+      margin: theme.spacing(1)
     },
     imgBackground: {
       background: 'lightgrey'
@@ -58,26 +58,24 @@ const useStyles = makeStyles()((theme: Theme) => {
       alignItems: 'center',
       justifyContent: 'center'
     },
-    mobileImgBackground: {
+    imgBackgroundMobile: {
       background: 'lightgrey'
     },
-    mobileImg: {
-      height: mobileImgHeight,
-      width: 'auto',
+    imgMobile: {
+      height: imgHeightMobile,
       display: 'block',
       overflow: 'hidden',
-      marginTop: '-20px',
       marginLeft: 'auto',
       marginRight: 'auto'
     },
-    mobileImgPlaceholder: {
-      height: mobileImgHeight,
+    imgPlaceholderMobile: {
+      height: imgHeightMobile,
       display: 'flex',
       margin: '0 auto',
       alignItems: 'center',
       justifyContent: 'center'
     },
-    mobileImgPlaceholderText: {
+    imgPlaceholderTextMobile: {
       marginBottom: theme.spacing(8)
     }
   };
@@ -90,16 +88,20 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   const desktopGridList = (
     <div className={classes.root}>
-      <ImageList rowHeight={imgHeight} cols={3} className={classes.gridList}>
+      <ImageList
+          className={classes.gridList}
+          rowHeight={imgHeight} 
+          cols={3} 
+          variant='quilted'>
         {guitars.map(guitar => (
           <ImageListItem key={guitar.id} className={classes.gridListTile}>
             <Link href={`/detail/${guitar.id}`}>
               <a>
                 <div className={classes.imgBackground} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <img className={classes.img} src={guitar.picture} alt={guitar.name} />
-                    : <div className={classes.imgPlaceholder}>
-                        <Typography variant='h4'>
+                    ? <img className={classes.img} src={guitar.picture} alt={guitar.name} loading='lazy' />
+                    : <div className={classes.img}>
+                        <Typography variant='h4' className={classes.imgPlaceholder}>
                           {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}
@@ -120,16 +122,20 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
 
   const mobileGridList = (
     <div className={classes.root}>
-      <ImageList rowHeight={mobileImgBackgroundHeight} cols={2} className={classes.gridList}>
+      <ImageList
+          className={classes.gridList}
+          rowHeight={imgBackgroundHeightMobile}
+          cols={2}
+          variant='quilted'>
         {guitars.map(guitar => (
           <ImageListItem key={guitar.id} className={classes.gridListTileMobile}>
             <Link href={`/detail/${guitar.id}`}>
               <a>
-                <div className={classes.mobileImgBackground} aria-label={guitar.name}>
+                <div className={classes.imgBackgroundMobile} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <img className={classes.mobileImg} src={guitar.picture} alt={guitar.name} />
-                    : <div className={classes.mobileImgPlaceholder}>
-                        <Typography className={classes.mobileImgPlaceholderText} variant='h4'>
+                    ? <img className={classes.imgMobile} src={guitar.picture} alt={guitar.name} loading='lazy' />
+                    : <div className={classes.imgPlaceholderMobile}>
+                        <Typography className={classes.imgPlaceholderTextMobile} variant='h4'>
                           {Constants.ImagePlaceholder}
                         </Typography>
                       </div>}

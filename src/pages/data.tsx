@@ -45,11 +45,11 @@ const DataPage: NextPage<PageProps> = ({ items, pathname }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const data = [
-    ...await findAllGuitars(),
-    ...await findAllProjects(),
-    ...await findAllInstruments()
-  ];
-
+      ...await findAllGuitars(),
+      ...await findAllProjects(),
+      ...await findAllInstruments()
+    ];
+  
   return {
     props: { items: data }
   };

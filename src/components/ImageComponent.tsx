@@ -19,6 +19,7 @@ type ImageProps = {
 type SingleImageProps = {
   image: string | undefined;
   isMobile: boolean;
+  index: number;
   altText?: string;
 };
 
@@ -99,6 +100,7 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
         className={props.isMobile ? classes.imgMobile : classes.img}
         src={props.image}
         alt={props.altText}
+        loading={props.index > 1 ? 'lazy' : 'eager'}
       />);
   };
 
@@ -140,7 +142,7 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
         {imageSet.map((image, idx) =>
           <ImagePanel key={idx} value={value} index={idx} altText={`${props.altText}-${idx}`}
             onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-            <SingleImage image={image} isMobile={props.isMobile} altText={`${props.altText}-${idx}`} />
+            <SingleImage image={image} isMobile={props.isMobile} index={idx} altText={`${props.altText}-${idx}`}/>
           </ImagePanel>
         )}
         <Paper className={classes.labelRoot}>
@@ -161,6 +163,7 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
       <SingleImage
         image={imageSet[0]}
         isMobile={props.isMobile}
+        index={0}
         altText={`${props.title ? props.title + props.altText : props.altText}`}
       />);
   }
