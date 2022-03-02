@@ -14,8 +14,9 @@ import ImageComponent from '../ImageComponent';
 
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
-import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
+import { formatCurrencyStringToString } from '../../infrastructure/datautils';
+import { Guitar } from '../../interfaces/models/guitar';
 
 type GuitarDetailProps = {
   item: Guitar;
@@ -133,7 +134,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
           : 'not yet delivered'}`
         : null,
       GuitarUtils.hasPurchasePrice(guitar)
-        ? `Purchase Price: \$${guitar.purchasePrice}`
+        ? `Purchase Price: ${formatCurrencyStringToString(guitar.purchasePrice)}`
         : null,
       guitar.currentPrice
         ? `Cost Today: ${guitar.currentPrice}`
@@ -263,7 +264,7 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
       <Divider variant='middle' />
 
       <div className={classes.reverb}>
-        <ReverbDetail keywords={guitar.name} isMobile={isMobile} />
+        <ReverbDetail keywords={guitar.name} purchasePrice={guitar.purchasePrice} isMobile={isMobile} />
       </div>
 
       <Divider variant='middle' />

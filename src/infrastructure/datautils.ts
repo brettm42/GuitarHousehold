@@ -99,3 +99,20 @@ function random(seed: number): number {
 
   return i - Math.floor(i);
 }
+
+export function formatCurrencyStringToString(value: string | undefined, locale?: string): string {
+  const parsedNumber = Number.parseFloat(value || '');
+
+  return formatCurrencyToString(parsedNumber, locale);
+}
+
+export function formatCurrencyToString(value: number, locale?: string): string {
+  return new Intl.NumberFormat(
+      locale ? locale : 'en-US', 
+      { 
+        style: 'currency', 
+        currency: locale ? locale : 'USD',
+        maximumFractionDigits: 2 
+      })
+    .format(value);
+}

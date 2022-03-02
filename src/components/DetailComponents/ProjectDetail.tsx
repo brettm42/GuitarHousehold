@@ -13,8 +13,9 @@ import ImageComponent from '../ImageComponent';
 
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
-import { Project } from '../../interfaces/models/project';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
+import { formatCurrencyStringToString } from '../../infrastructure/datautils';
+import { Project } from '../../interfaces/models/project';
 
 type ProjectDetailProps = {
   item: Project;
@@ -115,7 +116,7 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
         : null,
       `Color: ${guitar.color ?? 'Unfinished'}`,
       GuitarUtils.hasPurchasePrice(guitar)
-        ? `Project Cost: \$${GuitarUtils.getGuitarCost(guitar)}`
+        ? `Project Cost: ${formatCurrencyStringToString(GuitarUtils.getGuitarCost(guitar))}`
         : null,
       guitar.currentPrice
         ? `Cost Today: ${guitar.currentPrice}`

@@ -5,6 +5,7 @@ import { Project } from '../../interfaces/models/project';
 import { RetailItem } from '../../interfaces/retailitem';
 
 import {
+  formatCurrencyToString,
   millisecondsToFriendlyString,
   mostCommonString,
   randomElementWithSeed,
@@ -1329,7 +1330,7 @@ export function leastExpensiveGuitar(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return min ? `${min.name} (\$${price})` : defaultString;
+  return min ? `${min.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function leastExpensiveInstrument(guitars: ReadonlyArray<Guitar>): string {
@@ -1358,7 +1359,7 @@ export function leastExpensiveInstrument(guitars: ReadonlyArray<Guitar>): string
     }
   }
 
-  return min ? `${min.name} (\$${price})` : defaultString;
+  return min ? `${min.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function leastExpensiveGuitarWithCase(guitars: ReadonlyArray<Guitar>): string {
@@ -1391,7 +1392,7 @@ export function leastExpensiveGuitarWithCase(guitars: ReadonlyArray<Guitar>): st
     }
   }
 
-  return min ? `${min.name} (\$${price})` : defaultString;
+  return min ? `${min.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function leastExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
@@ -1420,7 +1421,7 @@ export function leastExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return min ? `${min.name} (\$${price})` : defaultString;
+  return min ? `${min.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function mostExpensiveGuitar(guitars: ReadonlyArray<Guitar>): string {
@@ -1449,7 +1450,7 @@ export function mostExpensiveGuitar(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return max ? `${max.name} (\$${price})` : defaultString;
+  return max ? `${max.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function mostExpensiveInstrument(guitars: ReadonlyArray<Guitar>): string {
@@ -1478,7 +1479,7 @@ export function mostExpensiveInstrument(guitars: ReadonlyArray<Guitar>): string 
     }
   }
 
-  return max ? `${max.name} (\$${price})` : defaultString;
+  return max ? `${max.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function mostExpensiveGuitarWithCase(guitars: ReadonlyArray<Guitar>): string {
@@ -1511,7 +1512,7 @@ export function mostExpensiveGuitarWithCase(guitars: ReadonlyArray<Guitar>): str
     }
   }
 
-  return max ? `${max.name} (\$${price})` : defaultString;
+  return max ? `${max.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function mostExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
@@ -1540,7 +1541,7 @@ export function mostExpensiveProject(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return max ? `${max.name} (\$${price})` : defaultString;
+  return max ? `${max.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 function getTotalCost(guitars: ReadonlyArray<Guitar>): number {
@@ -1555,7 +1556,7 @@ function getTotalCost(guitars: ReadonlyArray<Guitar>): number {
 export function getHouseholdCost(guitars: ReadonlyArray<Guitar>): string {
   const price = getTotalCost(guitars);
 
-  return price > 0 ? `\$${roundToHundredthsString(price)}` : defaultString;
+  return price > 0 ? `${formatCurrencyToString(price)}` : defaultString;
 }
 
 function getTotalCostWithCases(guitars: ReadonlyArray<Guitar>): number {
@@ -1578,7 +1579,7 @@ function getTotalCostWithCases(guitars: ReadonlyArray<Guitar>): number {
 export function getHouseholdCostWithCases(guitars: ReadonlyArray<Guitar>): string {
   const price = getTotalCostWithCases(guitars);
 
-  return price > 0 ? `\$${roundToHundredthsString(price)}` : defaultString;
+  return price > 0 ? `${formatCurrencyToString(price)}` : defaultString;
 }
 
 export function averageGuitarCost(guitars: ReadonlyArray<Guitar>): string {
@@ -1595,7 +1596,7 @@ export function averageGuitarCost(guitars: ReadonlyArray<Guitar>): string {
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredthsString(averagePrice)}`
+    ? `${formatCurrencyToString(averagePrice)}`
     : defaultString;
 }
 
@@ -1613,7 +1614,7 @@ export function averageInstrumentCost(guitars: ReadonlyArray<Guitar>): string {
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredthsString(averagePrice)}`
+    ? `${formatCurrencyToString(averagePrice)}`
     : defaultString;
 }
 
@@ -1634,7 +1635,7 @@ export function averageProjectCost(guitars: ReadonlyArray<Guitar>): string {
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredthsString(averagePrice)}`
+    ? `${formatCurrencyToString(averagePrice)}`
     : defaultString;
 }
 
@@ -1669,7 +1670,7 @@ export function mostExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return max ? `${max.name} (\$${price})` : defaultString;
+  return max ? `${max.name} (${formatCurrencyToString(price)})` : defaultString;
 }
 
 export function leastExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
@@ -1703,7 +1704,7 @@ export function leastExpensiveCase(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return min ? `${min.name} (\$${minPrice})` : defaultString;
+  return min ? `${min.name} (${formatCurrencyToString(minPrice)})` : defaultString;
 }
 
 export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
@@ -1722,7 +1723,7 @@ export function averageCaseCost(guitars: ReadonlyArray<Guitar>): string {
       0) / cases.length;
 
   return averagePrice
-    ? `\$${roundToHundredthsString(averagePrice)}`
+    ? `${formatCurrencyToString(averagePrice)}`
     : defaultString;
 }
 
@@ -1744,7 +1745,7 @@ export function averageGuitarCostWithCase(guitars: ReadonlyArray<Guitar>): strin
       0) / purchases.length;
 
   return averagePrice
-    ? `\$${roundToHundredthsString(averagePrice)}`
+    ? `${formatCurrencyToString(averagePrice)}`
     : defaultString;
 }
 
@@ -1780,7 +1781,7 @@ export function mostExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return max ? `${max.name} (\$${maxPrice})` : defaultString;
+  return max ? `${max.name} (${formatCurrencyToString(maxPrice)})` : defaultString;
 }
 
 export function leastExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
@@ -1815,7 +1816,7 @@ export function leastExpensivePickup(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return min ? `${min.name} (\$${minPrice})` : defaultString;
+  return min ? `${min.name} (${formatCurrencyToString(minPrice)})` : defaultString;
 }
 
 export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
@@ -1835,7 +1836,7 @@ export function averagePickupCost(guitars: ReadonlyArray<Guitar>): string {
       0) / pickups.length;
 
   return averagePrice
-    ? `\$${roundToHundredthsString(averagePrice)}`
+    ? `${formatCurrencyToString(averagePrice)}`
     : defaultString;
 }
 

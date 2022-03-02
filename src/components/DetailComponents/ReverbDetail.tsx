@@ -11,9 +11,14 @@ import {
   getReverbUserFriendlyUrl,
   numberOfListingsForKeywordsAsync
 } from '../../data/reverbservice/reverbservice';
+import { 
+  formatCurrencyStringToString, 
+  formatCurrencyToString 
+} from '../../infrastructure/datautils';
 
 type ReverbDetailProps = {
   keywords: string;
+  purchasePrice?: string;
   isMobile: boolean;
 };
 
@@ -44,7 +49,7 @@ const useStyles = makeStyles()((theme: Theme) => {
 });
 
 const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
-  keywords, isMobile
+  keywords, purchasePrice, isMobile
 }) => {
   const { classes } = useStyles();
   const [ averagePrice, setAveragePrice ] = React.useState('');
@@ -53,8 +58,11 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
 
   React.useEffect(() => {
     async function getReverbData(keywords: string) {
-      const avgPrice = await averagePriceForKeywordsAsync(keywords);
-      const numOfListings = await numberOfListingsForKeywordsAsync(keywords);
+      const [ avgPrice, numOfListings ] = 
+        await Promise.all([
+          averagePriceForKeywordsAsync(keywords),
+          numberOfListingsForKeywordsAsync(keywords)
+        ]);
 
       setAveragePrice(avgPrice);
       setNumberOfListings(numOfListings);
@@ -85,7 +93,10 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
               [
                 averagePrice.startsWith('No')
                   ? averagePrice
-                  : `Average Price: \$${averagePrice}`,
+                  : `Average Price: ${formatCurrencyStringToString(averagePrice)}`,
+                !averagePrice.startsWith('No') && purchasePrice
+                  ? `Potential Price Change: ${formatCurrencyToString(Number.parseFloat(averagePrice) - Number.parseFloat(purchasePrice))}`
+                  : null,
                 `Number of Active Listings: ${numberOfListings}`
               ]
                 .map((text, idx) => (

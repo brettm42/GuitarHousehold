@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { getDeliveryTime, isDelivered, isFactoryCase } from '../../data/guitarservice/guitarutils';
+import { formatCurrencyStringToString } from '../../infrastructure/datautils';
 import { Case } from '../../interfaces/models/case';
 
 type CaseDetailProps = {
@@ -72,7 +73,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
           : 'not yet delivered'}`
         : null,
       guitarCase.purchasePrice
-        ? `Purchase Price: \$${guitarCase.purchasePrice}`
+        ? `Purchase Price: ${formatCurrencyStringToString(guitarCase.purchasePrice)}`
         : null,
       isFactoryCase(guitarCase) 
         ? `Case came with guitar`

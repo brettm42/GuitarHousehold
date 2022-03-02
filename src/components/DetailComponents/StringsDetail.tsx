@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { getDeliveryTime, getStringAge, isDelivered } from '../../data/guitarservice/guitarutils';
+import { formatCurrencyStringToString } from '../../infrastructure/datautils';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Strings } from '../../interfaces/models/strings';
 
@@ -86,7 +87,7 @@ const StringsDetail: React.FunctionComponent<StringsDetailProps> = ({
           : 'not yet delivered'}`
         : null,
       strings.purchasePrice
-        ? `Purchase Price: \$${strings.purchasePrice}`
+        ? `Purchase Price: ${formatCurrencyStringToString(strings.purchasePrice)}`
         : null
     ];
 

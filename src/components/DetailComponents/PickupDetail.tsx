@@ -14,6 +14,7 @@ import {
   isDelivered, 
   isFactoryPickup 
 } from '../../data/guitarservice/guitarutils';
+import { formatCurrencyStringToString } from '../../infrastructure/datautils';
 import { Pickup } from '../../interfaces/models/pickup';
 
 type PickupDetailProps = {
@@ -84,7 +85,7 @@ const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
         ? `Purchased: ${pickup.purchaseDate}`
         : null,
       pickup.purchasePrice
-        ? `Purchase Price: \$${pickup.purchasePrice}`
+        ? `Purchase Price: ${formatCurrencyStringToString(pickup.purchasePrice)}`
         : null,
       pickup.purchaseStore
         ? `Purchase Store: ${pickup.purchaseStore}`
