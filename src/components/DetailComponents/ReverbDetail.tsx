@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
@@ -13,7 +15,7 @@ import {
 } from '../../data/reverbservice/reverbservice';
 import { 
   formatCurrencyStringToString, 
-  formatCurrencyToString 
+  getPriceChange 
 } from '../../infrastructure/datautils';
 
 type ReverbDetailProps = {
@@ -27,6 +29,10 @@ const useStyles = makeStyles()((theme: Theme) => {
     root: {
       flexGrow: 1,
       width: '100%'
+    },
+    loadingBox: {
+      display: 'flex',
+      padding: theme.spacing(4)
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
@@ -52,6 +58,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
   keywords, purchasePrice, isMobile
 }) => {
   const { classes } = useStyles();
+  const [ isLoading, setIsLoading ] = React.useState(true);
   const [ averagePrice, setAveragePrice ] = React.useState('');
   const [ numberOfListings, setNumberOfListings ] = React.useState('');
   const [ reverbCacheStats, setReverbCacheStats ] = React.useState('');
@@ -66,6 +73,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
 
       setAveragePrice(avgPrice);
       setNumberOfListings(numOfListings);
+      setIsLoading(false);
     }
 
     async function getCacheStats() {
@@ -74,6 +82,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
       setReverbCacheStats(cacheStats);
     }
 
+    setIsLoading(true);
     getReverbData(keywords);
     getCacheStats();
   }, []);
@@ -88,35 +97,39 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
             </Typography>
           </div>
 
-          <div className={classes.body}>
-            {
-              [
-                averagePrice.startsWith('No')
-                  ? averagePrice
-                  : `Average Price: ${formatCurrencyStringToString(averagePrice)}`,
-                !averagePrice.startsWith('No') && purchasePrice
-                  ? `Potential Price Change: ${formatCurrencyToString(Number.parseFloat(averagePrice) - Number.parseFloat(purchasePrice))}`
-                  : null,
-                `Number of Active Listings: ${numberOfListings}`
-              ]
-                .map((text, idx) => (
-                  <Typography key={idx} gutterBottom>
-                    {text}
-                  </Typography>
-                ))}
+          {isLoading
+            ? (<Box className={classes.loadingBox}>
+                <CircularProgress color='secondary'/>
+              </Box>)
+            : (<div className={classes.body}>
+              {
+                [
+                  averagePrice.startsWith('No')
+                    ? averagePrice
+                    : `Average Price: ${formatCurrencyStringToString(averagePrice)}`,
+                  !averagePrice.startsWith('No') && purchasePrice
+                    ? `Potential Price Change: ${getPriceChange(purchasePrice, averagePrice)}`
+                    : null,
+                  `Number of Active Listings: ${numberOfListings}`
+                ]
+                  .map((text, idx) => (
+                    <Typography key={idx} gutterBottom>
+                      {text}
+                    </Typography>
+                  ))}
 
-            <div className={classes.link}>
-              <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
-                Search on Reverb.com - <a target={isMobile ? '' : '_blank'} href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
-              </Typography>
-            </div>
-          </div>
+              <div className={classes.link}>
+                <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
+                  Search on Reverb.com - <a target={isMobile ? '' : '_blank'} href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
+                </Typography>
+              </div>
+            </div>)}
         </Grid>
 
         <Grid item xs={12}>
           <div className={classes.footer}>
             <Typography key={'reverb-plug'} variant='caption'>
-              {`Data from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
+              {`Fetched from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
             </Typography>
           </div>
         </Grid>

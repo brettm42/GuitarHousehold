@@ -116,3 +116,11 @@ export function formatCurrencyToString(value: number, locale?: string): string {
       })
     .format(value);
 }
+
+export function getPriceChange(currentPrice: string, purchasePrice: string): string {
+  const now = Number.parseFloat(currentPrice || '0');
+  const then = Number.parseFloat(purchasePrice || '0');
+  const delta = then - now;
+
+  return `${delta > 0 ? '▲' : '▼'} ${formatCurrencyToString(delta)}`;
+}
