@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import { NextPage } from 'next';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
-import { TextPageProps } from '../infrastructure/shared';
+import { TextPageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
 const useStyles = makeStyles()((theme: Theme) => {

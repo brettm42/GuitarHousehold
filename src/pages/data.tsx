@@ -8,7 +8,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
-import { PageProps } from '../infrastructure/shared';
+import { PageProps } from '../infrastructure/sharedprops';
 import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
 
 const useStyles = makeStyles()((theme: Theme) => {

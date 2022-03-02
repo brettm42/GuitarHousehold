@@ -13,7 +13,7 @@ import { CacheProvider } from '@emotion/react';
 import { makeStyles } from 'tss-react/mui';
 import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
-import { PageProps } from '../infrastructure/shared';
+import { PageProps } from '../infrastructure/sharedprops';
 import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
 
 export const muiCache = createCache({

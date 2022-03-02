@@ -2,7 +2,7 @@ import GuitarList from '../components/GuitarList';
 
 import { NextPage } from 'next';
 import { IsMobile } from '../components/viewutils';
-import { PageProps } from '../infrastructure/shared';
+import { PageProps } from '../infrastructure/sharedprops';
 import { findAllInstruments } from '../data/guitarservice/guitarservice';
 
 const pageTitle = 'Instrument List';

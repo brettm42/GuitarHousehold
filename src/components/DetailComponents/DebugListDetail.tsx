@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ListDetailProps } from './ListDetail';
 import { makeStyles } from 'tss-react/mui';
-import { ValidationFlag } from '../../infrastructure/shared';
+import { ValidationFlag } from '../../infrastructure/sharedprops';
 import {
   getValidationCount,
   getValidationPrefix,

@@ -3,7 +3,7 @@ import GuitarList from '../components/GuitarList';
 import { NextPage, GetStaticProps } from 'next';
 import { IsMobile } from '../components/viewutils';
 import { findAllArchived, findAllSold } from '../data/guitarservice/guitarservice';
-import { PageProps } from '../infrastructure/shared';
+import { PageProps } from '../infrastructure/sharedprops';
 
 
 const pageTitle = 'Archive';

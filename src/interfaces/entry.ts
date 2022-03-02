@@ -1,4 +1,4 @@
-import { ValidationFlag } from '../infrastructure/shared';
+import { ValidationFlag } from '../infrastructure/sharedprops';
 
 export interface Entry {
   readonly id: number;

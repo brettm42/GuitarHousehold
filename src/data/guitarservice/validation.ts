@@ -1,4 +1,4 @@
-import { ValidationFlag } from '../../infrastructure/shared';
+import { ValidationFlag } from '../../infrastructure/sharedprops';
 import { Case } from '../../interfaces/models/case';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
