@@ -173,7 +173,7 @@ const MissingCasesComponent: React.FunctionComponent<SummaryComponentsProps> = (
 }) => {
   const { classes } = useStyles();
 
-  const data = guitars.filter(g => !GuitarUtils.hasCase(g));
+  const data = guitars.filter(g => !GuitarUtils.hasCase(g) && GuitarUtils.isDelivered(g));
   if (!data || data.length < 1) {
     return null;
   }
