@@ -1,10 +1,10 @@
 export type SerialNumberLocation = typeof serialNumberLocations[number];
 const serialNumberLocations = [
-  'Neck',
   'Body',
+  'Headstock',
+  'Neck',
   'Neck Heel',
   'Neck Plate',
-  'Headstock',
   'None'
 ] as const;
 
@@ -45,59 +45,61 @@ const pickupPositions = [
 
 export type PickupMount = typeof pickupMounts[number];
 const pickupMounts = [
+  'Body',
+  'Bridge',
   'Neck',
   'Pickguard',
   'Top',
-  'Body',
   'Under-bridge',
   'Under-saddle'
 ] as const;
 
 export type PickupType = typeof pickupTypes[number];
 const pickupTypes = [
-  'Humbucker',
-  'P90',
-  'Dog-ear P90',
-  'Single-coil',
-  'Jazzmaster',
-  'Jaguar',
-  'Wide-range Humbucker',
-  'Piezo',
-  'Mini-humbucker',
   'Active Humbucker',
+  'Charlie Christian',
+  'Dog-ear P90',
   'Filtertron',
-  'Goldfoil'
+  'Goldfoil',
+  'Humbucker',
+  'Jaguar',
+  'Jazzmaster',
+  'Mini-humbucker',
+  'P90',
+  'Piezo',
+  'Single-coil',
+  'Wide-range Humbucker'
 ] as const;
 
 export type PickupSize = typeof pickupSizes[number];
 const pickupSizes = [
+  'Dog-ear',
   'Humbucker',
   'Soapbar',
-  'Dog-ear',
   'Jazzmaster',
-  'Wide-range Humbucker',
-  'Stratocaster',
   'Mini-humbucker',
+  'Piezo',
+  'Split-coil',
+  'Stratocaster',
   'Surface-mount',
   'Telecaster Bridge',
-  'Split-coil',
-  'Piezo'
+  'Wide-range Humbucker'
 ] as const;
 
 export type CaseStyle = typeof caseStyles[number];
 const caseStyles = [
-  'Flat',
   'Arched',
+  'Flat',
   'Gig Bag'
 ] as const;
 
 export type TremoloType = typeof tremoloTypes[number];
 const tremoloTypes = [
-  'Jazzmaster',
   'Bigsby',
   'Floyd-rose',
-  'Stratocaster',
+  'Hagstrom Tremar',
+  'Jazzmaster',
   'Les Paul',
   'Mustang',
-  'Hagstrom Tremar'
+  'Stratocaster'
 ] as const;

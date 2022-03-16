@@ -2092,7 +2092,8 @@ export function summarizeConstruction(guitar: Guitar): string {
 
 export function getColorMapping(color: string): string {
   const mapping: { [key: string]: string; } = {
-    // Sunburst variants
+    // Burst variants
+    'Antique Burst': 'Sunburst',
     'Copperburst': 'Sunburst',
     'Honeyburst': 'Sunburst',
     'Royal Tan': 'Sunburst',
