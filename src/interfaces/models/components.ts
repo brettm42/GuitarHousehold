@@ -10,22 +10,21 @@ const serialNumberLocations = [
 
 export type BodyStyle = typeof bodyStyles[number];
 const bodyStyles = [
-  'Telecaster',
-  'Stratocaster',
-  'Jazzmaster',
-  'Jaguar',
-  'Mustang',
-  'Jazzcaster',
-  'Les Paul',
-  'SG',
-  'Offset',
-  'Archtop',
-  'Hollowbody',
-  'Semi-Hollowbody',
-  'Starcaster',
   'Flattop',
+  'Hollowbody',
+  'Jaguar',
+  'Jazzcaster',
+  'Jazzmaster',
+  'Les Paul',
+  'Mustang',
+  'Offset',
   'Resonator',
-  'Unique'
+  'Semi-Hollowbody',
+  'SG',
+  'Starcaster',
+  'Stratocaster',
+  'Telecaster',
+  'Unique'  
 ] as const;
 
 export type PickupCover = typeof pickupCovers[number];

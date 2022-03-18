@@ -110,8 +110,7 @@ function gridLineFormatter(line: [ string, string | ReadonlyArray<string> ], idx
           </div>
         : <Typography gutterBottom>
             {line[1]}
-          </Typography>
-      }
+          </Typography>}
     </Grid>);
 }
 

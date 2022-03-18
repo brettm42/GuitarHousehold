@@ -207,7 +207,6 @@
         "Les Paul",
         "SG",
         "Offset",
-        "Archtop",
         "Hollowbody",
         "Semi-Hollowbody",
         "Starcaster",
@@ -304,6 +303,7 @@
     "PickupType": {
       "type": "string",
       "enum": [
+        "Charlie Christian",
         "Humbucker",
         "P90",
         "Dog-ear P90",
@@ -345,6 +345,7 @@
     "PickupMount": {
       "type": "string",
       "enum": [
+        "Bridge",
         "Neck",
         "Pickguard",
         "Top",

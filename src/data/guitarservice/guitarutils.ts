@@ -316,7 +316,7 @@ export function getStringGauge(guitar: Guitar): string {
 }
 
 function getStringAgeDuration(guitar: Guitar): number {
-  if (!hasStrings(guitar)) {
+  if (!hasStrings(guitar) || !isDelivered(guitar)) {
     return 0;
   }
 
@@ -1118,7 +1118,7 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
   let max;
   let maxDate;
   for (const guitar of guitars) {
-    if (!hasStrings(guitar)) {
+    if (!hasStrings(guitar) || !isDelivered(guitar)) {
       continue;
     }
 
@@ -1164,7 +1164,7 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
   let min;
   let minDate;
   for (const guitar of guitars) {
-    if (!hasStrings(guitar)) {
+    if (!hasStrings(guitar) || !isDelivered(guitar)) {
       continue;
     }
 
