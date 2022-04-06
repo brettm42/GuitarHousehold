@@ -2128,6 +2128,7 @@ export function getColorMapping(color: string): string {
     'Redburst': 'Red',
     'Rocket Red': 'Red',
     'Vintage Wine Metallic': 'Red',
+    'Wineburst': 'Red',
 
     // Blue variants
     'Cobalt Blue Metallic': 'Blue',
