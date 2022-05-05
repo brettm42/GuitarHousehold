@@ -11,10 +11,10 @@
     "@emotion/react": "11.9.0",
     "@emotion/styled": "11.8.1",
     "@mui/icons-material": "5.6.2",
-    "@mui/material": "5.6.2",
+    "@mui/material": "5.6.4",
     "@mui/styles": "5.6.2",
     "chart.js": "3.7.1",
-    "next": "12.1.5",
+    "next": "12.1.6",
     "node": "17.7.2",
     "react": "17.0.2",
     "react-chartjs-2": "4.1.0",
@@ -22,12 +22,12 @@
     "tss-react": "3.6.2"
   },
   "devDependencies": {
-    "@types/chart.js": "2.9.36",
-    "@types/node": "17.0.25",
+    "@types/chart.js": "2.9.37",
+    "@types/node": "17.0.31",
     "@types/react": "17.0.43",
     "@types/react-chartjs-2": "2.5.7",
     "@types/react-dom": "17.0.14",
-    "typescript": "4.6.3"
+    "typescript": "4.6.4"
   },
   "license": "ISC"
 }
