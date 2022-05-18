@@ -42,25 +42,27 @@ const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
   return (
     <CacheProvider value={muiCache}>
       <ThemeProvider theme={theme}>
-        <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
-          <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
+        <React.StrictMode>
+          <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
+            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
 
-          <div className={classes.title}>
-            <Typography variant='h3' noWrap>
-              {Constants.SiteTitle}
-            </Typography>
-          </div>
+            <div className={classes.title}>
+              <Typography variant='h3' noWrap>
+                {Constants.SiteTitle}
+              </Typography>
+            </div>
 
-          <div>
-            <Summary data={items} isMobile={isMobile} />
-          </div>
+            <div>
+              <Summary data={items} isMobile={isMobile} />
+            </div>
 
-          <Divider className={classes.divider} />
+            <Divider className={classes.divider} />
 
-          <div>
-            <HouseholdGridList data={items} isMobile={isMobile} />
-          </div>
-        </Layout>
+            <div>
+              <HouseholdGridList data={items} isMobile={isMobile} />
+            </div>
+          </Layout>
+        </React.StrictMode>
       </ThemeProvider>
     </CacheProvider>
   );

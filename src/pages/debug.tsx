@@ -44,7 +44,7 @@ class DebugPage extends React.Component<DebugPageProps> {
     }
   };
 
-  render() {
+  override render() {
     const { items, item, errors, pathname } = this.props;
 
     if (item) {

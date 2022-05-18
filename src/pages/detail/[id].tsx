@@ -20,7 +20,7 @@ type DetailPageProps = {
 };
 
 class DetailPage extends React.Component<DetailPageProps> {
-  render() {
+  override render() {
     const { item, errors, pathname } = this.props;
     const isMobile = IsMobile();
 

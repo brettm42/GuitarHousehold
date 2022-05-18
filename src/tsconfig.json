@@ -2,8 +2,11 @@
   "compilerOptions": {
     "allowJs": true,
     "alwaysStrict": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "esModuleInterop": true,

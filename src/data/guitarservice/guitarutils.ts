@@ -2161,7 +2161,11 @@ export function getColorMapping(color: string): string {
     
     // Pink variants
     'Rose Gold Metallic': 'Pink',
-    'Shell Pink': 'Pink'
+    'Shell Pink': 'Pink',
+
+    // Grey variants
+    'Charcoal': 'Grey',
+    'Charcoal Frost Metallic': 'Grey'
   };
 
   if (!color) {
