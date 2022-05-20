@@ -7,6 +7,7 @@ import {
   getStringGauge,
   hasCase
 } from '../../data/guitarservice/guitarutils';
+import { getStringText } from '../../data/stringservice/stringservice';
 
 export interface TableDataCell {
   id: keyof Project;
@@ -15,9 +16,9 @@ export interface TableDataCell {
 }
 
 export const BaseColumns: ReadonlyArray<TableDataCell> = [
-  { id: 'id', label: 'id' },
-  { id: 'name', label: 'Name' },
-  { id: 'make', label: 'Make' },
+  { id: 'id', label: getStringText('DataDetailIdLabel') },
+  { id: 'name', label: getStringText('DataDetailNameLabel') },
+  { id: 'make', label: getStringText('DataDetailMakeLabel') },
   { id: 'purchaseDate', label: 'Purchased' },
   { id: 'purchasePrice', label: 'Purchase Price' },
   { id: 'purchaseStore', label: 'Purchase Store' }
@@ -37,8 +38,8 @@ export const GuitarColumns: ReadonlyArray<TableDataCell> = [
 ];
 
 export const ProjectColumns: ReadonlyArray<TableDataCell> = [
-  { id: 'id', label: 'id' },
-  { id: 'name', label: 'Name' },
+  { id: 'id', label: getStringText('DataDetailIdLabel') },
+  { id: 'name', label: getStringText('DataDetailNameLabel') },
   { id: 'bodyStyle', label: 'Type' },
   { id: 'color', label: 'Color' },
   { id: 'projectStart', label: 'Project Start' },
@@ -53,5 +54,5 @@ export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'purchaseStore', label: 'Purchase Store' },
   { id: 'case', label: 'Has Case', formatter: (i) => hasCase(i).toString() },
   { id: 'modifications', label: 'Modifications', formatter: getModificationCount },
-  { id: 'make', label: 'Make' }
+  { id: 'make', label: getStringText('DataDetailMakeLabel') },
 ];

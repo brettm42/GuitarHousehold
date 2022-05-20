@@ -85,7 +85,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
     setIsLoading(true);
     getReverbData(keywords);
     getCacheStats();
-  }, []);
+  }, [keywords]);
 
   return (
     <div>
@@ -120,7 +120,7 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
 
               <div className={classes.link}>
                 <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
-                  Search on Reverb.com - <a target={isMobile ? '' : '_blank'} href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
+                  Search on Reverb.com - <a target={isMobile ? '' : '_blank'} rel='noreferrer' href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
                 </Typography>
               </div>
             </div>)}

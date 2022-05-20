@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as Constants from '../../infrastructure/constants';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -99,7 +100,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
               <a>
                 <div className={classes.imgBackground} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <img className={classes.img} src={guitar.picture} alt={guitar.name} loading='lazy' />
+                    ? <Image className={classes.img} src={guitar.picture} alt={guitar.name} loading='lazy' layout='fill' />
                     : <div className={classes.img}>
                         <Typography variant='h4' className={classes.imgPlaceholder}>
                           {Constants.ImagePlaceholder}
@@ -133,7 +134,7 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
               <a>
                 <div className={classes.imgBackgroundMobile} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <img className={classes.imgMobile} src={guitar.picture} alt={guitar.name} loading='lazy' />
+                    ? <Image className={classes.imgMobile} src={guitar.picture} alt={guitar.name} layout='fill' loading='lazy' />
                     : <div className={classes.imgPlaceholderMobile}>
                         <Typography className={classes.imgPlaceholderTextMobile} variant='h4'>
                           {Constants.ImagePlaceholder}

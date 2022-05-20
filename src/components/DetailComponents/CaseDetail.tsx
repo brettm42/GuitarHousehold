@@ -104,7 +104,7 @@ const CaseDetail: React.FunctionComponent<CaseDetailProps> = ({
 
             {guitarCase.productUrl
               ? <Typography key={`${guitarCase.id}-link`} gutterBottom>
-                  Product Link: <a target={isMobile ? '' : '_blank'} href={guitarCase.productUrl}>{guitarCase.productUrl}</a>
+                  Product Link: <a target={isMobile ? '' : '_blank'} rel='noreferrer' href={guitarCase.productUrl}>{guitarCase.productUrl}</a>
                 </Typography>
               : null}
           </div>

@@ -1,9 +1,10 @@
 import * as React from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import Grid from '@mui/material/Grid';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Paper from '@mui/material/Paper';
 
 import { makeStyles } from 'tss-react/mui';
@@ -59,7 +60,7 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
             <Paper className={classes.paper}>
               <Link href={`/detail/${guitar.id}`}>
                 <a>
-                  <img className={classes.img} src={guitar.picture || ''} alt={guitar.name} />
+                  <Image className={classes.img} src={guitar.picture || ''} alt={guitar.name} />
                   <ImageListItemBar
                     title={guitar.name}
                     subtitle={

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import Layout from '../components/Layout';
@@ -10,6 +11,7 @@ import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { PageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
+import { getStringText } from '../data/stringservice/stringservice';
 
 const useStyles = makeStyles()((theme: Theme) => {
   return {
@@ -45,7 +47,7 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
         <Typography variant='h5' gutterBottom>
           <Link href='/debug'>
             <a>
-              {'?'}
+              {getStringText('DebugIcon')}
             </a>
           </Link>
         </Typography>
@@ -59,13 +61,13 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
 
       <div className={classes.body}>
         <Typography variant='body2' gutterBottom>
-          {'This is the about page...'}
+          {getStringText('AboutPageBody')}
         </Typography>
       </div>
 
       <div className={classes.image}>
-        <img className={classes.img} src={Constants.AboutPageImg1} />
-        <img className={classes.img} src={Constants.AboutPageImg2} />
+        <Image className={classes.img} src={Constants.AboutPageImg1} alt={getStringText('AboutPageImageAlt')} layout='fill' />
+        <Image className={classes.img} src={Constants.AboutPageImg2} alt={getStringText('AboutPageImageAlt')} layout='fill' />
       </div>
     </Layout>
   );

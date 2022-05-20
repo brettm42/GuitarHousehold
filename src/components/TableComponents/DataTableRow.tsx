@@ -10,6 +10,7 @@ import { Theme } from '@mui/material/styles';
 import { Entry } from '../../interfaces/entry';
 import { Guitar } from '../../interfaces/models/guitar';
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
+import { getStringText } from '../../data/stringservice/stringservice';
 
 type DataTableRowProps = {
   item: Entry;
@@ -37,7 +38,7 @@ const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
       </TableCell>
 
       <TableCell align='center' aria-hidden='true'>
-        {' • '}
+        {getStringText('DataTableSeparator')}
       </TableCell>
 
       <TableCell>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as Constants from '../../infrastructure/constants';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -359,7 +360,7 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         <Link href={`/detail/${guitar.id}`}>
           <a>
             {guitar.picture
-              ? <img className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' />
+              ? <Image className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' layout='fill' />
               : <Typography variant='h4'>
                   {Constants.ImagePlaceholder}
                 </Typography>}

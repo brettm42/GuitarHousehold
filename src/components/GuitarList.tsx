@@ -7,6 +7,7 @@ import { NextPage } from 'next';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { buildPageTitle } from '../components/viewutils';
+import { Columns } from '../components/TableComponents/DataDetailTable';
 import { Guitar } from '../interfaces/models/guitar';
 
 type GuitarListProps = {
@@ -14,7 +15,7 @@ type GuitarListProps = {
   pathname: string;
   isMobile: boolean;
   title: string;
-  columns: string;
+  columns: Columns;
 };
 
 const useStyles = makeStyles()((theme: Theme) => {

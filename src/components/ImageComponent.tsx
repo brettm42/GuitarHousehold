@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Tab from '@mui/material/Tab';
@@ -96,11 +97,12 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
     }
 
     return (
-      <img
+      <Image
         className={props.isMobile ? classes.imgMobile : classes.img}
         src={props.image}
         alt={props.altText}
         loading={props.index > 1 ? 'lazy' : 'eager'}
+        layout='fill'
       />);
   };
 

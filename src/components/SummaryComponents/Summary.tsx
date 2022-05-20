@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
+import { getStringText } from '../../data/stringservice/stringservice';
 import {
   BreakdownComponent,
   ConstructionComponent,
@@ -211,7 +212,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper0}>
             <AccordionSummary id='panelMostCommon-header' aria-controls='panelMostCommon-content'>
               <Typography variant='overline'>
-                {'Most Common'}
+                {getStringText('SummaryLabelMostCommon')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -226,7 +227,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper1}>
             <AccordionSummary id='panelOutliers-header' aria-controls='panelOutliers-content'>
               <Typography variant='overline'>
-                {'Outliers'}
+                {getStringText('SummaryLabelOutliers')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -241,7 +242,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper2}>
             <AccordionSummary id='panelRandom-header' aria-controls='panelRandom-content'>
               <Typography variant='overline'>
-                {'Random Pick'}
+                {getStringText('SummaryLabelRandomPick')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -256,7 +257,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper3}>
             <AccordionSummary id='panelBreakdown-header' aria-controls='panelBreakdown-content'>
               <Typography variant='overline'>
-                {'Breakdown'}
+                {getStringText('SummaryLabelBreakdown')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -271,7 +272,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper4}>
             <AccordionSummary id='panelValues-header' aria-controls='panelValues-content'>
               <Typography variant='overline'>
-                {'Values'}
+                {getStringText('SummaryLabelValues')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -286,7 +287,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper5}>
             <AccordionSummary id='panelPartValues-header' aria-controls='panelPartValues-content'>
               <Typography variant='overline'>
-                {'Case/Pickup Values'}
+                {getStringText('SummaryLabelPartValues')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -301,7 +302,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper6}>
             <AccordionSummary id='panelMissingCase-header' aria-controls='panelMissingCase-content'>
               <Typography variant='overline'>
-                {'Missing Cases'}
+                {getStringText('SummaryLabelMissingCases')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -316,7 +317,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper7}>
             <AccordionSummary id='panelPickups-header' aria-controls='panelPickups-content'>
               <Typography variant='overline'>
-                {'Pickups'}
+              {getStringText('SummaryLabelPickups')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -331,7 +332,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper8}>
             <AccordionSummary id='panelStrings-header' aria-controls='panelStrings-content'>
               <Typography variant='overline'>
-                {'Strings'}
+                {getStringText('SummaryLabelStrings')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -346,7 +347,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper9}>
             <AccordionSummary id='panelTimeline-header' aria-controls='panelTimeline-content'>
               <Typography variant='overline'>
-                {'Timeline'}
+                {getStringText('SummaryLabelTimeline')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -361,7 +362,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper10}>
             <AccordionSummary id='panelConstruction-header' aria-controls='panelConstruction-content'>
               <Typography variant='overline'>
-                {'Construction'}
+                {getStringText('SummaryLabelConstruction')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -376,7 +377,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper12}>
             <AccordionSummary id='panelUndelivered-header' aria-controls='panelUndelivered-content'>
               <Typography variant='overline'>
-                {'Undelivered'}
+                {getStringText('SummaryLabelUndelivered')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -391,7 +392,7 @@ const Summary: React.FunctionComponent<SummaryProps> = ({
           <Accordion className={classes.paper11}>
             <AccordionSummary id='panelProjects-header' aria-controls='panelProjects-content'>
               <Typography variant='overline'>
-                {'In Progress Projects'}
+                {getStringText('SummaryLabelInProgress')}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>

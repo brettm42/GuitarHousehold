@@ -21,6 +21,7 @@ import {
 import { Chart } from 'react-chartjs-2';
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarDataUtils from '../../data/guitarservice/guitardatautils';
+import { getStringText } from '../../data/stringservice/stringservice';
 
 ChartJS.register(BarController, BarElement, CategoryScale, LinearScale, LineController, LineElement, PointElement, Title);
 
@@ -100,7 +101,7 @@ const ChartContainerComponent: React.FunctionComponent<ChartComponentProps> = ({
 
 const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
   const { classes } = useStyles();
-  const chartTitle = 'Guitar Purchase by Store';
+  const chartTitle = getStringText('GuitarPurchaseStoreChartTitle');
   const data = GuitarDataUtils.guitarPurchasePerStore(guitars, 1);
 
   const chartData: ChartData<'bar'> = {
@@ -157,7 +158,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
 
 const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
   const { classes } = useStyles();
-  const chartTitle = 'Every Purchase by Store';
+  const chartTitle = getStringText('GuitarAllPurchaseStoreChartTitle');
   const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars, 1);
 
   const chartData: ChartData<'bar'> = {
@@ -214,7 +215,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
 
 const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
   const { classes } = useStyles();
-  const chartTitle = 'Guitar Purchase by Year';
+  const chartTitle = getStringText('GuitarPurchaseYearChartTitle');
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
 
@@ -226,14 +227,14 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
     datasets: [
       {
         type: 'bar',
-        label: 'Year',
+        label: getStringText('GuitarPurchaseYearChartLabel1'),
         data: Object.values(data1),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
         borderWidth: 1
       },
       {
-        label: 'Total',
+        label: getStringText('GuitarPurchaseYearChartLabel2'),
         data: Object.values(data2),
         borderWidth: 1
       }
@@ -291,7 +292,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
 
 const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
   const { classes } = useStyles();
-  const chartTitle = 'Guitar Makes';
+  const chartTitle = getStringText('GuitarMakesChartTitle');
   const data = GuitarDataUtils.guitarMakeData(guitars, 1);
 
   const chartData: ChartData<'bar'> = {
@@ -348,7 +349,7 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
 
 const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
   const { classes } = useStyles();
-  const chartTitle = 'Guitar Colors';
+  const chartTitle = getStringText('GuitarColorChartTitle');
   const data = GuitarDataUtils.guitarColorData(guitars, 1);
 
   const chartData: ChartData<'bar'> = {

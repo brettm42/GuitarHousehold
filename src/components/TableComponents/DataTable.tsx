@@ -8,6 +8,7 @@ import DataTableRow from './DataTableRow';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { Entry } from '../../interfaces/entry';
+import { getStringText } from '../../data/stringservice/stringservice';
 
 type DataTableProps = {
   items: Entry[];
@@ -29,10 +30,10 @@ export default function DataTable(props: DataTableProps) {
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table} aria-label='Guitar data table'>
+      <Table className={classes.table} aria-label={getStringText('GuitarDataTabelLabel')}>
         <TableBody>
-          {props.items.map(item =>
-            <DataTableRow item={item} />)
+          {props.items.map((item, idx) =>
+            <DataTableRow key={idx} item={item} />)
           }
         </TableBody>
       </Table>

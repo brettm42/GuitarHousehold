@@ -12,13 +12,16 @@ import { Theme } from '@mui/material/styles';
 import { isDescending, tableSort } from '../viewutils';
 import { Entry } from '../../interfaces/entry';
 import { Project } from '../../interfaces/models/project';
+import { getStringText } from '../../data/stringservice/stringservice';
 
 type DataDetailTableProps = {
   items: Entry[];
-  columns: string;
+  columns: Columns;
 };
 
 export type Order = 'asc' | 'desc';
+
+export type Columns = 'archive' | 'guitar' | 'instrument' | 'project' | 'wishlist';
 
 export const useStyles = makeStyles()((theme: Theme) => {
   return {
@@ -61,16 +64,16 @@ function getTableSorting<K extends keyof any>(order: Order, orderBy: K):
     : (a, b) => -isDescending(a, b, orderBy);
 }
 
-function getTableColumns(columns: string): ReadonlyArray<TableDataCell> {
-  return columns.includes('guitar') || columns.includes('archive')
+function getTableColumns(columns: Columns): ReadonlyArray<TableDataCell> {
+  return columns === 'guitar' || columns === 'archive'
     ? [...BaseColumns, ...GuitarColumns]
-    : columns.includes('project')
+    : columns === 'project'
       ? [...ProjectColumns]
       : BaseColumns;
 }
 
 export default function DataDetailTable(props: DataDetailTableProps) {
-  const { classes } = useStyles();
+  const styling = useStyles();
   const guitars = props.items as Project[];
 
   const [order, setOrder] = React.useState<Order>('asc');
@@ -86,12 +89,12 @@ export default function DataDetailTable(props: DataDetailTableProps) {
   const tableCells = getTableColumns(props.columns);
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-label='guitar detailed data table'>
+    <div className={styling.classes.root}>
+      <Paper className={styling.classes.paper}>
+        <div className={styling.classes.tableWrapper}>
+          <Table className={styling.classes.table} aria-label={getStringText('DataDetailTableLabel')}>
             <DataDetailTableHead
-              styling={useStyles()}
+              styling={styling}
               columns={tableCells}
               order={order}
               orderBy={orderBy}
@@ -99,7 +102,7 @@ export default function DataDetailTable(props: DataDetailTableProps) {
             <TableBody>
               {tableSort(guitars, getTableSorting(order, orderBy))
                 .map((guitar, idx) =>
-                  <DataDetailTableRow key={idx} styling={useStyles()} columns={tableCells} guitar={guitar} />)}
+                  <DataDetailTableRow key={idx} styling={styling} columns={tableCells} guitar={guitar} />)}
             </TableBody>
           </Table>
         </div>
