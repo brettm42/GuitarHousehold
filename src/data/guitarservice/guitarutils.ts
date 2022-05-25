@@ -14,6 +14,8 @@ import {
 } from '../../infrastructure/datautils';
 
 import * as CurrencyService from '../currencyservice/currencyservice';
+import { BodyStyle } from '../../interfaces/models/components';
+import { getStringText } from '../stringservice/stringservice';
 
 const defaultString = 'None';
 const unknownString = 'Unknown';
@@ -84,9 +86,9 @@ function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
 }
 
 export function isAcoustic(guitar: Guitar): boolean {
-  const acousticStyle = ['Acoustic', 'Flattop', 'Hollowbody', 'Archtop'];
+  const acousticStyle: BodyStyle[] = ['Acoustic', 'Flattop', 'Hollowbody', 'Archtop'];
 
-  return acousticStyle.includes(guitar.bodyStyle ?? '')
+  return acousticStyle.includes(guitar.bodyStyle || 'Unique')
     ? isAcousticPickup(guitar.pickups ?? [])
     : false;
 }
@@ -231,7 +233,7 @@ export function mostPickups(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max
-    ? `${max.name} (${maxPickupCount} pickups)`
+    ? `${max.name} (${maxPickupCount} ${getStringText('GuitarUtilsPickups')})`
     : defaultString;
 }
 
@@ -258,7 +260,7 @@ export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max
-    ? `${max.name} (${max.numberOfFrets} frets)`
+    ? `${max.name} (${max.numberOfFrets} ${getStringText('GuitarUtilsFrets')})`
     : defaultString;
 }
 
@@ -285,7 +287,7 @@ export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return min
-    ? `${min.name} (${min.numberOfFrets} frets)`
+    ? `${min.name} (${min.numberOfFrets} ${getStringText('GuitarUtilsFrets')})`
     : defaultString;
 }
 
@@ -441,7 +443,7 @@ export function mostModifications(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max?.modifications
-    ? `${max.name} (${max.modifications.length} modifications)`
+    ? `${max.name} (${max.modifications.length} ${getStringText('GuitarUtilsMods')})`
     : defaultString;
 }
 
@@ -474,7 +476,7 @@ export function mostControls(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max?.controls
-    ? `${max.name} (${max.controls.length} controls)`
+    ? `${max.name} (${max.controls.length} ${getStringText('GuitarUtilsControls')})`
     : defaultString;
 }
 
@@ -638,7 +640,7 @@ export function acousticVsElectric(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${acoustic} vs. ${electric}`;
+  return `${acoustic} ${getStringText('GuitarUtilsVs')} ${electric}`;
 }
 
 export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
@@ -653,7 +655,7 @@ export function factoryVsProject(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${factory} vs. ${project}`;
+  return `${factory} ${getStringText('GuitarUtilsVs')} ${project}`;
 }
 
 export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
@@ -675,7 +677,7 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${six} vs. ${twelve}`;
+  return `${six} ${getStringText('GuitarUtilsVs')} ${twelve}`;
 }
 
 export function sunburstVsColor(guitars: ReadonlyArray<Guitar>): string {
@@ -705,7 +707,7 @@ export function styleVsOtherStyle(style: string, guitars: ReadonlyArray<Guitar>)
     }
   }
 
-  return `${styleA} vs. ${otherStyle}`;
+  return `${styleA} ${getStringText('GuitarUtilsVs')} ${otherStyle}`;
 }
 
 export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
@@ -720,7 +722,7 @@ export function tremoloVsFixed(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${tremolo} vs. ${fixed}`;
+  return `${tremolo} ${getStringText('GuitarUtilsVs')} ${fixed}`;
 }
 
 export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
@@ -741,7 +743,7 @@ export function humbuckerVsSingleCoil(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${humbucker} vs. ${singleCoil}`;
+  return `${humbucker} ${getStringText('GuitarUtilsVs')} ${singleCoil}`;
 }
 
 export function swappedVsFactoryPickups(guitars: ReadonlyArray<Guitar>): string {
@@ -760,7 +762,7 @@ export function swappedVsFactoryPickups(guitars: ReadonlyArray<Guitar>): string 
     }
   }
 
-  return `${swapped} vs. ${factory}`;
+  return `${swapped} ${getStringText('GuitarUtilsVs')} ${factory}`;
 }
 
 export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
@@ -772,14 +774,15 @@ export function flatVsArchedCase(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if (guitar.case.caseStyle === 'Flat') {
+    if (guitar.case.caseStyle === 'Flat' 
+        || guitar.case.caseStyle === 'Gig Bag') {
       flat += 1;
     } else if (guitar.case.caseStyle === 'Arched') {
       arched += 1;
     }
   }
 
-  return `${flat} vs. ${arched}`;
+  return `${flat} ${getStringText('GuitarUtilsVs')} ${arched}`;
 }
 
 export function hasBatteryVsNot(guitars: ReadonlyArray<Guitar>): string {
@@ -794,7 +797,7 @@ export function hasBatteryVsNot(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${battery} vs. ${not}`;
+  return `${battery} ${getStringText('GuitarUtilsVs')} ${not}`;
 }
 
 export function boltOnVsSetNeck(guitars: ReadonlyArray<Guitar>): string {
@@ -809,7 +812,7 @@ export function boltOnVsSetNeck(guitars: ReadonlyArray<Guitar>): string {
     }
   }
 
-  return `${boltOn} vs. ${setNeck}`;
+  return `${boltOn} ${getStringText('GuitarUtilsVs')} ${setNeck}`;
 }
 
 export function mostCommonStringGauge(guitars: ReadonlyArray<Guitar>): string {
@@ -983,7 +986,7 @@ export function oldestGuitar(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max
-    ? `${max.name} (manufactured ${max.manufactureYear})`
+    ? `${max.name} (${getStringText('GuitarUtilsManufactured')} ${max.manufactureYear})`
     : defaultString;
 }
 
@@ -1010,7 +1013,7 @@ export function newestGuitar(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return min
-    ? `${min.name} (manufactured ${min.manufactureYear})`
+    ? `${min.name} (${getStringText('GuitarUtilsManufactured')} ${min.manufactureYear})`
     : defaultString;
 }
 
@@ -1038,7 +1041,7 @@ export function oldestGuitarPurchase(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max
-    ? `${max.name} (bought ${max.purchaseDate})`
+    ? `${max.name} (${getStringText('GuitarUtilsBought')} ${max.purchaseDate})`
     : defaultString;
 }
 
@@ -1066,7 +1069,7 @@ export function newestGuitarPurchase(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return min
-    ? `${min.name} (bought ${min.purchaseDate}${!isDelivered(min) ? ', not yet delivered' : ''})`
+    ? `${min.name} (${getStringText('GuitarUtilsBought')} ${min.purchaseDate}${!isDelivered(min) ? `, ${getStringText('GuitarUtilsNotDelivered')}` : ''})`
     : defaultString;
 }
 
@@ -1100,11 +1103,11 @@ export function getGuitarAge(guitar: Guitar | Project, suffix?: boolean): string
       durationString = durationString.slice(0, -1);
     }
 
-    return `${durationString} old `;
+    return `${durationString} ${getStringText('GuitarUtilsOld')} `;
   }
 
   if (!isDelivered(guitar)) {
-    return 'not yet delivered ';
+    return `${getStringText('GuitarUtilsNotDelivered')} `;
   }
 
   return null;
@@ -1151,8 +1154,8 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
 
   return max
     ? maxDate === max?.purchaseDate
-      ? `${max.strings?.name} strings (came with ${max.name}) - ${duration}`
-      : `${max.strings?.name} strings (changed ${maxDate} on ${max.name}) - ${duration}`
+      ? `${max.strings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${max.name}) - ${duration}`
+      : `${max.strings?.name} ${getStringText('GuitarUtilsStrings')} (changed ${maxDate} on ${max.name}) - ${duration}`
     : defaultString;
 }
 
@@ -1197,8 +1200,8 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
 
   return min
     ? minDate === min?.purchaseDate
-      ? `${min.strings?.name} strings (came with ${min.name}) - ${duration}`
-      : `${min.strings?.name} strings (changed ${minDate} on ${min.name}) - ${duration}`
+      ? `${min.strings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${min.name}) - ${duration}`
+      : `${min.strings?.name} ${getStringText('GuitarUtilsStrings')} (changed ${minDate} on ${min.name}) - ${duration}`
     : defaultString;
 }
 
@@ -1232,7 +1235,7 @@ export function longestDelivery(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max
-    ? `${max.name} (purchased ${max.purchaseDate}, delivered ${millisecondsToFriendlyString(maxLength)} later)`
+    ? `${max.name} (${getStringText('GuitarUtilsPurchased')} ${max.purchaseDate}, ${getStringText('GuitarUtilsDelivered')} ${millisecondsToFriendlyString(maxLength)} later)`
     : defaultString;
 }
 
@@ -1266,7 +1269,7 @@ export function longestProject(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return max
-    ? `${max.name} (started ${max.projectStart}, lasted ${millisecondsToFriendlyString(maxLength)})`
+    ? `${max.name} (${getStringText('GuitarUtilsStarted')} ${max.projectStart}, ${getStringText('GuitarUtilsLasted')} ${millisecondsToFriendlyString(maxLength)})`
     : defaultString;
 }
 
@@ -1300,7 +1303,7 @@ export function shortestProject(guitars: ReadonlyArray<Guitar>): string {
   }
 
   return min
-    ? `${min.name} (started ${min.projectStart}, lasted ${millisecondsToFriendlyString(minLength)})`
+    ? `${min.name} (${getStringText('GuitarUtilsStarted')} ${min.projectStart}, ${getStringText('GuitarUtilsLasted')} ${millisecondsToFriendlyString(minLength)})`
     : defaultString;
 }
 
@@ -2065,7 +2068,7 @@ export function summarizePickups(guitar: Guitar): string {
   }
 
   return types.length > 1
-    ? `${pickupCount} pickups - ${types.join(', ').toLocaleLowerCase()}`
+    ? `${pickupCount} ${getStringText('GuitarUtilsPickups')} - ${types.join(', ').toLocaleLowerCase()}`
     : `${pickupCount} ${types.join(', ').toLocaleLowerCase()} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
 

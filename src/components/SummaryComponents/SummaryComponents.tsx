@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Constants from '../../infrastructure/constants';
+import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,7 +12,7 @@ import DataList from '../../components/ListComponents/DataList';
 import { makeStyles } from 'tss-react/mui';
 import { Theme } from '@mui/material/styles';
 import { Guitar } from '../../interfaces/models/guitar';
-import * as GuitarUtils from '../../data/guitarservice/guitarutils';
+import { getStringText } from '../../data/stringservice/stringservice';
 
 type SummaryComponentProps = {
   title: string;
@@ -74,6 +75,9 @@ const useStyles = makeStyles()((theme: Theme) => {
       maxWidth: '90%',
       maxHeight: 400,
       boxShadow: theme.shadows[2]
+    },
+    randomPickImgContainer: {
+      position: 'relative'
     },
     randomPickCaption: {
       textAlign: 'left',
@@ -147,22 +151,22 @@ const MostCommonComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     <SummaryComponent
       title={'Most Common...'}
       contents={[
-        [ 'Make', GuitarUtils.mostCommonMake(guitars)  ],
-        [ 'Body', GuitarUtils.mostCommonBody(guitars)  ],
-        [ 'Color', GuitarUtils.mostCommonColor(guitars) ],
-        [ 'Pickup', GuitarUtils.mostCommonPickupType(guitars) ],
-        [ 'Number of Pickups', GuitarUtils.mostCommonPickupNumber(guitars) ],
-        [ 'Tuning', GuitarUtils.mostCommonTuning(guitars) ],
-        [ 'Scale Length', GuitarUtils.mostCommonScale(guitars) ],
-        [ 'Nut Width', GuitarUtils.mostCommonNutWidth(guitars) ],
-        [ 'Neck Radius', GuitarUtils.mostCommonNeckRadius(guitars) ],
-        [ 'Frets', GuitarUtils.mostCommonFretCount(guitars) ],
-        [ 'Number of Controls', GuitarUtils.mostCommonControlCount(guitars) ],
-        [ 'Tremolo Style', GuitarUtils.mostCommonTremoloType(guitars) ],
-        [ 'Manufacture Year', GuitarUtils.mostCommonManufactureYear(guitars) ],
-        [ 'Case Style', GuitarUtils.mostCommonCaseStyle(guitars) ],
-        [ 'Store', GuitarUtils.mostCommonStore(guitars) ],
-        [ 'Age', GuitarUtils.mostCommonAge(guitars) ]
+        [ getStringText('SummaryComponentMostCommonMake'), GuitarUtils.mostCommonMake(guitars)  ],
+        [ getStringText('SummaryComponentMostCommonBody'), GuitarUtils.mostCommonBody(guitars)  ],
+        [ getStringText('SummaryComponentMostCommonColor'), GuitarUtils.mostCommonColor(guitars) ],
+        [ getStringText('SummaryComponentMostCommonPickup'), GuitarUtils.mostCommonPickupType(guitars) ],
+        [ getStringText('SummaryComponentMostCommonNumOfPickups'), GuitarUtils.mostCommonPickupNumber(guitars) ],
+        [ getStringText('SummaryComponentMostCommonTuning'), GuitarUtils.mostCommonTuning(guitars) ],
+        [ getStringText('SummaryComponentMostCommonScale'), GuitarUtils.mostCommonScale(guitars) ],
+        [ getStringText('SummaryComponentMostCommonNutWidth'), GuitarUtils.mostCommonNutWidth(guitars) ],
+        [ getStringText('SummaryComponentMostCommonRadius'), GuitarUtils.mostCommonNeckRadius(guitars) ],
+        [ getStringText('SummaryComponentMostCommonFrets'), GuitarUtils.mostCommonFretCount(guitars) ],
+        [ getStringText('SummaryComponentMostCommonControls'), GuitarUtils.mostCommonControlCount(guitars) ],
+        [ getStringText('SummaryComponentMostCommonTremolo'), GuitarUtils.mostCommonTremoloType(guitars) ],
+        [ getStringText('SummaryComponentMostCommonYear'), GuitarUtils.mostCommonManufactureYear(guitars) ],
+        [ getStringText('SummaryComponentMostCommonCase'), GuitarUtils.mostCommonCaseStyle(guitars) ],
+        [ getStringText('SummaryComponentMostCommonStore'), GuitarUtils.mostCommonStore(guitars) ],
+        [ getStringText('SummaryComponentMostCommonAge'), GuitarUtils.mostCommonAge(guitars) ]
       ]}
       style={classes.mostCommon} />
   );
@@ -356,11 +360,11 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
     }
 
     return (
-      <div>
+      <div className={classes.randomPickImgContainer}>
         <Link href={`/detail/${guitar.id}`}>
           <a>
             {guitar.picture
-              ? <Image className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' layout='fill' />
+              ? <Image className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' layout='fill' objectFit='contain' />
               : <Typography variant='h4'>
                   {Constants.ImagePlaceholder}
                 </Typography>}

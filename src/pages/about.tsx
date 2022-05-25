@@ -25,13 +25,14 @@ const useStyles = makeStyles()((theme: Theme) => {
     body: {
       padding: theme.spacing(0, 2)
     },
-    image: {
-      padding: theme.spacing(2)
-    },
     img: {
       maxWidth: '90%',
       padding: theme.spacing(2)
-    }
+    },
+    imgContainer: {
+      padding: theme.spacing(2),
+      position: 'relative'
+    },
   };
 });
 
@@ -65,9 +66,9 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
         </Typography>
       </div>
 
-      <div className={classes.image}>
-        <Image className={classes.img} src={Constants.AboutPageImg1} alt={getStringText('AboutPageImageAlt')} layout='fill' />
-        <Image className={classes.img} src={Constants.AboutPageImg2} alt={getStringText('AboutPageImageAlt')} layout='fill' />
+      <div className={classes.imgContainer}>
+        <Image className={classes.img} src={Constants.AboutPageImg1} alt={getStringText('AboutPageImageAlt')} layout='fill' objectFit='contain' />
+        <Image className={classes.img} src={Constants.AboutPageImg2} alt={getStringText('AboutPageImageAlt')} layout='fill' objectFit='contain' />
       </div>
     </Layout>
   );

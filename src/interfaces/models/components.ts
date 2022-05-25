@@ -10,6 +10,8 @@ const serialNumberLocations = [
 
 export type BodyStyle = typeof bodyStyles[number];
 const bodyStyles = [
+  'Acoustic',
+  'Archtop',
   'Flattop',
   'Hollowbody',
   'Jaguar',
