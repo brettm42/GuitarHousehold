@@ -57,6 +57,9 @@ const useStyles = makeStyles()((theme: Theme) => {
       marginLeft: 'auto',
       marginRight: 'auto'
     },
+    imgContainer: {
+      position: 'relative'
+    },
     tabRoot: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper
@@ -97,13 +100,16 @@ export default function ImageComponent(props: ImageProps): React.ReactElement {
     }
 
     return (
-      <Image
-        className={props.isMobile ? classes.imgMobile : classes.img}
-        src={props.image}
-        alt={props.altText}
-        loading={props.index > 1 ? 'lazy' : 'eager'}
-        layout='fill'
-      />);
+      <div className={classes.imgContainer}>
+        <Image
+          className={props.isMobile ? classes.imgMobile : classes.img}
+          src={props.image}
+          alt={props.altText}
+          loading={props.index > 1 ? 'lazy' : 'eager'}
+          layout='fill'
+          objectFit='contain'
+        />
+      </div>);
   };
 
   const ImageTabs = (props: ImageTabProps) => {
