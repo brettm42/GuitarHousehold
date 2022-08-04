@@ -44,8 +44,6 @@ const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
       <ThemeProvider theme={theme}>
         <React.StrictMode>
           <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
-            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap' />
-
             <div className={classes.title}>
               <Typography variant='h3' noWrap>
                 {Constants.SiteTitle}

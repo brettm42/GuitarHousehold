@@ -11,9 +11,7 @@
       'lh6.googleusercontent.com'
     ]
   },
-  experimental: {
-    concurrentFeatures: false
-  }
+  experimental: {}
 }
 
 module.exports = nextConfig;
