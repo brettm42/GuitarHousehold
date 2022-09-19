@@ -2110,7 +2110,8 @@ export function getColorMapping(color: string): string {
     'Antique Varnish': 'Natural',
     'Butterscotch': 'Natural',
     'Classic': 'Natural',
-    'Mahogany': 'Natural',    
+    'Mahogany': 'Natural',
+    'Mocha': 'Natural',
     'Varnish': 'Natural',
     'Vintage Natural': 'Natural',
     'Walnut': 'Natural',
@@ -2134,6 +2135,7 @@ export function getColorMapping(color: string): string {
     'Wineburst': 'Red',
 
     // Blue variants
+    'Catalina Blue': 'Blue',
     'Cobalt Blue Metallic': 'Blue',
     'Ice Blue Metallic': 'Blue',
     'Lake Placid Blue': 'Blue',
