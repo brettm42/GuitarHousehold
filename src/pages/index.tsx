@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
 
-import createCache from '@emotion/cache';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import HouseholdGridList from '../components/HouseholdGridComponents/HouseholdGridList';
@@ -9,19 +8,11 @@ import Layout from '../components/Layout';
 import Summary from '../components/SummaryComponents/Summary';
 
 import { GetStaticProps, NextPage } from 'next';
-import { CacheProvider } from '@emotion/react';
 import { makeStyles } from 'tss-react/mui';
-import { createTheme, Theme, ThemeProvider } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { PageProps } from '../infrastructure/sharedprops';
 import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/guitarservice/guitarservice';
-
-export const muiCache = createCache({
-  'key': 'mui',
-  'prepend': true
-});
-
-const theme = createTheme();
 
 const useStyles = makeStyles()((theme: Theme) => {
   return {
@@ -40,29 +31,25 @@ const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
   const { classes } = useStyles();
 
   return (
-    <CacheProvider value={muiCache}>
-      <ThemeProvider theme={theme}>
-        <React.StrictMode>
-          <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
-            <div className={classes.title}>
-              <Typography variant='h3' noWrap>
-                {Constants.SiteTitle}
-              </Typography>
-            </div>
+    <React.StrictMode>
+      <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
+        <div className={classes.title}>
+          <Typography variant='h3' noWrap>
+            {Constants.SiteTitle}
+          </Typography>
+        </div>
 
-            <div>
-              <Summary data={items} isMobile={isMobile} />
-            </div>
+        <div>
+          <Summary data={items} isMobile={isMobile} />
+        </div>
 
-            <Divider className={classes.divider} />
+        <Divider className={classes.divider} />
 
-            <div>
-              <HouseholdGridList data={items} isMobile={isMobile} />
-            </div>
-          </Layout>
-        </React.StrictMode>
-      </ThemeProvider>
-    </CacheProvider>
+        <div>
+          <HouseholdGridList data={items} isMobile={isMobile} />
+        </div>
+      </Layout>
+    </React.StrictMode>
   );
 };
 
