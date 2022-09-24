@@ -17,8 +17,9 @@ type HouseholdGridListProps = {
   isMobile: boolean;
 };
 
-const imgHeight = 360;
-const imgHeightMobile = 260;
+const imgDim = { height: 360, width: 280 };
+const imgDimMobile = { height: 260, width: 180 };
+
 const imgBackgroundHeightMobile = 200;
 
 const useStyles = makeStyles()((theme: Theme) => {
@@ -29,31 +30,36 @@ const useStyles = makeStyles()((theme: Theme) => {
       backgroundColor: theme.palette.background.paper,
       paddingLeft: theme.spacing(2)
     },
+    rootMobile: {
+      display: 'inline-flex',
+      justifyContent: 'space-around',
+      backgroundColor: theme.palette.background.paper,
+      paddingLeft: theme.spacing(1)
+    },
     gridList: {
       display: 'block',
       transform: 'translateZ(0)'
     },
     gridListTile: {
-      minWidth: imgHeight,
-      minHeight: imgHeight,
-      margin: theme.spacing(1)
+      minWidth: imgDim.width,
+      minHeight: imgDim.height
     },
     gridListTileMobile: {
-      minWidth: imgHeightMobile,
-      minHeight: imgHeightMobile,
-      margin: theme.spacing(1)
+      minWidth: imgDimMobile.width,
+      minHeight: imgDimMobile.height
     },
     imgBackground: {
       background: 'lightgrey'
     },
     img: {
-      height: imgHeight,
+      height: imgDim.height,
       display: 'block',
       overflow: 'hidden',
-      margin: '0 auto'
+      margin: '0 auto',
+      background: 'lightgrey'
     },
     imgPlaceholder: {
-      height: imgHeight,
+      height: imgDim.height,
       display: 'flex',
       margin: '0 auto',
       alignItems: 'center',
@@ -63,14 +69,15 @@ const useStyles = makeStyles()((theme: Theme) => {
       background: 'lightgrey'
     },
     imgMobile: {
-      height: imgHeightMobile,
+      height: imgDimMobile.height,
       display: 'block',
       overflow: 'hidden',
       marginLeft: 'auto',
-      marginRight: 'auto'
+      marginRight: 'auto',
+      background: 'lightgrey'
     },
     imgPlaceholderMobile: {
-      height: imgHeightMobile,
+      height: imgDimMobile.height,
       display: 'flex',
       margin: '0 auto',
       alignItems: 'center',
@@ -91,9 +98,10 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
     <div className={classes.root}>
       <ImageList
           className={classes.gridList}
-          rowHeight={imgHeight} 
-          cols={3} 
-          variant='quilted'>
+          rowHeight={imgDim.height} 
+          cols={5} 
+          gap={8}
+          variant='masonry'>
         {guitars.map(guitar => (
           <ImageListItem key={guitar.id} className={classes.gridListTile}>
             <Link href={`/detail/${guitar.id}`}>
@@ -122,19 +130,19 @@ const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
   );
 
   const mobileGridList = (
-    <div className={classes.root}>
+    <div className={classes.rootMobile}>
       <ImageList
           className={classes.gridList}
           rowHeight={imgBackgroundHeightMobile}
           cols={2}
-          variant='quilted'>
+          variant='masonry'>
         {guitars.map(guitar => (
           <ImageListItem key={guitar.id} className={classes.gridListTileMobile}>
             <Link href={`/detail/${guitar.id}`}>
               <a>
                 <div className={classes.imgBackgroundMobile} aria-label={guitar.name}>
                   {guitar.picture
-                    ? <Image className={classes.imgMobile} src={guitar.picture} alt={guitar.name} layout='fill' loading='lazy' />
+                    ? <Image className={classes.imgMobile} src={guitar.picture} alt={guitar.name} layout='fill' loading='lazy' objectFit='contain' />
                     : <div className={classes.imgPlaceholderMobile}>
                         <Typography className={classes.imgPlaceholderTextMobile} variant='h4'>
                           {Constants.ImagePlaceholder}

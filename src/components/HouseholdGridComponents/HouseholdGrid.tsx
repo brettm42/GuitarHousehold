@@ -16,6 +16,8 @@ type HouseholdGridProps = {
   isMobile: boolean;
 };
 
+const imgDim = { height: 250, width: 180 };
+
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     root: {
@@ -40,7 +42,7 @@ const useStyles = makeStyles()((theme: Theme) => {
       color: 'rgba(255, 255, 255, 0.54)',
     },
     img: {
-      height: 250,
+      height: imgDim.height,
       display: 'block',
       margin: '0 auto'
     }
@@ -60,7 +62,7 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
             <Paper className={classes.paper}>
               <Link href={`/detail/${guitar.id}`}>
                 <a>
-                  <Image className={classes.img} src={guitar.picture || ''} alt={guitar.name} />
+                  <Image className={classes.img} src={guitar.picture || ''} alt={guitar.name} loading='lazy' width={ imgDim.width } height={ imgDim.height } objectFit='contain' />
                   <ImageListItemBar
                     title={guitar.name}
                     subtitle={
