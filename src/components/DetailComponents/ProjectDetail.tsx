@@ -29,7 +29,8 @@ const useStyles = makeStyles()((theme: Theme) => {
     },
     listSummary: {
       flexGrow: 1,
-      width: '100%'
+      width: '100%',
+      paddingBottom: theme.spacing(2)
     },
     title: {
       padding: theme.spacing(2, 0)

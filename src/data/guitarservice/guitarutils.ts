@@ -1073,7 +1073,7 @@ export function newestGuitarPurchase(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-function getGuitarAgeDuration(guitar: Guitar | Project): number {
+export function getGuitarAgeDuration(guitar: Guitar | Project): number {
   if (isProject(guitar) && guitar.projectComplete) {
     return Date.now() - Date.parse(guitar.projectComplete);
   }

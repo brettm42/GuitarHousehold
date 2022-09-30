@@ -17,7 +17,11 @@ import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/gui
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     title: {
-      padding: theme.spacing(4, 0, 1, 1),
+      padding: theme.spacing(6, 0, 4, 1),
+      textSizeAdjust: 'auto'
+    },
+    titleMobile: {
+      padding: theme.spacing(3, 0, 2, 1),
       textSizeAdjust: 'auto'
     },
     divider: {
@@ -33,8 +37,8 @@ const IndexPage: NextPage<PageProps> = ({ items, pathname }) => {
   return (
     <React.StrictMode>
       <Layout title={buildPageTitle('Home')} pathname={pathname} isMobile={isMobile}>
-        <div className={classes.title}>
-          <Typography variant='h3' noWrap>
+        <div className={isMobile ? classes.titleMobile : classes.title}>
+          <Typography variant={isMobile ? 'h4' : 'h2'} noWrap>
             {Constants.SiteTitle}
           </Typography>
         </div>

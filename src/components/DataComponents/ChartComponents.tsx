@@ -77,11 +77,21 @@ const useStyles = makeStyles()((theme: Theme) => {
       minWidth: '50%',
       padding: theme.spacing(0, 1, 2, 2)
     },
-    purchaseStore: {},
-    purchaseYear: {},
-    guitarColor: {},
-    guitarMake: {},
-    guitarPrice: {}
+    purchaseStore: {
+      padding: theme.spacing(1, 2)
+    },
+    purchaseYear: {
+      padding: theme.spacing(1, 2)
+    },
+    guitarColor: {
+      padding: theme.spacing(1, 2)
+    },
+    guitarMake: {
+      padding: theme.spacing(1, 2)
+    },
+    guitarPrice: {
+      padding: theme.spacing(1, 2)
+    }
   };
 });
 
@@ -90,7 +100,7 @@ const ChartContainerComponent: React.FunctionComponent<ChartComponentProps> = ({
 
   return (
     <div className={style}>
-      <Typography className={classes.detailTitle} variant='subtitle2' gutterBottom>
+      <Typography className={classes.detailTitle} variant='subtitle2'>
         {title}
       </Typography>
       <Grid container>
@@ -112,19 +122,16 @@ const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
         data: Object.values(data1),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
-        borderWidth: 1
+        tension: 0.4
       }
     ]
   };
 
   const chartOptions: ChartOptions<'line'> = {
-    indexAxis: 'y',
-    elements: {
-      line: {
-        borderWidth: 1
-      }
-    },
     responsive: true,
+    interaction: {
+      intersect: true
+    },
     plugins: {
       legend: {
         display: false,
@@ -132,13 +139,42 @@ const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
         labels: {
           color: defaultChartFontColor,
           font: {
-            size: 14
+            size: isMobile ? 16 : 14
           }
         }
       },
       title: {
         display: false,
         text: chartTitle
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            let label = context.dataset.label || '';
+
+            if (label) {
+                label += ': ';
+            }
+            if (context.parsed.y !== null) {
+                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+            }
+            return label;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        display: false,
+        title: {
+          display: true
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true
+        }
       }
     }
   };
@@ -162,17 +198,18 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
         data: data.map(i => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
+        borderWidth: 2,
+        borderRadius: { 
+          topRight: 5, 
+          bottomRight: 5
+        },
+        borderSkipped: false
       }
     ]
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 1
-      }
-    },
     responsive: true,
     plugins: {
       legend: {
@@ -219,17 +256,18 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
         data: data.map(i => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
+        borderWidth: 2,
+        borderRadius: { 
+          topRight: 5, 
+          bottomRight: 5
+        },
+        borderSkipped: false
       }
     ]
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 1
-      }
-    },
     responsive: true,
     plugins: {
       legend: {
@@ -353,17 +391,18 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
         data: data.map(i => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
+        borderWidth: 2,
+        borderRadius: { 
+          topRight: 5, 
+          bottomRight: 5
+        },
+        borderSkipped: false
       }
     ]
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 1
-      }
-    },
     responsive: true,
     plugins: {
       legend: {
@@ -410,17 +449,18 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
         data: data.map(i => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
+        borderWidth: 2,
+        borderRadius: { 
+          topRight: 5, 
+          bottomRight: 5
+        },
+        borderSkipped: false
       }
     ]
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 1
-      }
-    },
     responsive: true,
     plugins: {
       legend: {

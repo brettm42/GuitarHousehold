@@ -141,10 +141,19 @@ export function guitarMakeData(guitars: ReadonlyArray<Guitar>, minimumCount: num
     .sort((a, b) => b[1] - a[1]);  
 }
 
-export function guitarPriceData(guitars: ReadonlyArray<Guitar>): ReadonlyArray<number> {
+export function guitarPriceData(guitars: ReadonlyArray<Guitar>): Record<string, number> {
   if (guitars.length < 1) {
-    return [];
+    return {};
   }
 
-  return guitars.flatMap(g => GuitarUtils.getGuitarCost(g)).sort();
-};
+  const sortedGuitars = 
+    [...guitars].sort(
+      (a, b) => GuitarUtils.getGuitarAgeDuration(a) - GuitarUtils.getGuitarAgeDuration(b));
+
+  const prices: Record<string, number> = {};
+  for (const guitar of sortedGuitars) {
+    prices[guitar.name] = GuitarUtils.getGuitarCost(guitar);
+  }
+
+  return prices;
+}
