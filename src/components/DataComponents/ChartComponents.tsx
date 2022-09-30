@@ -22,6 +22,7 @@ import { Chart } from 'react-chartjs-2';
 import { Guitar } from '../../interfaces/models/guitar';
 import * as GuitarDataUtils from '../../data/guitarservice/guitardatautils';
 import { getStringText } from '../../data/stringservice/stringservice';
+import { formatCurrencyToString } from '../../infrastructure/datautils';
 
 ChartJS.register(BarController, BarElement, CategoryScale, LinearScale, LineController, LineElement, PointElement, Title);
 
@@ -68,7 +69,7 @@ const useStyles = makeStyles()((theme: Theme) => {
     },
     detailTitle: {
       textAlign: 'left',
-      padding: theme.spacing(1, 0, 0, 1)
+      padding: theme.spacing(1, 0, 2, 0)
     },
     detailChildren: {
       padding: theme.spacing(0, 1)
@@ -156,8 +157,9 @@ const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
                 label += ': ';
             }
             if (context.parsed.y !== null) {
-                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                label += formatCurrencyToString(context.parsed.y);
             }
+            
             return label;
           }
         }
@@ -218,7 +220,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
         labels: {
           color: defaultChartFontColor,
           font: {
-            size: 14
+            size: isMobile ? 12 : 14
           }
         }
       },
@@ -232,7 +234,10 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
         suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
+        grid: {
+          drawOnChartArea: false
+        }
       }
     }
   };
@@ -247,7 +252,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
 const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
   const { classes } = useStyles();
   const chartTitle = getStringText('GuitarAllPurchaseStoreChartTitle');
-  const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars, 1);
+  const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars, 2);
 
   const chartData: ChartData<'bar'> = {
     labels: data.map(i => i[0]),
@@ -276,7 +281,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
         labels: {
           color: defaultChartFontColor,
           font: {
-            size: 14
+            size: isMobile ? 12 : 14
           }
         }
       },
@@ -290,7 +295,10 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
         suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
+        grid: {
+          drawOnChartArea: false
+        }
       }
     }
   };
@@ -308,9 +316,6 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
 
-  const date = new Date(Date.now()); 
-  const currentYear = date.getFullYear(); 
-
   const chartData: ChartData<'bar'> = {
     labels: Object.keys(data1),
     datasets: [
@@ -320,23 +325,27 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
         data: Object.values(data1),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
-        borderWidth: 1
+        borderWidth: 2,
+        borderRadius: { 
+          topLeft: 5, 
+          topRight: 5
+        },
+        borderSkipped: false,
+        stack: 'combined',
+        yAxisID: 'y'
       },
       {
-        label: getStringText('GuitarPurchaseYearChartLabel2'),
+        label: getStringText('GuitarPurchaseYearChartLabel1'),
         data: Object.values(data2),
-        borderWidth: 1
+        backgroundColor: defaultChartBackgroundColor,
+        borderColor: defaultChartBorderColor,
+        stack: 'combined',
+        yAxisID: 'y1'
       }
     ]
   };
 
-  const chartOptions: ChartOptions<'bar'> = {
-    indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 1
-      }
-    },
+  const chartOptions: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
       legend: {
@@ -345,7 +354,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
         labels: {
           color: defaultChartFontColor,
           font: {
-            size: 14
+            size: isMobile ? 12 : 14
           }
         }
       },
@@ -355,26 +364,23 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
       }
     },
     scales: {
-      x: {
-        min: currentYear - 30,
-        max: (isMobile ? 15 : 30) + currentYear
-      },
-      y0: {
-        position: 'right',
-        beginAtZero: true,
-        max: isMobile ? 70 : 150
+      y: {
+        type: 'linear',
+        stacked: true
       },
       y1: {
-        position: 'left',
-        beginAtZero: true,
-        max: isMobile ? 70 : 150
+        type: 'linear',
+        position: 'right',
+        grid: {
+          drawOnChartArea: false
+        }
       }
     }
   };
 
   return (
     <ChartContainerComponent title={chartTitle} style={classes.purchaseYear}>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+      <Chart type='line' data={chartData} options={chartOptions} />
     </ChartContainerComponent>
   );
 };
@@ -411,7 +417,7 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
         labels: {
           color: defaultChartFontColor,
           font: {
-            size: 14
+            size: isMobile ? 12 : 14
           }
         }
       },
@@ -425,7 +431,10 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
         suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
+        grid: {
+          drawOnChartArea: false
+        }
       }
     }
   };
@@ -469,7 +478,7 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
         labels: {
           color: defaultChartFontColor,
           font: {
-            size: 14
+            size: isMobile ? 12 : 14
           }
         }
       },
@@ -483,7 +492,10 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
         suggestedMin: isMobile ? 2 : 1
       },
       y: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
+        grid: {
+          drawOnChartArea: false
+        }
       }
     }
   };

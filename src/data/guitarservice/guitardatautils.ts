@@ -148,7 +148,7 @@ export function guitarPriceData(guitars: ReadonlyArray<Guitar>): Record<string, 
 
   const sortedGuitars = 
     [...guitars].sort(
-      (a, b) => GuitarUtils.getGuitarAgeDuration(a) - GuitarUtils.getGuitarAgeDuration(b));
+      (a, b) => GuitarUtils.getGuitarAgeDuration(b) - GuitarUtils.getGuitarAgeDuration(a));
 
   const prices: Record<string, number> = {};
   for (const guitar of sortedGuitars) {

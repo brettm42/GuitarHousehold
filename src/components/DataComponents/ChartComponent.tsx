@@ -134,7 +134,7 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
         </Grid>
         <Grid key={'allPurchases'} item xs={12} sm={6}>
           <Paper className={classes.paper3}>
-            <AllPurchaseStoreChart {...props} />
+            <GuitarColorChart {...props} />
           </Paper>
         </Grid>
         <Grid key={'makes'} item xs={12} sm={6}>
@@ -144,7 +144,7 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
         </Grid>  
         <Grid key={'colors'} item xs={12} sm={6}>
           <Paper className={classes.paper5}>
-            <GuitarColorChart {...props} />
+            <AllPurchaseStoreChart {...props} />
           </Paper>
         </Grid>      
       </Grid>
