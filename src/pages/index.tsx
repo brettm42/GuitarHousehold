@@ -17,7 +17,7 @@ import { findAllGuitars, findAllInstruments, findAllProjects } from '../data/gui
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     title: {
-      padding: theme.spacing(4, 0),
+      padding: theme.spacing(4, 0, 1, 1),
       textSizeAdjust: 'auto'
     },
     divider: {

@@ -16,7 +16,7 @@ import { getStringText } from '../data/stringservice/stringservice';
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     title: {
-      padding: theme.spacing(4, 2, 2, 2)
+      padding: theme.spacing(4, 0, 0, 1)
     },
     titleRight: {
       padding: theme.spacing(5, 2, 2, 2),
