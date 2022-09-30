@@ -123,15 +123,15 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
                   Search on Reverb.com - <a target={isMobile ? '' : '_blank'} rel='noreferrer' href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
                 </Typography>
               </div>
-            </div>)}
-        </Grid>
 
-        <Grid item xs={12}>
-          <div className={classes.footer}>
-            <Typography key={'reverb-plug'} variant='caption'>
-              {`Fetched from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
-            </Typography>
-          </div>
+              <Grid item xs={12}>
+                <div className={classes.footer}>
+                  <Typography key={'reverb-plug'} variant='caption'>
+                    {`Fetched from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
+                  </Typography>
+                </div>
+              </Grid>
+            </div>)}
         </Grid>
       </Grid>
     </div>

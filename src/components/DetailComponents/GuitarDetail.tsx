@@ -26,9 +26,11 @@ type GuitarDetailProps = {
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     root: {
-      flexGrow: 1,
-      width: '100%',
       padding: theme.spacing(2)
+    },
+    listSummary: {
+      flexGrow: 1,
+      width: '100%'
     },
     title: {
       padding: theme.spacing(2, 0)
@@ -164,8 +166,8 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
     ];
 
   return (
-    <div>
-      <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
+    <div className={classes.root}>
+      <Grid container className={classes.listSummary} spacing={3} direction={isMobile ? 'column' : 'row'}>
         <Grid item zeroMinWidth xs={12} sm>
           <div className={classes.title}>
             <Typography variant='h4' gutterBottom>

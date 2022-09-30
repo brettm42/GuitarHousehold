@@ -25,6 +25,9 @@ type SummaryComponentsProps = {
   isMobile: boolean;
 };
 
+const imgDim = { height: 360, width: 280 };
+const imgDimMobile = { height: 260, width: 180 };
+
 const dividerPlaceholder: [ string, string | readonly string[] ] = [ '*', '*' ];
 
 const useStyles = makeStyles()((theme: Theme) => {
@@ -77,7 +80,7 @@ const useStyles = makeStyles()((theme: Theme) => {
       boxShadow: theme.shadows[2]
     },
     randomPickImgContainer: {
-      position: 'relative'
+      display: 'block'
     },
     randomPickCaption: {
       textAlign: 'left',
@@ -364,7 +367,8 @@ const RandomPickComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         <Link href={`/detail/${guitar.id}`}>
           <a>
             {guitar.picture
-              ? <Image className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' layout='fill' objectFit='contain' />
+              ? <Image className={classes.randomPickImg} src={guitar.picture} alt={guitar.name} loading='lazy' layout='responsive' objectFit='scale-down'
+                  height={isMobile ? imgDimMobile.height : imgDim.height } width={isMobile ? imgDimMobile.width : imgDim.width } />
               : <Typography variant='h4'>
                   {Constants.ImagePlaceholder}
                 </Typography>}
