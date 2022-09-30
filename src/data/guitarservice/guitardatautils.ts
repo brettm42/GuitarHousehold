@@ -140,3 +140,11 @@ export function guitarMakeData(guitars: ReadonlyArray<Guitar>, minimumCount: num
     .filter(i => i[1] > minimumCount)
     .sort((a, b) => b[1] - a[1]);  
 }
+
+export function guitarPriceData(guitars: ReadonlyArray<Guitar>): ReadonlyArray<number> {
+  if (guitars.length < 1) {
+    return [];
+  }
+
+  return guitars.flatMap(g => GuitarUtils.getGuitarCost(g)).sort();
+};

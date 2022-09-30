@@ -9,6 +9,7 @@ import {
   AllPurchaseStoreChart,
   GuitarColorChart,
   GuitarMakeChart,
+  GuitarPriceChart,
   PurchaseStoreChart, 
   PurchaseYearChart
 } from './ChartComponents';
@@ -38,9 +39,11 @@ const gridPaperStyle = {
 const useStyles = makeStyles()((theme: Theme) => {
   return {
     root: {
+      padding: theme.spacing(2)
+    },
+    grid: {
       flexGrow: 1,
-      alignItems: 'stretch',
-      padding: theme.spacing(1)
+      alignItems: 'stretch'
     },
     mobilePaperGridStyle: {
       '&:empty': {
@@ -108,34 +111,39 @@ const ChartComponent: React.FunctionComponent<SummaryProps> = ({
   const props = { data: guitars, isMobile: isMobile };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Grid container
-        className={classes.root}
+        className={classes.grid}
         justifyContent='flex-start'
         spacing={3}
       >
-        <Grid key={'year'} item xs={12} sm={6}>
+        <Grid key={'price'} item xs={12} sm={6}>
           <Paper className={classes.paper0}>
+            <GuitarPriceChart {...props} />
+          </Paper>
+        </Grid>
+        <Grid key={'year'} item xs={12} sm={6}>
+          <Paper className={classes.paper1}>
             <PurchaseYearChart {...props} />
           </Paper>
         </Grid>
         <Grid key={'store'} item xs={12} sm={6}>
-          <Paper className={classes.paper1}>
+          <Paper className={classes.paper2}>
             <PurchaseStoreChart {...props} />
           </Paper>
         </Grid>
         <Grid key={'allPurchases'} item xs={12} sm={6}>
-          <Paper className={classes.paper2}>
+          <Paper className={classes.paper3}>
             <AllPurchaseStoreChart {...props} />
           </Paper>
         </Grid>
         <Grid key={'makes'} item xs={12} sm={6}>
-          <Paper className={classes.paper3}>
+          <Paper className={classes.paper4}>
             <GuitarMakeChart {...props} />
           </Paper>
         </Grid>  
         <Grid key={'colors'} item xs={12} sm={6}>
-          <Paper className={classes.paper4}>
+          <Paper className={classes.paper5}>
             <GuitarColorChart {...props} />
           </Paper>
         </Grid>      

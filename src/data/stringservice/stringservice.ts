@@ -17,6 +17,7 @@ const textKey = [
   'GuitarColorChartTitle',
   'GuitarDataTabelLabel',
   'GuitarMakesChartTitle',
+  'GuitarPriceChartTitle',
   'GuitarPurchaseStoreChartTitle',
   'GuitarPurchaseYearChartTitle',
   'GuitarPurchaseYearChartLabel1',
@@ -88,8 +89,9 @@ const stringMap: Record<TextKeys, string> = {
   // Chart/Title Components
   GuitarAllPurchaseStoreChartTitle: 'Every Purchase by Store',
   GuitarColorChartTitle: 'Guitar Colors',
-  GuitarDataTabelLabel: 'Guitar data table',
+  GuitarDataTabelLabel: 'Guitar Data Table',
   GuitarMakesChartTitle: 'Guitar Makes',
+  GuitarPriceChartTitle: 'Guitar Prices',
   GuitarPurchaseStoreChartTitle: 'Guitar Purchase by Store',
   GuitarPurchaseYearChartLabel1: 'Year',
   GuitarPurchaseYearChartLabel2: 'Total',

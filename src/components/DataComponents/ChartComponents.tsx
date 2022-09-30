@@ -80,7 +80,8 @@ const useStyles = makeStyles()((theme: Theme) => {
     purchaseStore: {},
     purchaseYear: {},
     guitarColor: {},
-    guitarMake: {}
+    guitarMake: {},
+    guitarPrice: {}
   };
 });
 
@@ -96,6 +97,56 @@ const ChartContainerComponent: React.FunctionComponent<ChartComponentProps> = ({
         {children}
       </Grid>
     </div>
+  );
+};
+
+const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
+  const { classes } = useStyles();
+  const chartTitle = getStringText('GuitarPriceChartTitle');
+  const data1 = GuitarDataUtils.guitarPriceData(guitars);
+
+  const chartData: ChartData<'line'> = {
+    labels: Object.keys(data1),
+    datasets: [
+      {
+        data: Object.values(data1),
+        backgroundColor: defaultChartBackgroundColor,
+        borderColor: defaultChartBorderColor,
+        borderWidth: 1
+      }
+    ]
+  };
+
+  const chartOptions: ChartOptions<'line'> = {
+    indexAxis: 'y',
+    elements: {
+      line: {
+        borderWidth: 1
+      }
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: 'bottom',
+        labels: {
+          color: defaultChartFontColor,
+          font: {
+            size: 14
+          }
+        }
+      },
+      title: {
+        display: false,
+        text: chartTitle
+      }
+    }
+  };
+
+  return (
+    <ChartContainerComponent title={chartTitle} style={classes.guitarPrice}>
+      <Chart type='line' data={chartData} options={chartOptions} />
+    </ChartContainerComponent>
   );
 };
 
@@ -408,6 +459,7 @@ export {
   AllPurchaseStoreChart,
   GuitarColorChart,
   GuitarMakeChart,
+  GuitarPriceChart,
   PurchaseStoreChart,
   PurchaseYearChart
 };
