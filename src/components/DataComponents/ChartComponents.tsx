@@ -159,7 +159,7 @@ const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
             if (context.parsed.y !== null) {
                 label += formatCurrencyToString(context.parsed.y);
             }
-            
+
             return label;
           }
         }
@@ -316,11 +316,11 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
 
-  const chartData: ChartData<'bar'> = {
+  const chartData = {
     labels: Object.keys(data1),
     datasets: [
       {
-        type: 'bar',
+        type: 'bar' as const,
         label: getStringText('GuitarPurchaseYearChartLabel1'),
         data: Object.values(data1),
         backgroundColor: defaultChartBackgroundColor,
@@ -335,6 +335,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
         yAxisID: 'y'
       },
       {
+        type: 'line' as const,
         label: getStringText('GuitarPurchaseYearChartLabel1'),
         data: Object.values(data2),
         backgroundColor: defaultChartBackgroundColor,
@@ -345,7 +346,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
     ]
   };
 
-  const chartOptions: ChartOptions<'line'> = {
+  const chartOptions: ChartOptions = {
     responsive: true,
     plugins: {
       legend: {
