@@ -130,6 +130,7 @@ const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
 
   const chartOptions: ChartOptions<'line'> = {
     responsive: true,
+    maintainAspectRatio: true,
     interaction: {
       intersect: true
     },
@@ -213,6 +214,7 @@ const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ dat
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         display: false,
@@ -274,6 +276,7 @@ const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         display: false,
@@ -348,6 +351,7 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
 
   const chartOptions: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         display: false,
@@ -411,6 +415,7 @@ const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         display: false,
@@ -472,6 +477,7 @@ const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         display: false,

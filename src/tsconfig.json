@@ -10,6 +10,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "esModuleInterop": true,
+    "pretty": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
