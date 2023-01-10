@@ -447,6 +447,39 @@ export function mostModifications(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
+export function hasRepairs(guitar: Guitar): boolean {
+  return guitar.repairs
+    ? guitar.repairs.length > 0
+    : false;
+}
+
+export function mostRepairs(guitars: ReadonlyArray<Guitar>): string {
+  if (guitars.length < 1) {
+    return defaultString;
+  }
+
+  let max;
+  for (const guitar of guitars) {
+    if (!guitar.repairs || guitar.repairs.length < 1) {
+      continue;
+    }
+
+    if (!max) {
+      max = guitar;
+
+      continue;
+    }
+
+    if ((max.repairs?.length ?? maxDefault) < guitar.repairs.length) {
+      max = guitar;
+    }
+  }
+
+  return max?.repairs
+    ? `${max.name} (${max.repairs.length} ${getStringText('GuitarUtilsRepairs')})`
+    : defaultString;
+}
+
 export function hasControls(guitar: Guitar): boolean {
   return guitar.controls
     ? guitar.controls.length > 0

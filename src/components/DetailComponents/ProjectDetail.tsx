@@ -256,6 +256,19 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
               </ul>
             </div>
           : null}
+        {GuitarUtils.hasRepairs(guitar)
+          ? <div className={classes.description}>
+              <p>Repairs:</p>
+              <ul>
+                {guitar.repairs!.map((i, idx) =>
+                  <li key={idx}>
+                    <Typography>
+                      {i}
+                    </Typography>
+                  </li>)}
+              </ul>
+            </div>
+          : null}
         {GuitarUtils.hasControls(guitar)
           ? <div className={classes.description}>
               <p>Controls:</p>

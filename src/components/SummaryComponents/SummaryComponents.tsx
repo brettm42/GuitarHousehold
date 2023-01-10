@@ -248,6 +248,7 @@ const OutliersComponent: React.FunctionComponent<SummaryComponentsProps> = ({
         [ 'Newest', GuitarUtils.newestGuitarPurchase(guitars) ],
         [ 'Most Pickups', GuitarUtils.mostPickups(guitars) ],
         [ 'Most Modifications', GuitarUtils.mostModifications(guitars) ],
+        [ 'Most Repairs', GuitarUtils.mostRepairs(guitars) ],
         [ 'Most Controls', GuitarUtils.mostControls(guitars) ],
         [ 'Most Frets', GuitarUtils.mostFrets(guitars) ],
         [ 'Least Frets', GuitarUtils.leastFrets(guitars) ],
