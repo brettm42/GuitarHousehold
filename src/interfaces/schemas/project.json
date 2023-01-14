@@ -549,6 +549,12 @@
         },
         "bodyMaterial": {
           "type": "string"
+        },
+        "finishType": {
+          "type": "string"
+        },
+        "neckFinishType": {
+          "type": "string"
         }
       },
       "additionalProperties": false

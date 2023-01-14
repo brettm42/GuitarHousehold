@@ -2123,7 +2123,10 @@ export function summarizeConstruction(guitar: Guitar): string {
     + `${!veneer && guitar.construction.backMaterial ? `${guitar.construction.backMaterial} back, ` : ''}`
     + `${guitar.construction.sidesMaterial ? `${guitar.construction.sidesMaterial} sides, ` : ''}`
     + `${guitar.construction.neckMaterial ? `${guitar.construction.neckMaterial} neck, ` : ''}`
-    + `${guitar.construction.fingerboardMaterial ? `${guitar.construction.fingerboardMaterial} fingerboard` : ''}`).toLocaleLowerCase();
+    + `${guitar.construction.fingerboardMaterial ? `${guitar.construction.fingerboardMaterial} fingerboard, ` : ''}`
+    + `${guitar.construction.finishType ? `${guitar.construction.finishType} body finish, ` : ''}`
+    + `${guitar.construction.neckFinishType ? `${guitar.construction.neckFinishType} neck finish` : ''}`
+    ).toLocaleLowerCase();
 }
 
 export function getColorMapping(color: string): string {
