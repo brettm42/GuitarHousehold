@@ -1106,7 +1106,31 @@ export function newestGuitarPurchase(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-export function getGuitarAgeDuration(guitar: Guitar | Project): number {
+export function getGuitarAgeDuration(guitar: Guitar | Project): number {  
+  if (guitar.manufactureYear) {
+    return Date.now() - new Date().setUTCFullYear(guitar.manufactureYear);
+  }
+
+  return 0;
+}
+
+export function getGuitarAge(guitar: Guitar | Project, suffix?: boolean): string | null {
+  const duration = getGuitarAgeDuration(guitar);
+
+  if (duration > 0) {
+    let durationString = millisecondsToFriendlyString(duration);
+
+    if (durationString.endsWith('s') && !suffix) {
+      durationString = durationString.slice(0, -1);
+    }
+
+    return `${durationString} ${getStringText('GuitarUtilsOld')} `;
+  }
+
+  return null;
+}
+
+export function getGuitarOwnershipAgeDuration(guitar: Guitar | Project): number {
   if (isProject(guitar) && guitar.projectComplete) {
     return Date.now() - Date.parse(guitar.projectComplete);
   }
@@ -1126,21 +1150,17 @@ export function getGuitarAgeDuration(guitar: Guitar | Project): number {
   return 0;
 }
 
-export function getGuitarAge(guitar: Guitar | Project, suffix?: boolean): string | null {
-  const duration = getGuitarAgeDuration(guitar);
+export function getGuitarOwnershipAge(guitar: Guitar | Project): string | null {
+  const duration = getGuitarOwnershipAgeDuration(guitar);
 
   if (duration > 0) {
     let durationString = millisecondsToFriendlyString(duration);
 
-    if (durationString.endsWith('s') && !suffix) {
-      durationString = durationString.slice(0, -1);
-    }
-
-    return `${durationString} ${getStringText('GuitarUtilsOld')} `;
+    return `${getStringText('GuitarUtilsOwnership')} ${durationString}`;
   }
 
   if (!isDelivered(guitar)) {
-    return `${getStringText('GuitarUtilsNotDelivered')} `;
+    return `${getStringText('GuitarUtilsNotDelivered')}`;
   }
 
   return null;
@@ -2075,7 +2095,7 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 export function summarizeGuitar(guitar: Guitar): string {
   return `${guitar.name} is a ${getGuitarAge(guitar) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} `
     + `${isElectric(guitar) ? 'electric' : 'acoustic'} `
-    + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project' : ''} with ${summarizePickups(guitar)}`
+    + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project ' : ''}${getGuitarOwnershipAge(guitar) ? '('+ getGuitarOwnershipAge(guitar) + ') ' : ''} with ${summarizePickups(guitar)}`
     + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
     + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
     + `${guitar.controls ? ', ' + getControlCount(guitar) + ' controls' : ''}`
