@@ -44,6 +44,10 @@ export function isInstrument(guitar: any): guitar is Guitar {
 
   return guitar?.isInstrument;
 }
+
+export function isLeftHanded(guitar: any): guitar is Guitar {
+  return guitar?.isLeftHanded;
+}
   
 export function isInProgress(guitar: any): guitar is Project {
   return isProject(guitar) && !guitar.projectComplete;
@@ -2098,7 +2102,7 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
 
 export function summarizeGuitar(guitar: Guitar): string {
   return `${guitar.name} is ${getGuitarAge(guitar, false, true) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} `
-    + `${isElectric(guitar) ? 'electric' : 'acoustic'} `
+    + `${isElectric(guitar) ? 'electric' : 'acoustic'}${isLeftHanded(guitar) ? ' left-handed ' : ' '}`
     + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project ' : ''}${getGuitarOwnershipAge(guitar) ? '('+ getGuitarOwnershipAge(guitar) + ') ' : ''} with ${summarizePickups(guitar)}`
     + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
     + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
@@ -2166,6 +2170,7 @@ export function getColorMapping(color: string): string {
     'Vintage Sunburst': 'Sunburst',
 
     // Natural variants
+    'Aged Gloss': 'Natural',
     'Antique Natural': 'Natural',
     'Antique Varnish': 'Natural',
     'Butterscotch': 'Natural',
@@ -2232,7 +2237,8 @@ export function getColorMapping(color: string): string {
 
     // Grey variants
     'Charcoal': 'Grey',
-    'Charcoal Frost Metallic': 'Grey'
+    'Charcoal Frost Metallic': 'Grey',
+    'Gunmetal': 'Grey'
   };
 
   if (!color) {

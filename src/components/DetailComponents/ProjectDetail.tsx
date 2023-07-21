@@ -117,6 +117,9 @@ const ProjectDetail: React.FunctionComponent<ProjectDetailProps> = ({
       guitar.bodyStyle
         ? `Body Style: ${guitar.bodyStyle}`
         : null,
+      GuitarUtils.isLeftHanded(guitar) 
+        ? 'Left Handed'
+        : null,
       `Color: ${guitar.color ?? 'Unfinished'}`,
       GuitarUtils.hasPurchasePrice(guitar)
         ? `Project Cost: ${formatCurrencyToString(GuitarUtils.getGuitarCost(guitar))}`

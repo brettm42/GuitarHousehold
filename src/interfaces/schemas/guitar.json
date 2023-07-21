@@ -127,6 +127,9 @@
         "isInstrument": {
           "type": "boolean"
         },
+        "isLeftHanded": {
+          "type": "boolean"
+        },
         "construction": {
           "$ref": "#/definitions/Construction"
         },

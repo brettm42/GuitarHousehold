@@ -121,6 +121,9 @@ const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
       guitar.bodyStyle
         ? `Body Style: ${guitar.bodyStyle}`
         : null,
+      GuitarUtils.isLeftHanded(guitar) 
+        ? 'Left Handed'
+        : null,
       `Color: ${guitar.color ?? 'Unfinished'}`,
       guitar.serialNumber
         ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
