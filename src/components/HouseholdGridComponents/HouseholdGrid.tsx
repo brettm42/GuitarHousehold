@@ -62,7 +62,14 @@ const HouseholdGrid: React.FunctionComponent<HouseholdGridProps> = ({
             <Paper className={classes.paper}>
               <Link href={`/detail/${guitar.id}`}>
                 <a>
-                  <Image className={classes.img} src={guitar.picture || ''} alt={guitar.name} loading='lazy' width={ imgDim.width } height={ imgDim.height } objectFit='contain' />
+                  <Image 
+                    className={classes.img} 
+                    src={guitar.picture || ''} 
+                    alt={guitar.name} 
+                    loading='lazy' 
+                    width={imgDim.width} 
+                    height={imgDim.height} 
+                    objectFit='contain' />
                   <ImageListItemBar
                     title={guitar.name}
                     subtitle={

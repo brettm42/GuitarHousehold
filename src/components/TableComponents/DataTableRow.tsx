@@ -31,17 +31,17 @@ const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
 
   return (
     <TableRow className={classes.root} key={item.id} tabIndex={-1}>
-      <TableCell align='center' component='th' scope='row'>
+      <TableCell key={`${item.id}-id`} align='center' component='th' scope='row'>
         <Typography variant='body2'>
           {item.id}
         </Typography>
       </TableCell>
 
-      <TableCell align='center' aria-hidden='true'>
+      <TableCell key={`${item.id}-name`} align='center' aria-hidden='true'>
         {getStringText('DataTableSeparator')}
       </TableCell>
 
-      <TableCell>
+      <TableCell key={`${item.id}-path`}>
         <Link href={`/detail/${item.id}`}>
           <a>
             <Typography>
