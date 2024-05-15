@@ -85,7 +85,7 @@ export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>, 
       if (guitar.case?.purchaseStore) {
         const total = stores[guitar.case.purchaseStore] ?? 0;
 
-          stores[guitar.case.purchaseStore] = 1 + total;
+        stores[guitar.case.purchaseStore] = 1 + total;
       }
     }
 
@@ -93,7 +93,7 @@ export function guitarComponentPurchasePerStore(guitars: ReadonlyArray<Guitar>, 
       if (guitar.strings?.purchaseStore) {
         const total = stores[guitar.strings.purchaseStore] ?? 0;
 
-          stores[guitar.strings.purchaseStore] = 1 + total;
+        stores[guitar.strings.purchaseStore] = 1 + total;
       }
     }
   }

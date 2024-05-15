@@ -72,7 +72,7 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
     return [
       preamble,
       `${criticalCount} critical issues${pleaseCheck ? `, please check: ${pleaseCheck}` : ''}`,
-      `${missingItem ? `${missingItem} missing items though - ${missingCases} missing cases, ${missingPickups} missing pickups, ${missingStrings} missing strings` : ''}`,
+      `${missingItem ? `${missingItem} missing items - ${missingCases} missing cases, ${missingPickups} missing pickups, ${missingStrings} missing strings` : ''}`,
       `${missingItem ? `Please update missing items in: ${pleaseUpdate}` : ''}`
     ];
   } catch {

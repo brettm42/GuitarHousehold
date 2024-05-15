@@ -566,7 +566,7 @@ export function mostCommonMake(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonAge(guitars: ReadonlyArray<Guitar>): string {
-  const ages = guitars.map(g => getGuitarAge(g, true));
+  const ages = guitars.map(g => getGuitarAge(g, true)).filter(i => i !== null);
 
   return mostCommonString(ages);
 }
