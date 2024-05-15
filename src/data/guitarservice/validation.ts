@@ -373,20 +373,17 @@ function validateGuitarId(guitar: Guitar): boolean {
   }
 
   let result = new Evaluation();
-  const id = guitar.id.toString().substring(0, 2);
+  const id = guitar.id.toString();
 
   /** ID must be numeric */
   result.valid = id.match('[0-9]+') ? true : false;
-
-  /** Guitar ID must match xx0000 */
-  result.valid = guitar.id.toString().match(`^${id}0+$`) ? true : false;
 
   if (hasCase(guitar)) {
     /** Confirm case starts with guitar ID */
     result.valid = guitar.case!.id.toString().startsWith(id);
 
     /** Confirm case ends with 100 */
-    result.valid = guitar.case!.id.toString().match(`^${id}0*100$`) ? true : false;
+    result.valid = guitar.case!.id.toString().match(`^${id}100$`) ? true : false;
   }
 
   if (hasStrings(guitar)) {
@@ -394,7 +391,7 @@ function validateGuitarId(guitar: Guitar): boolean {
     result.valid = guitar.strings!.id.toString().startsWith(id);
 
     /** Confirm strings end with 9 */
-    result.valid = guitar.strings!.id.toString().match(`^${id}0+9$`) ? true : false;
+    result.valid = guitar.strings!.id.toString().match(`^${id}09$`) ? true : false;
   }
 
   if (hasPickups(guitar)) {
@@ -406,7 +403,7 @@ function validateGuitarId(guitar: Guitar): boolean {
       result.valid = pickupId.startsWith(id);
 
       /** Confirm pickup increments ID in last two digits with a preceeding 1 */
-      result.valid = pickupId.match(`^${id}[0-9]+1${idx}$`) ? true : false;
+      result.valid = pickupId.match(`^${id}1${idx}$`) ? true : false;
     }
   }
 
