@@ -11,12 +11,12 @@
   "dependencies": {
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
-    "@mui/icons-material": "5.15.17",
-    "@mui/material": "5.15.17",
-    "@mui/styles": "5.15.17",
-    "chart.js": "4.4.2",
+    "@mui/icons-material": "5.15.20",
+    "@mui/material": "5.15.20",
+    "@mui/styles": "5.15.20",
+    "chart.js": "4.4.3",
     "next": "12.3.1",
-    "node": "22.0.0",
+    "node": "22.3.0",
     "react": "17.0.2",
     "react-chartjs-2": "5.2.0",
     "react-dom": "17.0.2",
@@ -24,12 +24,12 @@
   },
   "devDependencies": {
     "@types/chart.js": "2.9.41",
-    "@types/node": "20.12.12",
+    "@types/node": "20.14.6",
     "@types/react": "17.0.43",
     "@types/react-chartjs-2": "2.5.7",
     "@types/react-dom": "17.0.14",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "14.2.4",
     "typescript": "5.4.5"
   },
   "license": "ISC"

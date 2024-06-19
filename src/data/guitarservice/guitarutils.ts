@@ -2180,6 +2180,7 @@ export function getColorMapping(color: string): string {
     'Varnish': 'Natural',
     'Vintage Natural': 'Natural',
     'Walnut': 'Natural',
+    'Walnut Stain': 'Natural',
 
     // Green variants
     'Old Army Green': 'Green',
@@ -2197,6 +2198,8 @@ export function getColorMapping(color: string): string {
     'Redburst': 'Red',
     'Rocket Red': 'Red',
     'Vintage Wine Metallic': 'Red',
+    'Wild Cherry': 'Red',
+    'Wild Cherry Transparent': 'Red',
     'Wineburst': 'Red',
 
     // Blue variants
@@ -2208,6 +2211,7 @@ export function getColorMapping(color: string): string {
     'Metallic Teal': 'Blue',
     'Powder Blue': 'Blue',
     'Sonic Blue': 'Blue',
+    'Viper Blue': 'Blue',
 
     // Gold variants
     'Aztec Gold Metalflake': 'Gold',
