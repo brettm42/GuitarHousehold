@@ -9,7 +9,7 @@ import Drawer from '@mui/material/Drawer';
 import Fab from '@mui/material/Fab';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItem, { ListItemProps } from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
@@ -29,6 +29,7 @@ import StorageIcon from '@mui/icons-material/Storage';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
 import { makeStyles } from 'tss-react/mui';
+import { ListItemProps } from '@mui/material/ListItem';
 import { Theme } from '@mui/material/styles';
 import { FooterMessage } from '../infrastructure/constants';
 
@@ -105,7 +106,7 @@ export default function Layout(props: LayoutProps): React.ReactElement {
   };
 
   function ListItemLink(props: ListItemProps<'a', { button?: true; }>) {;
-    return <ListItem button component='a' {...props} />;
+    return <ListItemButton component='a' {...props} />;
   };
 
   function ScrollToTopComponent(props: LayoutProps) {
