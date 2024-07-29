@@ -2215,6 +2215,7 @@ export function getColorMapping(color: string): string {
 
     // Gold variants
     'Aztec Gold Metalflake': 'Gold',
+    'Gold Sparkle': 'Gold',
     'Metallic Gold': 'Gold',
     'Satin Gold': 'Gold',
     'Shoreline Gold': 'Gold',

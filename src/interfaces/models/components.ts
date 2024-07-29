@@ -12,6 +12,7 @@ export type BodyStyle = typeof bodyStyles[number];
 const bodyStyles = [
   'Acoustic',
   'Archtop',
+  'Firebird',
   'Flattop',
   'Hollowbody',
   'Jaguar',
@@ -67,6 +68,7 @@ const pickupTypes = [
   'Jazzmaster',
   'Mini-humbucker',
   'P90',
+  'P-Bass',
   'Piezo',
   'Single-coil',
   'Wide-range Humbucker'
@@ -79,6 +81,7 @@ const pickupSizes = [
   'Soapbar',
   'Jazzmaster',
   'Mini-humbucker',
+  'P-Bass',
   'Piezo',
   'Split-coil',
   'Stratocaster',
