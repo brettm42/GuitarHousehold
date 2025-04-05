@@ -9,28 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "11.13.3",
-    "@emotion/styled": "11.13.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
     "@mui/icons-material": "5.16.7",
     "@mui/material": "5.16.7",
     "@mui/styles": "5.16.7",
-    "chart.js": "4.4.4",
+    "chart.js": "4.4.8",
     "next": "12.3.1",
     "node": "22.3.0",
     "react": "17.0.2",
-    "react-chartjs-2": "5.2.0",
+    "react-chartjs-2": "5.3.0",
     "react-dom": "17.0.2",
-    "tss-react": "4.9.12"
+    "tss-react": "4.9.16"
   },
   "devDependencies": {
     "@types/chart.js": "2.9.41",
-    "@types/node": "20.14.9",
+    "@types/node": "22.14.0",
     "@types/react": "17.0.43",
     "@types/react-chartjs-2": "2.5.7",
     "@types/react-dom": "17.0.14",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.7",
-    "typescript": "5.5.4"
+    "typescript": "5.8.3"
   },
   "license": "ISC"
 }
