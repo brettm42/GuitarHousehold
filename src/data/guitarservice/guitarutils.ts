@@ -2166,6 +2166,7 @@ export function getColorMapping(color: string): string {
     'Royal Tan': 'Sunburst',
     'Sunburst Varnish': 'Sunburst',
     'Tobacco Burst': 'Sunburst',
+    'Tobacco Flat': 'Sunburst',
     'Tobacco Sunburst': 'Sunburst',
     'Vintage Sunburst': 'Sunburst',
 
