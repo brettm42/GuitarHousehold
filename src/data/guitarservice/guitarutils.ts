@@ -2171,6 +2171,7 @@ export function getColorMapping(color: string): string {
     'Vintage Sunburst': 'Sunburst',
 
     // Natural variants
+    '1954 Butterscotch': 'Natural',
     'Aged Gloss': 'Natural',
     'Antique Natural': 'Natural',
     'Antique Varnish': 'Natural',
@@ -2184,6 +2185,7 @@ export function getColorMapping(color: string): string {
     'Walnut Stain': 'Natural',
 
     // Green variants
+    'British Racing Green': 'Green',
     'Old Army Green': 'Green',
     'Olive Drab': 'Green',
     'Seafoam Green': 'Green',
@@ -2213,6 +2215,9 @@ export function getColorMapping(color: string): string {
     'Powder Blue': 'Blue',
     'Sonic Blue': 'Blue',
     'Viper Blue': 'Blue',
+
+    // Brown variants
+    'Mystic Metallic Brown': 'Brown',
 
     // Gold variants
     'Aztec Gold Metalflake': 'Gold',

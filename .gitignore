@@ -15,3 +15,4 @@ src/data/localdb/guitars.json
 src/data/localdb/instruments.json
 src/data/localdb/projects.json
 src/data/localdb/wishlist.json
+src/data/localdb/parts.json
