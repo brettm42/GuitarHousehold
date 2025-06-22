@@ -2164,6 +2164,7 @@ export function getColorMapping(color: string): string {
     'Copperburst': 'Sunburst',
     'Honeyburst': 'Sunburst',
     'Royal Tan': 'Sunburst',
+    'Sienna Sunburst': 'Sunburst',
     'Sunburst Varnish': 'Sunburst',
     'Tobacco Burst': 'Sunburst',
     'Tobacco Flat': 'Sunburst',
@@ -2186,6 +2187,7 @@ export function getColorMapping(color: string): string {
 
     // Green variants
     'British Racing Green': 'Green',
+    'Emerald Green': 'Green',
     'Old Army Green': 'Green',
     'Olive Drab': 'Green',
     'Seafoam Green': 'Green',
@@ -2245,6 +2247,7 @@ export function getColorMapping(color: string): string {
     // Pink variants
     'Rose Gold Metallic': 'Pink',
     'Shell Pink': 'Pink',
+    'Tahitian Coral': 'Pink',
 
     // Grey variants
     'Charcoal': 'Grey',
