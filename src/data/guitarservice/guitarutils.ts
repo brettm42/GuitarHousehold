@@ -2210,6 +2210,7 @@ export function getColorMapping(color: string): string {
     // Blue variants
     'Catalina Blue': 'Blue',
     'Cobalt Blue Metallic': 'Blue',
+    'Competition Burgundy': 'Blue',
     'Ice Blue Metallic': 'Blue',
     'Lake Placid Blue': 'Blue',
     'Malibu Blue': 'Blue',
