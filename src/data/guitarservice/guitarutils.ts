@@ -2198,6 +2198,7 @@ export function getColorMapping(color: string): string {
     // Red variants
     'Antique Cherry': 'Red',
     'Candy Apple Red': 'Red',
+    'Dark Cherry': 'Red',
     'Fiesta Red': 'Red',
     'Red Stain Brown': 'Red',    
     'Redburst': 'Red',
