@@ -15,8 +15,8 @@
         "pickguard": "",
         "color": "Sunburst",
         "components": [
-            { "Neck": "89.95" },
-            { "Tremolo": "15.99" }
+            "Neck; 89.95",
+            "Tremolo; 15.99"
         ],
         "pickups": [
             {
@@ -92,8 +92,8 @@
         "pickguard": "",
         "color": "Red",
         "components": [
-          { "Guitar body": "189.95" },
-          { "Pickguard": "21.99" }
+            "Guitar body; 189.95",
+            "Pickguard; 21.99"
         ],
         "pickups": [
             {

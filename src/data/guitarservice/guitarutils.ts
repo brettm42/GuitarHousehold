@@ -1919,10 +1919,22 @@ export function getGuitarCost(guitar: Guitar | Project): number {
   if (isProject(guitar)) {
     if (guitar.components && guitar.components.length > 0) {
       for (const item of guitar.components) {
-        const componentPair = item.split(';');
-        
-        if (componentPair[1]) {
-          total += Number.parseFloat(componentPair[1].trim());
+        if (typeof item === 'string') {
+          const componentPair = item.split(';');
+          if (componentPair[1]) {
+            const val = Number.parseFloat(componentPair[1].trim());
+            if (!Number.isNaN(val)) {
+              total += val;
+            }
+          }
+        } else if (typeof item === 'object' && item !== null) {
+          const val = Object.values(item)[0];
+          if (typeof val === 'string' || typeof val === 'number') {
+            const num = Number.parseFloat(String(val));
+            if (!Number.isNaN(num)) {
+              total += num;
+            }
+          }
         }
       }
     }

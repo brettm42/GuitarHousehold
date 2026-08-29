@@ -21,7 +21,7 @@ import {
 export function summarizeValidation(items: [string, ReadonlyArray<Map<string, ValidationFlag>>][]): string[] {
   const fallbackString = 'Loading...';
 
-  if (!items) {
+  if (!items || items.length === 0) {
     return [ fallbackString ];
   }
 
@@ -48,18 +48,20 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
         criticalCount += count;
       }
 
-      for (const entry of validationMap.values()) {
-        let needsUpdate = false;
+      for (const entry of validationMap) {
+        if (!entry) continue;
+        const keys = entry instanceof Map ? Array.from(entry.keys()) : Object.keys(entry);
 
-        if (entry.has('pickups')) {
+        let needsUpdate = false;
+        if (keys.includes('pickups')) {
           missingItem++;
           missingPickups++;
           needsUpdate = true;
-        } else if (entry.has('case')) {
+        } else if (keys.includes('case')) {
           missingItem++;
           missingCases++;
           needsUpdate = true;
-        } else if (entry.has('strings')) {
+        } else if (keys.includes('strings')) {
           missingItem++;
           missingStrings++;
           needsUpdate = true;
@@ -82,34 +84,29 @@ export function summarizeValidation(items: [string, ReadonlyArray<Map<string, Va
 
 export function getValidationCount(results: ReadonlyArray<Map<string, ValidationFlag>>, flag: ValidationFlag | null = null): number {
   let count = 0;
+  if (!results) return 0;
 
-  if (!flag) {
-    for (const cat of results) {
-      count += cat.size;
-    }
-
-    return count;
-  } else {
-    for (const cat of results) {
-      if (cat.size < 1) {
-        continue;
-      }
-
-      try {
-        for (const item of cat.values()) {
-          if (item === flag) {
-            count += 1;
-          }
+  for (const cat of results) {
+    if (!cat) continue;
+    const values = cat instanceof Map ? Array.from(cat.values()) : Object.values(cat);
+    if (!flag) {
+      count += cat instanceof Map ? cat.size : Object.keys(cat).length;
+    } else {
+      for (const item of values) {
+        if (item === flag) {
+          count += 1;
         }
-      } catch { continue; }
+      }
     }
   }
 
   return count;
 }
 
-export function getValidationPrefix(category: Map<string, ValidationFlag>, fallbackString: string | number): string {
-  const firstEntry = [...category.keys()][0];
+export function getValidationPrefix(category: Map<string, ValidationFlag> | Record<string, ValidationFlag>, fallbackString: string | number): string {
+  if (!category) return fallbackString.toString();
+  const keys = category instanceof Map ? Array.from(category.keys()) : Object.keys(category);
+  const firstEntry = keys[0];
 
   return firstEntry
     ? firstEntry.split('-')[0] ?? fallbackString.toString()
@@ -118,7 +115,7 @@ export function getValidationPrefix(category: Map<string, ValidationFlag>, fallb
 
 export function getValidationStatus(guitar: Guitar | any): string {
   const validation =
-    guitar.validation
+    guitar.validation && Array.isArray(guitar.validation) && guitar.validation.length > 0
       ? (guitar.validation as ReadonlyArray<Map<string, ValidationFlag>>)
       : validate(guitar);
 
@@ -126,7 +123,12 @@ export function getValidationStatus(guitar: Guitar | any): string {
   let warning = 0;
   try {
     for (const validationEntry of validation) {
-      for (const flag of validationEntry.values()) {
+      if (!validationEntry) continue;
+      const values =
+        validationEntry instanceof Map
+          ? Array.from(validationEntry.values())
+          : Object.values(validationEntry);
+      for (const flag of values) {
         switch (flag) {
           case ValidationFlag.Critical:
             return `${ValidationFlag.Critical} issue!`;
@@ -138,14 +140,14 @@ export function getValidationStatus(guitar: Guitar | any): string {
           case ValidationFlag.Warning:
             warning += 1;
             break;
-          default:
-            break;
         }
       }
     }
-  } catch { }
+  } catch {
+    // ignore
+  }
 
-  return (missing < 1 && warning < 1)
+  return missing < 1 && warning < 1
     ? 'Valid'
     : warning > 0
       ? `${warning} ${ValidationFlag.Warning}s`

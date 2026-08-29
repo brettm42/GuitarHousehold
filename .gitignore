@@ -16,3 +16,5 @@ src/data/localdb/instruments.json
 src/data/localdb/projects.json
 src/data/localdb/wishlist.json
 src/data/localdb/parts.json
+src/data/localdb/a1b2c3d4-e5f6-7890-abcd-ef1234567890/*
+src/tsconfig.tsbuildinfo

@@ -1,24 +1,39 @@
 import * as React from 'react';
 import DebugDataListItem from './DebugDataListItem';
 import { DataListProps } from './DataList';
-import { summarizeValidation } from '../../data/guitarservice/validation';
+import { summarizeValidation, validate } from '../../data/guitarservice/validation';
 import { ValidationFlag } from '../../infrastructure/sharedprops';
 
 const DebugDataList: React.FC<DataListProps> = ({ items }) => {
-  const summary = summarizeValidation(
-    items.map((i) => [i.name, i.validation || []])
-  );
+  const itemsWithValidation = React.useMemo(() => {
+    return items.map((item) => ({
+      ...item,
+      validation: validate(item),
+    }));
+  }, [items]);
 
-  const criticalItems = [];
-  for (const item of items) {
-    for (const entry of item.validation ?? []) {
-      for (const validation of entry.values()) {
-        if (validation === ValidationFlag.Critical) {
-          criticalItems.push(item);
+  const summary = React.useMemo(() => {
+    return summarizeValidation(
+      itemsWithValidation.map((i) => [i.name, i.validation])
+    );
+  }, [itemsWithValidation]);
+
+  const criticalItems = React.useMemo(() => {
+    const list = [];
+    for (const item of itemsWithValidation) {
+      for (const entry of item.validation ?? []) {
+        if (entry instanceof Map) {
+          for (const validation of entry.values()) {
+            if (validation === ValidationFlag.Critical) {
+              list.push(item);
+              break;
+            }
+          }
         }
       }
     }
-  }
+    return list;
+  }, [itemsWithValidation]);
 
   return (
     <div className="space-y-6 py-4">
@@ -49,9 +64,9 @@ const DebugDataList: React.FC<DataListProps> = ({ items }) => {
       )}
 
       <div className="bg-white border border-neutral-200 rounded-xl p-4 shadow-xs">
-        <h4 className="font-bold text-neutral-800 text-sm mb-3">All Items</h4>
+        <h4 className="font-bold text-neutral-800 text-sm mb-3">All Items ({itemsWithValidation.length})</h4>
         <ul className="divide-y divide-neutral-100">
-          {items.map((item) => (
+          {itemsWithValidation.map((item) => (
             <li key={item.id}>
               <DebugDataListItem data={item} />
             </li>

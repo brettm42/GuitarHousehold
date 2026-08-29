@@ -28,6 +28,67 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ---
 
+## Multi-Tenant Account & Database System
+
+GuitarHousehold supports a multi-tenant directory-based database architecture under `src/data/localdb/`. Each subdirectory corresponds to an account / collection database identified by a GUID.
+
+### 1. Directory Structure
+
+```
+src/data/localdb/
+├── a1b2c3d4-e5f6-7890-abcd-ef1234567890/   # Primary Collection
+│   ├── account.json                         # Account metadata
+│   ├── guitars.json                         # Guitars database
+│   ├── instruments.json                     # Other instruments
+│   ├── projects.json                        # Project guitars & builds
+│   ├── wishlist.json                        # Wishlist items
+│   ├── parts.json                           # Spare parts & accessories
+│   └── assets.json                          # Account-specific branding/assets
+│
+└── b2c3d4e5-f6a7-8901-bcde-f12345678901/   # Studio Workshop (Sample Account)
+    ├── account.json
+    ├── guitars.json
+    ├── instruments.json
+    ├── projects.json
+    ├── wishlist.json
+    ├── parts.json
+    └── assets.json
+```
+
+### 2. Account Metadata (`account.json`)
+
+Each account folder contains an `account.json` file defining its metadata:
+
+```json
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "Primary Collection",
+  "description": "Main household guitar collection",
+  "isDefault": true,
+  "created": "2026-01-01",
+  "tokens": {
+    "reverb": "your-reverb-api-token"
+  },
+  "assets": {
+    "footer": {
+      "message": "On GitHub @ https://github.com/brettm42/GuitarHousehold"
+    },
+    "aboutPage": {
+      "image1": "/images/about/img1.jpg",
+      "image2": "/images/about/img2.jpg"
+    }
+  }
+}
+```
+
+### 3. Dynamic Account Switching
+
+- **Navigation Dropdown**: The header bar and mobile navigation drawer include an interactive **Account Selector** dropdown (`AccountSelector.tsx`).
+- **Client State Synchronization**: `AccountContext` automatically tracks the active account, persists the selection in `localStorage`, updates the URL query parameter (`?account=<guid>`), and fetches data from `/api/accounts/[id]/data` without full-page reloads.
+- **Adding New Accounts**: Simply create a new folder under `src/data/localdb/<guid>/` with an `account.json` and database files; the app automatically discovers and lists it in the dropdown.
+
+---
+
 ## Static Image Asset Vending
 
 GuitarHousehold supports a lightweight, flexible static image hosting solution. You can vend **local static assets** directly from the application repository or use **remote image URLs** (e.g. Google Photos, CDNs), with automatic path resolution.
@@ -46,7 +107,7 @@ src/
 
 ### 2. Supported Image Formats in Data Files
 
-In `src/data/localdb/guitars.json` (and `projects.json`, `instruments.json`, `assets.json`), the `"picture"` and `"additionalPictures"` fields support any of the following formats:
+In `guitars.json` (and `projects.json`, `instruments.json`, `assets.json`), the `"picture"` and `"additionalPictures"` fields support any of the following formats:
 
 | Format | Example in JSON | Resolved URL |
 | :--- | :--- | :--- |
@@ -76,11 +137,15 @@ The application's `ImageComponent` and `imageutils.ts` resolver automatically no
 
 ---
 
-## Architecture & Data Storage
+## Architecture & Services
 
-- **Data Layer (`src/data/localdb/`)**: File-based JSON database for guitars, parts, projects, and wishlist items.
-- **Service Layer (`src/data/guitarservice/`)**: Data aggregations, statistics, sorting, filtering, and model validations.
+- **Account Service (`src/data/accountservice/`)**: Auto-discovers account directories, parses account metadata, and loads scoped databases.
+- **Guitar Service (`src/data/guitarservice/`)**: Data aggregations, statistics, sorting, filtering, and model validations per account.
+- **API Routes (`src/pages/api/accounts/`)**:
+  - `GET /api/accounts` – List all available accounts.
+  - `GET /api/accounts/[id]/data` – Fetch full database payload for a specific account.
 - **Components (`src/components/`)**:
+  - `AccountSelector.tsx` – Database switcher dropdown.
   - `HouseholdGridComponents/` – Responsive card grid with hover scaling.
   - `SummaryComponents/` – Analytics dashboard with desktop grid and mobile collapsible accordions.
   - `TableComponents/` – Interactive sortable data tables.

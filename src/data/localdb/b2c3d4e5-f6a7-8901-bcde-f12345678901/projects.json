@@ -1,0 +1,132 @@
+[
+    {
+        "id": 100000,
+        "name": "Project #1",
+        "description": "",
+        "projectStart": "12/6/2015",
+        "projectComplete": "1/8/2016",
+        "purchaseStore": "",
+        "serialNumber": "",
+        "serialNumberLocation": "Body",
+        "make": "Project",
+        "bodyStyle": "Jazzmaster",
+        "body": "",
+        "neck": "",
+        "pickguard": "",
+        "color": "Sunburst",
+        "components": [
+            "Neck; 89.95",
+            "Tremolo; 15.99"
+        ],
+        "pickups": [
+            {
+                "id": 100010,
+                "name": "GFS JM90 Vintage Wound Jazzmaster Neck",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "GuitarFetish",
+                "purchasePrice": "",
+                "position": "Neck",
+                "type": "Jazzmaster",
+                "size": "Jazzmaster",
+                "output": "5.0K"
+            },
+            {
+                "id": 100011,
+                "name": "GFS JM90 Vintage Wound Jazzmaster Bridge",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "GuitarFetish",
+                "purchasePrice": "",
+                "position": "Bridge",
+                "type": "Jazzmaster",
+                "size": "Jazzmaster",
+                "output": "6.1K"
+            }
+        ],
+        "scale": "25.5\"",
+        "numberOfFrets": 21,
+        "neckRadius": "",
+        "nutWidth": "",
+        "strings": {
+            "id": 100009,
+            "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+            "gauge": "13-56",
+            "numberOfStrings": 12,
+            "material": "Pure Nickel",
+            "lastChangeDate": "11/02/2019"
+        },
+        "tremolo": "Jazzmaster",
+        "case": {
+            "id": 100100,
+            "name": "Douglas EGC-200 SJM Case",
+            "description": "",
+            "purchaseDate": "",
+            "purchaseStore": "Rondo Music",
+            "purchasePrice": "",
+            "caseStyle": "Flat"
+        },
+        "picture": "",
+        "modifications": [
+            "Wired up as (but with a 4-throw rotary switch)"
+        ],
+        "controls": [
+            "4-way rotary: neck, series, parallel, bridge",
+            "Master volume",
+            "Master tone"
+        ]
+    },
+    {
+        "id": 110000,
+        "name": "Project #2",
+        "description": "",
+        "projectStart": "1/06/2020",
+        "projectComplete": "",
+        "purchaseStore": "Amazon",
+        "serialNumber": "",
+        "serialNumberLocation": "None",
+        "make": "Project",
+        "bodyStyle": "Telecaster",
+        "body": "",
+        "neck": "",
+        "pickguard": "",
+        "color": "Red",
+        "components": [
+          "Guitar body; 189.95",
+          "Pickguard; 21.99"
+        ],
+        "pickups": [
+            {
+                "id": 110010,
+                "name": "",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "",
+                "purchasePrice": "",
+                "position": "Bridge",
+                "type": "Single-coil",
+                "size": "Telecaster Bridge",
+                "output": "12.0K"
+            }
+        ],
+        "scale": "25.5\"",
+        "numberOfFrets": 22,
+        "neckRadius": "",
+        "nutWidth": "",
+        "strings": {
+            "id": 110009,
+            "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+            "gauge": "13-56",
+            "numberOfStrings": 6,
+            "material": "Pure Nickel",
+            "lastChangeDate": "11/02/2019"
+        },
+        "picture": "",
+        "modifications": [],
+        "controls": [
+            "3-way rotary: neck, parallel, bridge",
+            "Master volume",
+            "Master tone"
+        ]
+    }
+]

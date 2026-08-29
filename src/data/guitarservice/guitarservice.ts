@@ -1,128 +1,131 @@
-import guitarDb from '../localdb/guitars.json';
-import instrumentDb from '../localdb/instruments.json';
-import projectDb from '../localdb/projects.json';
-import wishlistDb from '../localdb/wishlist.json';
-
 import { hasSold, isArchived } from './guitarutils';
-
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
+import { getAccountDatabase } from '../accountservice/accountservice';
 
-export async function find(id: number | string, exhaustive: boolean = true): Promise<Guitar> {
-  return await findInstrument(id, exhaustive);
+export async function find(
+  id: number | string,
+  accountId?: string,
+  exhaustive: boolean = true
+): Promise<Guitar> {
+  return await findInstrument(id, accountId, exhaustive);
 }
 
-export async function findInstrument(id: number | string, exhaustive: boolean = false): Promise<Guitar> {
-  if (instrumentDb) {
-    const instr = (instrumentDb as Guitar[]).find(data => data.id === Number(id));
+export async function findInstrument(
+  id: number | string,
+  accountId?: string,
+  exhaustive: boolean = false
+): Promise<Guitar> {
+  const { instruments } = getAccountDatabase(accountId);
+  if (instruments) {
+    const instr = instruments.find((data) => data.id === Number(id));
     if (instr) {
       return instr;
     }
   }
 
   if (exhaustive) {
-    return await findGuitar(id, exhaustive);
+    return await findGuitar(id, accountId, exhaustive);
   }
 
   throw new Error(`Cannot find instrument database or item ID: ${id}`);
 }
 
-export async function findGuitar(id: number | string, exhaustive: boolean = false): Promise<Guitar> {
-  if (guitarDb) {
-    const guitar = (guitarDb as Guitar[]).find(data => data.id === Number(id));
+export async function findGuitar(
+  id: number | string,
+  accountId?: string,
+  exhaustive: boolean = false
+): Promise<Guitar> {
+  const { guitars } = getAccountDatabase(accountId);
+  if (guitars) {
+    const guitar = guitars.find((data) => data.id === Number(id));
     if (guitar) {
       return guitar;
     }
   }
 
   if (exhaustive) {
-    return await findProject(id, exhaustive);
+    return await findProject(id, accountId, exhaustive);
   }
 
   throw new Error(`Cannot find guitar database or item ID: ${id}`);
 }
 
-export async function findProject(id: number | string, exhaustive: boolean = false): Promise<Project | Guitar> {
-  if (projectDb) {
-    const project = (projectDb as Project[]).find(data => data.id === Number(id));
+export async function findProject(
+  id: number | string,
+  accountId?: string,
+  exhaustive: boolean = false
+): Promise<Project | Guitar> {
+  const { projects } = getAccountDatabase(accountId);
+  if (projects) {
+    const project = projects.find((data) => data.id === Number(id));
     if (project) {
       return project;
     }
   }
 
   if (exhaustive) {
-    return await findWishlist(id);
+    return await findWishlist(id, accountId);
   }
 
   throw new Error(`Cannot find project database or item ID: ${id}`);
 }
 
-export async function findWishlist(id: number | string, exhaustive: boolean = false): Promise<Guitar> {
-  if (wishlistDb) {
-    const wishlist = (wishlistDb as Guitar[]).find(data => data.id === Number(id));
-    if (wishlist) {
-      return wishlist;
+export async function findWishlist(
+  id: number | string,
+  accountId?: string,
+  exhaustive: boolean = false
+): Promise<Guitar> {
+  const { wishlist } = getAccountDatabase(accountId);
+  if (wishlist) {
+    const item = wishlist.find((data) => data.id === Number(id));
+    if (item) {
+      return item;
     }
   }
 
-  throw new Error(`Cannot ${exhaustive ? 'exhaustive ' : ''}find wishlist database or item ID: ${id}`);
+  throw new Error(
+    `Cannot ${exhaustive ? 'exhaustive ' : ''}find wishlist database or item ID: ${id}`
+  );
 }
 
-export async function findEverything(): Promise<Guitar[]> {
+export async function findEverything(accountId?: string): Promise<Guitar[]> {
   return [
-    ... await findAllGuitars(),
-    ... await findAllProjects(),
-    ... await findAllInstruments(),
-    ... await findAllArchived(),
-    ... await findAllWishlist(),
-    ... await findAllSold()
+    ...(await findAllGuitars(accountId)),
+    ...(await findAllProjects(accountId)),
+    ...(await findAllInstruments(accountId)),
+    ...(await findAllArchived(accountId)),
+    ...(await findAllWishlist(accountId)),
+    ...(await findAllSold(accountId)),
   ];
 }
 
-export async function findAllInstruments(): Promise<Guitar[]> {
-  if (!instrumentDb) {
-    throw new Error('Cannot find instruments');
-  }
-
-  return instrumentDb as Guitar[];
+export async function findAllInstruments(accountId?: string): Promise<Guitar[]> {
+  const { instruments } = getAccountDatabase(accountId);
+  return instruments || [];
 }
 
-export async function findAllGuitars(): Promise<Guitar[]> {
-  if (!guitarDb) {
-    throw new Error('Cannot find guitars');
-  }
-
-  return (guitarDb as Guitar[]).filter(g => !isArchived(g));
+export async function findAllGuitars(accountId?: string): Promise<Guitar[]> {
+  const { guitars } = getAccountDatabase(accountId);
+  return (guitars || []).filter((g) => !isArchived(g));
 }
 
-export async function findAllProjects(): Promise<Project[]> {
-  if (!projectDb) {
-    throw new Error('Cannot find project guitars');
-  }
-
-  return (projectDb as Project[]).filter(g => !isArchived(g));
+export async function findAllProjects(accountId?: string): Promise<Project[]> {
+  const { projects } = getAccountDatabase(accountId);
+  return (projects || []).filter((g) => !isArchived(g));
 }
 
-export async function findAllArchived(): Promise<Guitar[]> {
-  if (!guitarDb) {
-    throw new Error('Cannot find guitars');
-  }
-
-  return (guitarDb as Guitar[]).filter(g => isArchived(g));
+export async function findAllArchived(accountId?: string): Promise<Guitar[]> {
+  const { guitars } = getAccountDatabase(accountId);
+  return (guitars || []).filter((g) => isArchived(g));
 }
 
-export async function findAllSold(): Promise<Guitar[]> {
-  if (!guitarDb) {
-    throw new Error('Cannot find guitars');
-  }
-
-  return (guitarDb as Guitar[]).filter(g => hasSold(g));
+export async function findAllSold(accountId?: string): Promise<Guitar[]> {
+  const { guitars } = getAccountDatabase(accountId);
+  return (guitars || []).filter((g) => hasSold(g));
 }
 
-export async function findAllWishlist(): Promise<Guitar[]> {
-  if (!wishlistDb) {
-    throw new Error('Cannot find wishlist');
-  }
-
-  return wishlistDb as Guitar[];
+export async function findAllWishlist(accountId?: string): Promise<Guitar[]> {
+  const { wishlist } = getAccountDatabase(accountId);
+  return wishlist || [];
 }

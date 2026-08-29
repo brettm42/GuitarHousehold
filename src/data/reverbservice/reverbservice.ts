@@ -1,4 +1,3 @@
-import { Tokens } from '../../infrastructure/constants';
 import { roundToHundredthsString } from '../../infrastructure/datautils';
 
 const maxPagesPerRequest = 35;
@@ -18,33 +17,34 @@ interface Search {
   results: Listing[];
 }
 
-class Listing {
+export class Listing {
   make?: string;
   model?: string;
   finish?: string;
   title?: string;
   price: number = 0;
-};
-
-function addRecentSearch(keywords: string, results: Listing[]) {
-  recentSearches[keywords] =
-    {
-      keywords: keywords,
-      date: Date.now(),
-      results: results
-    };
 }
 
-function buildReverbRequestAsync(): RequestInit {
+function addRecentSearch(keywords: string, results: Listing[]) {
+  recentSearches[keywords] = {
+    keywords: keywords,
+    date: Date.now(),
+    results: results,
+  };
+}
+
+function buildReverbRequestAsync(token?: string): RequestInit {
   const requestHeaders = new Headers();
   requestHeaders.append('Content-Type', 'application/hal+json');
-  requestHeaders.append('X-Auth-Token', Tokens.reverb);
+  if (token) {
+    requestHeaders.append('X-Auth-Token', token);
+  }
   requestHeaders.append('Accept-Version', '3.0');
 
   return {
     method: 'GET',
     headers: requestHeaders,
-    redirect: 'follow'
+    redirect: 'follow',
   };
 }
 
@@ -66,25 +66,30 @@ function parseReverbResponse(response: any): Listing {
     listing.finish = response.finish;
   }
 
-  if (response.price.amount) {
+  if (response.price?.amount) {
     listing.price = response.price.amount;
   }
 
   return listing;
 }
 
-async function fetchQueryKeywordsWithPageAsync(keywords: string, page: number | string) {
-  return await
-    fetch(`${reverbApiEndpoint}/listings/all?query=${encodeURI(keywords)}&page=${page}`, buildReverbRequestAsync())
-      .catch(error => {
-        throw new Error(`ReverbServiceError: ${error}`);
-      })
-      .then(res => res ? res.json() : '');
+async function fetchQueryKeywordsWithPageAsync(
+  keywords: string,
+  page: number | string,
+  token?: string
+) {
+  return await fetch(
+    `${reverbApiEndpoint}/listings/all?query=${encodeURI(keywords)}&page=${page}`,
+    buildReverbRequestAsync(token)
+  )
+    .catch((error) => {
+      throw new Error(`ReverbServiceError: ${error}`);
+    })
+    .then((res) => (res ? res.json() : ''));
 }
 
 export async function getRecentSearchCacheStatsAsync(): Promise<string> {
   const result = Object.keys(recentSearches).length;
-
   return `cached ${result} search${result === 1 ? '' : 'es'} with ${cacheHits} hit${cacheHits === 1 ? '' : 's'}`;
 }
 
@@ -92,108 +97,103 @@ export function getReverbUserFriendlyUrl(keywords: string): string {
   return `${reverbEndpoint}/marketplace?query=${encodeURI(keywords)}`;
 }
 
-export async function parsedResponseJsonAsync(keywords: string) {
+export async function parsedResponseJsonAsync(keywords: string, token?: string) {
   if (recentSearches[keywords]) {
     cacheHits++;
-
-    return recentSearches[keywords].results.map(i => JSON.stringify(i));
+    return recentSearches[keywords].results.map((i) => JSON.stringify(i));
   }
 
-  /** Page indexing on Reverb start at 1 */
   let currentPage = 1;
   let totalPages = 1;
 
-  const initialResponse: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage);
-  if (!initialResponse) {
+  const initialResponse: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage, token);
+  if (!initialResponse || !initialResponse.listings) {
     return [];
   }
 
-  let listings = [ ...initialResponse.listings ];
+  let listings = [...initialResponse.listings];
   totalPages = initialResponse.total_pages;
 
   while (currentPage < totalPages && currentPage < maxPagesPerRequest) {
     currentPage++;
 
-    const response: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage);
-    if (!response) {
+    const response: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage, token);
+    if (!response || !response.listings) {
       break;
     }
 
-    listings = [ ...listings, ...response.listings ];
+    listings = [...listings, ...response.listings];
     currentPage = response.current_page;
   }
 
   addRecentSearch(
     keywords,
-    listings.map((response: any) => parseReverbResponse(response)));
+    listings.map((response: any) => parseReverbResponse(response))
+  );
 
-  return listings.map(
-    (response: any) => {
-      return JSON.stringify({
-        make: response.make,
-        model: response.model,
-        title: response.title,
-        finish: response.finish,
-        price: response.price.amount
-      });
+  return listings.map((response: any) => {
+    return JSON.stringify({
+      make: response.make,
+      model: response.model,
+      title: response.title,
+      finish: response.finish,
+      price: response.price?.amount,
     });
+  });
 }
 
-export async function parsedResponseAsync(keywords: string): Promise<Listing[]> {
+export async function parsedResponseAsync(keywords: string, token?: string): Promise<Listing[]> {
   if (recentSearches[keywords]) {
     cacheHits++;
-
     return recentSearches[keywords].results;
   }
 
-  /** Page indexing on Reverb start at 1 */
   let currentPage = 1;
   let totalPages = 1;
 
-  const initialResponse: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage);
-  if (!initialResponse) {
+  const initialResponse: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage, token);
+  if (!initialResponse || !initialResponse.listings) {
     return [];
   }
 
-  let listings = [ ...initialResponse.listings ];
+  let listings = [...initialResponse.listings];
   totalPages = initialResponse.total_pages;
 
   while (currentPage < totalPages && currentPage < maxPagesPerRequest) {
     currentPage++;
 
-    const response: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage);
-    if (!response) {
+    const response: any = await fetchQueryKeywordsWithPageAsync(keywords, currentPage, token);
+    if (!response || !response.listings) {
       break;
     }
 
-    listings = [ ...listings, ...response.listings ];
+    listings = [...listings, ...response.listings];
     currentPage = response.current_page;
   }
 
   addRecentSearch(
     keywords,
-    listings.map((response: any) => parseReverbResponse(response)));
+    listings.map((response: any) => parseReverbResponse(response))
+  );
 
-  return listings
-    .map((response: any) => parseReverbResponse(response));
+  return listings.map((response: any) => parseReverbResponse(response));
 }
 
-export async function averagePriceForKeywordsAsync(keywords: string): Promise<string> {
-  const results = await parsedResponseAsync(keywords);
+export async function averagePriceForKeywordsAsync(keywords: string, token?: string): Promise<string> {
+  const results = await parsedResponseAsync(keywords, token);
 
   if (results.length < 1) {
     return `No results for ${keywords}`;
   }
 
-  const average = results.reduce(
-    (a: number, i: Listing) => +a + +i.price, 0)
-    / results.length;
+  const average =
+    results.reduce((a: number, i: Listing) => +a + +i.price, 0) / results.length;
 
   return `${roundToHundredthsString(average)}`;
 }
 
-export async function numberOfListingsForKeywordsAsync(keywords: string): Promise<string> {
-  const results = await parsedResponseAsync(keywords);
+export async function numberOfListingsForKeywordsAsync(keywords: string, token?: string): Promise<string> {
+  const results = await parsedResponseAsync(keywords, token);
 
   if (results.length < 1) {
     return '0';

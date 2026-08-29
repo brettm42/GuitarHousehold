@@ -1,19 +1,28 @@
-import * as Constants from '../infrastructure/constants';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { PageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { getStringText } from '../data/stringservice/stringservice';
 import { resolveImageUrl } from '../infrastructure/imageutils';
+import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
+import { useAccount } from '../contexts/AccountContext';
 
 const AboutPage: NextPage<PageProps> = ({ pathname }) => {
   const title = 'About';
   const isMobile = IsMobile();
+  const { activeAccount, accountData } = useAccount();
 
-  const img1 = resolveImageUrl(Constants.AboutPageImg1, '/images/about') || '';
-  const img2 = resolveImageUrl(Constants.AboutPageImg2, '/images/about') || '';
+  const rawImg1 =
+    activeAccount?.assets?.aboutPage?.image1 ||
+    accountData?.assets?.aboutPage?.image1;
+  const rawImg2 =
+    activeAccount?.assets?.aboutPage?.image2 ||
+    accountData?.assets?.aboutPage?.image2;
+
+  const img1 = resolveImageUrl(rawImg1, '/images/about') || '';
+  const img2 = resolveImageUrl(rawImg2, '/images/about') || '';
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
@@ -63,6 +72,19 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
       </div>
     </Layout>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const accounts = getAvailableAccounts();
+  const defaultAccount = getDefaultAccount();
+
+  return {
+    props: {
+      items: [],
+      initialAccounts: accounts,
+      initialAccountId: defaultAccount.id,
+    },
+  };
 };
 
 export default AboutPage;

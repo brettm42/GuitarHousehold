@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import AccountSelector from './AccountSelector';
 import {
   Menu,
   X,
@@ -14,10 +15,10 @@ import {
   Info,
   ChevronUp,
 } from 'lucide-react';
-import { FooterMessage } from '../infrastructure/constants';
+import { useAccount } from '../contexts/AccountContext';
 
 type LayoutProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title?: string;
   pathname?: string;
   isMobile?: boolean;
@@ -28,8 +29,8 @@ const navigationLinks = [
   { name: 'Data', href: '/data', icon: Database },
   { type: 'divider' as const },
   { name: 'Guitars', href: '/guitars', icon: Music },
-  { name: 'Projects', href: '/projects', icon: FolderGit2 },
   { name: 'Instruments', href: '/instruments', icon: Package },
+  { name: 'Projects', href: '/projects', icon: FolderGit2 },
   { type: 'divider' as const },
   { name: 'Archive', href: '/archive', icon: Archive },
   { name: 'Wishlist', href: '/wishlist', icon: Heart },
@@ -42,8 +43,14 @@ export default function Layout({
   title,
   pathname = '',
 }: LayoutProps): React.ReactElement {
+  const { activeAccount, accountData } = useAccount();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [showScrollTop, setShowScrollTop] = React.useState(false);
+
+  const footerMessage =
+    activeAccount?.assets?.footer?.message ||
+    accountData?.assets?.footer?.message ||
+    'GuitarHousehold';
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -82,17 +89,21 @@ export default function Layout({
             </button>
             <Link
               href="/"
-              className="text-xl font-bold tracking-tight hover:opacity-90 transition-opacity"
+              className="text-xl font-bold tracking-tight hover:opacity-90 transition-opacity flex items-center space-x-1.5"
             >
-              GuitarHousehold
+              <span>GuitarHousehold</span>
             </Link>
           </div>
 
-          {pathname && (
-            <div className="text-sm font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-xs">
-              {pathname}
-            </div>
-          )}
+          <div className="flex items-center space-x-3">
+            <AccountSelector />
+
+            {pathname && (
+              <div className="hidden sm:block text-xs font-medium text-white/90 bg-white/15 px-2.5 py-1 rounded-full backdrop-blur-xs">
+                {pathname}
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -122,6 +133,14 @@ export default function Layout({
               >
                 <X className="w-5 h-5" />
               </button>
+            </div>
+
+            {/* Mobile Account Switcher */}
+            <div className="p-3 border-b border-neutral-100 bg-neutral-50/70 sm:hidden">
+              <p className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider mb-2">
+                Active Account
+              </p>
+              <AccountSelector compact className="w-full !text-neutral-800" />
             </div>
 
             <nav className="flex-1 overflow-y-auto p-3 space-y-1">
@@ -156,7 +175,7 @@ export default function Layout({
       {/* Footer */}
       <footer className="mt-auto border-t border-neutral-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 text-center text-xs text-neutral-500">
-          <p>{FooterMessage}</p>
+          <p>{footerMessage}</p>
         </div>
       </footer>
 

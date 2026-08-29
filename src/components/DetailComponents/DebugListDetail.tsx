@@ -8,7 +8,10 @@ import {
 } from '../../data/guitarservice/validation';
 
 const DebugListDetail: React.FC<ListDetailProps> = ({ item: entry }) => {
-  const validation = entry.validation ? entry.validation : validate(entry);
+  const validation = React.useMemo(() => {
+    return validate(entry);
+  }, [entry]);
+
   const issueCount = getValidationCount(validation);
   const criticalCount = getValidationCount(validation, ValidationFlag.Critical);
   const warningCount = getValidationCount(validation, ValidationFlag.Warning);
@@ -41,7 +44,7 @@ const DebugListDetail: React.FC<ListDetailProps> = ({ item: entry }) => {
       <div className="bg-white border border-neutral-200 rounded-xl p-4 space-y-3 shadow-xs">
         <h3 className="font-bold text-neutral-800 text-sm">Validation Details</h3>
         {validation.map((t, idx) => {
-          if (t.size > 0) {
+          if (t && t.size > 0) {
             return (
               <div key={idx} className="bg-neutral-50 p-3 rounded-lg text-xs font-mono space-y-1 border border-neutral-200">
                 <p className="font-bold text-neutral-800">{getValidationPrefix(t, idx)}</p>

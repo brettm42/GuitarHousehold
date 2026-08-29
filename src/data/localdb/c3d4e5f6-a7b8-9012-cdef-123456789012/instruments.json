@@ -1,0 +1,20 @@
+[
+    {
+        "id": 9000000,
+        "name": "Alternate Reality Electric XII",
+        "make": "Fender",
+        "model": "Electric XII",
+        "bodyStyle": "Offset",
+        "color": "Lake Placid Blue",
+        "productUrl": "https://shop.fender.com/en-US/electric-guitars/other/alternate-reality-electric-xii/0143913302.html"
+    },
+    {
+        "id": 9000001,
+        "name": "MM-MC100 Mandocello",
+        "make": "Morgan Monroe",
+        "model": "MM-MC100",
+        "bodyStyle": "Archtop",
+        "color": "Sunburst",
+        "productUrl": "https://www.morganmonroe.net/mm-mc100.html"
+    }
+]

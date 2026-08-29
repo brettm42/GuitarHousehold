@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import { TextPageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 
@@ -15,7 +15,7 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
         </h1>
 
         <p className="text-sm text-neutral-600">
-          {`This is the test page for: ${responses}`}
+          {`This is the test page for: ${responses?.join(', ') || ''}`}
         </p>
 
         <p className="text-xs font-mono text-neutral-500 bg-neutral-100 p-2 rounded">
@@ -34,9 +34,11 @@ const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
   );
 };
 
-TestPage.getInitialProps = async ({ pathname }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const responses = ['test', 'test'];
-  return { responses, pathname };
+  return {
+    props: { responses, pathname: '/test' },
+  };
 };
 
 export default TestPage;

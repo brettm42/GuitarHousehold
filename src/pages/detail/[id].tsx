@@ -10,6 +10,7 @@ import { Project } from '../../interfaces/models/project';
 import { RetailItem } from '../../interfaces/retailitem';
 import { find, findEverything } from '../../data/guitarservice/guitarservice';
 import { isGuitar, isInstrument, isProject } from '../../data/guitarservice/guitarutils';
+import { getAvailableAccounts, getDefaultAccount } from '../../data/accountservice/accountservice';
 
 type DetailPageProps = {
   item?: Guitar;
@@ -50,13 +51,20 @@ const DetailPage: NextPage<DetailPageProps> = ({ item, errors, pathname }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const items = await findEverything();
+  const accounts = getAvailableAccounts();
+  const allItems: RetailItem[] = [];
 
-  const paths = items.map((i: RetailItem) => ({
-    params: { id: i.id.toString() },
+  for (const account of accounts) {
+    const items = await findEverything(account.id);
+    allItems.push(...items);
+  }
+
+  const uniqueIds = Array.from(new Set(allItems.map((i) => i.id.toString())));
+  const paths = uniqueIds.map((id) => ({
+    params: { id },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -80,10 +88,41 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       };
     }
 
-    const item = await find(Array.isArray(id) ? id[0] : id);
+    const accounts = getAvailableAccounts();
+    const defaultAccount = getDefaultAccount();
+    const itemId = Array.isArray(id) ? id[0] : id;
+
+    let item: Guitar | undefined;
+    try {
+      item = await find(itemId, defaultAccount.id);
+    } catch {
+      for (const account of accounts) {
+        if (account.id === defaultAccount.id) continue;
+        try {
+          item = await find(itemId, account.id);
+          if (item) break;
+        } catch {
+          // Continue search
+        }
+      }
+    }
+
+    if (!item) {
+      return {
+        props: {
+          errors: `Could not find guitar with ID: ${itemId}`,
+          pathname,
+        },
+      };
+    }
 
     return {
-      props: { item, pathname },
+      props: {
+        item,
+        pathname,
+        initialAccounts: accounts,
+        initialAccountId: defaultAccount.id,
+      },
     };
   } catch (err) {
     if (err instanceof Error) {

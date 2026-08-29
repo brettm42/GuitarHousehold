@@ -1,0 +1,19 @@
+{
+  "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+  "name": "Demo Studio Workshop",
+  "description": "Demo Studio recording and project instruments",
+  "isDefault": false,
+  "created": "2026-08-29",
+  "tokens": {
+    "reverb": ""
+  },
+  "assets": {
+    "footer": {
+      "message": "Studio Workshop Collection"
+    },
+    "aboutPage": {
+      "image1": "",
+      "image2": ""
+    }
+  }
+}

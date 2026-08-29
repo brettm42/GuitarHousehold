@@ -1,0 +1,76 @@
+[
+    {
+        "id": 10000,
+        "name": "Guitar #1",
+        "description": "",
+        "purchaseDate": "1/01/2020",
+        "purchaseStore": "",
+        "make": "Squier",
+        "model": "",
+        "series": "",
+        "serialNumber": "",
+        "serialNumberLocation": "Headstock",
+        "bodyStyle": "Stratocaster",
+        "color": "Sunburst",
+        "pickups": [
+            {
+                "id": 10010,
+                "name": "Factory Neck",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "",
+                "position": "Neck",
+                "type": "Humbucker",
+                "size": "Humbucker",
+                "output": "",
+                "mount": "Pickguard"
+            },
+            {
+                "id": 10011,
+                "name": "Factory Bridge",
+                "description": "",
+                "purchaseDate": "",
+                "purchaseStore": "",
+                "position": "Bridge",
+                "type": "Humbucker",
+                "size": "Telecaster Bridge",
+                "output": ""
+            }
+        ],
+        "scale": "25.5\"",
+        "numberOfFrets": 21,
+        "neckRadius": "",
+        "nutWidth": "",
+        "strings": {
+            "id": 10009,
+            "name": "D'Addario EJ12 80/20 Bronze Acoustic, Medium, 13-56",
+            "gauge": "13-56",
+            "numberOfStrings": 7,
+            "material": "80/20 Bronze",
+            "lastChangeDate": "11/02/2019",
+            "productUrl": "https://www.daddario.com/products/guitar/electric-guitar/xl-pure-nickel/epn22-pure-nickel-jazz-medium-13-56"            
+        },
+        "hasBattery": true,
+        "tremolo": "Stratocaster",
+        "case": {
+            "id": 10100,
+            "name": "TKL Artcore Case",
+            "description": "",
+            "purchaseDate": "",
+            "purchaseStore": "Guitar Center",
+            "purchasePrice": "",
+            "caseStyle": "Arched"
+        },
+        "picture": "",
+        "productUrl": "",
+        "purchasePrice": "123.45",
+        "modifications": [
+            "Removed pickguard", 
+            "Added chrome knobs"
+        ],
+        "controls": [
+            "Master volume",
+            "Tone"
+        ]
+    }
+]
