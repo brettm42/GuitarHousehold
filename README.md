@@ -137,6 +137,20 @@ The application's `ImageComponent` and `imageutils.ts` resolver automatically no
 
 ---
 
+## Key Features & Pages
+
+- **Dashboard & Collection Overview (`/`)**: High-level inventory statistics, auto-hiding summary alerts (undelivered orders, projects in progress, missing cases), and visual instrument gallery.
+- **Visual Analytics & Maintenance Tracking (`/data`)**:
+  - String Age & Maintenance Health charts with urgency color coding (🔴 >12 mo, 🟡 6–12 mo, 🟢 <6 mo).
+  - Manufacture Decade / Era vintage distribution.
+  - Project Build Duration tracking.
+  - Purchase Price vs. Estimated Reverb Market Valuation delta comparison.
+- **Parts & Hardware Inventory (`/parts`)**: Interactive sortable table with category pills (`Neck`, `Body`, `Pickup`, `Case`), dynamic spec formatting, search filter, and total inventory valuation.
+- **Project Builds (`/projects`)**: Custom build and mod tracker with interactive status filters (`All`, `In Progress`, `Completed`) and search.
+- **Guitars & Instruments (`/guitars`, `/instruments`, `/archive`, `/wishlist`)**: Interactive data tables with pinned columns and deep inspection links.
+
+---
+
 ## Architecture & Services
 
 - **Account Service (`src/data/accountservice/`)**: Auto-discovers account directories, parses account metadata, and loads scoped databases.
@@ -148,5 +162,6 @@ The application's `ImageComponent` and `imageutils.ts` resolver automatically no
   - `AccountSelector.tsx` – Database switcher dropdown.
   - `HouseholdGridComponents/` – Responsive card grid with hover scaling.
   - `SummaryComponents/` – Analytics dashboard with desktop grid and mobile collapsible accordions.
-  - `TableComponents/` – Interactive sortable data tables.
+  - `TableComponents/` – Interactive sortable data tables (`DataDetailTable`, `PartsTable`).
+  - `DataComponents/` – Lazy-loaded visual chart components (`ChartComponent`, `ChartComponents`).
   - `DetailComponents/` – Detailed specification cards, Reverb marketplace pricing, and JSON inspectors.
