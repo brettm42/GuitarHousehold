@@ -2212,6 +2212,7 @@ export function getColorMapping(color: string): string {
     'Catalina Blue': 'Blue',
     'Cobalt Blue Metallic': 'Blue',
     'Competition Burgundy': 'Blue',
+    'Daphne Blue': 'Blue',
     'Ice Blue Metallic': 'Blue',
     'Lake Placid Blue': 'Blue',
     'Malibu Blue': 'Blue',
