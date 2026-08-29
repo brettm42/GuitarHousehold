@@ -197,7 +197,8 @@
         "Starcaster",
         "Flattop",
         "Resonator",
-        "Unique"
+        "Unique",
+        "Firebird"
       ]
     },
     "Pickup": {
@@ -300,7 +301,8 @@
         "Mini-humbucker",
         "Active Humbucker",
         "Filtertron",
-        "Goldfoil"
+        "Goldfoil",
+        "P-Bass"
       ]
     },
     "PickupSize": {
@@ -316,7 +318,8 @@
         "Surface-mount",
         "Telecaster Bridge",
         "Split-coil",
-        "Piezo"
+        "Piezo",
+        "P-Bass"
       ]
     },
     "PickupPosition": {

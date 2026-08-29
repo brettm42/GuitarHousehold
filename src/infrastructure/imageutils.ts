@@ -59,24 +59,34 @@ export function resolveImageArray(
     return [];
   }
 
-  return images
+  const resolved = images
     .map((img) => resolveImageUrl(img, defaultFolder))
     .filter((url): url is string => Boolean(url));
+
+  return Array.from(new Set(resolved));
 }
 
 /**
- * Resolves a guitar's main picture, supporting explicit pictures or ID-based conventions.
+ * Resolves a guitar's main picture, supporting explicit pictures, additionalPictures fallback, or ID-based conventions.
  */
 export function getGuitarPictureUrl(guitar?: {
   picture?: string;
+  additionalPictures?: ReadonlyArray<string>;
   id?: number | string;
 }): string | undefined {
   if (!guitar) {
     return undefined;
   }
 
-  if (guitar.picture) {
+  if (guitar.picture && guitar.picture.trim()) {
     return resolveImageUrl(guitar.picture, '/images/guitars');
+  }
+
+  if (guitar.additionalPictures && guitar.additionalPictures.length > 0) {
+    const first = guitar.additionalPictures.find((img) => Boolean(img && img.trim()));
+    if (first) {
+      return resolveImageUrl(first, '/images/guitars');
+    }
   }
 
   return undefined;
