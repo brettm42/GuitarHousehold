@@ -13,6 +13,7 @@ export interface TableDataCell {
   id: keyof Project;
   label: string;
   formatter?: (data: Project) => string | number;
+  sortValue?: (data: Project) => any;
 }
 
 export const BaseColumns: ReadonlyArray<TableDataCell> = [
@@ -33,7 +34,7 @@ export const GuitarColumns: ReadonlyArray<TableDataCell> = [
   { id: 'scale', label: 'Scale' },
   { id: 'nutWidth', label: 'Nut Width' },
   { id: 'controls', label: 'Controls', formatter: getControlCount },
-  { id: 'case', label: 'Has Case', formatter: (i) => hasCase(i).toString() },
+  { id: 'case', label: 'Has Case', formatter: (i) => (hasCase(i) ? 'Yes' : 'No'), sortValue: (i) => hasCase(i) },
   { id: 'modifications', label: 'Modifications', formatter: getModificationCount }
 ];
 
@@ -52,7 +53,7 @@ export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'controls', label: 'Controls', formatter: getControlCount },
   { id: 'components', label: 'Project Cost', formatter: getGuitarCost },
   { id: 'purchaseStore', label: 'Purchase Store' },
-  { id: 'case', label: 'Has Case', formatter: (i) => hasCase(i).toString() },
+  { id: 'case', label: 'Has Case', formatter: (i) => (hasCase(i) ? 'Yes' : 'No'), sortValue: (i) => hasCase(i) },
   { id: 'modifications', label: 'Modifications', formatter: getModificationCount },
   { id: 'make', label: getStringText('DataDetailMakeLabel') },
 ];
