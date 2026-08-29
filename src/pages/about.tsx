@@ -6,10 +6,14 @@ import { NextPage } from 'next';
 import { PageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { getStringText } from '../data/stringservice/stringservice';
+import { resolveImageUrl } from '../infrastructure/imageutils';
 
 const AboutPage: NextPage<PageProps> = ({ pathname }) => {
   const title = 'About';
   const isMobile = IsMobile();
+
+  const img1 = resolveImageUrl(Constants.AboutPageImg1, '/images/about') || '';
+  const img2 = resolveImageUrl(Constants.AboutPageImg2, '/images/about') || '';
 
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
@@ -32,25 +36,29 @@ const AboutPage: NextPage<PageProps> = ({ pathname }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-          <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-sm border border-neutral-200 bg-white flex items-center justify-center p-2">
-            <Image
-              src={Constants.AboutPageImg1}
-              alt={getStringText('AboutPageImageAlt')}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain p-2"
-            />
-          </div>
+          {img1 && (
+            <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-sm border border-neutral-200 bg-white flex items-center justify-center p-2">
+              <Image
+                src={img1}
+                alt={getStringText('AboutPageImageAlt')}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain p-2"
+              />
+            </div>
+          )}
 
-          <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-sm border border-neutral-200 bg-white flex items-center justify-center p-2">
-            <Image
-              src={Constants.AboutPageImg2}
-              alt={getStringText('AboutPageImageAlt')}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain p-2"
-            />
-          </div>
+          {img2 && (
+            <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-sm border border-neutral-200 bg-white flex items-center justify-center p-2">
+              <Image
+                src={img2}
+                alt={getStringText('AboutPageImageAlt')}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain p-2"
+              />
+            </div>
+          )}
         </div>
       </div>
     </Layout>

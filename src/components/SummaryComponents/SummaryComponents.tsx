@@ -5,6 +5,7 @@ import Link from 'next/link';
 import DataList from '../../components/ListComponents/DataList';
 import { Guitar } from '../../interfaces/models/guitar';
 import { getStringText } from '../../data/stringservice/stringservice';
+import { getGuitarPictureUrl } from '../../infrastructure/imageutils';
 
 type SummaryComponentProps = {
   title: string;
@@ -257,6 +258,8 @@ const RandomPickComponent: React.FC<SummaryComponentsProps> = ({ data: guitars }
     return null;
   }
 
+  const pictureUrl = getGuitarPictureUrl(guitar);
+
   return (
     <div className="p-4 h-full flex flex-col items-center text-center">
       <h3 className="font-bold text-neutral-900 text-base mb-3 pb-1 border-b border-black/10 w-full">
@@ -267,9 +270,9 @@ const RandomPickComponent: React.FC<SummaryComponentsProps> = ({ data: guitars }
         className="group flex flex-col items-center max-w-xs"
       >
         <div className="relative w-48 h-60 bg-white/60 rounded-lg overflow-hidden shadow-md flex items-center justify-center p-2 mb-3 border border-black/5 group-hover:shadow-lg transition-shadow">
-          {guitar.picture ? (
+          {pictureUrl ? (
             <Image
-              src={guitar.picture}
+              src={pictureUrl}
               alt={guitar.name}
               fill
               sizes="192px"

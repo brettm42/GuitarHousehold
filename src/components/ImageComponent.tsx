@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { resolveImageArray } from '../infrastructure/imageutils';
 
 type ImageProps = {
   imageSet: ReadonlyArray<string | undefined>;
@@ -15,7 +16,7 @@ export default function ImageComponent({
   title,
   altText,
 }: ImageProps): React.ReactElement {
-  const imageSet = rawImageSet.filter((i): i is string => Boolean(i));
+  const imageSet = resolveImageArray(rawImageSet);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const touchStartX = React.useRef<number | null>(null);
 
