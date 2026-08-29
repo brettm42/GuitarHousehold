@@ -1,5 +1,6 @@
 import { Guitar } from './guitar';
 import { Project } from './project';
+import { Part } from './part';
 
 export interface AccountTokens {
   reverb?: string;
@@ -34,6 +35,6 @@ export interface AccountData {
   instruments: Guitar[];
   projects: Project[];
   wishlist: Guitar[];
-  parts?: any[];
+  parts?: Part[];
   assets?: AccountAssets;
 }

@@ -3,6 +3,7 @@ import path from 'path';
 import { Account, AccountData } from '../../interfaces/models/account';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
+import { Part } from '../../interfaces/models/part';
 
 const LOCALDB_ROOT = path.join(process.cwd(), 'src', 'data', 'localdb');
 
@@ -145,7 +146,7 @@ export function getAccountDatabase(accountId?: string): AccountData {
   const instruments = readAccountJson<Guitar[]>(accountDir, 'instruments.json', []);
   const projects = readAccountJson<Project[]>(accountDir, 'projects.json', []);
   const wishlist = readAccountJson<Guitar[]>(accountDir, 'wishlist.json', []);
-  const parts = readAccountJson<any[]>(accountDir, 'parts.json', []);
+  const parts = readAccountJson<Part[]>(accountDir, 'parts.json', []);
   const assets = readAccountJson<any>(accountDir, 'assets.json', account.assets || {});
 
   const data: AccountData = {

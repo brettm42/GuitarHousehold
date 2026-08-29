@@ -14,6 +14,7 @@ import {
   Heart,
   Info,
   ChevronUp,
+  Wrench,
 } from 'lucide-react';
 import { useAccount } from '../contexts/AccountContext';
 
@@ -31,6 +32,7 @@ const navigationLinks = [
   { name: 'Guitars', href: '/guitars', icon: Music },
   { name: 'Instruments', href: '/instruments', icon: Package },
   { name: 'Projects', href: '/projects', icon: FolderGit2 },
+  { name: 'Parts', href: '/parts', icon: Wrench },
   { type: 'divider' as const },
   { name: 'Archive', href: '/archive', icon: Archive },
   { name: 'Wishlist', href: '/wishlist', icon: Heart },

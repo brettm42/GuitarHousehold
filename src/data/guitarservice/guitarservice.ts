@@ -1,6 +1,7 @@
 import { hasSold, isArchived } from './guitarutils';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
+import { Part } from '../../interfaces/models/part';
 import { getAccountDatabase } from '../accountservice/accountservice';
 
 export async function find(
@@ -129,3 +130,9 @@ export async function findAllWishlist(accountId?: string): Promise<Guitar[]> {
   const { wishlist } = getAccountDatabase(accountId);
   return wishlist || [];
 }
+
+export async function findAllParts(accountId?: string): Promise<Part[]> {
+  const { parts } = getAccountDatabase(accountId);
+  return parts || [];
+}
+
