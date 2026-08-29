@@ -27,12 +27,21 @@ const DataDetailTableHead: React.FC<DataDetailTableHeadProps> = ({
       <tr>
         {columns.map((cell) => {
           const isSorted = orderBy === cell.id;
+          const isId = cell.id === 'id';
+          const isName = cell.id === 'name';
+
+          const stickyClasses = isId
+            ? 'sticky left-0 z-20 bg-neutral-100 w-16 min-w-[64px]'
+            : isName
+              ? 'sticky left-16 z-20 bg-neutral-100 min-w-[200px] sm:min-w-[240px] border-r border-neutral-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.08)]'
+              : '';
+
           return (
             <th
               key={cell.id}
               scope="col"
-              className={`px-4 py-3 select-none cursor-pointer hover:bg-neutral-200/70 transition-colors ${
-                cell.label === 'id' ? 'text-center w-16' : 'text-left'
+              className={`px-4 py-3 select-none cursor-pointer hover:bg-neutral-200/70 transition-colors ${stickyClasses} ${
+                isId ? 'text-center' : 'text-left'
               }`}
               onClick={createSortHandler(cell.id)}
             >

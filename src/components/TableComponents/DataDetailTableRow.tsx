@@ -12,19 +12,19 @@ type DataDetailTableRowProps = {
 
 const DataDetailTableRow: React.FC<DataDetailTableRowProps> = ({ columns, guitar }) => {
   return (
-    <tr className="border-b border-neutral-200/70 hover:bg-neutral-50/80 transition-colors text-sm">
-      <td className="px-4 py-3 text-center font-mono text-xs text-neutral-500 font-medium">
+    <tr className="group border-b border-neutral-200/70 hover:bg-neutral-50/80 transition-colors text-sm">
+      <td className="sticky left-0 z-10 bg-white group-hover:bg-neutral-50 px-4 py-3 text-center font-mono text-xs text-neutral-500 font-medium w-16 min-w-[64px]">
         {guitar.id}
       </td>
 
-      <td className="px-4 py-3 min-w-[200px]">
+      <td className="sticky left-16 z-10 bg-white group-hover:bg-neutral-50 px-4 py-3 min-w-[200px] sm:min-w-[240px] border-r border-neutral-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.08)]">
         <Link
           href={`/detail/${guitar.id}`}
           className="font-semibold text-neutral-900 hover:text-[#FE6B8B] transition-colors"
         >
           {guitar.name}
         </Link>
-        <div className="text-xs text-neutral-500 mt-0.5 max-w-xs">
+        <div className="text-xs text-neutral-500 mt-0.5 max-w-xs truncate">
           {summarizeGuitar(guitar as Guitar)}
         </div>
       </td>
