@@ -2,12 +2,10 @@ import * as React from 'react';
 import DataDetailTable, { Columns } from '../components/TableComponents/DataDetailTable';
 import DataTable from '../components/TableComponents/DataTable';
 import Layout from '../components/Layout';
-import { buildPageTitle } from '../components/viewutils';
 import { buildPageTitle, css } from '../components/viewutils';
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/guitarutils';
 import { Search } from 'lucide-react';
-import { cn } from '../infrastructure/utils';
 
 type ProjectFilter = 'all' | 'in-progress' | 'completed';
 
@@ -102,7 +100,6 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             <button
               type="button"
               onClick={() => setProjectStatus('all')}
-              className={cn(
               className={css(
                 'text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer',
                 projectStatus === 'all'
@@ -112,7 +109,6 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             >
               All Projects
               <span
-                className={cn(
                 className={css(
                   'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full',
                   projectStatus === 'all' ? 'bg-white/20 text-white' : 'bg-neutral-100 text-neutral-500'
@@ -125,7 +121,6 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             <button
               type="button"
               onClick={() => setProjectStatus('in-progress')}
-              className={cn(
               className={css(
                 'text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer',
                 projectStatus === 'in-progress'
@@ -135,7 +130,6 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             >
               In Progress
               <span
-                className={cn(
                 className={css(
                   'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full',
                   projectStatus === 'in-progress'
@@ -150,7 +144,6 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             <button
               type="button"
               onClick={() => setProjectStatus('completed')}
-              className={cn(
               className={css(
                 'text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer',
                 projectStatus === 'completed'
@@ -160,7 +153,6 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             >
               Completed
               <span
-                className={cn(
                 className={css(
                   'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full',
                   projectStatus === 'completed'
