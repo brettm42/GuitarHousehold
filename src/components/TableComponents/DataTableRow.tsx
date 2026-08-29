@@ -1,12 +1,5 @@
 import * as React from 'react';
-
 import Link from 'next/link';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { Entry } from '../../interfaces/entry';
 import { Guitar } from '../../interfaces/models/guitar';
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
@@ -16,46 +9,29 @@ type DataTableRowProps = {
   item: Entry;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {},
-    description: {
-      maxWidth: 300,
-      padding: theme.spacing(1, 0, 0, 0)
-    }
-  };
-});
-
-const DataTableRow: React.FunctionComponent<DataTableRowProps> = ({ item }) => {
-  const { classes } = useStyles();
-
+const DataTableRow: React.FC<DataTableRowProps> = ({ item }) => {
   return (
-    <TableRow className={classes.root} key={item.id} tabIndex={-1}>
-      <TableCell key={`${item.id}-id`} align='center' component='th' scope='row'>
-        <Typography variant='body2'>
-          {item.id}
-        </Typography>
-      </TableCell>
+    <tr className="border-b border-neutral-200/70 hover:bg-neutral-50/80 transition-colors text-sm">
+      <td className="px-4 py-3 text-center font-mono text-xs text-neutral-500 font-medium w-16">
+        {item.id}
+      </td>
 
-      <TableCell key={`${item.id}-name`} align='center' aria-hidden='true'>
-        {getStringText('DataTableSeparator')}
-      </TableCell>
+      <td className="px-2 py-3 text-center text-neutral-300 select-none w-6" aria-hidden="true">
+        {getStringText('DataTableSeparator') || '•'}
+      </td>
 
-      <TableCell key={`${item.id}-path`}>
-        <Link href={`/detail/${item.id}`}>
-          <a>
-            <Typography>
-              {item.name}
-            </Typography>
-          </a>
+      <td className="px-4 py-3">
+        <Link
+          href={`/detail/${item.id}`}
+          className="font-semibold text-neutral-900 hover:text-[#FE6B8B] transition-colors"
+        >
+          {item.name}
         </Link>
-        <div className={classes.description}>
-          <Typography variant='caption' gutterBottom>
-            {summarizeGuitar(item as Guitar)}
-          </Typography>
+        <div className="text-xs text-neutral-500 mt-0.5 max-w-sm">
+          {summarizeGuitar(item as Guitar)}
         </div>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   );
 };
 

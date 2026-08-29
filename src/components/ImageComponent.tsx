@@ -1,185 +1,124 @@
 import * as React from 'react';
-
 import Image from 'next/image';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type ImageProps = {
   imageSet: ReadonlyArray<string | undefined>;
-  isMobile: boolean;
+  isMobile?: boolean;
   title?: string;
   altText?: string;
   maxHeight?: number;
 };
 
-type SingleImageProps = {
-  image: string | undefined;
-  isMobile: boolean;
-  index: number;
-  altText?: string;
-};
+export default function ImageComponent({
+  imageSet: rawImageSet,
+  title,
+  altText,
+}: ImageProps): React.ReactElement {
+  const imageSet = rawImageSet.filter((i): i is string => Boolean(i));
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const touchStartX = React.useRef<number | null>(null);
 
-type ImageTabProps = {
-  imageSet: ReadonlyArray<string | undefined>;
-  isMobile: boolean;
-  altText?: string;
-};
+  if (imageSet.length === 0) {
+    return <span />;
+  }
 
-type ImagePanelProps = {
-  children: React.ReactNode;
-  value: any;
-  index: any;
-  altText?: string;
-  onTouchStart: (event: React.TouchEvent<{}>) => void;
-  onTouchEnd: (event: React.TouchEvent<{}>) => void;
-};
+  const caption = `${title ? `${title} ` : ''}${altText || 'Guitar Image'}`;
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    img: {
-      objectFit: 'cover',
-      width: 'fit-content',
-      height: 800,
-      boxShadow: theme.shadows[2],
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    },
-    imgMobile: {
-      boxShadow: theme.shadows[2],
-      maxWidth: '100%',
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    },
-    imgContainer: {
-      position: 'relative'
-    },
-    tabRoot: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper
-    },
-    labelRoot: {
-      flexGrow: 1
-    },
+  const nextImage = () => {
+    setActiveIndex((prev) => (prev + 1) % imageSet.length);
   };
-});
 
-function ImagePanel(props: ImagePanelProps) {
-  return (
-    <div
-      role='tabpanel'
-      hidden={props.value !== props.index}
-      id={`image-tabpanel-${props.index}`}
-      aria-label={props.altText}
-      onTouchStart={props.onTouchStart}
-      onTouchEnd={props.onTouchEnd}
-    >
-      {props.value === props.index && (
-        <Box p={3}>
-          {props.children}
-        </Box>
-      )}
-    </div>
-  );
-};
+  const prevImage = () => {
+    setActiveIndex((prev) => (prev - 1 + imageSet.length) % imageSet.length);
+  };
 
-export default function ImageComponent(props: ImageProps): React.ReactElement {
-  const { classes } = useStyles();
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
 
-  const imageSet = props.imageSet.filter(i => i || false);
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
 
-  const SingleImage = (props: SingleImageProps) => {
-    if (!props.image) {
-      return null;
+    if (diff > 50) {
+      nextImage();
+    } else if (diff < -50) {
+      prevImage();
     }
-
-    return (
-      <div className={classes.imgContainer}>
-        <Image
-          className={props.isMobile ? classes.imgMobile : classes.img}
-          src={props.image}
-          alt={props.altText}
-          loading={props.index > 1 ? 'lazy' : 'eager'}
-          layout='fill'
-          objectFit='contain'
-        />
-      </div>);
+    touchStartX.current = null;
   };
 
-  const ImageTabs = (props: ImageTabProps) => {
-    const [value, setValue] = React.useState(0);
-    let touchStart = 0;
-
-    const handleChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
-      setValue(newValue);
-    };
-
-    const handleTouchStart = (event: React.TouchEvent<{}>) => {
-      touchStart = event.touches[0].clientX;
-    };
-
-    const handleTouchEnd = (event: React.TouchEvent<{}>) => {
-      const touchThreshold = 90;
-      const touchEnd = event.changedTouches[0].clientX;
-
-      if (touchStart > touchEnd + touchThreshold) {
-        const newIdx = value - 1;
-        if (newIdx < 0) {
-          setValue(imageSet.length - 1);
-        } else {
-          setValue(newIdx);
-        }
-      } else if (touchStart < touchEnd - touchThreshold) {
-        const newIdx = value + 1;
-        if (newIdx >= imageSet.length) {
-          setValue(0);
-        } else {
-          setValue(newIdx);
-        }
-      }
-    };
-
+  if (imageSet.length === 1) {
     return (
-      <div className={classes.tabRoot}>
-        {imageSet.map((image, idx) =>
-          <ImagePanel key={idx} value={value} index={idx} altText={`${props.altText}-${idx}`}
-            onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-            <SingleImage image={image} isMobile={props.isMobile} index={idx} altText={`${props.altText}-${idx}`}/>
-          </ImagePanel>
-        )}
-        <Paper className={classes.labelRoot}>
-          <Tabs value={value} onChange={handleChange} variant='scrollable' scrollButtons='auto' aria-label='image tab navigation'>
-            {imageSet.map((_, idx) =>
-              <Tab key={idx} label={`Image ${idx + 1}`} />
-            )}
-          </Tabs>
-        </Paper>
+      <div className="relative w-full h-80 sm:h-96 md:h-[480px] bg-neutral-100 rounded-xl overflow-hidden shadow-sm border border-neutral-200 flex items-center justify-center p-4">
+        <Image
+          src={imageSet[0]}
+          alt={caption}
+          fill
+          sizes="(max-width: 768px) 100vw, 800px"
+          priority
+          className="object-contain p-2"
+        />
       </div>
     );
-  };
-
-  if (imageSet.length < 1) {
-    return <span />;
-  } else if (imageSet.length === 1) {
-    return (
-      <SingleImage
-        image={imageSet[0]}
-        isMobile={props.isMobile}
-        index={0}
-        altText={`${props.title ? props.title + props.altText : props.altText}`}
-      />);
   }
 
   return (
-    <ImageTabs
-      imageSet={imageSet}
-      isMobile={props.isMobile}
-      altText={`${props.title ? props.title + props.altText : props.altText}`}
-    />);
+    <div
+      className="flex flex-col space-y-3 w-full bg-white rounded-xl shadow-xs border border-neutral-200 p-3"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Main Image View */}
+      <div className="relative w-full h-80 sm:h-96 md:h-[480px] bg-neutral-100 rounded-lg overflow-hidden flex items-center justify-center">
+        <Image
+          src={imageSet[activeIndex]}
+          alt={`${caption} - ${activeIndex + 1}`}
+          fill
+          sizes="(max-width: 768px) 100vw, 800px"
+          priority={activeIndex === 0}
+          className="object-contain p-2 transition-opacity duration-300"
+        />
+
+        {/* Navigation arrows */}
+        <button
+          type="button"
+          onClick={prevImage}
+          aria-label="Previous image"
+          className="absolute left-2 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 transition-colors focus:outline-none"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        <button
+          type="button"
+          onClick={nextImage}
+          aria-label="Next image"
+          className="absolute right-2 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 transition-colors focus:outline-none"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Tabs / Thumbnails */}
+      <div className="flex items-center justify-center space-x-2 overflow-x-auto py-1">
+        {imageSet.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setActiveIndex(idx)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              activeIndex === idx
+                ? 'bg-gradient-to-r from-[#FE6B8B] to-[#FF8E53] text-white shadow-xs'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            Image {idx + 1}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }

@@ -1,14 +1,7 @@
 import * as React from 'react';
-
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import DataDetailTableHead from './DataDetailTableHead';
 import DataDetailTableRow from './DataDetailTableRow';
-
 import { BaseColumns, GuitarColumns, ProjectColumns, TableDataCell } from './DataDetailTableColumns';
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { isDescending, tableSort } from '../viewutils';
 import { Entry } from '../../interfaces/entry';
 import { Project } from '../../interfaces/models/project';
@@ -20,45 +13,12 @@ type DataDetailTableProps = {
 };
 
 export type Order = 'asc' | 'desc';
-
 export type Columns = 'archive' | 'guitar' | 'instrument' | 'project' | 'wishlist';
 
-export const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      width: '100%',
-      marginTop: theme.spacing(3),
-    },
-    paper: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
-    },
-    table: {
-      minWidth: 750,
-    },
-    tableWrapper: {
-      overflowX: 'auto',
-    },
-    hidden: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      top: 20,
-      width: 1,
-    },
-    description: {
-      width: 250,
-      padding: theme.spacing(1, 0, 0, 0)
-    }
-  };
-});
-
-function getTableSorting<K extends keyof any>(order: Order, orderBy: K):
-  (a: { [key in K]: any }, b: { [key in K]: any }) => number {
+function getTableSorting<K extends keyof any>(
+  order: Order,
+  orderBy: K
+): (a: { [key in K]: any }, b: { [key in K]: any }) => number {
   return order === 'desc'
     ? (a, b) => isDescending(a, b, orderBy)
     : (a, b) => -isDescending(a, b, orderBy);
@@ -73,9 +33,7 @@ function getTableColumns(columns: Columns): ReadonlyArray<TableDataCell> {
 }
 
 export default function DataDetailTable(props: DataDetailTableProps) {
-  const styling = useStyles();
   const guitars = props.items as Project[];
-
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Project>('id');
 
@@ -87,26 +45,31 @@ export default function DataDetailTable(props: DataDetailTableProps) {
   };
 
   const tableCells = getTableColumns(props.columns);
+  const sortedItems = React.useMemo(() => {
+    return tableSort(guitars, getTableSorting(order, orderBy));
+  }, [guitars, order, orderBy]);
 
   return (
-    <div className={styling.classes.root}>
-      <Paper className={styling.classes.paper}>
-        <div className={styling.classes.tableWrapper}>
-          <Table className={styling.classes.table} aria-label={getStringText('DataDetailTableLabel')}>
-            <DataDetailTableHead
-              styling={styling}
-              columns={tableCells}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort} />
-            <TableBody>
-              {tableSort(guitars, getTableSorting(order, orderBy))
-                .map((guitar, idx) =>
-                  <DataDetailTableRow key={idx} styling={styling} columns={tableCells} guitar={guitar} />)}
-            </TableBody>
-          </Table>
-        </div>
-      </Paper>
+    <div className="w-full bg-white rounded-xl shadow-xs border border-neutral-200 overflow-hidden my-4">
+      <div className="overflow-x-auto">
+        <table className="w-full text-left" aria-label={getStringText('DataDetailTableLabel')}>
+          <DataDetailTableHead
+            columns={tableCells}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+          />
+          <tbody className="divide-y divide-neutral-100">
+            {sortedItems.map((guitar) => (
+              <DataDetailTableRow
+                key={guitar.id}
+                columns={tableCells}
+                guitar={guitar}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

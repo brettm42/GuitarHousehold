@@ -1,308 +1,220 @@
 import * as React from 'react';
-
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { ChevronDown } from 'lucide-react';
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 import ReverbDetail from './ReverbDetail';
 import StringsDetail from './StringsDetail';
 import ImageComponent from '../ImageComponent';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 import { formatCurrencyStringToString } from '../../infrastructure/datautils';
 import { Guitar } from '../../interfaces/models/guitar';
 
 type GuitarDetailProps = {
   item: Guitar;
-  isMobile: boolean;
+  isMobile?: boolean;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      padding: theme.spacing(2)
-    },
-    listSummary: {
-      flexGrow: 1,
-      width: '100%',
-      paddingBottom: theme.spacing(2)
-    },
-    title: {
-      padding: theme.spacing(2, 0)
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular
-    },
-    description: {
-      maxWidth: 500
-    },
-    summary: {
-      paddingBottom: theme.spacing(2),
-      '& h6:last-of-type': {
-        paddingTop: theme.spacing(2)
-      }
-    },
-    reverb: {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2)
-    },
-    json: {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
-    },
-    jsonExpander: {
-      margin: theme.spacing(6, 4, 0, 4)
-    },
-    jsonMobile: {
-      whiteSpace: 'nowrap',
-      overflowY: 'hidden',
-      overflowX: 'scroll'
-    },
-    jsonExpanderMobile: {
-      margin: theme.spacing(6, 0, 0, 0)
-    }
-  };
-});
+const GuitarDetail: React.FC<GuitarDetailProps> = ({ item: guitar, isMobile }) => {
+  const guitarDetails = [
+    guitar.make ? `Make: ${guitar.make}` : null,
+    guitar.model ? `Model: ${guitar.model}` : null,
+    guitar.series ? `Series: ${guitar.series}` : null,
+    guitar.bodyStyle ? `Body Style: ${guitar.bodyStyle}` : null,
+    GuitarUtils.isLeftHanded(guitar) ? 'Left Handed' : null,
+    `Color: ${guitar.color ?? 'Unfinished'}`,
+    guitar.serialNumber
+      ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
+      : null,
+    guitar.manufactureYear ? `Manufacture Year: ${guitar.manufactureYear}` : null,
+    guitar.purchaseDate
+      ? `Purchased: ${guitar.purchaseDate} from ${guitar.purchaseStore}`
+      : null,
+    guitar.deliveryDate != null
+      ? `Delivered: ${
+          GuitarUtils.isDelivered(guitar)
+            ? `${guitar.deliveryDate} (${GuitarUtils.getDeliveryTime(guitar)})`
+            : 'not yet delivered'
+        }`
+      : null,
+    GuitarUtils.hasPurchasePrice(guitar)
+      ? `Purchase Price: ${formatCurrencyStringToString(guitar.purchasePrice)}`
+      : null,
+    guitar.currentPrice ? `Cost Today: ${guitar.currentPrice}` : null,
+    guitar.scale ? `Neck Scale: ${guitar.scale}` : null,
+    guitar.numberOfFrets ? `Number of Frets: ${guitar.numberOfFrets}` : null,
+    guitar.neckRadius ? `Neck Radius: ${guitar.neckRadius}` : null,
+    guitar.nutWidth ? `Nut Width: ${guitar.nutWidth}` : null,
+    guitar.neckBoltOn ? 'Bolt-on Neck: Yes' : null,
+    `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
+    guitar.tremolo ? `Tremolo: ${guitar.tremolo}` : null,
+    guitar.hasBattery ? 'Has Battery: Yes' : null,
+  ].filter(Boolean);
 
-const GuitarDetail: React.FunctionComponent<GuitarDetailProps> = ({
-  item: guitar, isMobile
-}) => {
-  const { classes } = useStyles();
-
-  const guitarSummary = (
-    <div className={classes.summary}>
-      {guitar.description
-        ? <div>
-            <Typography variant='subtitle1' gutterBottom>
-              {GuitarUtils.summarizeGuitar(guitar)}
-            </Typography>
-            <Typography variant='subtitle1' gutterBottom>
-              {guitar.description}
-            </Typography>
-            {guitar.construction 
-              ? <Typography variant='subtitle2' gutterBottom>
-                  {GuitarUtils.summarizeConstruction(guitar)}
-                </Typography>
-              : null}
-          </div>
-        : <div>
-            <Typography variant='subtitle1' gutterBottom>
-              {GuitarUtils.summarizeGuitar(guitar)}
-            </Typography>
-            {guitar.construction 
-              ? <Typography variant='subtitle2' gutterBottom>
-                  {GuitarUtils.summarizeConstruction(guitar)}
-                </Typography>
-              : null}
-          </div>
-      }
-    </div>
+  const images = [guitar.picture, ...(guitar.additionalPictures || [])].filter(
+    (i): i is string => Boolean(i)
   );
 
-  const guitarDetails = 
-    [
-      guitar.make
-        ? `Make: ${guitar.make}`
-        : null,
-      guitar.model
-        ? `Model: ${guitar.model}`
-        : null,
-      guitar.series
-        ? `Series: ${guitar.series}`
-        : null,
-      guitar.bodyStyle
-        ? `Body Style: ${guitar.bodyStyle}`
-        : null,
-      GuitarUtils.isLeftHanded(guitar) 
-        ? 'Left Handed'
-        : null,
-      `Color: ${guitar.color ?? 'Unfinished'}`,
-      guitar.serialNumber
-        ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
-        : null,
-      guitar.manufactureYear
-        ? `Manufacture Year: ${guitar.manufactureYear}`
-        : null,
-      guitar.purchaseDate
-        ? `Purchased: ${guitar.purchaseDate} from ${guitar.purchaseStore}`
-        : null,
-      guitar.deliveryDate != null
-        ? `Delivered: ${GuitarUtils.isDelivered(guitar)
-          ? `${guitar.deliveryDate} (${GuitarUtils.getDeliveryTime(guitar)})`
-          : 'not yet delivered'}`
-        : null,
-      GuitarUtils.hasPurchasePrice(guitar)
-        ? `Purchase Price: ${formatCurrencyStringToString(guitar.purchasePrice)}`
-        : null,
-      guitar.currentPrice
-        ? `Cost Today: ${guitar.currentPrice}`
-        : null,
-      guitar.scale
-        ? `Neck Scale: ${guitar.scale}`
-        : null,
-      guitar.numberOfFrets
-        ? `Number of Frets: ${guitar.numberOfFrets}`
-        : null,
-      guitar.neckRadius
-        ? `Neck Radius: ${guitar.neckRadius}`
-        : null,
-      guitar.nutWidth
-        ? `Nut Width: ${guitar.nutWidth}`
-        : null,
-      guitar.neckBoltOn
-        ? `Bolt-on Neck: Yes`
-        : null,
-      `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
-      guitar.tremolo
-        ? `Tremolo: ${guitar.tremolo}`
-        : null,
-      guitar.hasBattery
-        ? `Has Battery: Yes`
-        : null
-    ];
-
   return (
-    <div className={classes.root}>
-      <Grid container className={classes.listSummary} spacing={3} direction={isMobile ? 'column' : 'row'}>
-        <Grid item zeroMinWidth xs={12} sm>
-          <div className={classes.title}>
-            <Typography variant='h4' gutterBottom>
-              {guitar.name}
-            </Typography>
-          </div>
-
-          {guitarSummary}
-
+    <div className="space-y-8 py-4">
+      {/* Top Header & Image Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {/* Left Info */}
+        <div className="space-y-4">
           <div>
-            {guitarDetails
-              .map((text, idx) => (
-                <Typography key={idx} gutterBottom>
-                  {text}
-                </Typography>
-              ))}
-
-            {guitar.productUrl
-              ? <Typography key={`${guitar.id}-link`} gutterBottom>
-                  Product Link: <a target={isMobile ? '' : '_blank'} rel='noreferrer' href={guitar.productUrl}>{guitar.productUrl}</a>
-                </Typography>
-              : null}
+            <h1 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight">
+              {guitar.name}
+            </h1>
+            <p className="text-sm font-medium text-neutral-600 mt-1">
+              {GuitarUtils.summarizeGuitar(guitar)}
+            </p>
           </div>
-        </Grid>
 
-        <Grid item zeroMinWidth xs={12} sm={6}>
-          <ImageComponent
-            imageSet={[guitar.picture].concat(guitar.additionalPictures)}
-            isMobile={isMobile}
-            altText={guitar.name} />
-        </Grid>
-      </Grid>
+          {guitar.description && (
+            <p className="text-sm text-neutral-700 bg-neutral-50 p-4 rounded-xl border border-neutral-200">
+              {guitar.description}
+            </p>
+          )}
 
-      <Divider variant='middle' />
+          {guitar.construction && (
+            <div className="p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700 font-medium">
+              {GuitarUtils.summarizeConstruction(guitar)}
+            </div>
+          )}
 
-      <Typography variant='h5'>
-        {GuitarUtils.hasPickups(guitar)
-          ? <div>
-              <p>Pickups:</p>
-              <ul>
-                {guitar.pickups!.map(i =>
-                  <li key={i.id}>
-                    <PickupDetail item={i} isMobile={isMobile} />
-                  </li>)}
-              </ul>
-            </div>
-          : null}
-        {GuitarUtils.hasStrings(guitar) && guitar.strings
-          ? <div>
-              <p>Strings:</p>
-              <ul>
-                <li key={guitar.strings.id}>
-                  <StringsDetail item={guitar.strings} parent={guitar} isMobile={isMobile} />
-                </li>
-              </ul>
-            </div>
-          : null}
-        {GuitarUtils.hasCase(guitar) && guitar.case
-          ? <div>
-              <p>Case:</p>
-              <ul>
-                <li key={guitar.case.id}>
-                  <CaseDetail item={guitar.case} isMobile={isMobile} />
-                </li>
-              </ul>
-            </div>
-          : null}
-        {GuitarUtils.hasModifications(guitar)
-          ? <div className={classes.description}>
-              <p>Modifications:</p>
-              <ul>
-                {guitar.modifications!.map((i, idx) =>
-                  <li key={idx}>
-                    <Typography>
-                      {i}
-                    </Typography>
-                  </li>)}
-              </ul>
-            </div>
-          : null}
-        {GuitarUtils.hasRepairs(guitar)
-          ? <div className={classes.description}>
-              <p>Repairs:</p>
-              <ul>
-                {guitar.repairs!.map((i, idx) =>
-                  <li key={idx}>
-                    <Typography>
-                      {i}
-                    </Typography>
-                  </li>)}
-              </ul>
-            </div>
-          : null}
-        {GuitarUtils.hasControls(guitar)
-          ? <div className={classes.description}>
-              <p>Controls:</p>
-              <ul>
-                {guitar.controls!.map((i, idx) =>
-                  <li key={idx}>
-                    <Typography>
-                      {i}
-                    </Typography>
-                  </li>)}
-              </ul>
-            </div>
-          : null}
-      </Typography>
+          {/* Attributes List */}
+          <div className="space-y-1.5 text-sm text-neutral-700 bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">
+            {guitarDetails.map((text, idx) => (
+              <p key={idx} className="font-medium">
+                {text}
+              </p>
+            ))}
 
-      <Divider variant='middle' />
+            {guitar.productUrl && (
+              <p className="pt-2 text-xs truncate">
+                <span className="font-bold text-neutral-800">Product Link: </span>
+                <a
+                  target={isMobile ? undefined : '_blank'}
+                  rel="noreferrer"
+                  href={guitar.productUrl}
+                  className="text-blue-600 hover:underline"
+                >
+                  {guitar.productUrl}
+                </a>
+              </p>
+            )}
+          </div>
+        </div>
 
-      <div className={classes.reverb}>
-        <ReverbDetail keywords={guitar.name} purchasePrice={guitar.purchasePrice} isMobile={isMobile} />
+        {/* Right Images */}
+        <div>
+          <ImageComponent imageSet={images} isMobile={isMobile} altText={guitar.name} />
+        </div>
       </div>
 
-      <Divider variant='middle' />
-
-      <Accordion className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
-        <AccordionSummary id='guitarPanelJson-header' aria-controls='guitarPanelJson-content'>
-          <Typography className={classes.heading}>
-            {`${GuitarUtils.isInstrument(guitar) ? 'Instrument' : 'Guitar'} JSON Data`}
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div className={isMobile ? classes.jsonMobile : classes.json}>
-            <Divider />
-            <Typography variant='subtitle1'>
-              <pre>{JSON.stringify(guitar, undefined, 2)}</pre>
-            </Typography>
+      {/* Subcomponents & Sections */}
+      <div className="space-y-6 pt-4 border-t border-neutral-200">
+        {/* Pickups */}
+        {GuitarUtils.hasPickups(guitar) && (
+          <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-xs space-y-4">
+            <h3 className="text-xl font-bold text-neutral-900 border-b border-neutral-100 pb-2">
+              Pickups
+            </h3>
+            <div className="space-y-4">
+              {guitar.pickups!.map((pickup) => (
+                <div key={pickup.id} className="pt-2 first:pt-0">
+                  <PickupDetail item={pickup} isMobile={isMobile} />
+                </div>
+              ))}
+            </div>
           </div>
-        </AccordionDetails>
-      </Accordion>
+        )}
+
+        {/* Strings */}
+        {GuitarUtils.hasStrings(guitar) && guitar.strings && (
+          <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-xs space-y-4">
+            <h3 className="text-xl font-bold text-neutral-900 border-b border-neutral-100 pb-2">
+              Strings
+            </h3>
+            <StringsDetail item={guitar.strings} parent={guitar} isMobile={isMobile} />
+          </div>
+        )}
+
+        {/* Case */}
+        {GuitarUtils.hasCase(guitar) && guitar.case && (
+          <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-xs space-y-4">
+            <h3 className="text-xl font-bold text-neutral-900 border-b border-neutral-100 pb-2">
+              Case
+            </h3>
+            <CaseDetail item={guitar.case} isMobile={isMobile} />
+          </div>
+        )}
+
+        {/* Modifications, Repairs, Controls */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {GuitarUtils.hasModifications(guitar) && (
+            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs space-y-2">
+              <h4 className="font-bold text-neutral-900 text-sm border-b border-neutral-100 pb-1.5">
+                Modifications
+              </h4>
+              <ul className="space-y-1 text-xs text-neutral-700 list-disc list-inside">
+                {guitar.modifications!.map((mod, idx) => (
+                  <li key={idx}>{mod}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {GuitarUtils.hasRepairs(guitar) && (
+            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs space-y-2">
+              <h4 className="font-bold text-neutral-900 text-sm border-b border-neutral-100 pb-1.5">
+                Repairs
+              </h4>
+              <ul className="space-y-1 text-xs text-neutral-700 list-disc list-inside">
+                {guitar.repairs!.map((repair, idx) => (
+                  <li key={idx}>{repair}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {GuitarUtils.hasControls(guitar) && (
+            <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-xs space-y-2">
+              <h4 className="font-bold text-neutral-900 text-sm border-b border-neutral-100 pb-1.5">
+                Controls
+              </h4>
+              <ul className="space-y-1 text-xs text-neutral-700 list-disc list-inside">
+                {guitar.controls!.map((control, idx) => (
+                  <li key={idx}>{control}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Reverb Price Data */}
+        <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-xs">
+          <ReverbDetail
+            keywords={guitar.name}
+            purchasePrice={guitar.purchasePrice}
+            isMobile={isMobile}
+          />
+        </div>
+
+        {/* Raw JSON Data Accordion */}
+        <div>
+          <details className="group bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
+            <summary className="flex items-center justify-between px-4 py-3.5 cursor-pointer list-none font-semibold text-sm text-neutral-800 bg-neutral-100 hover:bg-neutral-200/70 transition-colors">
+              <span>{`${GuitarUtils.isInstrument(guitar) ? 'Instrument' : 'Guitar'} JSON Data`}</span>
+              <ChevronDown className="w-4 h-4 text-neutral-500 transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+            <div className="p-4 bg-neutral-900 text-neutral-100 overflow-x-auto">
+              <pre className="text-xs font-mono leading-relaxed">
+                {JSON.stringify(guitar, undefined, 2)}
+              </pre>
+            </div>
+          </details>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,22 +1,21 @@
 import * as React from 'react';
-
 import Link from 'next/link';
-import Typography from '@mui/material/Typography';
-
 import { Entry } from '../../interfaces/entry';
 
 export type DataListItemProps = {
   data: Entry;
 };
 
-const DataListItem: React.FunctionComponent<DataListItemProps> = ({ data }) => (
-  <Typography>
-    <Link href={`/detail/${data.id}`}>
-      <a>
-        {data.id}: {data.name}
-      </a>
+const DataListItem: React.FC<DataListItemProps> = ({ data }) => (
+  <div className="py-1">
+    <Link
+      href={`/detail/${data.id}`}
+      className="text-neutral-900 font-medium hover:text-[#FE6B8B] transition-colors text-sm inline-block"
+    >
+      <span className="font-mono text-xs text-neutral-500 mr-1.5">{data.id}:</span>
+      {data.name}
     </Link>
-  </Typography>
+  </div>
 );
 
 export default DataListItem;

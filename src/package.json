@@ -6,31 +6,28 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
-    "lint": "next lint"
+    "lint": "eslint pages components data infrastructure interfaces"
   },
   "dependencies": {
-    "@emotion/react": "11.14.0",
-    "@emotion/styled": "11.14.1",
-    "@mui/icons-material": "5.16.7",
-    "@mui/material": "5.16.7",
-    "@mui/styles": "5.16.7",
-    "chart.js": "4.5.1",
-    "next": "12.3.1",
-    "node": "22.16.0",
-    "react": "17.0.2",
-    "react-chartjs-2": "5.3.1",
-    "react-dom": "17.0.2",
-    "tss-react": "4.9.20"
+    "chart.js": "^4.5.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.37.0",
+    "next": "^16.3.3",
+    "react": "^19.2.8",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
-    "@types/chart.js": "4.0.1",
-    "@types/node": "22.15.21",
-    "@types/react": "17.0.43",
-    "@types/react-chartjs-2": "2.5.7",
-    "@types/react-dom": "17.0.14",
-    "eslint": "8.57.0",
-    "eslint-config-next": "14.2.7",
-    "typescript": "7.0.2"
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.3.3",
+    "postcss": "^8.5.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.7.0"
   },
   "license": "ISC"
 }

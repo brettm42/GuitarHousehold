@@ -1,85 +1,56 @@
 import * as React from 'react';
-
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
+import { Loader2 } from 'lucide-react';
 import {
   averagePriceForKeywordsAsync,
   getRecentSearchCacheStatsAsync,
   getReverbUserFriendlyUrl,
-  numberOfListingsForKeywordsAsync
+  numberOfListingsForKeywordsAsync,
 } from '../../data/reverbservice/reverbservice';
-import { 
-  formatCurrencyStringToString, 
-  getPriceChange 
+import {
+  formatCurrencyStringToString,
+  getPriceChange,
 } from '../../infrastructure/datautils';
 
 type ReverbDetailProps = {
   keywords: string;
   purchasePrice?: string;
-  isMobile: boolean;
+  isMobile?: boolean;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      flexGrow: 1,
-      width: '100%'
-    },
-    loadingBox: {
-      display: 'flex',
-      padding: theme.spacing(4)
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular
-    },
-    title: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(2)
-    },
-    body: {
-      paddingLeft: theme.spacing(2)
-    },
-    link: {
-      paddingTop: theme.spacing(2)
-    },
-    footer: {
-      paddingTop: theme.spacing(2)
-    }
-  };
-});
-
-const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
-  keywords, purchasePrice, isMobile
+const ReverbDetail: React.FC<ReverbDetailProps> = ({
+  keywords,
+  purchasePrice,
+  isMobile,
 }) => {
-  const { classes } = useStyles();
-  const [ isLoading, setIsLoading ] = React.useState(true);
-  const [ averagePrice, setAveragePrice ] = React.useState('');
-  const [ numberOfListings, setNumberOfListings ] = React.useState('');
-  const [ reverbCacheStats, setReverbCacheStats ] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [averagePrice, setAveragePrice] = React.useState('');
+  const [numberOfListings, setNumberOfListings] = React.useState('');
+  const [reverbCacheStats, setReverbCacheStats] = React.useState('');
 
   React.useEffect(() => {
-    async function getReverbData(keywords: string) {
-      const [ avgPrice, numOfListings ] = 
-        await Promise.all([
-          averagePriceForKeywordsAsync(keywords),
-          numberOfListingsForKeywordsAsync(keywords)
+    async function getReverbData(query: string) {
+      try {
+        const [avgPrice, numOfListings] = await Promise.all([
+          averagePriceForKeywordsAsync(query),
+          numberOfListingsForKeywordsAsync(query),
         ]);
 
-      setAveragePrice(avgPrice);
-      setNumberOfListings(numOfListings);
-      setIsLoading(false);
+        setAveragePrice(avgPrice);
+        setNumberOfListings(numOfListings);
+      } catch (err) {
+        console.error('Error fetching Reverb data:', err);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
     async function getCacheStats() {
-      const cacheStats = await getRecentSearchCacheStatsAsync();
-
-      setReverbCacheStats(cacheStats);
+      try {
+        const cacheStats = await getRecentSearchCacheStatsAsync();
+        setReverbCacheStats(cacheStats);
+      } catch (err) {
+        console.error('Error fetching cache stats:', err);
+      }
     }
 
     setIsLoading(true);
@@ -87,53 +58,52 @@ const ReverbDetail: React.FunctionComponent<ReverbDetailProps> = ({
     getCacheStats();
   }, [keywords]);
 
+  const items = [
+    averagePrice.startsWith('No')
+      ? averagePrice
+      : `Average Price: ${formatCurrencyStringToString(averagePrice)}`,
+    !averagePrice.startsWith('No') && purchasePrice
+      ? `Potential Price Change: ${getPriceChange(purchasePrice, averagePrice)}`
+      : null,
+    `Number of Active Listings: ${numberOfListings}`,
+  ].filter(Boolean);
+
   return (
-    <div>
-      <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
-        <Grid item zeroMinWidth xs={12} sm={6}>
-          <div className={classes.title}>
-            <Typography variant='h5' gutterBottom>
-              Now on Reverb:
-            </Typography>
+    <div className="w-full space-y-3">
+      <h4 className="text-lg font-bold text-neutral-900">Now on Reverb:</h4>
+
+      {isLoading ? (
+        <div className="flex items-center space-x-3 p-6 text-neutral-500 bg-neutral-50 rounded-xl border border-neutral-200">
+          <Loader2 className="w-5 h-5 animate-spin text-[#FE6B8B]" />
+          <span className="text-sm font-medium">Checking Reverb marketplace data...</span>
+        </div>
+      ) : (
+        <div className="space-y-3 bg-neutral-50 p-4 rounded-xl border border-neutral-200">
+          <div className="space-y-1.5 text-sm text-neutral-700">
+            {items.map((text, idx) => (
+              <p key={idx} className="font-medium">
+                {text}
+              </p>
+            ))}
           </div>
 
-          {isLoading
-            ? (<Box className={classes.loadingBox}>
-                <CircularProgress color='secondary'/>
-              </Box>)
-            : (<div className={classes.body}>
-              {
-                [
-                  averagePrice.startsWith('No')
-                    ? averagePrice
-                    : `Average Price: ${formatCurrencyStringToString(averagePrice)}`,
-                  !averagePrice.startsWith('No') && purchasePrice
-                    ? `Potential Price Change: ${getPriceChange(purchasePrice, averagePrice)}`
-                    : null,
-                  `Number of Active Listings: ${numberOfListings}`
-                ]
-                  .map((text, idx) => (
-                    <Typography key={idx} gutterBottom>
-                      {text}
-                    </Typography>
-                  ))}
+          <div className="pt-2 text-xs truncate">
+            <span className="font-bold text-neutral-800">Search on Reverb.com: </span>
+            <a
+              target={isMobile ? undefined : '_blank'}
+              rel="noreferrer"
+              href={getReverbUserFriendlyUrl(keywords)}
+              className="text-blue-600 hover:underline"
+            >
+              {getReverbUserFriendlyUrl(keywords)}
+            </a>
+          </div>
 
-              <div className={classes.link}>
-                <Typography key={'reverb-link'} variant='subtitle2' gutterBottom>
-                  Search on Reverb.com - <a target={isMobile ? '' : '_blank'} rel='noreferrer' href={getReverbUserFriendlyUrl(keywords)}>{getReverbUserFriendlyUrl(keywords)}</a>
-                </Typography>
-              </div>
-
-              <Grid item xs={12}>
-                <div className={classes.footer}>
-                  <Typography key={'reverb-plug'} variant='caption'>
-                    {`Fetched from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
-                  </Typography>
-                </div>
-              </Grid>
-            </div>)}
-        </Grid>
-      </Grid>
+          <div className="pt-2 border-t border-neutral-200 text-[11px] text-neutral-500">
+            {`Fetched from api.reverb.com, searched for ${encodeURI(keywords)} (${reverbCacheStats})`}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

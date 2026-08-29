@@ -1,13 +1,8 @@
-import DataDetailTable from '../components/TableComponents/DataDetailTable';
+import * as React from 'react';
+import DataDetailTable, { Columns } from '../components/TableComponents/DataDetailTable';
 import DataTable from '../components/TableComponents/DataTable';
 import Layout from '../components/Layout';
-import Typography from '@mui/material/Typography';
-
-import { NextPage } from 'next';
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { buildPageTitle } from '../components/viewutils';
-import { Columns } from '../components/TableComponents/DataDetailTable';
 import { Guitar } from '../interfaces/models/guitar';
 
 type GuitarListProps = {
@@ -18,37 +13,28 @@ type GuitarListProps = {
   columns: Columns;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    title: {
-      padding: theme.spacing(4, 0, 0, 1)
-    },
-    emptyList: {
-      padding: theme.spacing(4)
-    }
-  };
-});
-
-const GuitarList: NextPage<GuitarListProps> = ({ items, pathname, isMobile, title, columns }) => {
-  const { classes } = useStyles();
-
+const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, title, columns }) => {
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
-      <div className={classes.title}>
-        <Typography variant='h4'>
+      <div className="py-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight mb-4">
           {title}
-        </Typography>
-      </div>
+        </h1>
 
-      {items.length > 0
-        ? isMobile
-          ? <DataTable items={items} columns={columns} />
-          : <DataDetailTable items={items} columns={columns} />
-        : <div className={classes.emptyList}>
-            <Typography>
+        {items.length > 0 ? (
+          isMobile ? (
+            <DataTable items={items} columns={columns} />
+          ) : (
+            <DataDetailTable items={items} columns={columns} />
+          )
+        ) : (
+          <div className="p-8 text-center bg-white rounded-xl border border-neutral-200 shadow-xs">
+            <p className="text-neutral-500 font-medium">
               {`Nothing to see here, looks like no ${title.toLocaleLowerCase()} results were found`}
-            </Typography>
-          </div>}
+            </p>
+          </div>
+        )}
+      </div>
     </Layout>
   );
 };

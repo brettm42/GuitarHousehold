@@ -1,10 +1,10 @@
 import * as React from 'react';
-
+import Layout from '../components/Layout';
 import ErrorComponent from '../components/ErrorComponent';
 import DebugDataList from '../components/ListComponents/DebugDataList';
 import DebugListDetail from '../components/DetailComponents/DebugListDetail';
-
 import { NextPageContext } from 'next';
+import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { Guitar } from '../interfaces/models/guitar';
 import { find, findEverything } from '../data/guitarservice/guitarservice';
 import { validate } from '../data/guitarservice/validation';
@@ -34,39 +34,36 @@ class DebugPage extends React.Component<DebugPageProps> {
         item.validation = validate(item);
       }
 
-      return { items };
+      return { items, pathname: '/debug' };
     } catch (err) {
       if (err instanceof Error) {
-        return { errors: err.message };
+        return { errors: err.message, pathname: '/debug' };
       } else {
-        return { errors: `Unknown error - ${err}`};
+        return { errors: `Unknown error - ${err}`, pathname: '/debug' };
       }
     }
   };
 
   override render() {
     const { items, item, errors, pathname } = this.props;
+    const isMobile = IsMobile();
 
-    if (item) {
-      return (
-        <div>
-          <DebugListDetail item={item} />
-        </div>
-      );
-    }
-
-    if (items) {
-      return (
-        <div>
-          <DebugDataList items={items} />
-        </div>
-      );
+    if (errors) {
+      return <ErrorComponent errors={errors} pathname={pathname} />;
     }
 
     return (
-      <ErrorComponent errors={errors || 'No debug items'} pathname={pathname} />
+      <Layout title={buildPageTitle('Debug')} pathname={pathname} isMobile={isMobile}>
+        {item ? (
+          <DebugListDetail item={item} />
+        ) : items ? (
+          <DebugDataList items={items} />
+        ) : (
+          <ErrorComponent errors="No debug items found" pathname={pathname} />
+        )}
+      </Layout>
     );
-  };
+  }
 }
 
 export default DebugPage;

@@ -1,11 +1,5 @@
-import * as React from 'react';
-
-import Typography from '@mui/material/Typography';
 import Layout from './Layout';
-
 import { NextPage } from 'next';
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { buildPageTitle, IsMobile } from './viewutils';
 
 type ErrorComponentProps = {
@@ -13,25 +7,15 @@ type ErrorComponentProps = {
   pathname: string;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {},
-    body: {
-      padding: theme.spacing(4)
-    }
-  };
-});
-
 const ErrorComponent: NextPage<ErrorComponentProps> = ({ errors, pathname }) => {
-  const { classes } = useStyles();
   const isMobile = IsMobile();
 
   return (
     <Layout title={buildPageTitle('Error')} pathname={pathname} isMobile={isMobile}>
-      <div className={classes.body}>
-        <Typography>
-          <span style={{ color: 'red' }}>Error:</span> {errors}
-        </Typography>
+      <div className="p-6 my-4 bg-red-50 border border-red-200 rounded-xl">
+        <p className="text-red-700 font-medium">
+          <span className="font-bold text-red-800">Error:</span> {errors}
+        </p>
       </div>
     </Layout>
   );

@@ -1,22 +1,17 @@
 import * as React from 'react';
-
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
-import { 
+import {
   BarController,
   BarElement,
   CategoryScale,
-  Chart as ChartJS, 
-  ChartData, 
-  ChartOptions, 
-  LinearScale, 
+  Chart as ChartJS,
+  ChartData,
+  ChartOptions,
+  LinearScale,
   LineController,
-  LineElement, 
-  PointElement, 
-  Title 
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { Guitar } from '../../interfaces/models/guitar';
@@ -24,95 +19,68 @@ import * as GuitarDataUtils from '../../data/guitarservice/guitardatautils';
 import { getStringText } from '../../data/stringservice/stringservice';
 import { formatCurrencyToString } from '../../infrastructure/datautils';
 
-ChartJS.register(BarController, BarElement, CategoryScale, LinearScale, LineController, LineElement, PointElement, Title);
+ChartJS.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip
+);
 
 type ChartComponentsProps = {
   data: Guitar[];
-  isMobile: boolean;
+  isMobile?: boolean;
 };
 
-type ChartComponentProps = {
+type ChartContainerProps = {
   title: string;
-  style: string;
-}
+  className?: string;
+  children: React.ReactNode;
+};
 
-const defaultChartBackgroundColor = 
-  [
-    'rgba(255, 99, 132, 0.2)',
-    'rgba(54, 162, 235, 0.2)',
-    'rgba(255, 206, 86, 0.2)',
-    'rgba(75, 192, 192, 0.2)',
-    'rgba(153, 102, 255, 0.2)',
-    'rgba(255, 159, 64, 0.2)',
-  ];
+const defaultChartBackgroundColor = [
+  'rgba(255, 99, 132, 0.2)',
+  'rgba(54, 162, 235, 0.2)',
+  'rgba(255, 206, 86, 0.2)',
+  'rgba(75, 192, 192, 0.2)',
+  'rgba(153, 102, 255, 0.2)',
+  'rgba(255, 159, 64, 0.2)',
+];
 
-const defaultChartBorderColor = 
-  [
-    'rgba(255, 99, 132, 1)',
-    'rgba(54, 162, 235, 1)',
-    'rgba(255, 206, 86, 1)',
-    'rgba(75, 192, 192, 1)',
-    'rgba(153, 102, 255, 1)',
-    'rgba(255, 159, 64, 1)',
-  ];
+const defaultChartBorderColor = [
+  'rgba(255, 99, 132, 1)',
+  'rgba(54, 162, 235, 1)',
+  'rgba(255, 206, 86, 1)',
+  'rgba(75, 192, 192, 1)',
+  'rgba(153, 102, 255, 1)',
+  'rgba(255, 159, 64, 1)',
+];
 
-const defaultChartFontColor = '#323130';
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      flexGrow: 1,
-    },
-    detail: {
-      minWidth: '50%',
-      padding: theme.spacing(0, 1, 1, 2)
-    },
-    detailTitle: {
-      textAlign: 'left',
-      padding: theme.spacing(1, 0, 2, 0)
-    },
-    detailChildren: {
-      padding: theme.spacing(0, 1)
-    },
-    detailDivider: {
-      minWidth: '50%',
-      padding: theme.spacing(0, 1, 2, 2)
-    },
-    purchaseStore: {
-      padding: theme.spacing(1, 2)
-    },
-    purchaseYear: {
-      padding: theme.spacing(1, 2)
-    },
-    guitarColor: {
-      padding: theme.spacing(1, 2)
-    },
-    guitarMake: {
-      padding: theme.spacing(1, 2)
-    },
-    guitarPrice: {
-      padding: theme.spacing(1, 2)
-    }
-  };
-});
-
-const ChartContainerComponent: React.FunctionComponent<ChartComponentProps> = ({ title, style, children }) => {
-  const { classes } = useStyles();
-
+const ChartContainerComponent: React.FC<ChartContainerProps> = ({
+  title,
+  className = '',
+  children,
+}) => {
   return (
-    <div className={style}>
-      <Typography className={classes.detailTitle} variant='subtitle2'>
+    <div className={`p-4 flex flex-col h-full ${className}`}>
+      <h3 className="font-bold text-neutral-900 text-sm mb-3 pb-1 border-b border-black/10">
         {title}
-      </Typography>
-      <Grid container>
+      </h3>
+      <div className="w-full flex-1 flex items-center justify-center min-h-[220px]">
         {children}
-      </Grid>
+      </div>
     </div>
   );
 };
 
-const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const { classes } = useStyles();
+const GuitarPriceChart: React.FC<ChartComponentsProps> = ({
+  data: guitars,
+}) => {
   const chartTitle = getStringText('GuitarPriceChartTitle');
   const data1 = GuitarDataUtils.guitarPriceData(guitars);
 
@@ -123,198 +91,171 @@ const GuitarPriceChart: React.FunctionComponent<ChartComponentsProps> = ({ data:
         data: Object.values(data1),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
-        tension: 0.4
-      }
-    ]
+        tension: 0.4,
+      },
+    ],
   };
 
   const chartOptions: ChartOptions<'line'> = {
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     interaction: {
-      intersect: true
+      intersect: true,
     },
     plugins: {
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-          color: defaultChartFontColor,
-          font: {
-            size: isMobile ? 16 : 14
-          }
-        }
       },
       title: {
         display: false,
-        text: chartTitle
       },
       tooltip: {
         callbacks: {
-          label: function(context) {
+          label: function (context) {
             let label = context.dataset.label || '';
-
             if (label) {
-                label += ': ';
+              label += ': ';
             }
             if (context.parsed.y !== null) {
-                label += formatCurrencyToString(context.parsed.y);
+              label += formatCurrencyToString(context.parsed.y);
             }
-
             return label;
-          }
-        }
-      }
+          },
+        },
+      },
     },
     scales: {
       x: {
         display: false,
-        title: {
-          display: true
-        }
       },
       y: {
         display: true,
-        title: {
-          display: true
-        }
-      }
-    }
+      },
+    },
   };
 
   return (
-    <ChartContainerComponent title={chartTitle} style={classes.guitarPrice}>
-      <Chart type='line' data={chartData} options={chartOptions} />
+    <ChartContainerComponent title={chartTitle}>
+      <div className="w-full h-64">
+        <Chart type="line" data={chartData} options={chartOptions} />
+      </div>
     </ChartContainerComponent>
   );
 };
 
-const PurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const { classes } = useStyles();
+const PurchaseStoreChart: React.FC<ChartComponentsProps> = ({
+  data: guitars,
+  isMobile,
+}) => {
   const chartTitle = getStringText('GuitarPurchaseStoreChartTitle');
   const data = GuitarDataUtils.guitarPurchasePerStore(guitars, 1);
 
   const chartData: ChartData<'bar'> = {
-    labels: data.map(i => i[0]),
+    labels: data.map((i) => i[0]),
     datasets: [
       {
-        data: data.map(i => i[1]),
+        data: data.map((i) => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
         borderWidth: 2,
-        borderRadius: { 
-          topRight: 5, 
-          bottomRight: 5
-        },
-        borderSkipped: false
-      }
-    ]
+        borderRadius: 5,
+        borderSkipped: false,
+      },
+    ],
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-          color: defaultChartFontColor,
-          font: {
-            size: isMobile ? 12 : 14
-          }
-        }
       },
       title: {
         display: false,
-        text: chartTitle
-      }
+      },
     },
     scales: {
       x: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
       },
       y: {
         suggestedMin: isMobile ? 2 : 1,
         grid: {
-          drawOnChartArea: false
-        }
-      }
-    }
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
   return (
-    <ChartContainerComponent title={chartTitle} style={classes.purchaseStore}>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+    <ChartContainerComponent title={chartTitle}>
+      <div className="w-full h-64">
+        <Chart type="bar" data={chartData} options={chartOptions} />
+      </div>
     </ChartContainerComponent>
   );
 };
 
-const AllPurchaseStoreChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const { classes } = useStyles();
+const AllPurchaseStoreChart: React.FC<ChartComponentsProps> = ({
+  data: guitars,
+  isMobile,
+}) => {
   const chartTitle = getStringText('GuitarAllPurchaseStoreChartTitle');
   const data = GuitarDataUtils.guitarComponentPurchasePerStore(guitars, 2);
 
   const chartData: ChartData<'bar'> = {
-    labels: data.map(i => i[0]),
+    labels: data.map((i) => i[0]),
     datasets: [
       {
-        data: data.map(i => i[1]),
+        data: data.map((i) => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
         borderWidth: 2,
-        borderRadius: { 
-          topRight: 5, 
-          bottomRight: 5
-        },
-        borderSkipped: false
-      }
-    ]
+        borderRadius: 5,
+        borderSkipped: false,
+      },
+    ],
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-          color: defaultChartFontColor,
-          font: {
-            size: isMobile ? 12 : 14
-          }
-        }
       },
       title: {
         display: false,
-        text: chartTitle
-      }
+      },
     },
     scales: {
       x: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
       },
       y: {
         suggestedMin: isMobile ? 2 : 1,
         grid: {
-          drawOnChartArea: false
-        }
-      }
-    }
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
   return (
-    <ChartContainerComponent title={chartTitle} style={classes.purchaseStore}>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+    <ChartContainerComponent title={chartTitle}>
+      <div className="w-full h-64">
+        <Chart type="bar" data={chartData} options={chartOptions} />
+      </div>
     </ChartContainerComponent>
   );
 };
 
-const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const { classes } = useStyles();
+const PurchaseYearChart: React.FC<ChartComponentsProps> = ({
+  data: guitars,
+}) => {
   const chartTitle = getStringText('GuitarPurchaseYearChartTitle');
   const data1 = GuitarDataUtils.guitarPurchasePerYear(guitars);
   const data2 = GuitarDataUtils.guitarTotalPerYear(guitars);
@@ -329,13 +270,9 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
         borderWidth: 2,
-        borderRadius: { 
-          topLeft: 5, 
-          topRight: 5
-        },
+        borderRadius: 5,
         borderSkipped: false,
-        stack: 'combined',
-        yAxisID: 'y'
+        yAxisID: 'y',
       },
       {
         type: 'line' as const,
@@ -343,173 +280,151 @@ const PurchaseYearChart: React.FunctionComponent<ChartComponentsProps> = ({ data
         data: Object.values(data2),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
-        stack: 'combined',
-        yAxisID: 'y1'
-      }
-    ]
+        yAxisID: 'y1',
+      },
+    ],
   };
 
   const chartOptions: ChartOptions = {
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-          color: defaultChartFontColor,
-          font: {
-            size: isMobile ? 12 : 14
-          }
-        }
       },
       title: {
         display: false,
-        text: chartTitle
-      }
+      },
     },
     scales: {
       y: {
         type: 'linear',
-        stacked: true
       },
       y1: {
         type: 'linear',
         position: 'right',
         grid: {
-          drawOnChartArea: false
-        }
-      }
-    }
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
   return (
-    <ChartContainerComponent title={chartTitle} style={classes.purchaseYear}>
-      <Chart type='line' data={chartData} options={chartOptions} />
+    <ChartContainerComponent title={chartTitle}>
+      <div className="w-full h-64">
+        <Chart type="line" data={chartData} options={chartOptions} />
+      </div>
     </ChartContainerComponent>
   );
 };
 
-const GuitarMakeChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const { classes } = useStyles();
+const GuitarMakeChart: React.FC<ChartComponentsProps> = ({
+  data: guitars,
+  isMobile,
+}) => {
   const chartTitle = getStringText('GuitarMakesChartTitle');
   const data = GuitarDataUtils.guitarMakeData(guitars, 1);
 
   const chartData: ChartData<'bar'> = {
-    labels: data.map(i => i[0]),
+    labels: data.map((i) => i[0]),
     datasets: [
       {
-        data: data.map(i => i[1]),
+        data: data.map((i) => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
         borderWidth: 2,
-        borderRadius: { 
-          topRight: 5, 
-          bottomRight: 5
-        },
-        borderSkipped: false
-      }
-    ]
+        borderRadius: 5,
+        borderSkipped: false,
+      },
+    ],
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-          color: defaultChartFontColor,
-          font: {
-            size: isMobile ? 12 : 14
-          }
-        }
       },
       title: {
         display: false,
-        text: chartTitle
-      }
+      },
     },
     scales: {
       x: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
       },
       y: {
         suggestedMin: isMobile ? 2 : 1,
         grid: {
-          drawOnChartArea: false
-        }
-      }
-    }
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
   return (
-    <ChartContainerComponent title={chartTitle} style={classes.guitarMake}>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+    <ChartContainerComponent title={chartTitle}>
+      <div className="w-full h-64">
+        <Chart type="bar" data={chartData} options={chartOptions} />
+      </div>
     </ChartContainerComponent>
   );
 };
 
-const GuitarColorChart: React.FunctionComponent<ChartComponentsProps> = ({ data: guitars, isMobile }) => {
-  const { classes } = useStyles();
+const GuitarColorChart: React.FC<ChartComponentsProps> = ({
+  data: guitars,
+  isMobile,
+}) => {
   const chartTitle = getStringText('GuitarColorChartTitle');
   const data = GuitarDataUtils.guitarColorData(guitars, 1);
 
   const chartData: ChartData<'bar'> = {
-    labels: data.map(i => i[0]),
+    labels: data.map((i) => i[0]),
     datasets: [
       {
-        data: data.map(i => i[1]),
+        data: data.map((i) => i[1]),
         backgroundColor: defaultChartBackgroundColor,
         borderColor: defaultChartBorderColor,
         borderWidth: 2,
-        borderRadius: { 
-          topRight: 5, 
-          bottomRight: 5
-        },
-        borderSkipped: false
-      }
-    ]
+        borderRadius: 5,
+        borderSkipped: false,
+      },
+    ],
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
-        position: 'bottom',
-        labels: {
-          color: defaultChartFontColor,
-          font: {
-            size: isMobile ? 12 : 14
-          }
-        }
       },
       title: {
         display: false,
-        text: chartTitle
-      }
+      },
     },
     scales: {
       x: {
-        suggestedMin: isMobile ? 2 : 1
+        suggestedMin: isMobile ? 2 : 1,
       },
       y: {
         suggestedMin: isMobile ? 2 : 1,
         grid: {
-          drawOnChartArea: false
-        }
-      }
-    }
+          drawOnChartArea: false,
+        },
+      },
+    },
   };
 
   return (
-    <ChartContainerComponent title={chartTitle} style={classes.guitarColor}>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+    <ChartContainerComponent title={chartTitle}>
+      <div className="w-full h-64">
+        <Chart type="bar" data={chartData} options={chartOptions} />
+      </div>
     </ChartContainerComponent>
   );
 };
@@ -520,5 +435,5 @@ export {
   GuitarMakeChart,
   GuitarPriceChart,
   PurchaseStoreChart,
-  PurchaseYearChart
+  PurchaseYearChart,
 };

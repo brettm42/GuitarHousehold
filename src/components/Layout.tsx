@@ -1,290 +1,176 @@
 import * as React from 'react';
-
 import Head from 'next/head';
 import Link from 'next/link';
-import AppBar from '@mui/material/AppBar';
-import ButtonBase from '@mui/material/ButtonBase';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import Fab from '@mui/material/Fab';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Zoom from '@mui/material/Zoom';
-
-import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
-import FeaturedPlayListRoundedIcon from '@mui/icons-material/FeaturedPlayListRounded';
-import FeaturedVideoRoundedIcon from '@mui/icons-material/FeaturedVideoRounded';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import InboxRoundedIcon from '@mui/icons-material/InboxRounded';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import MailRoundedIcon from '@mui/icons-material/MailRounded';
-import MenuIcon from '@mui/icons-material/Menu';
-import StorageIcon from '@mui/icons-material/Storage';
-import ViewListIcon from '@mui/icons-material/ViewList';
-
-import { makeStyles } from 'tss-react/mui';
-import { ListItemProps } from '@mui/material/ListItem';
-import { Theme } from '@mui/material/styles';
+import {
+  Menu,
+  X,
+  Home,
+  Database,
+  Music,
+  FolderGit2,
+  Package,
+  Archive,
+  Heart,
+  Info,
+  ChevronUp,
+} from 'lucide-react';
 import { FooterMessage } from '../infrastructure/constants';
 
 type LayoutProps = {
-  children: React.ReactElement | React.ReactElement[] | undefined;
+  children: React.ReactNode;
   title?: string;
-  pathname: string;
-  isMobile: boolean;
+  pathname?: string;
+  isMobile?: boolean;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      maxWidth: '100%',
-      overflowX: 'hidden'
-    },
-    appBar: {
-      flexGrow: 1
-    },
-    appBarElement: {
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-      color: 'white',
-    },
-    toolbarHeight: {
-      paddingTop: 64
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1
-    },
-    pathname: {
-      marginRight: 0
-    },
-    list: {
-      width: 250,
-    },
-    divider: {
-      margin: theme.spacing(2)
-    },
-    footer: {
-      padding: theme.spacing(2)
-    },
-    footerMessage: {
-      paddingLeft: theme.spacing(2)
-    },
-    scrollToTop: {
-      position: 'fixed',
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-      zIndex: 10
-    }
-  };
-});
+const navigationLinks = [
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Data', href: '/data', icon: Database },
+  { type: 'divider' as const },
+  { name: 'Guitars', href: '/guitars', icon: Music },
+  { name: 'Projects', href: '/projects', icon: FolderGit2 },
+  { name: 'Instruments', href: '/instruments', icon: Package },
+  { type: 'divider' as const },
+  { name: 'Archive', href: '/archive', icon: Archive },
+  { name: 'Wishlist', href: '/wishlist', icon: Heart },
+  { type: 'divider' as const },
+  { name: 'About', href: '/about', icon: Info },
+];
 
-export default function Layout(props: LayoutProps): React.ReactElement {
-  const { classes } = useStyles();
-  const { children, title, pathname, isMobile } = props;
+export default function Layout({
+  children,
+  title,
+  pathname = '',
+}: LayoutProps): React.ReactElement {
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [showScrollTop, setShowScrollTop] = React.useState(false);
 
-  const [state, setState] = React.useState({ drawerOpen: false });
-
-  const toggleDrawer = (open: boolean) => (
-    event: React.KeyboardEvent | React.MouseEvent
-  ) => {
-    if (event.type === 'keydown'
-      && ((event as React.KeyboardEvent).key === 'Tab'
-        || (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-
-    setState({ ...state, drawerOpen: open });
-  };
-
-  function ListItemLink(props: ListItemProps<'a', { button?: true; }>) {;
-    return <ListItemButton component='a' {...props} />;
-  };
-
-  function ScrollToTopComponent(props: LayoutProps) {
-    const { children } = props;
-    const { classes } = useStyles();
-
-    const trigger = useScrollTrigger({
-      disableHysteresis: true,
-      threshold: 100
-    });
-
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      const anchor = ((event.target as HTMLDivElement).ownerDocument ?? document).querySelector(
-        '#back-to-top-anchor',
-      );
-
-      if (anchor) {
-        anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 150);
     };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return (
-      <Zoom in={trigger}>
-        <div className={classes.scrollToTop} onClick={handleClick} role='presentation'>
-          {children}
-        </div>
-      </Zoom>
-    );
-  }
-
-  const drawer = () => {
-    return (
-      <div className={classes.list}
-        role='presentation'
-        onClick={toggleDrawer(true)}
-        onKeyDown={toggleDrawer(true)}
-      >
-        <List>
-          <Link key={0} href={'/'} passHref>
-            <ListItemLink>
-              <ListItemIcon>
-                <HomeRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Home'} />
-            </ListItemLink>
-          </Link>
-
-          <Link key={1} href={'/data'} passHref>
-            <ListItemLink>
-              <ListItemIcon>
-                <StorageIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Data'} />
-            </ListItemLink>
-          </Link>
-
-          <Divider />
-
-          {['Guitars', 'Projects', 'Instruments']
-            .map((text, idx) => (
-              <Link key={idx + 2} href={`/${text.toLocaleLowerCase()}`} passHref>
-                <ListItemLink>
-                  <ListItemIcon>
-                    {idx === 0
-                      ? <FeaturedPlayListRoundedIcon />
-                      : idx === 1
-                        ? <FeaturedVideoRoundedIcon />
-                        : idx === 2
-                          ? <InboxRoundedIcon />
-                          : idx === 3
-                            ? <FeaturedPlayListRoundedIcon />
-                            : idx === 4
-                              ? <ViewListIcon />
-                              : <MailRoundedIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemLink>
-              </Link>
-            ))}
-
-          <Divider />
-
-          <Link key={97} href={'/archive'} passHref>
-            <ListItemLink>
-              <ListItemIcon>
-                <FeaturedPlayListIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Archive'} />
-            </ListItemLink>
-          </Link>
-          <Link key={98} href={'/wishlist'} passHref>
-            <ListItemLink>
-              <ListItemIcon>
-                <FeaturedPlayListRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Wishlist'} />
-            </ListItemLink>
-          </Link>
-
-          <Divider />
-
-          <Link key={99} href={'/about'} passHref>
-            <ListItemLink>
-              <ListItemIcon>
-                <MailRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={'About'} />
-            </ListItemLink>
-          </Link>
-        </List>
-      </div>
-    );
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className={classes.root}>
+    <div className="min-h-screen flex flex-col bg-neutral-50 text-neutral-900">
       <Head>
-        <title>{title}</title>
+        <title>{title || 'GuitarHousehold'}</title>
         <link rel="icon" type="image/png" href="/guitar-32x32.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/guitar-16x16.png" sizes="16x16" />
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <meta name='theme-color' content='black' />
-        <meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="theme-color" content="#FE6B8B" />
       </Head>
 
-      <div id='back-to-top-anchor' className={classes.appBar}>
-        <AppBar position='absolute' className={classes.appBarElement}>
-          <Toolbar>
-            <IconButton className={classes.menuButton}
-              edge='start'
-              color='inherit'
-              aria-label='menu'
-              onClick={toggleDrawer(true)}
+      {/* Top Navigation Bar */}
+      <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-[#FE6B8B] to-[#FF8E53] text-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <button
+              type="button"
+              onClick={() => setDrawerOpen(true)}
+              aria-label="Open navigation menu"
+              className="p-2 rounded-lg hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
             >
-              <MenuIcon />
-            </IconButton>
-            <div className={(isMobile ? 'mobile ' : '') + classes.title}>
-              <Link href='/'>
-                <ButtonBase focusRipple key='title'>
-                  <Typography variant='h6'>
-                    GuitarHousehold
-                  </Typography>
-                </ButtonBase>
-              </Link>
-            </div>
-            <Typography className={classes.pathname} variant='subtitle1'>
-              {pathname}
-            </Typography>
-          </Toolbar>
-        </AppBar>
-
-        <Drawer open={state.drawerOpen} onClose={toggleDrawer(false)} aria-label='open navigation drawer'>
-          {drawer()}
-        </Drawer>
-      </div>
-
-      <div className={classes.toolbarHeight}>
-        {children}
-      </div>
-
-      <footer>
-        <div className={classes.footer}>
-          <Divider className={classes.divider} />
-
-          <div className={classes.footerMessage}>
-            <Typography variant='caption' gutterBottom>
-              {FooterMessage}
-            </Typography>
+              <Menu className="w-6 h-6" />
+            </button>
+            <Link
+              href="/"
+              className="text-xl font-bold tracking-tight hover:opacity-90 transition-opacity"
+            >
+              GuitarHousehold
+            </Link>
           </div>
 
-          <ScrollToTopComponent {...props}>
-            <Fab className={classes.scrollToTop} color='secondary' size='small' aria-label='scroll to top'>
-              <KeyboardArrowUpIcon />
-            </Fab>
-          </ScrollToTopComponent>
+          {pathname && (
+            <div className="text-sm font-medium text-white/90 bg-white/10 px-3 py-1 rounded-full backdrop-blur-xs">
+              {pathname}
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Drawer Overlay */}
+      {drawerOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation Drawer"
+          className="fixed inset-0 z-50 flex"
+        >
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity duration-300"
+            onClick={() => setDrawerOpen(false)}
+          />
+
+          {/* Slide-over panel */}
+          <div className="relative flex flex-col w-72 max-w-[80vw] bg-white shadow-2xl z-10 animate-in slide-in-from-left duration-300">
+            <div className="p-4 flex items-center justify-between border-b border-neutral-100 bg-gradient-to-r from-[#FE6B8B]/10 to-[#FF8E53]/10">
+              <span className="font-semibold text-neutral-800 text-lg">Menu</span>
+              <button
+                type="button"
+                onClick={() => setDrawerOpen(false)}
+                aria-label="Close menu"
+                className="p-1.5 rounded-lg hover:bg-neutral-200 text-neutral-600 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <nav className="flex-1 overflow-y-auto p-3 space-y-1">
+              {navigationLinks.map((item, idx) => {
+                if ('type' in item && item.type === 'divider') {
+                  return <hr key={`divider-${idx}`} className="my-2 border-neutral-200" />;
+                }
+
+                const NavIcon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setDrawerOpen(false)}
+                    className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition-colors font-medium text-sm"
+                  >
+                    <NavIcon className="w-5 h-5 text-neutral-500" />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <main className="flex-1 pt-16 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6">
+        {children}
+      </main>
+
+      {/* Footer */}
+      <footer className="mt-auto border-t border-neutral-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 text-center text-xs text-neutral-500">
+          <p>{FooterMessage}</p>
         </div>
       </footer>
+
+      {/* Scroll to top floating button */}
+      {showScrollTop && (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          className="fixed bottom-6 right-6 z-30 p-3 rounded-full bg-gradient-to-r from-[#FE6B8B] to-[#FF8E53] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FE6B8B]"
+        >
+          <ChevronUp className="w-6 h-6" />
+        </button>
+      )}
     </div>
   );
 }

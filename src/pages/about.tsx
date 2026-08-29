@@ -1,74 +1,57 @@
-import * as React from 'react';
 import * as Constants from '../infrastructure/constants';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import Typography from '@mui/material/Typography';
 import Layout from '../components/Layout';
-
 import { NextPage } from 'next';
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { PageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { getStringText } from '../data/stringservice/stringservice';
-
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    title: {
-      padding: theme.spacing(4, 0, 0, 1)
-    },
-    titleRight: {
-      padding: theme.spacing(5, 2, 2, 2),
-      float: 'right'
-    },
-    body: {
-      padding: theme.spacing(0, 2)
-    },
-    img: {
-      maxWidth: '90%',
-      padding: theme.spacing(2)
-    },
-    imgContainer: {
-      padding: theme.spacing(2),
-      position: 'relative'
-    },
-  };
-});
 
 const AboutPage: NextPage<PageProps> = ({ pathname }) => {
   const title = 'About';
   const isMobile = IsMobile();
 
-  const { classes } = useStyles();
-  
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
-      <div className={classes.titleRight}>
-        <Typography variant='h5' gutterBottom>
-          <Link href='/debug'>
-            <a>
-              {getStringText('DebugIcon')}
-            </a>
+      <div className="py-4 space-y-6 max-w-4xl">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold text-neutral-900 tracking-tight">
+            {title}
+          </h1>
+          <Link
+            href="/debug"
+            className="text-xl p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+            title="Debug"
+          >
+            {getStringText('DebugIcon')}
           </Link>
-        </Typography>
-      </div>
+        </div>
 
-      <div className={classes.title}>
-        <Typography variant='h4' gutterBottom>
-          {title}
-        </Typography>
-      </div>
+        <div className="text-neutral-700 leading-relaxed text-sm sm:text-base">
+          <p>{getStringText('AboutPageBody')}</p>
+        </div>
 
-      <div className={classes.body}>
-        <Typography variant='body2' gutterBottom>
-          {getStringText('AboutPageBody')}
-        </Typography>
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-sm border border-neutral-200 bg-white flex items-center justify-center p-2">
+            <Image
+              src={Constants.AboutPageImg1}
+              alt={getStringText('AboutPageImageAlt')}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain p-2"
+            />
+          </div>
 
-      <div className={classes.imgContainer}>
-        <Image className={classes.img} src={Constants.AboutPageImg1} alt={getStringText('AboutPageImageAlt')} layout='fill' objectFit='contain' />
-        <Image className={classes.img} src={Constants.AboutPageImg2} alt={getStringText('AboutPageImageAlt')} layout='fill' objectFit='contain' />
+          <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-sm border border-neutral-200 bg-white flex items-center justify-center p-2">
+            <Image
+              src={Constants.AboutPageImg2}
+              alt={getStringText('AboutPageImageAlt')}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-contain p-2"
+            />
+          </div>
+        </div>
       </div>
     </Layout>
   );

@@ -1,149 +1,90 @@
 import * as React from 'react';
-
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
-import { 
+import { ChevronDown } from 'lucide-react';
+import {
   getDeliveryTime,
-  isDelivered, 
-  isFactoryPickup 
+  isDelivered,
+  isFactoryPickup,
 } from '../../data/guitarservice/guitarutils';
 import { formatCurrencyStringToString } from '../../infrastructure/datautils';
 import { Pickup } from '../../interfaces/models/pickup';
 
 type PickupDetailProps = {
   item: Pickup;
-  isMobile: boolean;
+  isMobile?: boolean;
 };
 
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      flexGrow: 1,
-      width: '100%'
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular
-    },
-    summary: {
-      paddingBottom: theme.spacing(2)
-    },
-    jsonExpander: {
-      marginLeft: 'auto',
-      marginRight: 0
-    },
-    json: {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
-    },
-    jsonExpanderMobile: {
-      margin: 0
-    },
-    jsonMobile: {
-      whiteSpace: 'nowrap',
-      overflowY: 'hidden',
-      overflowX: 'scroll'
-    }
-  };
-});
-
-const PickupDetail: React.FunctionComponent<PickupDetailProps> = ({
-  item: pickup, isMobile
-}) => {
-  const { classes } = useStyles();
-
-  const pickupDetails = 
-    [
-      isFactoryPickup(pickup)
-        ? 'Factory Pickup'
-        : null,
-      pickup.position
-        ? `Position: ${pickup.position}`
-        : null,
-      `Type: ${pickup.type}${pickup.size ? ' (' + pickup.size + ' size)' : ''}`,
-      pickup.mount
-        ? `Mount: ${pickup.mount}`
-        : null,
-      pickup.output
-        ? `Output: ${pickup.output}`
-        : null,
-      pickup.magnetType
-        ? `Magnet Type: ${pickup.magnetType}`
-        : null,
-      pickup.cover
-        ? `Cover: ${pickup.cover}`
-        : null,
-      pickup.purchaseDate
-        ? `Purchased: ${pickup.purchaseDate}`
-        : null,
-      pickup.purchasePrice
-        ? `Purchase Price: ${formatCurrencyStringToString(pickup.purchasePrice)}`
-        : null,
-      pickup.purchaseStore
-        ? `Purchase Store: ${pickup.purchaseStore}`
-        : null,
-      pickup.deliveryDate
-        ? `Delivered: ${isDelivered(pickup) 
-          ? `${pickup.deliveryDate} (${getDeliveryTime(pickup)})`
-          : 'not yet delivered'}`
-        : null,
-    ];
+const PickupDetail: React.FC<PickupDetailProps> = ({ item: pickup, isMobile }) => {
+  const pickupDetails = [
+    isFactoryPickup(pickup) ? 'Factory Pickup' : null,
+    pickup.position ? `Position: ${pickup.position}` : null,
+    `Type: ${pickup.type}${pickup.size ? ` (${pickup.size} size)` : ''}`,
+    pickup.mount ? `Mount: ${pickup.mount}` : null,
+    pickup.output ? `Output: ${pickup.output}` : null,
+    pickup.magnetType ? `Magnet Type: ${pickup.magnetType}` : null,
+    pickup.cover ? `Cover: ${pickup.cover}` : null,
+    pickup.purchaseDate ? `Purchased: ${pickup.purchaseDate}` : null,
+    pickup.purchasePrice
+      ? `Purchase Price: ${formatCurrencyStringToString(pickup.purchasePrice)}`
+      : null,
+    pickup.purchaseStore ? `Purchase Store: ${pickup.purchaseStore}` : null,
+    pickup.deliveryDate
+      ? `Delivered: ${
+          isDelivered(pickup)
+            ? `${pickup.deliveryDate} (${getDeliveryTime(pickup)})`
+            : 'not yet delivered'
+        }`
+      : null,
+  ].filter(Boolean);
 
   return (
-    <div>
-      <Grid container className={classes.root} spacing={3} direction={isMobile ? 'column' : 'row'}>
-        <Grid item zeroMinWidth xs={12} sm={6}>
-          <Typography variant='h6' gutterBottom>
-            {pickup.name}
-          </Typography>
+    <div className="w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Info Column */}
+        <div className="space-y-3">
+          <h4 className="text-lg font-bold text-neutral-900">{pickup.name}</h4>
 
-          {pickup.description
-            ? <Typography className={classes.summary} variant='subtitle2' gutterBottom>
-                {pickup.description}
-              </Typography>
-            : null}
+          {pickup.description && (
+            <p className="text-sm text-neutral-600 font-medium">{pickup.description}</p>
+          )}
 
-          <div>
-            {pickupDetails
-              .map((text, idx) => (
-                <Typography key={idx} gutterBottom>
-                  {text}
-                </Typography>
-              ))}
+          <div className="space-y-1.5 text-sm text-neutral-700 bg-neutral-50 p-4 rounded-xl border border-neutral-200">
+            {pickupDetails.map((text, idx) => (
+              <p key={idx} className="font-medium">
+                {text}
+              </p>
+            ))}
 
-            {pickup.productUrl
-              ? <Typography key={`${pickup.id}-link`} gutterBottom>
-                  Product Link: <a target={isMobile ? '' : '_blank'} rel='noreferrer' href={pickup.productUrl}>{pickup.productUrl}</a>
-                </Typography>
-              : null}
+            {pickup.productUrl && (
+              <p className="pt-2 text-xs truncate">
+                <span className="font-bold text-neutral-800">Product Link: </span>
+                <a
+                  target={isMobile ? undefined : '_blank'}
+                  rel="noreferrer"
+                  href={pickup.productUrl}
+                  className="text-blue-600 hover:underline"
+                >
+                  {pickup.productUrl}
+                </a>
+              </p>
+            )}
           </div>
-        </Grid>
+        </div>
 
-        <Grid item zeroMinWidth xs={12} sm={6}
-            className={isMobile ? classes.jsonExpanderMobile : classes.jsonExpander}>
-          <Accordion>
-            <AccordionSummary id='pickupPanelJson-header' aria-controls='pickupPanelJson-content'>
-              <Typography className={classes.heading}>Pickup JSON Data</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div className={isMobile ? classes.jsonMobile : classes.json}>
-                <Divider />
-                <Typography variant='subtitle1'>
-                  <pre>{JSON.stringify(pickup, undefined, 2)}</pre>
-                </Typography>
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </Grid>
-      </Grid>
+        {/* JSON Inspector */}
+        <div>
+          <details className="group bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden">
+            <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none font-semibold text-sm text-neutral-800 bg-neutral-100 hover:bg-neutral-200/70 transition-colors">
+              <span>Pickup JSON Data</span>
+              <ChevronDown className="w-4 h-4 text-neutral-500 transition-transform duration-200 group-open:rotate-180" />
+            </summary>
+            <div className="p-3 bg-neutral-900 text-neutral-100 overflow-x-auto max-h-96">
+              <pre className="text-xs font-mono leading-relaxed">
+                {JSON.stringify(pickup, undefined, 2)}
+              </pre>
+            </div>
+          </details>
+        </div>
+      </div>
     </div>
   );
 };

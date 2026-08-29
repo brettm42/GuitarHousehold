@@ -1,63 +1,50 @@
 import * as React from 'react';
-
 import Link from 'next/link';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-
-import { useStyles } from './DataDetailTable';
 import { TableDataCell } from './DataDetailTableColumns';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Project } from '../../interfaces/models/project';
 import { summarizeGuitar } from '../../data/guitarservice/guitarutils';
 
 type DataDetailTableRowProps = {
-  styling: ReturnType<typeof useStyles>;
   columns: ReadonlyArray<TableDataCell>;
   guitar: Project;
 };
 
-const DataDetailTableRow: React.FunctionComponent<DataDetailTableRowProps> = ({ styling, columns, guitar }) => {
+const DataDetailTableRow: React.FC<DataDetailTableRowProps> = ({ columns, guitar }) => {
   return (
-    <TableRow key={guitar.id} tabIndex={-1} hover>
-      <TableCell
-        key={`${guitar.id}-id`}
-        align='center'
-        component='th'
-        scope='row'
-        padding='none'
-      >
-        <Typography>
-          {guitar.id}
-        </Typography>
-      </TableCell>
+    <tr className="border-b border-neutral-200/70 hover:bg-neutral-50/80 transition-colors text-sm">
+      <td className="px-4 py-3 text-center font-mono text-xs text-neutral-500 font-medium">
+        {guitar.id}
+      </td>
 
-      <TableCell key={`${guitar.id}-name`}>
-        <Link href={`/detail/${guitar.id}`}>
-          <a>
-            <Typography>
-              {guitar.name}
-            </Typography>
-          </a>
+      <td className="px-4 py-3 min-w-[200px]">
+        <Link
+          href={`/detail/${guitar.id}`}
+          className="font-semibold text-neutral-900 hover:text-[#FE6B8B] transition-colors"
+        >
+          {guitar.name}
         </Link>
-        <div className={styling.classes.description}>
-          <Typography variant='caption' gutterBottom>
-            {summarizeGuitar(guitar as Guitar)}
-          </Typography>
+        <div className="text-xs text-neutral-500 mt-0.5 max-w-xs">
+          {summarizeGuitar(guitar as Guitar)}
         </div>
-      </TableCell>
+      </td>
 
-      {columns.map(cell =>
-        cell.id === 'id' || cell.id === 'name'
-          ? null
-          : <TableCell key={`${guitar.id}-${cell.id}`}>
-              <Typography variant='body2'>
-                {cell.formatter
-                  ? cell.formatter(guitar)
-                  : guitar[cell.id]}
-              </Typography>
-            </TableCell>)}
-    </TableRow>
+      {columns.map((cell) => {
+        if (cell.id === 'id' || cell.id === 'name') {
+          return null;
+        }
+
+        const value = cell.formatter
+          ? cell.formatter(guitar)
+          : (guitar[cell.id] as React.ReactNode);
+
+        return (
+          <td key={`${guitar.id}-${cell.id}`} className="px-4 py-3 text-neutral-700 whitespace-nowrap">
+            {value !== undefined && value !== null ? String(value) : '—'}
+          </td>
+        );
+      })}
+    </tr>
   );
 };
 

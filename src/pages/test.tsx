@@ -1,73 +1,41 @@
-import * as React from 'react';
-
-import Typography from '@mui/material/Typography';
 import Layout from '../components/Layout';
-
 import { NextPage } from 'next';
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { TextPageProps } from '../infrastructure/sharedprops';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
-
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    title: {
-      padding: theme.spacing(4, 2, 2, 2)
-    },
-    body: {
-      padding: theme.spacing(2)
-    },
-    body2: {
-      padding: theme.spacing(2)
-    },
-    response: {
-      padding: theme.spacing(2)
-    }
-  };
-});
 
 const TestPage: NextPage<TextPageProps> = ({ responses, pathname }) => {
   const title = 'Test';
   const isMobile = IsMobile();
 
-  const { classes } = useStyles();
-
   return (
     <Layout title={buildPageTitle(title)} pathname={pathname} isMobile={isMobile}>
-      <div className={classes.title}>
-        <Typography variant='h4' gutterBottom>
+      <div className="py-4 space-y-4 max-w-2xl">
+        <h1 className="text-3xl font-bold text-neutral-900 tracking-tight">
           {title}
-        </Typography>
-      </div>
+        </h1>
 
-      <div className={classes.body}>
-        <Typography variant='body2' gutterBottom>
+        <p className="text-sm text-neutral-600">
           {`This is the test page for: ${responses}`}
-        </Typography>
-      </div>
+        </p>
 
-      <div className={classes.body2}>
-        <Typography variant='subtitle1' gutterBottom>
+        <p className="text-xs font-mono text-neutral-500 bg-neutral-100 p-2 rounded">
           {pathname}
-        </Typography>
-      </div>
+        </p>
 
-      <div className={classes.response}>
-        {responses?.map((response, idx) => (
-          <div key={idx}>
-            <Typography variant='caption' gutterBottom>
+        <div className="space-y-2">
+          {responses?.map((response, idx) => (
+            <div key={idx} className="p-3 bg-white border border-neutral-200 rounded-lg text-xs font-mono">
               {response}
-            </Typography>
-          </div>
-        ))}
+            </div>
+          ))}
+        </div>
       </div>
     </Layout>
   );
 };
 
 TestPage.getInitialProps = async ({ pathname }) => {
-  const responses = [ "test", "test" ];
-
+  const responses = ['test', 'test'];
   return { responses, pathname };
 };
 

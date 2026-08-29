@@ -1,185 +1,58 @@
 import * as React from 'react';
 import * as Constants from '../../infrastructure/constants';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import Typography from '@mui/material/Typography';
-
-import { makeStyles } from 'tss-react/mui';
-import { Theme } from '@mui/material/styles';
 import { Guitar } from '../../interfaces/models/guitar';
 
 type HouseholdGridListProps = {
   data: Guitar[];
-  isMobile: boolean;
+  isMobile?: boolean;
 };
 
-const imgDim = { height: 360, width: 280 };
-const imgDimMobile = { height: 260, width: 180 };
-
-const imgBackgroundHeightMobile = 200;
-
-const useStyles = makeStyles()((theme: Theme) => {
-  return {
-    root: {
-      display: 'inline-flex',
-      justifyContent: 'space-around',
-      backgroundColor: theme.palette.background.paper,
-      paddingLeft: theme.spacing(2)
-    },
-    rootMobile: {
-      display: 'inline-flex',
-      justifyContent: 'space-around',
-      backgroundColor: theme.palette.background.paper,
-      paddingLeft: theme.spacing(1)
-    },
-    gridList: {
-      display: 'block',
-      transform: 'translateZ(0)'
-    },
-    gridListTile: {
-      minWidth: imgDim.width,
-      minHeight: imgDim.height
-    },
-    gridListTileMobile: {
-      minWidth: imgDimMobile.width,
-      minHeight: imgDimMobile.height
-    },
-    imgBackground: {
-      background: 'lightgrey'
-    },
-    img: {
-      height: imgDim.height,
-      display: 'block',
-      overflow: 'hidden',
-      margin: '0 auto',
-      background: 'lightgrey'
-    },
-    imgPlaceholder: {
-      height: imgDim.height,
-      display: 'flex',
-      margin: '0 auto',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    imgBackgroundMobile: {
-      background: 'lightgrey'
-    },
-    imgMobile: {
-      height: imgDimMobile.height,
-      display: 'block',
-      overflow: 'hidden',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      background: 'lightgrey'
-    },
-    imgPlaceholderMobile: {
-      height: imgDimMobile.height,
-      display: 'flex',
-      margin: '0 auto',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    imgPlaceholderTextMobile: {
-      marginBottom: theme.spacing(8)
-    }
-  };
-});
-
-const HouseholdGridList: React.FunctionComponent<HouseholdGridListProps> = ({
-  data: guitars, isMobile
-}) => {
-  const { classes } = useStyles();
-
-  const desktopGridList = (
-    <div className={classes.root}>
-      <ImageList
-          className={classes.gridList}
-          rowHeight={imgDim.height} 
-          cols={5} 
-          gap={8}
-          variant='masonry'>
-        {guitars.map(guitar => (
-          <ImageListItem key={guitar.id} className={classes.gridListTile}>
-            <Link href={`/detail/${guitar.id}`}>
-              <a>
-                <div className={classes.imgBackground} aria-label={guitar.name}>
-                  {guitar.picture
-                    ? <Image 
-                        className={classes.img} 
-                        src={guitar.picture} 
-                        alt={guitar.name} 
-                        loading='lazy' 
-                        layout='responsive' 
-                        objectFit='scale-down' 
-                        height={imgDim.height} 
-                        width={imgDim.width} />
-                    : <div className={classes.img}>
-                        <Typography variant='h4' className={classes.imgPlaceholder}>
-                          {Constants.ImagePlaceholder}
-                        </Typography>
-                      </div>}
-                  <ImageListItemBar
-                    title={guitar.name}
-                    subtitle={
-                      <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
-                    }
-                  />
+const HouseholdGridList: React.FC<HouseholdGridListProps> = ({ data: guitars }) => {
+  return (
+    <div className="w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {guitars.map((guitar) => (
+          <Link
+            key={guitar.id}
+            href={`/detail/${guitar.id}`}
+            className="group relative flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg border border-neutral-200/80 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            {/* Image Container */}
+            <div className="relative w-full aspect-[3/4] bg-neutral-100 overflow-hidden flex items-center justify-center">
+              {guitar.picture ? (
+                <Image
+                  src={guitar.picture}
+                  alt={guitar.name}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center text-neutral-400 p-4 text-center">
+                  <span className="text-3xl mb-1">🎸</span>
+                  <span className="text-xs font-medium uppercase tracking-wider">
+                    {Constants.ImagePlaceholder}
+                  </span>
                 </div>
-              </a>
-            </Link>
-          </ImageListItem>
+              )}
+            </div>
+
+            {/* Info Bar */}
+            <div className="p-3 bg-white border-t border-neutral-100 flex flex-col justify-between flex-1">
+              <h3 className="font-semibold text-neutral-800 text-sm line-clamp-1 group-hover:text-[#FE6B8B] transition-colors">
+                {guitar.name}
+              </h3>
+              <p className="text-xs text-neutral-500 mt-1 line-clamp-1">
+                {[guitar.make, guitar.bodyStyle].filter(Boolean).join(' ')}
+              </p>
+            </div>
+          </Link>
         ))}
-      </ImageList>
+      </div>
     </div>
   );
-
-  const mobileGridList = (
-    <div className={classes.rootMobile}>
-      <ImageList
-          className={classes.gridList}
-          rowHeight={imgBackgroundHeightMobile}
-          cols={2}
-          variant='masonry'>
-        {guitars.map(guitar => (
-          <ImageListItem key={guitar.id} className={classes.gridListTileMobile}>
-            <Link href={`/detail/${guitar.id}`}>
-              <a>
-                <div className={classes.imgBackgroundMobile} aria-label={guitar.name}>
-                  {guitar.picture
-                    ? <Image 
-                        className={classes.imgMobile} 
-                        src={guitar.picture} 
-                        alt={guitar.name} 
-                        layout='fill' 
-                        loading='lazy'
-                        objectFit='contain' 
-                        height={imgDimMobile.height} 
-                        width={imgDimMobile.width} />
-                    : <div className={classes.imgPlaceholderMobile}>
-                        <Typography className={classes.imgPlaceholderTextMobile} variant='h4'>
-                          {Constants.ImagePlaceholder}
-                        </Typography>
-                      </div>}
-                  <ImageListItemBar
-                    title={guitar.name}
-                    subtitle={
-                      <span>{`${guitar.make} ${guitar.bodyStyle}`}</span>
-                    }
-                  />
-                </div>
-              </a>
-            </Link>
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </div>
-  );
-
-  return isMobile ? mobileGridList : desktopGridList;
 };
 
 export default HouseholdGridList;
