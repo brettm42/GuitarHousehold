@@ -12,9 +12,7 @@
       "message": "Test Bench Collection"
     },
     "aboutPage": {
-      "image1": "",
-      "image2": ""
+      "images": []
     }
   }
 }
-

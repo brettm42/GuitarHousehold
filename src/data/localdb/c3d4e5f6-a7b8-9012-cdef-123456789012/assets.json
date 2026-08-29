@@ -1,12 +1,11 @@
 {
-    "footer": {
-        "message": ""
-    },
-    "aboutPage": {
-        "image1": "",
-        "image2": ""
-    },
-    "tokens": {
-      "reverb": "abc"
-    }
+  "footer": {
+    "message": ""
+  },
+  "aboutPage": {
+    "images": []
+  },
+  "tokens": {
+    "reverb": "abc"
+  }
 }

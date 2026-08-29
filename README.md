@@ -74,8 +74,10 @@ Each account folder contains an `account.json` file defining its metadata:
       "message": "On GitHub @ https://github.com/brettm42/GuitarHousehold"
     },
     "aboutPage": {
-      "image1": "/images/about/img1.jpg",
-      "image2": "/images/about/img2.jpg"
+      "images": [
+        "/images/about/img1.jpg",
+        "/images/about/img2.jpg"
+      ]
     }
   }
 }

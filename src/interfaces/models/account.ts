@@ -12,8 +12,7 @@ export interface AccountAssets {
     message?: string;
   };
   aboutPage?: {
-    image1?: string;
-    image2?: string;
+    images?: string[];
   };
   tokens?: AccountTokens;
   [key: string]: any;
