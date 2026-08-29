@@ -35,11 +35,13 @@ const ReverbDetail: React.FC<ReverbDetailProps> = ({
     accountData?.assets?.tokens?.reverb;
 
   React.useEffect(() => {
+    const accountId = activeAccount?.id;
+
     async function getReverbData(query: string) {
       try {
         const [avgPrice, numOfListings] = await Promise.all([
-          averagePriceForKeywordsAsync(query, reverbToken),
-          numberOfListingsForKeywordsAsync(query, reverbToken),
+          averagePriceForKeywordsAsync(query, reverbToken, accountId),
+          numberOfListingsForKeywordsAsync(query, reverbToken, accountId),
         ]);
 
         setAveragePrice(avgPrice);
@@ -53,7 +55,7 @@ const ReverbDetail: React.FC<ReverbDetailProps> = ({
 
     async function getCacheStats() {
       try {
-        const cacheStats = await getRecentSearchCacheStatsAsync();
+        const cacheStats = await getRecentSearchCacheStatsAsync(accountId);
         setReverbCacheStats(cacheStats);
       } catch (err) {
         console.error('Error fetching cache stats:', err);
@@ -63,7 +65,7 @@ const ReverbDetail: React.FC<ReverbDetailProps> = ({
     setIsLoading(true);
     getReverbData(keywords);
     getCacheStats();
-  }, [keywords, reverbToken]);
+  }, [keywords, reverbToken, activeAccount?.id]);
 
   const priceDiff =
     purchasePrice && averagePrice && !isNaN(Number(averagePrice))

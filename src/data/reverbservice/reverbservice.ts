@@ -4,19 +4,6 @@ const maxPagesPerRequest = 35;
 const reverbEndpoint = 'https://reverb.com';
 const reverbApiEndpoint = 'https://api.reverb.com/api';
 
-let recentSearches: RecentSearches = {};
-let cacheHits = 0;
-
-interface RecentSearches {
-  [keywords: string]: Search;
-}
-
-interface Search {
-  keywords: string;
-  date: number;
-  results: Listing[];
-}
-
 export class Listing {
   make?: string;
   model?: string;
@@ -25,8 +12,33 @@ export class Listing {
   price: number = 0;
 }
 
-function addRecentSearch(keywords: string, results: Listing[]) {
-  recentSearches[keywords] = {
+interface Search {
+  keywords: string;
+  date: number;
+  results: Listing[];
+}
+
+interface AccountCache {
+  searches: { [keywords: string]: Search };
+  cacheHits: number;
+}
+
+// Scoped per-account cache storage
+const accountCaches = new Map<string, AccountCache>();
+
+function getAccountCache(accountId: string = 'default'): AccountCache {
+  if (!accountCaches.has(accountId)) {
+    accountCaches.set(accountId, {
+      searches: {},
+      cacheHits: 0,
+    });
+  }
+  return accountCaches.get(accountId)!;
+}
+
+function addRecentSearch(keywords: string, results: Listing[], accountId?: string) {
+  const cache = getAccountCache(accountId);
+  cache.searches[keywords] = {
     keywords: keywords,
     date: Date.now(),
     results: results,
@@ -88,19 +100,25 @@ async function fetchQueryKeywordsWithPageAsync(
     .then((res) => (res ? res.json() : ''));
 }
 
-export async function getRecentSearchCacheStatsAsync(): Promise<string> {
-  const result = Object.keys(recentSearches).length;
-  return `cached ${result} search${result === 1 ? '' : 'es'} with ${cacheHits} hit${cacheHits === 1 ? '' : 's'}`;
+export async function getRecentSearchCacheStatsAsync(accountId?: string): Promise<string> {
+  const cache = getAccountCache(accountId);
+  const result = Object.keys(cache.searches).length;
+  return `cached ${result} search${result === 1 ? '' : 'es'} with ${cache.cacheHits} hit${cache.cacheHits === 1 ? '' : 's'}`;
 }
 
 export function getReverbUserFriendlyUrl(keywords: string): string {
   return `${reverbEndpoint}/marketplace?query=${encodeURI(keywords)}`;
 }
 
-export async function parsedResponseJsonAsync(keywords: string, token?: string) {
-  if (recentSearches[keywords]) {
-    cacheHits++;
-    return recentSearches[keywords].results.map((i) => JSON.stringify(i));
+export async function parsedResponseJsonAsync(
+  keywords: string,
+  token?: string,
+  accountId?: string
+) {
+  const cache = getAccountCache(accountId);
+  if (cache.searches[keywords]) {
+    cache.cacheHits++;
+    return cache.searches[keywords].results.map((i) => JSON.stringify(i));
   }
 
   let currentPage = 1;
@@ -128,7 +146,8 @@ export async function parsedResponseJsonAsync(keywords: string, token?: string) 
 
   addRecentSearch(
     keywords,
-    listings.map((response: any) => parseReverbResponse(response))
+    listings.map((response: any) => parseReverbResponse(response)),
+    accountId
   );
 
   return listings.map((response: any) => {
@@ -142,10 +161,15 @@ export async function parsedResponseJsonAsync(keywords: string, token?: string) 
   });
 }
 
-export async function parsedResponseAsync(keywords: string, token?: string): Promise<Listing[]> {
-  if (recentSearches[keywords]) {
-    cacheHits++;
-    return recentSearches[keywords].results;
+export async function parsedResponseAsync(
+  keywords: string,
+  token?: string,
+  accountId?: string
+): Promise<Listing[]> {
+  const cache = getAccountCache(accountId);
+  if (cache.searches[keywords]) {
+    cache.cacheHits++;
+    return cache.searches[keywords].results;
   }
 
   let currentPage = 1;
@@ -171,16 +195,18 @@ export async function parsedResponseAsync(keywords: string, token?: string): Pro
     currentPage = response.current_page;
   }
 
-  addRecentSearch(
-    keywords,
-    listings.map((response: any) => parseReverbResponse(response))
-  );
+  const parsed = listings.map((response: any) => parseReverbResponse(response));
+  addRecentSearch(keywords, parsed, accountId);
 
-  return listings.map((response: any) => parseReverbResponse(response));
+  return parsed;
 }
 
-export async function averagePriceForKeywordsAsync(keywords: string, token?: string): Promise<string> {
-  const results = await parsedResponseAsync(keywords, token);
+export async function averagePriceForKeywordsAsync(
+  keywords: string,
+  token?: string,
+  accountId?: string
+): Promise<string> {
+  const results = await parsedResponseAsync(keywords, token, accountId);
 
   if (results.length < 1) {
     return `No results for ${keywords}`;
@@ -192,12 +218,24 @@ export async function averagePriceForKeywordsAsync(keywords: string, token?: str
   return `${roundToHundredthsString(average)}`;
 }
 
-export async function numberOfListingsForKeywordsAsync(keywords: string, token?: string): Promise<string> {
-  const results = await parsedResponseAsync(keywords, token);
+export async function numberOfListingsForKeywordsAsync(
+  keywords: string,
+  token?: string,
+  accountId?: string
+): Promise<string> {
+  const results = await parsedResponseAsync(keywords, token, accountId);
 
   if (results.length < 1) {
     return '0';
   }
 
   return `${results.length}`;
+}
+
+export function clearReverbCache(accountId?: string): void {
+  if (accountId) {
+    accountCaches.delete(accountId);
+  } else {
+    accountCaches.clear();
+  }
 }
