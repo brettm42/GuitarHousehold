@@ -3,9 +3,11 @@ import DataDetailTable, { Columns } from '../components/TableComponents/DataDeta
 import DataTable from '../components/TableComponents/DataTable';
 import Layout from '../components/Layout';
 import { buildPageTitle } from '../components/viewutils';
+import { buildPageTitle, css } from '../components/viewutils';
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/guitarutils';
 import { Search } from 'lucide-react';
+import { cn } from '../infrastructure/utils';
 
 type ProjectFilter = 'all' | 'in-progress' | 'completed';
 
@@ -89,7 +91,7 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={`Search ${title.toLowerCase()}...`}
-              className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-neutral-200 rounded-lg shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#FE6B8B]/40 focus:border-[#FE6B8B] transition-all"
+              className="w-full pl-9 pr-3 py-1.5 input-search"
             />
           </div>
         </div>
@@ -100,19 +102,21 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             <button
               type="button"
               onClick={() => setProjectStatus('all')}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
+              className={cn(
+              className={css(
+                'text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer',
                 projectStatus === 'all'
                   ? 'bg-neutral-900 text-white border-neutral-900 shadow-2xs'
                   : 'bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-100 hover:text-neutral-900'
-              }`}
+              )}
             >
               All Projects
               <span
-                className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${
-                  projectStatus === 'all'
-                    ? 'bg-white/20 text-white'
-                    : 'bg-neutral-100 text-neutral-500'
-                }`}
+                className={cn(
+                className={css(
+                  'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full',
+                  projectStatus === 'all' ? 'bg-white/20 text-white' : 'bg-neutral-100 text-neutral-500'
+                )}
               >
                 {statusCounts.all}
               </span>
@@ -121,19 +125,23 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             <button
               type="button"
               onClick={() => setProjectStatus('in-progress')}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
+              className={cn(
+              className={css(
+                'text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer',
                 projectStatus === 'in-progress'
                   ? 'bg-amber-600 text-white border-amber-600 shadow-2xs'
                   : 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
-              }`}
+              )}
             >
               In Progress
               <span
-                className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${
+                className={cn(
+                className={css(
+                  'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full',
                   projectStatus === 'in-progress'
                     ? 'bg-white/20 text-white'
                     : 'bg-amber-200/70 text-amber-900'
-                }`}
+                )}
               >
                 {statusCounts.inProgress}
               </span>
@@ -142,19 +150,23 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
             <button
               type="button"
               onClick={() => setProjectStatus('completed')}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer ${
+              className={cn(
+              className={css(
+                'text-xs font-semibold px-3 py-1.5 rounded-full border transition-all cursor-pointer',
                 projectStatus === 'completed'
                   ? 'bg-emerald-700 text-white border-emerald-700 shadow-2xs'
                   : 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100'
-              }`}
+              )}
             >
               Completed
               <span
-                className={`ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full ${
+                className={cn(
+                className={css(
+                  'ml-1.5 text-[11px] px-1.5 py-0.5 rounded-full',
                   projectStatus === 'completed'
                     ? 'bg-white/20 text-white'
                     : 'bg-emerald-200/70 text-emerald-900'
-                }`}
+                )}
               >
                 {statusCounts.completed}
               </span>

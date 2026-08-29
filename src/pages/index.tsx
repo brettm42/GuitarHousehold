@@ -13,6 +13,7 @@ import {
 } from '../data/guitarservice/guitarservice';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
+import { toListDTOs } from '../infrastructure/dto';
 
 const IndexPage: NextPage<PageProps> = ({ items: initialItems, pathname }) => {
   const isMobile = IsMobile();
@@ -68,7 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      items: data,
+      items: toListDTOs(data),
       initialAccounts: accounts,
       initialAccountId: defaultAccount.id,
     },

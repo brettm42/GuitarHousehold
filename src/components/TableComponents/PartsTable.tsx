@@ -197,7 +197,7 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search parts, specs, stores..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-neutral-200 rounded-lg shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#FE6B8B]/40 focus:border-[#FE6B8B] transition-all"
+            className="w-full pl-9 pr-3 py-1.5 input-search"
           />
         </div>
       </div>
@@ -217,9 +217,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>ID</span>
                     {sortKey === 'id' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -236,9 +236,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Part Name</span>
                     {sortKey === 'name' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -255,9 +255,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Type</span>
                     {sortKey === 'partType' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -274,9 +274,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Key Specs & Features</span>
                     {sortKey === 'specs' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -293,9 +293,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Price</span>
                     {sortKey === 'purchasePrice' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -312,9 +312,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Store</span>
                     {sortKey === 'purchaseStore' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -331,9 +331,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Purchased</span>
                     {sortKey === 'purchaseDate' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -350,9 +350,9 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                     <span>Delivered</span>
                     {sortKey === 'deliveryDate' ? (
                       sortDir === 'asc' ? (
-                        <ArrowUp className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowUp className="w-3 h-3 text-brand-primary" />
                       ) : (
-                        <ArrowDown className="w-3 h-3 text-[#FE6B8B]" />
+                        <ArrowDown className="w-3 h-3 text-brand-primary" />
                       )
                     ) : (
                       <ArrowUpDown className="w-3 h-3 text-neutral-400 opacity-40" />
@@ -438,7 +438,7 @@ const PartsTable: React.FC<PartsTableProps> = ({ items }) => {
                             href={part.productUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center justify-center p-1 rounded-md text-neutral-400 hover:text-[#FE6B8B] hover:bg-neutral-100 transition-colors"
+                            className="inline-flex items-center justify-center p-1 rounded-md text-neutral-400 hover:text-brand-primary hover:bg-neutral-100 transition-colors"
                             title="Open product webpage"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />

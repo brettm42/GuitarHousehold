@@ -95,7 +95,7 @@ export default function AccountSelector({
                   <div className="pr-2 truncate">
                     <p
                       className={`text-xs sm:text-sm truncate ${
-                        isSelected ? 'text-[#FE6B8B] font-semibold' : 'text-neutral-800'
+                        isSelected ? 'text-brand-primary font-semibold' : 'text-neutral-800'
                       }`}
                     >
                       {account.name}
@@ -110,7 +110,7 @@ export default function AccountSelector({
                     </p>
                   </div>
                   {isSelected && (
-                    <Check className="w-4 h-4 text-[#FE6B8B] shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
                   )}
                 </button>
               );

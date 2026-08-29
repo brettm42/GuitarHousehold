@@ -1,4 +1,13 @@
 import * as Constants from '../infrastructure/constants';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+/**
+ * Combines and merges Tailwind CSS classes, cleanly resolving specificity conflicts.
+ */
+export function css(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs));
+}
 
 export function IsMobile(): boolean {
   const mobile =

@@ -45,7 +45,7 @@ const HouseholdGridList: React.FC<HouseholdGridListProps> = ({ data: guitars }) 
 
               {/* Info Bar */}
               <div className="p-3 bg-white border-t border-neutral-100 flex flex-col justify-between flex-1">
-                <h3 className="font-semibold text-neutral-800 text-sm line-clamp-1 group-hover:text-[#FE6B8B] transition-colors">
+                <h3 className="font-semibold text-neutral-800 text-sm line-clamp-1 group-hover:text-brand-primary transition-colors">
                   {guitar.name}
                 </h3>
                 <p className="text-xs text-neutral-500 mt-1 line-clamp-1">

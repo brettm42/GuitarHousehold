@@ -83,7 +83,7 @@ const ReverbDetail: React.FC<ReverbDetailProps> = ({
 
       {isLoading ? (
         <div className="flex items-center justify-center py-6 text-neutral-400 space-x-2">
-          <Loader2 className="w-5 h-5 animate-spin text-[#FE6B8B]" />
+          <Loader2 className="w-5 h-5 animate-spin text-brand-primary" />
           <span className="text-xs">Fetching current market data...</span>
         </div>
       ) : (
@@ -127,7 +127,7 @@ const ReverbDetail: React.FC<ReverbDetailProps> = ({
               href={getReverbUserFriendlyUrl(keywords)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#FE6B8B] hover:underline font-medium"
+              className="text-brand-primary hover:underline font-medium"
             >
               View on Reverb &rarr;
             </a>

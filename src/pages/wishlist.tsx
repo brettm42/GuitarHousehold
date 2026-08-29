@@ -6,6 +6,7 @@ import { PageProps } from '../infrastructure/sharedprops';
 import { findAllWishlist } from '../data/guitarservice/guitarservice';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
+import { toListDTOs } from '../infrastructure/dto';
 
 const pageTitle = 'Wishlist';
 const pageListColumns = 'wishlist';
@@ -39,7 +40,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      items: data,
+      items: toListDTOs(data),
       initialAccounts: accounts,
       initialAccountId: defaultAccount.id,
     },

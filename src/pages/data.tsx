@@ -1,9 +1,14 @@
 import * as React from 'react';
-import ChartComponent from '../components/DataComponents/ChartComponent';
+import dynamic from 'next/dynamic';
 import Layout from '../components/Layout';
 import { GetStaticProps, NextPage } from 'next';
 import { buildPageTitle, IsMobile } from '../components/viewutils';
 import { PageProps } from '../infrastructure/sharedprops';
+
+const ChartComponent = dynamic(() => import('../components/DataComponents/ChartComponent'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse h-96 bg-neutral-100 rounded-xl" />
+});
 import {
   findAllGuitars,
   findAllInstruments,
@@ -11,6 +16,7 @@ import {
 } from '../data/guitarservice/guitarservice';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
+import { toListDTOs } from '../infrastructure/dto';
 
 const DataPage: NextPage<PageProps> = ({ items: initialItems, pathname }) => {
   const title = 'Data';
@@ -54,7 +60,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      items: data,
+      items: toListDTOs(data),
       initialAccounts: accounts,
       initialAccountId: defaultAccount.id,
     },

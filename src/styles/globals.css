@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-primary: #FE6B8B;
+  --color-brand-secondary: #FF8E53;
+  --color-brand: #FE6B8B;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -9,6 +15,16 @@
   body {
     @apply bg-neutral-50 text-neutral-900 antialiased min-h-screen;
     overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .btn-brand-gradient {
+    @apply bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-md hover:shadow-lg transition-all duration-200;
+  }
+
+  .input-search {
+    @apply text-xs bg-white border border-neutral-200 rounded-lg shadow-2xs focus:outline-none focus:ring-2 focus:ring-brand-primary/40 focus:border-brand-primary transition-all;
   }
 }
 

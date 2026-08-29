@@ -7,6 +7,7 @@ import { findAllGuitars } from '../data/guitarservice/guitarservice';
 import { isArchived } from '../data/guitarservice/guitarutils';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
+import { toListDTOs } from '../infrastructure/dto';
 
 const pageTitle = 'Guitar List';
 const pageListColumns = 'guitar';
@@ -40,7 +41,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      items: data,
+      items: toListDTOs(data),
       initialAccounts: accounts,
       initialAccountId: defaultAccount.id,
     },

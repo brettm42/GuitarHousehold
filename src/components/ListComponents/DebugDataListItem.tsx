@@ -14,7 +14,7 @@ const DebugDataListItem: React.FC<DataListItemProps> = ({ data }) => {
     <div className="py-1.5 flex flex-wrap items-center justify-between gap-2">
       <Link
         href={`/debug?id=${data.id}${queryParam}`}
-        className="font-medium text-sm text-neutral-900 hover:text-[#FE6B8B] transition-colors"
+        className="font-medium text-sm text-neutral-900 hover:text-brand-primary transition-colors"
       >
         <span className="font-mono text-xs text-neutral-500 mr-1.5">{data.id}:</span>
         {data.name}

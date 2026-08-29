@@ -36,7 +36,7 @@ const HouseholdGrid: React.FC<HouseholdGridProps> = ({ data: guitars }) => {
                 )}
               </div>
               <div className="p-2.5">
-                <h4 className="font-medium text-xs text-neutral-800 line-clamp-1 group-hover:text-[#FE6B8B]">
+                <h4 className="font-medium text-xs text-neutral-800 line-clamp-1 group-hover:text-brand-primary">
                   {guitar.name}
                 </h4>
                 <p className="text-[11px] text-neutral-500 line-clamp-1">

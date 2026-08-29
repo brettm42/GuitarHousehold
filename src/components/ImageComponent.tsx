@@ -112,7 +112,7 @@ export default function ImageComponent({
             onClick={() => setActiveIndex(idx)}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               activeIndex === idx
-                ? 'bg-gradient-to-r from-[#FE6B8B] to-[#FF8E53] text-white shadow-xs'
+                ? 'bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-xs'
                 : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
             }`}
           >

@@ -78,7 +78,7 @@ export default function Layout({
       </Head>
 
       {/* Top Navigation Bar */}
-      <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-[#FE6B8B] to-[#FF8E53] text-white shadow-md">
+      <header className="fixed top-0 left-0 right-0 z-40 bg-gradient-to-r from-brand-primary to-brand-secondary text-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <button
@@ -125,7 +125,7 @@ export default function Layout({
 
           {/* Slide-over panel */}
           <div className="relative flex flex-col w-72 max-w-[80vw] bg-white shadow-2xl z-10 animate-in slide-in-from-left duration-300">
-            <div className="p-4 flex items-center justify-between border-b border-neutral-100 bg-gradient-to-r from-[#FE6B8B]/10 to-[#FF8E53]/10">
+            <div className="p-4 flex items-center justify-between border-b border-neutral-100 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10">
               <span className="font-semibold text-neutral-800 text-lg">Menu</span>
               <button
                 type="button"
@@ -187,7 +187,7 @@ export default function Layout({
           type="button"
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-30 p-3 rounded-full bg-gradient-to-r from-[#FE6B8B] to-[#FF8E53] text-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FE6B8B]"
+          className="fixed bottom-6 right-6 z-30 p-3 rounded-full btn-brand-gradient hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary"
         >
           <ChevronUp className="w-6 h-6" />
         </button>

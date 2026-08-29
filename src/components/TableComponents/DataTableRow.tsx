@@ -23,7 +23,7 @@ const DataTableRow: React.FC<DataTableRowProps> = ({ item }) => {
       <td className="px-4 py-3">
         <Link
           href={`/detail/${item.id}`}
-          className="font-semibold text-neutral-900 hover:text-[#FE6B8B] transition-colors"
+          className="font-semibold text-neutral-900 hover:text-brand-primary transition-colors"
         >
           {item.name}
         </Link>

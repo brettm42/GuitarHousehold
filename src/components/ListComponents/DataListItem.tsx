@@ -10,7 +10,7 @@ const DataListItem: React.FC<DataListItemProps> = ({ data }) => (
   <div className="py-1">
     <Link
       href={`/detail/${data.id}`}
-      className="text-neutral-900 font-medium hover:text-[#FE6B8B] transition-colors text-sm inline-block"
+      className="text-neutral-900 font-medium hover:text-brand-primary transition-colors text-sm inline-block"
     >
       <span className="font-mono text-xs text-neutral-500 mr-1.5">{data.id}:</span>
       {data.name}

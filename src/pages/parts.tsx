@@ -7,6 +7,7 @@ import { Part } from '../interfaces/models/part';
 import { findAllParts } from '../data/guitarservice/guitarservice';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
+import { toListDTOs } from '../infrastructure/dto';
 import { formatCurrencyToString } from '../infrastructure/datautils';
 
 interface PartsPageProps {
@@ -79,7 +80,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      items: data,
+      items: toListDTOs(data),
       initialAccounts: accounts,
       initialAccountId: defaultAccount.id,
     },

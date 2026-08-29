@@ -7,6 +7,7 @@ import { isArchived, hasSold } from '../data/guitarservice/guitarutils';
 import { PageProps } from '../infrastructure/sharedprops';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
+import { toListDTOs } from '../infrastructure/dto';
 
 const pageTitle = 'Archive';
 const pageListColumns = 'archive';
@@ -44,7 +45,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      items: data,
+      items: toListDTOs(data),
       initialAccounts: accounts,
       initialAccountId: defaultAccount.id,
     },

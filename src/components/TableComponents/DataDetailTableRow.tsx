@@ -20,7 +20,7 @@ const DataDetailTableRow: React.FC<DataDetailTableRowProps> = ({ columns, guitar
       <td className="sticky left-16 z-10 bg-white group-hover:bg-neutral-50 px-4 py-3 min-w-[200px] sm:min-w-[240px] border-r border-neutral-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.08)]">
         <Link
           href={`/detail/${guitar.id}`}
-          className="font-semibold text-neutral-900 hover:text-[#FE6B8B] transition-colors"
+          className="font-semibold text-neutral-900 hover:text-brand-primary transition-colors"
         >
           {guitar.name}
         </Link>
