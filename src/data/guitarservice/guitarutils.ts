@@ -2258,6 +2258,7 @@ export function getColorMapping(color: string): string {
 
     // Yellow variants
     'TV Yellow': 'Yellow',
+    'California Coral': 'Yellow',
     
     // Pink variants
     'Rose Gold Metallic': 'Pink',
