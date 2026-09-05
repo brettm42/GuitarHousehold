@@ -144,13 +144,7 @@ export function isFactoryPickup(pickup: Pickup | Part): boolean {
 }
 
 export function hasStrings(guitar: Guitar): boolean {
-  if (guitar && guitar.strings && guitar.strings.name) {
-    return guitar.strings.id !== undefined;
-  }
-  if (guitar?.parts && guitar.parts.length > 0) {
-    return guitar.parts.some(p => (p.partType || '').toLowerCase() === 'strings');
-  }
-  return false;
+  return Boolean(guitar?.strings && guitar.strings.name && guitar.strings.id !== undefined);
 }
 
 export function hasFactoryStrings(guitar: Guitar): boolean {

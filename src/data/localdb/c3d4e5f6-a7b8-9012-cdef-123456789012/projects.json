@@ -71,7 +71,7 @@
       {
         "id": 100005,
         "name": "XGP 3-Ply White Offset Pickguard",
-        "partType": "Hardware",
+        "partType": "Pickguard",
         "description": "XGP 3 Ply White Offset Pickguard for 2 Jazzmaster pickups",
         "purchaseStore": "GuitarFetish",
         "purchasePrice": "22.95"
@@ -92,17 +92,16 @@
         "purchaseStore": "Rondo Music",
         "purchasePrice": "69.95",
         "caseStyle": "Flat"
-      },
-      {
-        "id": 100009,
-        "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
-        "partType": "Strings",
-        "gauge": "13-56",
-        "numberOfStrings": 12,
-        "material": "Pure Nickel",
-        "lastChangeDate": "11/02/2019"
       }
     ],
+    "strings": {
+      "id": 100009,
+      "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+      "gauge": "13-56",
+      "numberOfStrings": 12,
+      "material": "Pure Nickel",
+      "lastChangeDate": "11/02/2019"
+    },
     "picture": "",
     "modifications": [
       "Wired up as (but with a 4-throw rotary switch)"
@@ -174,17 +173,16 @@
         "type": "Single-coil",
         "size": "Telecaster Bridge",
         "output": "12.0K"
-      },
-      {
-        "id": 110009,
-        "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
-        "partType": "Strings",
-        "gauge": "13-56",
-        "numberOfStrings": 6,
-        "material": "Pure Nickel",
-        "lastChangeDate": "11/02/2019"
       }
     ],
+    "strings": {
+      "id": 110009,
+      "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+      "gauge": "13-56",
+      "numberOfStrings": 6,
+      "material": "Pure Nickel",
+      "lastChangeDate": "11/02/2019"
+    },
     "picture": "",
     "modifications": [],
     "controls": [

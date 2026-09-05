@@ -577,9 +577,9 @@
       "enum": [
         "Neck",
         "Body",
+        "Pickguard",
         "Pickup",
         "Case",
-        "Strings",
         "Hardware",
         "Electronics",
         "Component",
@@ -699,15 +699,6 @@
         },
         "caseStyle": {
           "$ref": "#/definitions/CaseStyle"
-        },
-        "gauge": {
-          "type": "string"
-        },
-        "numberOfStrings": {
-          "type": "number"
-        },
-        "lastChangeDate": {
-          "type": "string"
         },
         "modifications": {
           "type": "array",

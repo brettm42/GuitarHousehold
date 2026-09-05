@@ -24,8 +24,8 @@ export const getPartBadgeStyle = (partType: string): string => {
       return 'bg-emerald-50 text-emerald-700 border-emerald-200';
     case 'electronics':
       return 'bg-rose-50 text-rose-700 border-rose-200';
-    case 'strings':
-      return 'bg-cyan-50 text-cyan-700 border-cyan-200';
+    case 'pickguard':
+      return 'bg-teal-50 text-teal-700 border-teal-200';
     default:
       return 'bg-neutral-100 text-neutral-700 border-neutral-200';
   }
@@ -66,10 +66,6 @@ const PartDetail: React.FC<PartDetailProps> = ({ item: part, isMobile, compact =
     part.mount ? `Mount: ${part.mount}` : null,
     // Case specific
     part.caseStyle ? `Case Style: ${part.caseStyle}` : null,
-    // Strings specific
-    part.gauge ? `Gauge: ${part.gauge}` : null,
-    part.numberOfStrings ? `Strings: ${part.numberOfStrings}` : null,
-    part.lastChangeDate ? `Last Changed: ${part.lastChangeDate}` : null,
     // General
     part.material ? `Material: ${part.material}` : null,
     part.serialNumber

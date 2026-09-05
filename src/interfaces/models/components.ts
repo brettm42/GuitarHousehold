@@ -107,3 +107,17 @@ const tremoloTypes = [
   'Mustang',
   'Stratocaster'
 ] as const;
+
+export type PartType = typeof partTypes[number];
+const partTypes = [
+  'Accessory',
+  'Body',
+  'Case',
+  'Component',
+  'Electronics',
+  'Hardware',
+  'Neck',
+  'Pickguard',
+  'Pickup'
+] as const;
+

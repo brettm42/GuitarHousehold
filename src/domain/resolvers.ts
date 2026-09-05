@@ -27,6 +27,7 @@ export const GuitarResolver = {
   getPickguardPart(guitar: Guitar | Project): Part | undefined {
     return guitar?.parts?.find(
       (p) =>
+        (p.partType || '').toLowerCase() === 'pickguard' ||
         (p.name || '').toLowerCase().includes('pickguard') ||
         (p.description || '').toLowerCase().includes('pickguard')
     );
@@ -51,12 +52,12 @@ export const GuitarResolver = {
     return [];
   },
 
-  /** Resolves strings, checking explicit strings object then parts */
-  getStrings(guitar: Guitar | Project): Strings | Part | undefined {
+  /** Resolves strings from the separate strings model */
+  getStrings(guitar: Guitar | Project): Strings | undefined {
     if (guitar?.strings && guitar.strings.id !== undefined) {
       return guitar.strings;
     }
-    return guitar?.parts?.find((p) => (p.partType || '').toLowerCase() === 'strings');
+    return undefined;
   },
 
   /** Resolves BodyStyle from root or Body part */

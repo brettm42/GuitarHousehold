@@ -2,6 +2,7 @@ import { RetailItem } from '../retailitem';
 import {
   BodyStyle,
   CaseStyle,
+  PartType,
   PickupCover,
   PickupMount,
   PickupPosition,
@@ -11,20 +12,10 @@ import {
   TremoloType
 } from './components';
 
-export type PartType =
-  | 'Neck'
-  | 'Body'
-  | 'Pickup'
-  | 'Case'
-  | 'Strings'
-  | 'Hardware'
-  | 'Electronics'
-  | 'Component'
-  | 'Accessory'
-  | string;
+export type { PartType };
 
 export interface Part extends RetailItem {
-  readonly partType: PartType;
+  readonly partType: PartType | string;
   readonly serialNumber?: string;
   readonly serialNumberLocation?: SerialNumberLocation;
   readonly brand?: string;
@@ -59,11 +50,6 @@ export interface Part extends RetailItem {
 
   // Case specific
   readonly caseStyle?: CaseStyle;
-
-  // Strings specific
-  readonly gauge?: string;
-  readonly numberOfStrings?: number;
-  readonly lastChangeDate?: string;
 
   // Modifications and media
   readonly modifications?: ReadonlyArray<string>;
