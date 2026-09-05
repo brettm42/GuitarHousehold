@@ -2,7 +2,6 @@ import { Case } from '../../interfaces/models/case';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
-import { Strings } from '../../interfaces/models/strings';
 import { Part } from '../../interfaces/models/part';
 import { RetailItem } from '../../interfaces/retailitem';
 
@@ -16,7 +15,7 @@ import {
 } from '../../infrastructure/datautils';
 
 import * as CurrencyService from '../currencyservice/currencyservice';
-import { BodyStyle, TremoloType } from '../../interfaces/models/components';
+import { BodyStyle } from '../../interfaces/models/components';
 import { getStringText } from '../stringservice/stringservice';
 import { GuitarResolver, PartResolver } from '../../domain/resolvers';
 export { GuitarResolver, PartResolver };
@@ -96,7 +95,7 @@ function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
 export function isAcoustic(guitar: Guitar): boolean {
   const acousticStyle: BodyStyle[] = ['Acoustic', 'Flattop', 'Hollowbody', 'Archtop'];
 
-  return acousticStyle.includes(getGuitarBodyStyle(guitar) || 'Unique')
+  return acousticStyle.includes(GuitarResolver.bodyStyle(guitar) || 'Unique')
     ? isAcousticPickup(guitar.pickups ?? [])
     : false;
 }
@@ -115,10 +114,6 @@ export function hasCase(guitar: Guitar): boolean {
   return false;
 }
 
-export function getGuitarCase(guitar: Guitar): Case | Part | undefined {
-  return GuitarResolver.getCase(guitar);
-}
-
 export function isFactoryCase(guitarCase: Case | Part): boolean {
   return guitarCase
     ? !guitarCase.purchaseStore || guitarCase.purchaseStore.includes(factoryString)
@@ -135,12 +130,8 @@ export function hasPickups(guitar: Guitar): boolean {
   return false;
 }
 
-export function getGuitarPickups(guitar: Guitar): ReadonlyArray<Pickup | Part> {
-  return GuitarResolver.getPickups(guitar);
-}
-
 export function hasFactoryPickups(guitar: Guitar): boolean {
-  const pickups = getGuitarPickups(guitar);
+  const pickups = GuitarResolver.getPickups(guitar);
   return pickups.length > 0
     ? pickups.every(p => isFactoryPickup(p as any))
     : false;
@@ -162,40 +153,12 @@ export function hasStrings(guitar: Guitar): boolean {
   return false;
 }
 
-export function getGuitarStrings(guitar: Guitar): Strings | Part | undefined {
-  return GuitarResolver.getStrings(guitar);
-}
-
 export function hasFactoryStrings(guitar: Guitar): boolean {
-  const strings = getGuitarStrings(guitar);
+  const strings = GuitarResolver.getStrings(guitar);
   return hasStrings(guitar)
     ? (strings?.name || '').includes(factoryString)
     : false;
 }
-
-export const getGuitarBodyStyle = (guitar: Guitar): BodyStyle | undefined =>
-  GuitarResolver.bodyStyle(guitar);
-
-export const getGuitarColor = (guitar: Guitar): string | undefined =>
-  GuitarResolver.color(guitar);
-
-export const getGuitarScale = (guitar: Guitar): string | undefined =>
-  GuitarResolver.scale(guitar);
-
-export const getGuitarNumberOfFrets = (guitar: Guitar): number | undefined =>
-  GuitarResolver.numberOfFrets(guitar);
-
-export const getGuitarNeckRadius = (guitar: Guitar): string | undefined =>
-  GuitarResolver.neckRadius(guitar);
-
-export const getGuitarNutWidth = (guitar: Guitar): string | undefined =>
-  GuitarResolver.nutWidth(guitar);
-
-export const getGuitarTremolo = (guitar: Guitar): TremoloType | undefined =>
-  GuitarResolver.tremolo(guitar);
-
-export const getGuitarNeckBoltOn = (guitar: Guitar): boolean | undefined =>
-  GuitarResolver.neckBoltOn(guitar);
 
 export function hasPurchasePrice(guitar: Guitar): boolean {
   if (
@@ -305,7 +268,7 @@ export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
 
   let max;
   for (const guitar of guitars) {
-    const frets = getGuitarNumberOfFrets(guitar);
+    const frets = GuitarResolver.numberOfFrets(guitar);
     if (!frets) {
       continue;
     }
@@ -316,13 +279,13 @@ export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((getGuitarNumberOfFrets(max) ?? maxDefault) < frets) {
+    if ((GuitarResolver.numberOfFrets(max) ?? maxDefault) < frets) {
       max = guitar;
     }
   }
 
   return max
-    ? `${max.name} (${getGuitarNumberOfFrets(max)} ${getStringText('GuitarUtilsFrets')})`
+    ? `${max.name} (${GuitarResolver.numberOfFrets(max)} ${getStringText('GuitarUtilsFrets')})`
     : defaultString;
 }
 
@@ -333,7 +296,7 @@ export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
 
   let min;
   for (const guitar of guitars) {
-    const frets = getGuitarNumberOfFrets(guitar);
+    const frets = GuitarResolver.numberOfFrets(guitar);
     if (!frets) {
       continue;
     }
@@ -344,13 +307,13 @@ export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((getGuitarNumberOfFrets(min) ?? minDefault) > frets) {
+    if ((GuitarResolver.numberOfFrets(min) ?? minDefault) > frets) {
       min = guitar;
     }
   }
 
   return min
-    ? `${min.name} (${getGuitarNumberOfFrets(min)} ${getStringText('GuitarUtilsFrets')})`
+    ? `${min.name} (${GuitarResolver.numberOfFrets(min)} ${getStringText('GuitarUtilsFrets')})`
     : defaultString;
 }
 
@@ -359,10 +322,10 @@ export function mostCommonFretCount(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const items = guitars.filter(c => getGuitarNumberOfFrets(c));
+  const items = guitars.filter(c => GuitarResolver.numberOfFrets(c));
   const averageFrets =
     items.reduce((avg, g) =>
-        avg + (getGuitarNumberOfFrets(g) ?? 0),
+        avg + (GuitarResolver.numberOfFrets(g) ?? 0),
       0) / items.length;
 
   return averageFrets
@@ -375,7 +338,7 @@ export function getStringGauge(guitar: Guitar): string {
     return defaultString;
   }
 
-  const strings = getGuitarStrings(guitar);
+  const strings = GuitarResolver.getStrings(guitar);
   return strings?.gauge
     ? strings.gauge
     : unknownString;
@@ -386,7 +349,7 @@ function getStringAgeDuration(guitar: Guitar): number {
     return 0;
   }
 
-  const strings = getGuitarStrings(guitar);
+  const strings = GuitarResolver.getStrings(guitar);
   if (strings?.lastChangeDate) {
     return Date.now() - Date.parse(strings.lastChangeDate);
   } else if (hasFactoryStrings(guitar)) {
@@ -589,13 +552,13 @@ export function hasParts(guitar: Guitar | Project): boolean {
 }
 
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
-  const cases = guitars.filter(g => hasCase(g)).map(g => getGuitarCase(g)?.caseStyle);
+  const cases = guitars.filter(g => hasCase(g)).map(g => GuitarResolver.getCase(g)?.caseStyle);
 
   return mostCommonString(cases, true);
 }
 
 export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
-  const colors = guitars.map(g => getColorMapping(getGuitarColor(g)));
+  const colors = guitars.map(g => getColorMapping(GuitarResolver.color(g)));
 
   return mostCommonString(colors, true);
 }
@@ -607,19 +570,19 @@ export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonScale(guitars: ReadonlyArray<Guitar>): string {
-  const scales = guitars.map(g => getGuitarScale(g)).filter(Boolean) as string[];
+  const scales = guitars.map(g => GuitarResolver.scale(g)).filter(Boolean) as string[];
 
   return mostCommonString(scales, true);
 }
 
 export function mostCommonNutWidth(guitars: ReadonlyArray<Guitar>): string {
-  const nuts = guitars.map(g => getGuitarNutWidth(g)).filter(Boolean) as string[];
+  const nuts = guitars.map(g => GuitarResolver.nutWidth(g)).filter(Boolean) as string[];
 
   return mostCommonString(nuts, true);
 }
 
 export function mostCommonNeckRadius(guitars: ReadonlyArray<Guitar>): string {
-  const radii = guitars.map(g => getGuitarNeckRadius(g)).filter(Boolean) as string[];
+  const radii = guitars.map(g => GuitarResolver.neckRadius(g)).filter(Boolean) as string[];
 
   return mostCommonString(radii, true);
 }
@@ -643,19 +606,19 @@ export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
-  const bodies = guitars.map(g => getGuitarBodyStyle(g));
+  const bodies = guitars.map(g => GuitarResolver.bodyStyle(g));
 
   return mostCommonString(bodies, true);
 }
 
 export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
-  const tremolos = guitars.map(g => getGuitarTremolo(g)).filter(Boolean) as string[];
+  const tremolos = guitars.map(g => GuitarResolver.tremolo(g)).filter(Boolean) as string[];
 
   return mostCommonString(tremolos, true);
 }
 
 export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars.filter(g => hasStrings(g)).map(g => getGuitarStrings(g)?.name);
+  const strings = guitars.filter(g => hasStrings(g)).map(g => GuitarResolver.getStrings(g)?.name);
 
   return mostCommonString(strings, true);
 }
@@ -769,7 +732,7 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    const strings = getGuitarStrings(guitar);
+    const strings = GuitarResolver.getStrings(guitar);
     if (strings?.numberOfStrings === 12) {
       twelve += 1;
     } else if ((strings?.numberOfStrings ?? maxDefault > 6)
@@ -1252,7 +1215,7 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    const strings = getGuitarStrings(guitar);
+    const strings = GuitarResolver.getStrings(guitar);
     let lastChangeDate = strings?.lastChangeDate;
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
@@ -1280,7 +1243,7 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
     millisecondsToFriendlyString(
       Date.now() - Date.parse(maxDate ?? Date.now().toString()));
 
-  const maxStrings = max ? getGuitarStrings(max) : undefined;
+  const maxStrings = max ? GuitarResolver.getStrings(max) : undefined;
   return max
     ? maxDate === max?.purchaseDate
       ? `${maxStrings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${max.name}) - ${duration}`
@@ -1300,7 +1263,7 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    const strings = getGuitarStrings(guitar);
+    const strings = GuitarResolver.getStrings(guitar);
     let lastChangeDate = strings?.lastChangeDate;
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
@@ -1328,7 +1291,7 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
     millisecondsToFriendlyString(
       Date.now() - Date.parse(minDate ?? Date.now().toString()));
 
-  const minStrings = min ? getGuitarStrings(min) : undefined;
+  const minStrings = min ? GuitarResolver.getStrings(min) : undefined;
   return min
     ? minDate === min?.purchaseDate
       ? `${minStrings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${min.name}) - ${duration}`
@@ -2246,6 +2209,80 @@ export function summarizeConstruction(guitar: Guitar): string {
     + `${guitar.construction.finishType ? `${guitar.construction.finishType} body finish, ` : ''}`
     + `${guitar.construction.neckFinishType ? `${guitar.construction.neckFinishType} neck finish` : ''}`
     ).toLocaleLowerCase();
+}
+
+export interface ConstructionSummary {
+  readonly body?: string;
+  readonly neck?: string;
+  readonly finish?: string;
+  readonly fullText: string;
+}
+
+export function summarizeConstructionV2(guitar: Guitar | Project): ConstructionSummary {
+  const bodyWood = GuitarResolver.bodyMaterial(guitar);
+  const topWood = GuitarResolver.topMaterial(guitar);
+  const neckWood = GuitarResolver.neckMaterial(guitar);
+  const fretboardWood = GuitarResolver.fingerboardMaterial(guitar);
+  const boltOn = GuitarResolver.neckBoltOn(guitar);
+
+  const backWood = guitar?.construction?.backMaterial;
+  const sidesWood = guitar?.construction?.sidesMaterial;
+  const finishType = guitar?.construction?.finishType;
+  const neckFinishType = guitar?.construction?.neckFinishType;
+
+  // 1. Body tonewood description
+  let bodyDesc: string | undefined;
+  if (topWood && backWood && sidesWood) {
+    const backSides = backWood === sidesWood ? `${backWood} back & sides` : `${backWood} back and ${sidesWood} sides`;
+    bodyDesc = `${topWood} top with ${backSides}`;
+  } else if (bodyWood && topWood) {
+    bodyDesc = `${bodyWood} body with ${topWood} top`;
+  } else if (bodyWood) {
+    bodyDesc = `${bodyWood} body`;
+  } else if (topWood) {
+    bodyDesc = `${topWood} top`;
+  }
+
+  // 2. Neck & fingerboard description
+  let neckDesc: string | undefined;
+  const attachment = boltOn === true ? 'Bolt-on ' : boltOn === false ? 'Set-neck ' : '';
+
+  if (neckWood && fretboardWood) {
+    if (neckWood.toLowerCase() === fretboardWood.toLowerCase()) {
+      neckDesc = `${attachment}1-piece ${neckWood} neck & fingerboard`;
+    } else {
+      neckDesc = `${attachment}${neckWood} neck with ${fretboardWood} fingerboard`;
+    }
+  } else if (neckWood) {
+    neckDesc = `${attachment}${neckWood} neck`;
+  } else if (fretboardWood) {
+    neckDesc = `${fretboardWood} fingerboard`;
+  }
+
+  // 3. Finish description
+  let finishDesc: string | undefined;
+  if (finishType && neckFinishType) {
+    if (finishType.toLowerCase() === neckFinishType.toLowerCase()) {
+      finishDesc = `${finishType} finish`;
+    } else {
+      finishDesc = `${finishType} body / ${neckFinishType} neck finish`;
+    }
+  } else if (finishType) {
+    finishDesc = `${finishType} finish`;
+  } else if (neckFinishType) {
+    finishDesc = `${neckFinishType} neck finish`;
+  }
+
+  // 4. Combine segments
+  const segments = [bodyDesc, neckDesc, finishDesc].filter(Boolean) as string[];
+  const fullText = segments.join(' • ');
+
+  return {
+    body: bodyDesc,
+    neck: neckDesc,
+    finish: finishDesc,
+    fullText
+  };
 }
 
 export function getColorMapping(color?: string): string {
