@@ -6,6 +6,7 @@ import StringsDetail from './StringsDetail';
 import PartDetail from './PartDetail';
 import ImageComponent from '../ImageComponent';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
+import { GuitarResolver } from '../../domain/resolvers';
 import { formatCurrencyToString } from '../../infrastructure/datautils';
 import { Project } from '../../interfaces/models/project';
 import { css } from '../viewutils';
@@ -18,25 +19,6 @@ type ProjectDetailProps = {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ item: guitar, isMobile }) => {
   const partsList = React.useMemo(() => guitar.parts || [], [guitar.parts]);
   const hasParts = partsList.length > 0;
-
-  // Derivations from parts if root properties are omitted
-  const bodyPart = React.useMemo(
-    () => partsList.find((p) => (p.partType || '').toLowerCase() === 'body'),
-    [partsList]
-  );
-  const neckPart = React.useMemo(
-    () => partsList.find((p) => (p.partType || '').toLowerCase() === 'neck'),
-    [partsList]
-  );
-  const pickguardPart = React.useMemo(
-    () =>
-      partsList.find(
-        (p) =>
-          (p.name || '').toLowerCase().includes('pickguard') ||
-          (p.partType || '').toLowerCase() === 'pickguard'
-      ),
-    [partsList]
-  );
 
   const [selectedCategory, setSelectedCategory] = React.useState<string>('All');
   const [viewMode, setViewMode] = React.useState<'compact' | 'expanded'>('compact');
@@ -61,31 +43,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ item: guitar, isMobile })
     }, 0);
   }, [partsList]);
 
-  // Derive specs preferring root properties, falling back to composed parts
-  const resolvedBody =
-    guitar.body ||
-    (bodyPart
-      ? `${bodyPart.name}${bodyPart.purchaseStore ? ` (from ${bodyPart.purchaseStore})` : ''}`
-      : null);
-  const resolvedBodyStyle = guitar.bodyStyle || bodyPart?.bodyStyle;
-  const resolvedColor = guitar.color ?? bodyPart?.color ?? 'Unfinished';
-  const resolvedNeck =
-    guitar.neck ||
-    (neckPart
-      ? `${neckPart.name}${neckPart.purchaseStore ? ` (from ${neckPart.purchaseStore})` : ''}`
-      : null);
-  const resolvedPickguard = guitar.pickguard || pickguardPart?.name;
-  const resolvedScale = guitar.scale || neckPart?.scale;
-  const resolvedFrets = guitar.numberOfFrets ?? neckPart?.numberOfFrets;
-  const resolvedRadius = guitar.neckRadius || neckPart?.neckRadius;
-  const resolvedNutWidth = guitar.nutWidth || neckPart?.nutWidth;
-  const resolvedBoltOn =
-    guitar.neckBoltOn !== undefined
-      ? guitar.neckBoltOn
-      : bodyPart?.neckBoltOn !== undefined
-      ? bodyPart.neckBoltOn
-      : undefined;
-  const resolvedTremolo = guitar.tremolo || bodyPart?.tremolo;
+  // Derive specs preferring root properties, falling back to composed parts via GuitarResolver
+  const resolvedBody = GuitarResolver.bodyDescription(guitar) || null;
+  const resolvedBodyStyle = GuitarResolver.bodyStyle(guitar);
+  const resolvedColor = GuitarResolver.color(guitar) ?? 'Unfinished';
+  const resolvedNeck = GuitarResolver.neckDescription(guitar) || null;
+  const resolvedPickguard = GuitarResolver.pickguardDescription(guitar);
+  const resolvedScale = GuitarResolver.scale(guitar);
+  const resolvedFrets = GuitarResolver.numberOfFrets(guitar);
+  const resolvedRadius = GuitarResolver.neckRadius(guitar);
+  const resolvedNutWidth = GuitarResolver.nutWidth(guitar);
+  const resolvedBoltOn = GuitarResolver.neckBoltOn(guitar);
+  const resolvedTremolo = GuitarResolver.tremolo(guitar);
 
   const guitarDetails = [
     guitar.series ? `Series: ${guitar.series}` : null,

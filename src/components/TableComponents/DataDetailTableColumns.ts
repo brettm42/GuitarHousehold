@@ -1,16 +1,13 @@
 import { Project } from '../../interfaces/models/project';
 import {
   getControlCount,
-  getGuitarBodyStyle,
-  getGuitarColor,
   getGuitarCost,
-  getGuitarNutWidth,
-  getGuitarScale,
   getModificationCount,
   getPickupCount,
   getStringGauge,
   hasCase
 } from '../../data/guitarservice/guitarutils';
+import { GuitarResolver } from '../../domain/resolvers';
 import { getStringText } from '../../data/stringservice/stringservice';
 
 export interface TableDataCell {
@@ -45,14 +42,14 @@ export const GuitarColumns: ReadonlyArray<TableDataCell> = [
 export const ProjectColumns: ReadonlyArray<TableDataCell> = [
   { id: 'id', label: getStringText('DataDetailIdLabel') },
   { id: 'name', label: getStringText('DataDetailNameLabel') },
-  { id: 'bodyStyle', label: 'Type', formatter: (p) => getGuitarBodyStyle(p) ?? p.bodyStyle ?? '—' },
-  { id: 'color', label: 'Color', formatter: (p) => getGuitarColor(p) ?? p.color ?? '—' },
+  { id: 'bodyStyle', label: 'Type', formatter: (p) => GuitarResolver.bodyStyle(p) ?? p.bodyStyle ?? '—' },
+  { id: 'color', label: 'Color', formatter: (p) => GuitarResolver.color(p) ?? p.color ?? '—' },
   { id: 'projectStart', label: 'Project Start' },
   { id: 'projectComplete', label: 'Project Complete' },
   { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
   { id: 'strings', label: 'Strings', formatter: getStringGauge },
-  { id: 'scale', label: 'Scale', formatter: (p) => getGuitarScale(p) ?? p.scale ?? '—' },
-  { id: 'nutWidth', label: 'Nut Width', formatter: (p) => getGuitarNutWidth(p) ?? p.nutWidth ?? '—' },
+  { id: 'scale', label: 'Scale', formatter: (p) => GuitarResolver.scale(p) ?? p.scale ?? '—' },
+  { id: 'nutWidth', label: 'Nut Width', formatter: (p) => GuitarResolver.nutWidth(p) ?? p.nutWidth ?? '—' },
   { id: 'manufactureYear', label: 'Manufacture Year' },
   { id: 'controls', label: 'Controls', formatter: getControlCount },
   { id: 'components', label: 'Project Cost', formatter: getGuitarCost },

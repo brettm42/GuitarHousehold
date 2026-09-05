@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ChevronDown, ExternalLink, Camera, Wrench } from 'lucide-react';
 import { formatCurrencyStringToString } from '../../infrastructure/datautils';
-import { resolveImageArray } from '../../infrastructure/imageutils';
+import { PartResolver } from '../../domain/resolvers';
 import { Part } from '../../interfaces/models/part';
 
 export type PartDetailProps = {
@@ -34,13 +34,10 @@ export const getPartBadgeStyle = (partType: string): string => {
 const PartDetail: React.FC<PartDetailProps> = ({ item: part, isMobile, compact = false }) => {
   const badgeStyle = getPartBadgeStyle(part.partType || 'Component');
 
-  const allPictures = React.useMemo(() => {
-    const list: string[] = [];
-    if (part.picture) list.push(part.picture);
-    if (part.pictures) list.push(...part.pictures);
-    if (part.additionalPictures) list.push(...part.additionalPictures);
-    return resolveImageArray(list, '/images/parts');
-  }, [part.picture, part.pictures, part.additionalPictures]);
+  const allPictures = React.useMemo(
+    () => PartResolver.getPictures(part),
+    [part.picture, part.pictures, part.additionalPictures]
+  );
 
   const partDetails = [
     part.brand ? `Brand: ${part.brand}` : null,

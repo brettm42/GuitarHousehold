@@ -1,4 +1,5 @@
 import { Guitar } from '../../interfaces/models/guitar';
+import { GuitarResolver } from '../../domain/resolvers';
 import * as GuitarUtils from './guitarutils';
 
 export function guitarPurchasePerYear(guitars: ReadonlyArray<Guitar>): Record<number, number> {
@@ -113,7 +114,7 @@ export function guitarColorData(
 
   const colors: Record<string, number> = {};
   for (const guitar of guitars) {
-    const color = GuitarUtils.getGuitarColor(guitar);
+    const color = GuitarResolver.color(guitar);
     if (color) {
       const total = colors[GuitarUtils.getColorMapping(color)] ?? 0;
       colors[GuitarUtils.getColorMapping(color)] = 1 + total;
@@ -207,7 +208,7 @@ export function guitarBodyStyleData(
 
   const bodies: Record<string, number> = {};
   for (const guitar of guitars) {
-    const bodyStyle = GuitarUtils.getGuitarBodyStyle(guitar);
+    const bodyStyle = GuitarResolver.bodyStyle(guitar);
     if (bodyStyle) {
       const total = bodies[bodyStyle] ?? 0;
       bodies[bodyStyle] = 1 + total;
@@ -229,7 +230,7 @@ export function guitarScaleData(
 
   const scales: Record<string, number> = {};
   for (const guitar of guitars) {
-    const scale = GuitarUtils.getGuitarScale(guitar);
+    const scale = GuitarResolver.scale(guitar);
     if (scale) {
       const total = scales[scale] ?? 0;
       scales[scale] = 1 + total;

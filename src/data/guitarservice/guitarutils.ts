@@ -18,6 +18,8 @@ import {
 import * as CurrencyService from '../currencyservice/currencyservice';
 import { BodyStyle, TremoloType } from '../../interfaces/models/components';
 import { getStringText } from '../stringservice/stringservice';
+import { GuitarResolver, PartResolver } from '../../domain/resolvers';
+export { GuitarResolver, PartResolver };
 
 const defaultString = 'None';
 const unknownString = 'Unknown';
@@ -114,11 +116,7 @@ export function hasCase(guitar: Guitar): boolean {
 }
 
 export function getGuitarCase(guitar: Guitar): Case | Part | undefined {
-  if (guitar?.case) return guitar.case;
-  if (guitar?.parts) {
-    return guitar.parts.find(p => (p.partType || '').toLowerCase() === 'case');
-  }
-  return undefined;
+  return GuitarResolver.getCase(guitar);
 }
 
 export function isFactoryCase(guitarCase: Case | Part): boolean {
@@ -138,11 +136,7 @@ export function hasPickups(guitar: Guitar): boolean {
 }
 
 export function getGuitarPickups(guitar: Guitar): ReadonlyArray<Pickup | Part> {
-  if (guitar?.pickups && guitar.pickups.length > 0) return guitar.pickups;
-  if (guitar?.parts) {
-    return guitar.parts.filter(p => (p.partType || '').toLowerCase() === 'pickup');
-  }
-  return [];
+  return GuitarResolver.getPickups(guitar);
 }
 
 export function hasFactoryPickups(guitar: Guitar): boolean {
@@ -169,11 +163,7 @@ export function hasStrings(guitar: Guitar): boolean {
 }
 
 export function getGuitarStrings(guitar: Guitar): Strings | Part | undefined {
-  if (guitar?.strings) return guitar.strings;
-  if (guitar?.parts) {
-    return guitar.parts.find(p => (p.partType || '').toLowerCase() === 'strings');
-  }
-  return undefined;
+  return GuitarResolver.getStrings(guitar);
 }
 
 export function hasFactoryStrings(guitar: Guitar): boolean {
@@ -183,79 +173,29 @@ export function hasFactoryStrings(guitar: Guitar): boolean {
     : false;
 }
 
-export function getGuitarBodyStyle(guitar: Guitar): BodyStyle | undefined {
-  if (guitar?.bodyStyle) return guitar.bodyStyle;
-  if (guitar?.parts) {
-    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
-    if (body?.bodyStyle) return body.bodyStyle;
-  }
-  return undefined;
-}
+export const getGuitarBodyStyle = (guitar: Guitar): BodyStyle | undefined =>
+  GuitarResolver.bodyStyle(guitar);
 
-export function getGuitarColor(guitar: Guitar): string | undefined {
-  if (guitar?.color) return guitar.color;
-  if (guitar?.parts) {
-    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
-    if (body?.color) return body.color;
-  }
-  return undefined;
-}
+export const getGuitarColor = (guitar: Guitar): string | undefined =>
+  GuitarResolver.color(guitar);
 
-export function getGuitarScale(guitar: Guitar): string | undefined {
-  if (guitar?.scale) return guitar.scale;
-  if (guitar?.parts) {
-    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
-    if (neck?.scale) return neck.scale;
-  }
-  return undefined;
-}
+export const getGuitarScale = (guitar: Guitar): string | undefined =>
+  GuitarResolver.scale(guitar);
 
-export function getGuitarNumberOfFrets(guitar: Guitar): number | undefined {
-  if (guitar?.numberOfFrets !== undefined) return guitar.numberOfFrets;
-  if (guitar?.parts) {
-    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
-    if (neck?.numberOfFrets !== undefined) return neck.numberOfFrets;
-  }
-  return undefined;
-}
+export const getGuitarNumberOfFrets = (guitar: Guitar): number | undefined =>
+  GuitarResolver.numberOfFrets(guitar);
 
-export function getGuitarNeckRadius(guitar: Guitar): string | undefined {
-  if (guitar?.neckRadius) return guitar.neckRadius;
-  if (guitar?.parts) {
-    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
-    if (neck?.neckRadius) return neck.neckRadius;
-  }
-  return undefined;
-}
+export const getGuitarNeckRadius = (guitar: Guitar): string | undefined =>
+  GuitarResolver.neckRadius(guitar);
 
-export function getGuitarNutWidth(guitar: Guitar): string | undefined {
-  if (guitar?.nutWidth) return guitar.nutWidth;
-  if (guitar?.parts) {
-    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
-    if (neck?.nutWidth) return neck.nutWidth;
-  }
-  return undefined;
-}
+export const getGuitarNutWidth = (guitar: Guitar): string | undefined =>
+  GuitarResolver.nutWidth(guitar);
 
-export function getGuitarTremolo(guitar: Guitar): TremoloType | undefined {
-  if (guitar?.tremolo) return guitar.tremolo;
-  if (guitar?.parts) {
-    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
-    if (body?.tremolo) return body.tremolo;
-    const tremPart = guitar.parts.find(p => (p.name || '').toLowerCase().includes('tremolo'));
-    if (tremPart?.tremolo) return tremPart.tremolo;
-  }
-  return undefined;
-}
+export const getGuitarTremolo = (guitar: Guitar): TremoloType | undefined =>
+  GuitarResolver.tremolo(guitar);
 
-export function getGuitarNeckBoltOn(guitar: Guitar): boolean | undefined {
-  if (guitar?.neckBoltOn !== undefined) return guitar.neckBoltOn;
-  if (guitar?.parts) {
-    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
-    if (body?.neckBoltOn !== undefined) return body.neckBoltOn;
-  }
-  return undefined;
-}
+export const getGuitarNeckBoltOn = (guitar: Guitar): boolean | undefined =>
+  GuitarResolver.neckBoltOn(guitar);
 
 export function hasPurchasePrice(guitar: Guitar): boolean {
   if (

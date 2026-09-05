@@ -7,15 +7,8 @@ import { Strings } from '../../interfaces/models/strings';
 import { Part } from '../../interfaces/models/part';
 import { RetailItem } from '../../interfaces/retailitem';
 
+import { GuitarResolver } from '../../domain/resolvers';
 import {
-  getGuitarBodyStyle,
-  getGuitarColor,
-  getGuitarNeckBoltOn,
-  getGuitarNeckRadius,
-  getGuitarNumberOfFrets,
-  getGuitarNutWidth,
-  getGuitarScale,
-  getGuitarTremolo,
   hasCase,
   hasPickups,
   hasStrings,
@@ -232,15 +225,15 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.serialNumber) { result.set(`${prefix}-serialNumber`, ValidationFlag.Missing); }
   if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Critical); }
   if (!guitar.manufactureYear) { result.set(`${prefix}-manufactureYear`, ValidationFlag.Optional); }
-  if (!getGuitarBodyStyle(guitar)) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
-  if (!getGuitarColor(guitar)) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
-  if (!getGuitarTremolo(guitar)) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }
-  if (!getGuitarScale(guitar)) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
-  if (!getGuitarNumberOfFrets(guitar)) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
+  if (!GuitarResolver.bodyStyle(guitar)) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
+  if (!GuitarResolver.color(guitar)) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
+  if (!GuitarResolver.tremolo(guitar)) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }
+  if (!GuitarResolver.scale(guitar)) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
+  if (!GuitarResolver.numberOfFrets(guitar)) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
   if (!guitar.tuning) { result.set(`${prefix}-tuning`, ValidationFlag.Optional); }
-  if (!getGuitarNeckRadius(guitar)) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
-  if (!getGuitarNutWidth(guitar)) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
-  if (getGuitarNeckBoltOn(guitar) === undefined) { result.set(`${prefix}-neckBoltOn`, ValidationFlag.Optional); }
+  if (!GuitarResolver.neckRadius(guitar)) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
+  if (!GuitarResolver.nutWidth(guitar)) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
+  if (GuitarResolver.neckBoltOn(guitar) === undefined) { result.set(`${prefix}-neckBoltOn`, ValidationFlag.Optional); }
   if (!guitar.picture) { result.set(`${prefix}-picture`, ValidationFlag.Missing); }
   if (!guitar.additionalPictures) { result.set(`${prefix}-additionalPictures`, ValidationFlag.Missing); }
   if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
