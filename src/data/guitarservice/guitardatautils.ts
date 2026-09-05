@@ -113,9 +113,10 @@ export function guitarColorData(
 
   const colors: Record<string, number> = {};
   for (const guitar of guitars) {
-    if (guitar.color) {
-      const total = colors[GuitarUtils.getColorMapping(guitar.color)] ?? 0;
-      colors[GuitarUtils.getColorMapping(guitar.color)] = 1 + total;
+    const color = GuitarUtils.getGuitarColor(guitar);
+    if (color) {
+      const total = colors[GuitarUtils.getColorMapping(color)] ?? 0;
+      colors[GuitarUtils.getColorMapping(color)] = 1 + total;
     }
   }
 
@@ -206,9 +207,10 @@ export function guitarBodyStyleData(
 
   const bodies: Record<string, number> = {};
   for (const guitar of guitars) {
-    if (guitar.bodyStyle) {
-      const total = bodies[guitar.bodyStyle] ?? 0;
-      bodies[guitar.bodyStyle] = 1 + total;
+    const bodyStyle = GuitarUtils.getGuitarBodyStyle(guitar);
+    if (bodyStyle) {
+      const total = bodies[bodyStyle] ?? 0;
+      bodies[bodyStyle] = 1 + total;
     }
   }
 
@@ -227,9 +229,10 @@ export function guitarScaleData(
 
   const scales: Record<string, number> = {};
   for (const guitar of guitars) {
-    if (guitar.scale) {
-      const total = scales[guitar.scale] ?? 0;
-      scales[guitar.scale] = 1 + total;
+    const scale = GuitarUtils.getGuitarScale(guitar);
+    if (scale) {
+      const total = scales[scale] ?? 0;
+      scales[scale] = 1 + total;
     }
   }
 

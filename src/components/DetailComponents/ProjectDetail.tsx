@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, LayoutGrid, List, Layers, Wrench } from 'lucide-react';
 import CaseDetail from './CaseDetail';
 import PickupDetail from './PickupDetail';
 import StringsDetail from './StringsDetail';
+import PartDetail from './PartDetail';
 import ImageComponent from '../ImageComponent';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 import { formatCurrencyToString } from '../../infrastructure/datautils';
 import { Project } from '../../interfaces/models/project';
+import { css } from '../viewutils';
 
 type ProjectDetailProps = {
   item: Project;
@@ -14,33 +16,102 @@ type ProjectDetailProps = {
 };
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ item: guitar, isMobile }) => {
+  const partsList = React.useMemo(() => guitar.parts || [], [guitar.parts]);
+  const hasParts = partsList.length > 0;
+
+  // Derivations from parts if root properties are omitted
+  const bodyPart = React.useMemo(
+    () => partsList.find((p) => (p.partType || '').toLowerCase() === 'body'),
+    [partsList]
+  );
+  const neckPart = React.useMemo(
+    () => partsList.find((p) => (p.partType || '').toLowerCase() === 'neck'),
+    [partsList]
+  );
+  const pickguardPart = React.useMemo(
+    () =>
+      partsList.find(
+        (p) =>
+          (p.name || '').toLowerCase().includes('pickguard') ||
+          (p.partType || '').toLowerCase() === 'pickguard'
+      ),
+    [partsList]
+  );
+
+  const [selectedCategory, setSelectedCategory] = React.useState<string>('All');
+  const [viewMode, setViewMode] = React.useState<'compact' | 'expanded'>('compact');
+
+  const categories = React.useMemo(() => {
+    const set = new Set<string>();
+    partsList.forEach((p) => {
+      if (p.partType) set.add(p.partType);
+    });
+    return ['All', ...Array.from(set)];
+  }, [partsList]);
+
+  const filteredParts = React.useMemo(() => {
+    if (selectedCategory === 'All') return partsList;
+    return partsList.filter((p) => p.partType === selectedCategory);
+  }, [partsList, selectedCategory]);
+
+  const partsTotalCost = React.useMemo(() => {
+    return partsList.reduce((sum, p) => {
+      const val = p.purchasePrice ? Number.parseFloat(p.purchasePrice) : 0;
+      return sum + (Number.isNaN(val) ? 0 : val);
+    }, 0);
+  }, [partsList]);
+
+  // Derive specs preferring root properties, falling back to composed parts
+  const resolvedBody =
+    guitar.body ||
+    (bodyPart
+      ? `${bodyPart.name}${bodyPart.purchaseStore ? ` (from ${bodyPart.purchaseStore})` : ''}`
+      : null);
+  const resolvedBodyStyle = guitar.bodyStyle || bodyPart?.bodyStyle;
+  const resolvedColor = guitar.color ?? bodyPart?.color ?? 'Unfinished';
+  const resolvedNeck =
+    guitar.neck ||
+    (neckPart
+      ? `${neckPart.name}${neckPart.purchaseStore ? ` (from ${neckPart.purchaseStore})` : ''}`
+      : null);
+  const resolvedPickguard = guitar.pickguard || pickguardPart?.name;
+  const resolvedScale = guitar.scale || neckPart?.scale;
+  const resolvedFrets = guitar.numberOfFrets ?? neckPart?.numberOfFrets;
+  const resolvedRadius = guitar.neckRadius || neckPart?.neckRadius;
+  const resolvedNutWidth = guitar.nutWidth || neckPart?.nutWidth;
+  const resolvedBoltOn =
+    guitar.neckBoltOn !== undefined
+      ? guitar.neckBoltOn
+      : bodyPart?.neckBoltOn !== undefined
+      ? bodyPart.neckBoltOn
+      : undefined;
+  const resolvedTremolo = guitar.tremolo || bodyPart?.tremolo;
+
   const guitarDetails = [
     guitar.series ? `Series: ${guitar.series}` : null,
     `Project Started: ${guitar.projectStart}`,
     guitar.projectComplete ? `Project Completed: ${guitar.projectComplete}` : null,
-    guitar.body
-      ? `Body: ${guitar.body}${guitar.purchaseStore ? ` (from ${guitar.purchaseStore})` : ''}`
-      : null,
-    guitar.bodyStyle ? `Body Style: ${guitar.bodyStyle}` : null,
+    resolvedBody ? `Body: ${resolvedBody}` : null,
+    resolvedBodyStyle ? `Body Style: ${resolvedBodyStyle}` : null,
     GuitarUtils.isLeftHanded(guitar) ? 'Left Handed' : null,
-    `Color: ${guitar.color ?? 'Unfinished'}`,
+    `Color: ${resolvedColor}`,
     GuitarUtils.hasPurchasePrice(guitar)
       ? `Project Cost: ${formatCurrencyToString(GuitarUtils.getGuitarCost(guitar))}`
       : null,
     guitar.currentPrice ? `Cost Today: ${guitar.currentPrice}` : null,
-    guitar.neck ? `Neck: ${guitar.neck}` : null,
+    resolvedNeck ? `Neck: ${resolvedNeck}` : null,
     guitar.serialNumber
       ? `s/n: ${guitar.serialNumber} (location: ${guitar.serialNumberLocation})`
       : null,
     guitar.manufactureYear ? `Manufacture Year: ${guitar.manufactureYear}` : null,
-    guitar.pickguard ? `Pickguard: ${guitar.pickguard}` : null,
-    guitar.scale ? `Neck Scale: ${guitar.scale}` : null,
-    guitar.numberOfFrets ? `Number of Frets: ${guitar.numberOfFrets}` : null,
-    guitar.neckRadius ? `Neck Radius: ${guitar.neckRadius}` : null,
-    guitar.nutWidth ? `Nut Width: ${guitar.nutWidth}` : null,
-    guitar.neckBoltOn ? 'Bolt-on Neck: Yes' : null,
+    resolvedPickguard ? `Pickguard: ${resolvedPickguard}` : null,
+    resolvedScale ? `Neck Scale: ${resolvedScale}` : null,
+    resolvedFrets ? `Number of Frets: ${resolvedFrets}` : null,
+    resolvedRadius ? `Neck Radius: ${resolvedRadius}` : null,
+    resolvedNutWidth ? `Nut Width: ${resolvedNutWidth}` : null,
+    resolvedBoltOn !== undefined ? (resolvedBoltOn ? 'Bolt-on Neck: Yes' : 'Set-neck') : null,
     `Tuning: ${guitar.tuning ? guitar.tuning : 'Standard'}`,
-    guitar.tremolo ? `Tremolo: ${guitar.tremolo}` : null,
+    resolvedTremolo ? `Tremolo: ${resolvedTremolo}` : null,
     guitar.hasBattery ? 'Has Battery: Yes' : null,
   ].filter(Boolean);
 
@@ -112,8 +183,122 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ item: guitar, isMobile })
 
       {/* Subcomponents & Sections */}
       <div className="space-y-6 pt-4 border-t border-neutral-200">
-        {/* Pickups */}
-        {GuitarUtils.hasPickups(guitar) && (
+        {/* Composable Parts Section */}
+        {hasParts && (
+          <div className="bg-white p-5 rounded-2xl border border-neutral-200 shadow-xs space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-100 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center">
+                  <Wrench className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-neutral-900">Project Parts Composition</h3>
+                  <p className="text-xs text-neutral-500">
+                    {partsList.length} individual parts totaling{' '}
+                    <span className="font-semibold text-neutral-800 font-mono">
+                      {formatCurrencyToString(partsTotalCost)}
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* View mode toggle */}
+              <div className="flex items-center bg-neutral-100 p-1 rounded-lg self-start sm:self-auto border border-neutral-200/60">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('compact')}
+                  className={css(
+                    'p-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-colors',
+                    viewMode === 'compact'
+                      ? 'bg-white text-neutral-900 shadow-2xs font-semibold'
+                      : 'text-neutral-600 hover:text-neutral-900'
+                  )}
+                  title="Compact Cards"
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>Compact</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('expanded')}
+                  className={css(
+                    'p-1.5 rounded-md text-xs font-medium flex items-center gap-1.5 transition-colors',
+                    viewMode === 'expanded'
+                      ? 'bg-white text-neutral-900 shadow-2xs font-semibold'
+                      : 'text-neutral-600 hover:text-neutral-900'
+                  )}
+                  title="Expanded Detail"
+                >
+                  <List className="w-3.5 h-3.5" />
+                  <span>Expanded</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Category Filter Pills */}
+            {categories.length > 2 && (
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+                <span className="text-neutral-500 font-medium shrink-0 flex items-center gap-1">
+                  <Layers className="w-3.5 h-3.5" /> Filter:
+                </span>
+                {categories.map((category) => {
+                  const count =
+                    category === 'All'
+                      ? partsList.length
+                      : partsList.filter((p) => p.partType === category).length;
+                  const isSelected = selectedCategory === category;
+                  return (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => setSelectedCategory(category)}
+                      className={css(
+                        'px-2.5 py-1 rounded-full font-medium transition-all shrink-0 flex items-center gap-1.5',
+                        isSelected
+                          ? 'bg-neutral-900 text-white shadow-xs'
+                          : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                      )}
+                    >
+                      <span>{category}</span>
+                      <span
+                        className={css(
+                          'text-2xs px-1.5 py-0.2 rounded-full',
+                          isSelected
+                            ? 'bg-neutral-800 text-neutral-200'
+                            : 'bg-neutral-200 text-neutral-700'
+                        )}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Parts Grid */}
+            <div
+              className={css(
+                'grid gap-4',
+                viewMode === 'compact'
+                  ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                  : 'grid-cols-1'
+              )}
+            >
+              {filteredParts.map((part) => (
+                <PartDetail
+                  key={part.id}
+                  item={part}
+                  isMobile={isMobile}
+                  compact={viewMode === 'compact'}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Legacy Pickups Section (rendered if root pickups present and not already replaced by parts) */}
+        {Boolean(guitar.pickups && guitar.pickups.length > 0) && (
           <div className="bg-white p-5 rounded-xl border border-neutral-200 shadow-xs space-y-4">
             <h3 className="text-xl font-bold text-neutral-900 border-b border-neutral-100 pb-2">
               Pickups

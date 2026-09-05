@@ -148,7 +148,11 @@ The application's `ImageComponent` and `imageutils.ts` resolver automatically no
   - Project Build Duration tracking.
   - Purchase Price vs. Estimated Reverb Market Valuation delta comparison.
 - **Parts & Hardware Inventory (`/parts`)**: Interactive sortable table with category pills (`Neck`, `Body`, `Pickup`, `Case`), dynamic spec formatting, search filter, and total inventory valuation.
-- **Project Builds (`/projects`)**: Custom build and mod tracker with interactive status filters (`All`, `In Progress`, `Completed`) and search.
+- **Project Builds (`/projects`, `/detail/[id]`)**: Custom build and mod tracker supporting both legacy string fields and the **Composable Project Architecture** (`parts: Part[]`):
+  - **First-class Part Objects**: Projects can be composed of typed `Part` objects (`Body`, `Neck`, `Pickup`, `Case`, `Hardware`, `Electronics`, `Component`).
+  - **Dynamic Cost Summation**: The project's total cost is computed automatically by summing part purchase prices.
+  - **Dynamic Spec Derivation**: Overview specs (Body finish, wood, neck scale, radius, fret count, tremolo) are automatically populated from the parts array if top-level fields are omitted.
+  - **Reference Example**: Implemented and demonstrated in the Test Bench Collection database (`src/data/localdb/c3d4e5f6-a7b8-9012-cdef-123456789012/projects.json`).
 - **Guitars & Instruments (`/guitars`, `/instruments`, `/archive`, `/wishlist`)**: Interactive data tables with pinned columns and deep inspection links.
 
 ---

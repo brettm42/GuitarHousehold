@@ -1,132 +1,196 @@
 [
-    {
-        "id": 100000,
-        "name": "Project #1",
-        "description": "",
-        "projectStart": "12/6/2015",
-        "projectComplete": "1/8/2016",
-        "purchaseStore": "",
-        "serialNumber": "",
-        "serialNumberLocation": "Body",
-        "make": "Project",
+  {
+    "id": 100000,
+    "name": "Project #1",
+    "description": "Double bound offset body with flamed maple veneer and vintage modified neck",
+    "projectStart": "12/6/2015",
+    "projectComplete": "1/8/2016",
+    "purchaseStore": "GuitarFetish",
+    "serialNumber": "",
+    "serialNumberLocation": "Body",
+    "make": "Project",
+    "parts": [
+      {
+        "id": 100001,
+        "name": "XGP Offset Body Double Bound Flamed Maple Vintage Sunburst",
+        "partType": "Body",
+        "description": "Double bound offset body with vintage sunburst finish",
+        "purchaseStore": "GuitarFetish",
+        "purchasePrice": "139.00",
         "bodyStyle": "Jazzmaster",
-        "body": "",
-        "neck": "",
-        "pickguard": "",
         "color": "Sunburst",
-        "components": [
-            "Neck; 89.95",
-            "Tremolo; 15.99"
-        ],
-        "pickups": [
-            {
-                "id": 100010,
-                "name": "GFS JM90 Vintage Wound Jazzmaster Neck",
-                "description": "",
-                "purchaseDate": "",
-                "purchaseStore": "GuitarFetish",
-                "purchasePrice": "",
-                "position": "Neck",
-                "type": "Jazzmaster",
-                "size": "Jazzmaster",
-                "output": "5.0K"
-            },
-            {
-                "id": 100011,
-                "name": "GFS JM90 Vintage Wound Jazzmaster Bridge",
-                "description": "",
-                "purchaseDate": "",
-                "purchaseStore": "GuitarFetish",
-                "purchasePrice": "",
-                "position": "Bridge",
-                "type": "Jazzmaster",
-                "size": "Jazzmaster",
-                "output": "6.1K"
-            }
-        ],
+        "tremolo": "Jazzmaster",
+        "neckBoltOn": true,
+        "bodyMaterial": "Poplar",
+        "topMaterial": "Maple"
+      },
+      {
+        "id": 100002,
+        "name": "Squier Vintage Modified Jazzmaster Neck",
+        "partType": "Neck",
+        "description": "Maple neck with rosewood fingerboard",
+        "purchaseStore": "eBay",
+        "purchasePrice": "89.95",
         "scale": "25.5\"",
         "numberOfFrets": 21,
-        "neckRadius": "",
-        "nutWidth": "",
-        "strings": {
-            "id": 100009,
-            "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
-            "gauge": "13-56",
-            "numberOfStrings": 12,
-            "material": "Pure Nickel",
-            "lastChangeDate": "11/02/2019"
-        },
-        "tremolo": "Jazzmaster",
-        "case": {
-            "id": 100100,
-            "name": "Douglas EGC-200 SJM Case",
-            "description": "",
-            "purchaseDate": "",
-            "purchaseStore": "Rondo Music",
-            "purchasePrice": "",
-            "caseStyle": "Flat"
-        },
-        "picture": "",
-        "modifications": [
-            "Wired up as (but with a 4-throw rotary switch)"
-        ],
-        "controls": [
-            "4-way rotary: neck, series, parallel, bridge",
-            "Master volume",
-            "Master tone"
-        ]
-    },
-    {
-        "id": 110000,
-        "name": "Project #2",
-        "description": "",
-        "projectStart": "1/06/2020",
-        "projectComplete": "",
+        "nutWidth": "1.65\"",
+        "neckRadius": "9.5\"",
+        "neckMaterial": "Maple",
+        "fingerboardMaterial": "Rosewood"
+      },
+      {
+        "id": 100003,
+        "name": "GFS JM90 Vintage Wound Jazzmaster Neck",
+        "partType": "Pickup",
+        "description": "GFS JM90 Vintage Wound Jazzmaster Style Neck Pickup",
+        "purchaseStore": "GuitarFetish",
+        "purchasePrice": "32.95",
+        "position": "Neck",
+        "type": "Jazzmaster",
+        "size": "Jazzmaster",
+        "mount": "Body",
+        "output": "5.0K",
+        "magnetType": "Alnico",
+        "cover": "Plastic"
+      },
+      {
+        "id": 100004,
+        "name": "GFS JM90 Vintage Wound Jazzmaster Bridge",
+        "partType": "Pickup",
+        "description": "GFS JM90 Vintage Wound Jazzmaster Style Bridge Pickup",
+        "purchaseStore": "GuitarFetish",
+        "purchasePrice": "32.95",
+        "position": "Bridge",
+        "type": "Jazzmaster",
+        "size": "Jazzmaster",
+        "mount": "Body",
+        "output": "6.1K",
+        "magnetType": "Alnico",
+        "cover": "Plastic"
+      },
+      {
+        "id": 100005,
+        "name": "XGP 3-Ply White Offset Pickguard",
+        "partType": "Hardware",
+        "description": "XGP 3 Ply White Offset Pickguard for 2 Jazzmaster pickups",
+        "purchaseStore": "GuitarFetish",
+        "purchasePrice": "22.95"
+      },
+      {
+        "id": 100006,
+        "name": "Vintage Offset Tremolo Tailpiece",
+        "partType": "Hardware",
+        "description": "Jazzmaster vintage style tremolo unit with arm",
+        "purchaseStore": "GuitarFetish",
+        "purchasePrice": "15.99"
+      },
+      {
+        "id": 100007,
+        "name": "Douglas EGC-200 SJM Hardshell Case",
+        "partType": "Case",
+        "description": "Douglas hardshell case for offset electric guitars",
+        "purchaseStore": "Rondo Music",
+        "purchasePrice": "69.95",
+        "caseStyle": "Flat"
+      },
+      {
+        "id": 100009,
+        "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+        "partType": "Strings",
+        "gauge": "13-56",
+        "numberOfStrings": 12,
+        "material": "Pure Nickel",
+        "lastChangeDate": "11/02/2019"
+      }
+    ],
+    "picture": "",
+    "modifications": [
+      "Wired up as (but with a 4-throw rotary switch)"
+    ],
+    "controls": [
+      "4-way rotary: neck, series, parallel, bridge",
+      "Master volume",
+      "Master tone"
+    ]
+  },
+  {
+    "id": 110000,
+    "name": "Project #2",
+    "description": "Telecaster style project build with single-coil bridge pickup",
+    "projectStart": "1/06/2020",
+    "projectComplete": "",
+    "purchaseStore": "Amazon",
+    "serialNumber": "",
+    "serialNumberLocation": "None",
+    "make": "Project",
+    "bodyStyle": "Telecaster",
+    "color": "Red",
+    "scale": "25.5\"",
+    "numberOfFrets": 22,
+    "neckRadius": "9.5\"",
+    "nutWidth": "1.65\"",
+    "parts": [
+      {
+        "id": 110001,
+        "name": "Telecaster Guitar Body",
+        "partType": "Body",
+        "description": "Solid alder Telecaster body finished in red",
         "purchaseStore": "Amazon",
-        "serialNumber": "",
-        "serialNumberLocation": "None",
-        "make": "Project",
+        "purchasePrice": "189.95",
         "bodyStyle": "Telecaster",
-        "body": "",
-        "neck": "",
-        "pickguard": "",
         "color": "Red",
-        "components": [
-          "Guitar body; 189.95",
-          "Pickguard; 21.99"
-        ],
-        "pickups": [
-            {
-                "id": 110010,
-                "name": "",
-                "description": "",
-                "purchaseDate": "",
-                "purchaseStore": "",
-                "purchasePrice": "",
-                "position": "Bridge",
-                "type": "Single-coil",
-                "size": "Telecaster Bridge",
-                "output": "12.0K"
-            }
-        ],
+        "neckBoltOn": true,
+        "bodyMaterial": "Alder"
+      },
+      {
+        "id": 110002,
+        "name": "Telecaster 22-Fret Maple Neck",
+        "partType": "Neck",
+        "description": "25.5 inch scale maple neck with 22 frets",
+        "purchaseStore": "Amazon",
+        "purchasePrice": "99.00",
         "scale": "25.5\"",
         "numberOfFrets": 22,
-        "neckRadius": "",
-        "nutWidth": "",
-        "strings": {
-            "id": 110009,
-            "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
-            "gauge": "13-56",
-            "numberOfStrings": 6,
-            "material": "Pure Nickel",
-            "lastChangeDate": "11/02/2019"
-        },
-        "picture": "",
-        "modifications": [],
-        "controls": [
-            "3-way rotary: neck, parallel, bridge",
-            "Master volume",
-            "Master tone"
-        ]
-    }
+        "nutWidth": "1.65\"",
+        "neckRadius": "9.5\"",
+        "neckMaterial": "Maple"
+      },
+      {
+        "id": 110003,
+        "name": "Telecaster Single-Ply Pickguard",
+        "partType": "Hardware",
+        "description": "Standard 8-hole Telecaster pickguard",
+        "purchaseStore": "Amazon",
+        "purchasePrice": "21.99"
+      },
+      {
+        "id": 110010,
+        "name": "Telecaster High-Output Bridge Pickup",
+        "partType": "Pickup",
+        "description": "High output single-coil bridge pickup",
+        "purchaseStore": "Amazon",
+        "purchasePrice": "34.50",
+        "position": "Bridge",
+        "type": "Single-coil",
+        "size": "Telecaster Bridge",
+        "output": "12.0K"
+      },
+      {
+        "id": 110009,
+        "name": "D'Addario EPN22 Pure Nickel, Jazz Medium, 13-56",
+        "partType": "Strings",
+        "gauge": "13-56",
+        "numberOfStrings": 6,
+        "material": "Pure Nickel",
+        "lastChangeDate": "11/02/2019"
+      }
+    ],
+    "picture": "",
+    "modifications": [],
+    "controls": [
+      "3-way rotary: neck, parallel, bridge",
+      "Master volume",
+      "Master tone"
+    ]
+  }
 ]

@@ -4,9 +4,18 @@ import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
 import { Strings } from '../../interfaces/models/strings';
+import { Part } from '../../interfaces/models/part';
 import { RetailItem } from '../../interfaces/retailitem';
 
 import {
+  getGuitarBodyStyle,
+  getGuitarColor,
+  getGuitarNeckBoltOn,
+  getGuitarNeckRadius,
+  getGuitarNumberOfFrets,
+  getGuitarNutWidth,
+  getGuitarScale,
+  getGuitarTremolo,
   hasCase,
   hasPickups,
   hasStrings,
@@ -170,6 +179,8 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
         new Map([ ...pickupResults, ...validatePickup(pickup, idx) ]);
       idx++;
     }
+  } else if (hasPickups(guitar)) {
+    // Pickups validated as parts
   } else if (!isAcoustic(guitar) && !isWishlisted(guitar)) {
     pickupResults.set('pickups', ValidationFlag.Missing);
   }
@@ -177,6 +188,8 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
   let caseResults = new Map<string, ValidationFlag>();
   if (guitar.case && !isArchived(guitar) && guitar.case.id) {
     caseResults = validateCase(guitar.case);
+  } else if (hasCase(guitar)) {
+    // Case validated as part
   } else if (!isWishlisted(guitar)
       && !isArchived(guitar)
       && isDelivered(guitar)) {
@@ -186,6 +199,8 @@ export function validate(guitar: Guitar | any): Map<string, ValidationFlag>[] {
   let stringsResults = new Map<string, ValidationFlag>();
   if (guitar.strings && !isArchived(guitar) && guitar.strings.id) {
     stringsResults = validateStrings(guitar.strings);
+  } else if (hasStrings(guitar)) {
+    // Strings validated as part
   } else if (!isWishlisted(guitar)
       && isDelivered(guitar)
       && !isInProgress(guitar)
@@ -217,15 +232,15 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
   if (!guitar.serialNumber) { result.set(`${prefix}-serialNumber`, ValidationFlag.Missing); }
   if (!guitar.serialNumberLocation) { result.set(`${prefix}-serialNumberLocation`, ValidationFlag.Critical); }
   if (!guitar.manufactureYear) { result.set(`${prefix}-manufactureYear`, ValidationFlag.Optional); }
-  if (!guitar.bodyStyle) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
-  if (!guitar.color) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
-  if (!guitar.tremolo) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }
-  if (!guitar.scale) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
-  if (!guitar.numberOfFrets) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
+  if (!getGuitarBodyStyle(guitar)) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
+  if (!getGuitarColor(guitar)) { result.set(`${prefix}-color`, ValidationFlag.Warning); }
+  if (!getGuitarTremolo(guitar)) { result.set(`${prefix}-tremolo`, ValidationFlag.Optional); }
+  if (!getGuitarScale(guitar)) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
+  if (!getGuitarNumberOfFrets(guitar)) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
   if (!guitar.tuning) { result.set(`${prefix}-tuning`, ValidationFlag.Optional); }
-  if (!guitar.neckRadius) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
-  if (!guitar.nutWidth) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
-  if (!guitar.neckBoltOn) { result.set(`${prefix}-neckBoltOn`, ValidationFlag.Optional); }
+  if (!getGuitarNeckRadius(guitar)) { result.set(`${prefix}-neckRadius`, ValidationFlag.Missing); }
+  if (!getGuitarNutWidth(guitar)) { result.set(`${prefix}-nutWidth`, ValidationFlag.Missing); }
+  if (getGuitarNeckBoltOn(guitar) === undefined) { result.set(`${prefix}-neckBoltOn`, ValidationFlag.Optional); }
   if (!guitar.picture) { result.set(`${prefix}-picture`, ValidationFlag.Missing); }
   if (!guitar.additionalPictures) { result.set(`${prefix}-additionalPictures`, ValidationFlag.Missing); }
   if (!guitar.modifications) { result.set(`${prefix}-modifications`, ValidationFlag.Missing); }
@@ -240,6 +255,36 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
 }
 
 /**
+ * Validate part object
+ * @see {@link Part | part.ts}
+ *
+ * @param part - part to validate
+ * @param idx - optional part index
+ */
+export function validatePart(part: Part, idx?: number): Map<string, ValidationFlag> {
+  const prefix = idx !== undefined ? `part${idx}` : 'part';
+  const result = validateRetailItem(part, prefix);
+
+  if (!part.partType) {
+    result.set(`${prefix}-partType`, ValidationFlag.Critical);
+  }
+
+  const normalizedType = (part.partType || '').toLowerCase();
+  if (normalizedType === 'neck') {
+    if (!part.scale) { result.set(`${prefix}-scale`, ValidationFlag.Missing); }
+    if (!part.numberOfFrets) { result.set(`${prefix}-numberOfFrets`, ValidationFlag.Missing); }
+  } else if (normalizedType === 'body') {
+    if (!part.bodyStyle) { result.set(`${prefix}-bodyStyle`, ValidationFlag.Missing); }
+  } else if (normalizedType === 'pickup') {
+    if (!part.output) { result.set(`${prefix}-output`, ValidationFlag.Missing); }
+  } else if (normalizedType === 'case') {
+    if (!part.caseStyle) { result.set(`${prefix}-caseStyle`, ValidationFlag.Missing); }
+  }
+
+  return result;
+}
+
+/**
  * Validate project object
  * @see {@link Project | project.ts}
  * 
@@ -247,13 +292,27 @@ function validateGuitar(guitar: Guitar): Map<string, ValidationFlag> {
  */
 function validateProject(project: Project): Map<string, ValidationFlag> {
   const prefix = 'project';
-  const result = validateRetailItem(project, prefix);
+  let result = validateRetailItem(project, prefix);
   if (!project.projectStart) { result.set(`${prefix}-projectStart`, ValidationFlag.Warning); }
   if (!project.projectComplete) { result.set(`${prefix}-projectComplete`, ValidationFlag.Missing); }
-  if (!project.body) { result.set(`${prefix}-body`, ValidationFlag.Missing); }
-  if (!project.neck) { result.set(`${prefix}-neck`, ValidationFlag.Missing); }
-  if (!project.pickguard) { result.set(`${prefix}-pickguard`, ValidationFlag.Missing); }
-  if (!project.components) { result.set(`${prefix}-components`, ValidationFlag.Missing); }
+
+  const hasPartsList = Boolean(project.parts && project.parts.length > 0);
+  const hasBodyPart = hasPartsList && project.parts!.some((p) => (p.partType || '').toLowerCase() === 'body');
+  const hasNeckPart = hasPartsList && project.parts!.some((p) => (p.partType || '').toLowerCase() === 'neck');
+  const hasPickguardPart = hasPartsList && project.parts!.some((p) => (p.name || '').toLowerCase().includes('pickguard'));
+
+  if (!project.body && !hasBodyPart) { result.set(`${prefix}-body`, ValidationFlag.Missing); }
+  if (!project.neck && !hasNeckPart) { result.set(`${prefix}-neck`, ValidationFlag.Missing); }
+  if (!project.pickguard && !hasPickguardPart && !hasPartsList) { result.set(`${prefix}-pickguard`, ValidationFlag.Missing); }
+  if (!project.components && !hasPartsList) { result.set(`${prefix}-components`, ValidationFlag.Missing); }
+
+  if (hasPartsList) {
+    let partIdx = 0;
+    for (const part of project.parts!) {
+      result = new Map([...result, ...validatePart(part, partIdx)]);
+      partIdx++;
+    }
+  }
 
   return result;
 }

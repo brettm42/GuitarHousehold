@@ -2,6 +2,8 @@ import { Case } from '../../interfaces/models/case';
 import { Guitar } from '../../interfaces/models/guitar';
 import { Pickup } from '../../interfaces/models/pickup';
 import { Project } from '../../interfaces/models/project';
+import { Strings } from '../../interfaces/models/strings';
+import { Part } from '../../interfaces/models/part';
 import { RetailItem } from '../../interfaces/retailitem';
 
 import {
@@ -14,7 +16,7 @@ import {
 } from '../../infrastructure/datautils';
 
 import * as CurrencyService from '../currencyservice/currencyservice';
-import { BodyStyle } from '../../interfaces/models/components';
+import { BodyStyle, TremoloType } from '../../interfaces/models/components';
 import { getStringText } from '../stringservice/stringservice';
 
 const defaultString = 'None';
@@ -92,7 +94,7 @@ function isAcousticPickup(pickups: ReadonlyArray<Pickup>): boolean {
 export function isAcoustic(guitar: Guitar): boolean {
   const acousticStyle: BodyStyle[] = ['Acoustic', 'Flattop', 'Hollowbody', 'Archtop'];
 
-  return acousticStyle.includes(guitar.bodyStyle || 'Unique')
+  return acousticStyle.includes(getGuitarBodyStyle(guitar) || 'Unique')
     ? isAcousticPickup(guitar.pickups ?? [])
     : false;
 }
@@ -102,49 +104,164 @@ export function isElectric(guitar: Guitar): boolean {
 }
 
 export function hasCase(guitar: Guitar): boolean {
-  return guitar.case
-    ? guitar.case.id !== undefined
-    : false;
+  if (guitar?.case && guitar.case.id !== undefined) {
+    return true;
+  }
+  if (guitar?.parts && guitar.parts.length > 0) {
+    return guitar.parts.some(p => (p.partType || '').toLowerCase() === 'case');
+  }
+  return false;
 }
 
-export function isFactoryCase(guitarCase: Case): boolean {
-    return guitarCase
-      ? !guitarCase.purchaseStore || guitarCase.purchaseStore.includes(factoryString)
-      : false;
+export function getGuitarCase(guitar: Guitar): Case | Part | undefined {
+  if (guitar?.case) return guitar.case;
+  if (guitar?.parts) {
+    return guitar.parts.find(p => (p.partType || '').toLowerCase() === 'case');
+  }
+  return undefined;
+}
+
+export function isFactoryCase(guitarCase: Case | Part): boolean {
+  return guitarCase
+    ? !guitarCase.purchaseStore || guitarCase.purchaseStore.includes(factoryString)
+    : false;
 }
 
 export function hasPickups(guitar: Guitar): boolean {
-  return guitar.pickups
-    ? guitar.pickups.length > 0
-    : false;
+  if (guitar?.pickups && guitar.pickups.length > 0) {
+    return true;
+  }
+  if (guitar?.parts && guitar.parts.length > 0) {
+    return guitar.parts.some(p => (p.partType || '').toLowerCase() === 'pickup');
+  }
+  return false;
+}
+
+export function getGuitarPickups(guitar: Guitar): ReadonlyArray<Pickup | Part> {
+  if (guitar?.pickups && guitar.pickups.length > 0) return guitar.pickups;
+  if (guitar?.parts) {
+    return guitar.parts.filter(p => (p.partType || '').toLowerCase() === 'pickup');
+  }
+  return [];
 }
 
 export function hasFactoryPickups(guitar: Guitar): boolean {
-  return hasPickups(guitar)
-    ? guitar.pickups!.every(p => isFactoryPickup(p))
+  const pickups = getGuitarPickups(guitar);
+  return pickups.length > 0
+    ? pickups.every(p => isFactoryPickup(p as any))
     : false;
 }
 
-export function isFactoryPickup(pickup: Pickup): boolean {
+export function isFactoryPickup(pickup: Pickup | Part): boolean {
   return pickup
     ? !pickup.purchaseStore || pickup.purchaseStore.includes(factoryString)
     : false;
 }
 
 export function hasStrings(guitar: Guitar): boolean {
-  return (guitar && guitar.strings && guitar.strings.name)
-    ? guitar.strings.id !== undefined
-    : false;
+  if (guitar && guitar.strings && guitar.strings.name) {
+    return guitar.strings.id !== undefined;
+  }
+  if (guitar?.parts && guitar.parts.length > 0) {
+    return guitar.parts.some(p => (p.partType || '').toLowerCase() === 'strings');
+  }
+  return false;
+}
+
+export function getGuitarStrings(guitar: Guitar): Strings | Part | undefined {
+  if (guitar?.strings) return guitar.strings;
+  if (guitar?.parts) {
+    return guitar.parts.find(p => (p.partType || '').toLowerCase() === 'strings');
+  }
+  return undefined;
 }
 
 export function hasFactoryStrings(guitar: Guitar): boolean {
+  const strings = getGuitarStrings(guitar);
   return hasStrings(guitar)
-    ? (guitar.strings?.name || '').includes(factoryString)
+    ? (strings?.name || '').includes(factoryString)
     : false;
 }
 
+export function getGuitarBodyStyle(guitar: Guitar): BodyStyle | undefined {
+  if (guitar?.bodyStyle) return guitar.bodyStyle;
+  if (guitar?.parts) {
+    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
+    if (body?.bodyStyle) return body.bodyStyle;
+  }
+  return undefined;
+}
+
+export function getGuitarColor(guitar: Guitar): string | undefined {
+  if (guitar?.color) return guitar.color;
+  if (guitar?.parts) {
+    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
+    if (body?.color) return body.color;
+  }
+  return undefined;
+}
+
+export function getGuitarScale(guitar: Guitar): string | undefined {
+  if (guitar?.scale) return guitar.scale;
+  if (guitar?.parts) {
+    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
+    if (neck?.scale) return neck.scale;
+  }
+  return undefined;
+}
+
+export function getGuitarNumberOfFrets(guitar: Guitar): number | undefined {
+  if (guitar?.numberOfFrets !== undefined) return guitar.numberOfFrets;
+  if (guitar?.parts) {
+    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
+    if (neck?.numberOfFrets !== undefined) return neck.numberOfFrets;
+  }
+  return undefined;
+}
+
+export function getGuitarNeckRadius(guitar: Guitar): string | undefined {
+  if (guitar?.neckRadius) return guitar.neckRadius;
+  if (guitar?.parts) {
+    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
+    if (neck?.neckRadius) return neck.neckRadius;
+  }
+  return undefined;
+}
+
+export function getGuitarNutWidth(guitar: Guitar): string | undefined {
+  if (guitar?.nutWidth) return guitar.nutWidth;
+  if (guitar?.parts) {
+    const neck = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'neck');
+    if (neck?.nutWidth) return neck.nutWidth;
+  }
+  return undefined;
+}
+
+export function getGuitarTremolo(guitar: Guitar): TremoloType | undefined {
+  if (guitar?.tremolo) return guitar.tremolo;
+  if (guitar?.parts) {
+    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
+    if (body?.tremolo) return body.tremolo;
+    const tremPart = guitar.parts.find(p => (p.name || '').toLowerCase().includes('tremolo'));
+    if (tremPart?.tremolo) return tremPart.tremolo;
+  }
+  return undefined;
+}
+
+export function getGuitarNeckBoltOn(guitar: Guitar): boolean | undefined {
+  if (guitar?.neckBoltOn !== undefined) return guitar.neckBoltOn;
+  if (guitar?.parts) {
+    const body = guitar.parts.find(p => (p.partType || '').toLowerCase() === 'body');
+    if (body?.neckBoltOn !== undefined) return body.neckBoltOn;
+  }
+  return undefined;
+}
+
 export function hasPurchasePrice(guitar: Guitar): boolean {
-  if (guitar.purchasePrice || (isProject(guitar) && guitar.components)) {
+  if (
+    guitar.purchasePrice ||
+    (isProject(guitar) && (guitar.components || hasParts(guitar)))
+  ) {
     return true;
   }
 
@@ -248,7 +365,8 @@ export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
 
   let max;
   for (const guitar of guitars) {
-    if (!guitar.numberOfFrets) {
+    const frets = getGuitarNumberOfFrets(guitar);
+    if (!frets) {
       continue;
     }
 
@@ -258,13 +376,13 @@ export function mostFrets(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((max.numberOfFrets ?? maxDefault) < guitar.numberOfFrets) {
+    if ((getGuitarNumberOfFrets(max) ?? maxDefault) < frets) {
       max = guitar;
     }
   }
 
   return max
-    ? `${max.name} (${max.numberOfFrets} ${getStringText('GuitarUtilsFrets')})`
+    ? `${max.name} (${getGuitarNumberOfFrets(max)} ${getStringText('GuitarUtilsFrets')})`
     : defaultString;
 }
 
@@ -275,7 +393,8 @@ export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
 
   let min;
   for (const guitar of guitars) {
-    if (!guitar.numberOfFrets) {
+    const frets = getGuitarNumberOfFrets(guitar);
+    if (!frets) {
       continue;
     }
 
@@ -285,13 +404,13 @@ export function leastFrets(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if ((min.numberOfFrets ?? minDefault) > guitar.numberOfFrets) {
+    if ((getGuitarNumberOfFrets(min) ?? minDefault) > frets) {
       min = guitar;
     }
   }
 
   return min
-    ? `${min.name} (${min.numberOfFrets} ${getStringText('GuitarUtilsFrets')})`
+    ? `${min.name} (${getGuitarNumberOfFrets(min)} ${getStringText('GuitarUtilsFrets')})`
     : defaultString;
 }
 
@@ -300,10 +419,10 @@ export function mostCommonFretCount(guitars: ReadonlyArray<Guitar>): string {
     return defaultString;
   }
 
-  const items = guitars.filter(c => c.numberOfFrets);
+  const items = guitars.filter(c => getGuitarNumberOfFrets(c));
   const averageFrets =
     items.reduce((avg, g) =>
-        avg + (g.numberOfFrets ?? 0),
+        avg + (getGuitarNumberOfFrets(g) ?? 0),
       0) / items.length;
 
   return averageFrets
@@ -316,8 +435,9 @@ export function getStringGauge(guitar: Guitar): string {
     return defaultString;
   }
 
-  return guitar.strings?.gauge
-    ? guitar.strings.gauge
+  const strings = getGuitarStrings(guitar);
+  return strings?.gauge
+    ? strings.gauge
     : unknownString;
 }
 
@@ -326,8 +446,9 @@ function getStringAgeDuration(guitar: Guitar): number {
     return 0;
   }
 
-  if (guitar.strings?.lastChangeDate) {
-    return Date.now() - Date.parse(guitar.strings.lastChangeDate);
+  const strings = getGuitarStrings(guitar);
+  if (strings?.lastChangeDate) {
+    return Date.now() - Date.parse(strings.lastChangeDate);
   } else if (hasFactoryStrings(guitar)) {
     if (!guitar.purchaseDate) {
       return 0;
@@ -523,14 +644,18 @@ export function hasComponents(guitar: Project): boolean {
     : false;
 }
 
+export function hasParts(guitar: Guitar | Project): boolean {
+  return Boolean(guitar && guitar.parts && guitar.parts.length > 0);
+}
+
 export function mostCommonCaseStyle(guitars: ReadonlyArray<Guitar>): string {
-  const cases = guitars.filter(g => hasCase(g)).map(g => g.case?.caseStyle);
+  const cases = guitars.filter(g => hasCase(g)).map(g => getGuitarCase(g)?.caseStyle);
 
   return mostCommonString(cases, true);
 }
 
 export function mostCommonColor(guitars: ReadonlyArray<Guitar>): string {
-  const colors = guitars.map(g => getColorMapping(g.color));
+  const colors = guitars.map(g => getColorMapping(getGuitarColor(g)));
 
   return mostCommonString(colors, true);
 }
@@ -542,19 +667,19 @@ export function mostCommonTuning(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonScale(guitars: ReadonlyArray<Guitar>): string {
-  const scales = guitars.filter(g => g.scale).map(g => g.scale);
+  const scales = guitars.map(g => getGuitarScale(g)).filter(Boolean) as string[];
 
   return mostCommonString(scales, true);
 }
 
 export function mostCommonNutWidth(guitars: ReadonlyArray<Guitar>): string {
-  const nuts = guitars.filter(g => g.nutWidth).map(g => g.nutWidth);
+  const nuts = guitars.map(g => getGuitarNutWidth(g)).filter(Boolean) as string[];
 
   return mostCommonString(nuts, true);
 }
 
 export function mostCommonNeckRadius(guitars: ReadonlyArray<Guitar>): string {
-  const radii = guitars.filter(g => g.neckRadius).map(g => g.neckRadius);
+  const radii = guitars.map(g => getGuitarNeckRadius(g)).filter(Boolean) as string[];
 
   return mostCommonString(radii, true);
 }
@@ -578,19 +703,19 @@ export function mostCommonStore(guitars: ReadonlyArray<Guitar>): string {
 }
 
 export function mostCommonBody(guitars: ReadonlyArray<Guitar>): string {
-  const bodies = guitars.map(g => g.bodyStyle);
+  const bodies = guitars.map(g => getGuitarBodyStyle(g));
 
   return mostCommonString(bodies, true);
 }
 
 export function mostCommonTremoloType(guitars: ReadonlyArray<Guitar>): string {
-  const tremolos = guitars.filter(g => g.tremolo).map(g => g.tremolo);
+  const tremolos = guitars.map(g => getGuitarTremolo(g)).filter(Boolean) as string[];
 
   return mostCommonString(tremolos, true);
 }
 
 export function mostCommonStrings(guitars: ReadonlyArray<Guitar>): string {
-  const strings = guitars.filter(g => hasStrings(g)).map(g => g.strings?.name);
+  const strings = guitars.filter(g => hasStrings(g)).map(g => getGuitarStrings(g)?.name);
 
   return mostCommonString(strings, true);
 }
@@ -704,10 +829,11 @@ export function sixStringVs12string(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    if (guitar.strings?.numberOfStrings === 12) {
+    const strings = getGuitarStrings(guitar);
+    if (strings?.numberOfStrings === 12) {
       twelve += 1;
-    } else if ((guitar.strings?.numberOfStrings ?? maxDefault > 6)
-        || (guitar.strings?.numberOfStrings ?? minDefault < 6)) {
+    } else if ((strings?.numberOfStrings ?? maxDefault > 6)
+        || (strings?.numberOfStrings ?? minDefault < 6)) {
       continue;
     } else {
       six += 1;
@@ -1186,7 +1312,8 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    let lastChangeDate = guitar.strings?.lastChangeDate;
+    const strings = getGuitarStrings(guitar);
+    let lastChangeDate = strings?.lastChangeDate;
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
         lastChangeDate = guitar.purchaseDate;
@@ -1213,10 +1340,11 @@ export function oldestStrings(guitars: ReadonlyArray<Guitar>): string {
     millisecondsToFriendlyString(
       Date.now() - Date.parse(maxDate ?? Date.now().toString()));
 
+  const maxStrings = max ? getGuitarStrings(max) : undefined;
   return max
     ? maxDate === max?.purchaseDate
-      ? `${max.strings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${max.name}) - ${duration}`
-      : `${max.strings?.name} ${getStringText('GuitarUtilsStrings')} (changed ${maxDate} on ${max.name}) - ${duration}`
+      ? `${maxStrings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${max.name}) - ${duration}`
+      : `${maxStrings?.name} ${getStringText('GuitarUtilsStrings')} (changed ${maxDate} on ${max.name}) - ${duration}`
     : defaultString;
 }
 
@@ -1232,7 +1360,8 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
       continue;
     }
 
-    let lastChangeDate = guitar.strings?.lastChangeDate;
+    const strings = getGuitarStrings(guitar);
+    let lastChangeDate = strings?.lastChangeDate;
     if (!lastChangeDate) {
       if (hasFactoryStrings(guitar)) {
         lastChangeDate = guitar.purchaseDate;
@@ -1259,10 +1388,11 @@ export function newestStrings(guitars: ReadonlyArray<Guitar>): string {
     millisecondsToFriendlyString(
       Date.now() - Date.parse(minDate ?? Date.now().toString()));
 
+  const minStrings = min ? getGuitarStrings(min) : undefined;
   return min
     ? minDate === min?.purchaseDate
-      ? `${min.strings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${min.name}) - ${duration}`
-      : `${min.strings?.name} ${getStringText('GuitarUtilsStrings')} (changed ${minDate} on ${min.name}) - ${duration}`
+      ? `${minStrings?.name} ${getStringText('GuitarUtilsStrings')} (came with ${min.name}) - ${duration}`
+      : `${minStrings?.name} ${getStringText('GuitarUtilsStrings')} (changed ${minDate} on ${min.name}) - ${duration}`
     : defaultString;
 }
 
@@ -1917,7 +2047,16 @@ export function getGuitarCost(guitar: Guitar | Project): number {
   }
 
   if (isProject(guitar)) {
-    if (guitar.components && guitar.components.length > 0) {
+    if (guitar.parts && guitar.parts.length > 0) {
+      for (const part of guitar.parts) {
+        if (part.purchasePrice) {
+          const val = Number.parseFloat(part.purchasePrice);
+          if (!Number.isNaN(val)) {
+            total += val;
+          }
+        }
+      }
+    } else if (guitar.components && guitar.components.length > 0) {
       for (const item of guitar.components) {
         if (typeof item === 'string') {
           const componentPair = item.split(';');
@@ -2169,7 +2308,11 @@ export function summarizeConstruction(guitar: Guitar): string {
     ).toLocaleLowerCase();
 }
 
-export function getColorMapping(color: string): string {
+export function getColorMapping(color?: string): string {
+  if (!color) {
+    return 'Unknown';
+  }
+
   const mapping: { [key: string]: string; } = {
     // Burst variants
     'Antique Burst': 'Sunburst',

@@ -182,10 +182,15 @@
           "items": {
             "type": "string"
           }
+        },
+        "parts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Part"
+          }
         }
       },
       "required": [
-        "color",
         "id",
         "make",
         "name",
@@ -207,20 +212,23 @@
     "BodyStyle": {
       "type": "string",
       "enum": [
-        "Telecaster",
-        "Stratocaster",
-        "Jazzmaster",
-        "Jaguar",
-        "Mustang",
-        "Jazzcaster",
-        "Les Paul",
-        "SG",
-        "Offset",
-        "Hollowbody",
-        "Semi-Hollowbody",
-        "Starcaster",
+        "Acoustic",
+        "Archtop",
+        "Firebird",
         "Flattop",
+        "Hollowbody",
+        "Jaguar",
+        "Jazzcaster",
+        "Jazzmaster",
+        "Les Paul",
+        "Mustang",
+        "Offset",
         "Resonator",
+        "Semi-Hollowbody",
+        "SG",
+        "Starcaster",
+        "Stratocaster",
+        "Telecaster",
         "Unique"
       ]
     },
@@ -312,35 +320,37 @@
     "PickupType": {
       "type": "string",
       "enum": [
-        "Charlie Christian",
-        "Humbucker",
-        "P90",
-        "Dog-ear P90",
-        "Single-coil",
-        "Jazzmaster",
-        "Jaguar",
-        "Wide-range Humbucker",
-        "Piezo",
-        "Mini-humbucker",
         "Active Humbucker",
+        "Charlie Christian",
+        "Dog-ear P90",
         "Filtertron",
-        "Goldfoil"
+        "Goldfoil",
+        "Humbucker",
+        "Jaguar",
+        "Jazzmaster",
+        "Mini-humbucker",
+        "P90",
+        "P-Bass",
+        "Piezo",
+        "Single-coil",
+        "Wide-range Humbucker"
       ]
     },
     "PickupSize": {
       "type": "string",
       "enum": [
+        "Dog-ear",
         "Humbucker",
         "Soapbar",
-        "Dog-ear",
         "Jazzmaster",
-        "Wide-range Humbucker",
-        "Stratocaster",
         "Mini-humbucker",
+        "P-Bass",
+        "Piezo",
+        "Split-coil",
+        "Stratocaster",
         "Surface-mount",
         "Telecaster Bridge",
-        "Split-coil",
-        "Piezo"
+        "Wide-range Humbucker"
       ]
     },
     "PickupPosition": {
@@ -560,6 +570,172 @@
           "type": "string"
         }
       },
+      "additionalProperties": false
+    },
+    "PartType": {
+      "type": "string",
+      "enum": [
+        "Neck",
+        "Body",
+        "Pickup",
+        "Case",
+        "Strings",
+        "Hardware",
+        "Electronics",
+        "Component",
+        "Accessory"
+      ]
+    },
+    "Part": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "partType": {
+          "$ref": "#/definitions/PartType"
+        },
+        "description": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "material": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "serialNumber": {
+          "type": "string"
+        },
+        "serialNumberLocation": {
+          "$ref": "#/definitions/SerialNumberLocation"
+        },
+        "purchaseDate": {
+          "type": "string"
+        },
+        "deliveryDate": {
+          "type": "string"
+        },
+        "purchaseStore": {
+          "type": "string"
+        },
+        "purchasePrice": {
+          "type": "string"
+        },
+        "currentPrice": {
+          "type": "string"
+        },
+        "productUrl": {
+          "type": "string"
+        },
+        "soldDate": {
+          "type": "string"
+        },
+        "scale": {
+          "type": "string"
+        },
+        "nutWidth": {
+          "type": "string"
+        },
+        "neckRadius": {
+          "type": "string"
+        },
+        "numberOfFrets": {
+          "type": "number"
+        },
+        "neckMaterial": {
+          "type": "string"
+        },
+        "fingerboardMaterial": {
+          "type": "string"
+        },
+        "bodyStyle": {
+          "$ref": "#/definitions/BodyStyle"
+        },
+        "color": {
+          "type": "string"
+        },
+        "tremolo": {
+          "$ref": "#/definitions/TremoloType"
+        },
+        "neckBoltOn": {
+          "type": "boolean"
+        },
+        "bodyMaterial": {
+          "type": "string"
+        },
+        "topMaterial": {
+          "type": "string"
+        },
+        "magnetType": {
+          "type": "string"
+        },
+        "output": {
+          "type": "string"
+        },
+        "cover": {
+          "$ref": "#/definitions/PickupCover"
+        },
+        "mount": {
+          "$ref": "#/definitions/PickupMount"
+        },
+        "size": {
+          "$ref": "#/definitions/PickupSize"
+        },
+        "type": {
+          "$ref": "#/definitions/PickupType"
+        },
+        "position": {
+          "$ref": "#/definitions/PickupPosition"
+        },
+        "caseStyle": {
+          "$ref": "#/definitions/CaseStyle"
+        },
+        "gauge": {
+          "type": "string"
+        },
+        "numberOfStrings": {
+          "type": "number"
+        },
+        "lastChangeDate": {
+          "type": "string"
+        },
+        "modifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "picture": {
+          "type": "string"
+        },
+        "pictures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "additionalPictures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "partType"
+      ],
       "additionalProperties": false
     }
   }

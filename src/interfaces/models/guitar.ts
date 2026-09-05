@@ -18,7 +18,7 @@ export interface Guitar extends RetailItem {
   readonly serialNumberLocation?: SerialNumberLocation;
   readonly manufactureYear?: number;
   readonly bodyStyle?: BodyStyle;
-  readonly color: string;
+  readonly color?: string;
   readonly pickups?: ReadonlyArray<Pickup>;
   readonly strings?: Strings;
   readonly tremolo?: TremoloType;
