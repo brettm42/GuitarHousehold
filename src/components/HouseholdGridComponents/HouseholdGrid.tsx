@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Guitar } from '../../interfaces/models/guitar';
 import { getGuitarPictureUrl } from '../../infrastructure/imageutils';
+import { GuitarResolver } from '../../domain/resolvers';
 
 type HouseholdGridProps = {
   data: Guitar[];
@@ -15,6 +16,8 @@ const HouseholdGrid: React.FC<HouseholdGridProps> = ({ data: guitars }) => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {guitars.map((guitar) => {
           const pictureUrl = getGuitarPictureUrl(guitar);
+          const swatch = GuitarResolver.colorSwatch(guitar);
+          const bodyStyle = GuitarResolver.bodyStyle(guitar);
 
           return (
             <Link
@@ -36,11 +39,19 @@ const HouseholdGrid: React.FC<HouseholdGridProps> = ({ data: guitars }) => {
                 )}
               </div>
               <div className="p-2.5">
-                <h4 className="font-medium text-xs text-neutral-800 line-clamp-1 group-hover:text-brand-primary">
-                  {guitar.name}
-                </h4>
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0 border"
+                    style={swatch.style}
+                    title={swatch.tooltip}
+                    aria-label={swatch.tooltip}
+                  />
+                  <h4 className="font-medium text-xs text-neutral-800 line-clamp-1 group-hover:text-brand-primary">
+                    {guitar.name}
+                  </h4>
+                </div>
                 <p className="text-[11px] text-neutral-500 line-clamp-1">
-                  {[guitar.make, guitar.bodyStyle].filter(Boolean).join(' ')}
+                  {[guitar.make, bodyStyle].filter(Boolean).join(' ')}
                 </p>
               </div>
             </Link>

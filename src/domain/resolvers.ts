@@ -6,6 +6,11 @@ import { Pickup } from '../interfaces/models/pickup';
 import { Strings } from '../interfaces/models/strings';
 import { BodyStyle, TremoloType } from '../interfaces/models/components';
 import { resolveImageArray } from '../infrastructure/imageutils';
+import {
+  ColorSwatch,
+  getColorMapping,
+  getColorSwatch,
+} from '../infrastructure/colorutils';
 
 /**
  * Domain resolver for Guitar and Project specifications.
@@ -70,6 +75,16 @@ export const GuitarResolver = {
   color(guitar: Guitar | Project): string | undefined {
     if (guitar?.color) return guitar.color;
     return this.getBodyPart(guitar)?.color;
+  },
+
+  /** Resolves normalized finish color name */
+  normalizedColor(guitar: Guitar | Project): string {
+    return getColorMapping(this.color(guitar));
+  },
+
+  /** Resolves visual color swatch configuration */
+  colorSwatch(guitar: Guitar | Project): ColorSwatch {
+    return getColorSwatch(this.color(guitar));
   },
 
   /** Resolves tremolo type from root or Body/Hardware part */
@@ -157,8 +172,86 @@ export const GuitarResolver = {
   pickguardDescription(guitar: Guitar | Project): string | undefined {
     if ((guitar as Project)?.pickguard) return (guitar as Project).pickguard;
     return this.getPickguardPart(guitar)?.name;
-  }
+  },
+
+  /** Resolves structured construction and tonewood summary */
+  constructionSummary(guitar: Guitar | Project): ConstructionSummary {
+    const bodyWood = this.bodyMaterial(guitar);
+    const topWood = this.topMaterial(guitar);
+    const neckWood = this.neckMaterial(guitar);
+    const fretboardWood = this.fingerboardMaterial(guitar);
+    const boltOn = this.neckBoltOn(guitar);
+
+    const backWood = guitar?.construction?.backMaterial;
+    const sidesWood = guitar?.construction?.sidesMaterial;
+    const finishType = guitar?.construction?.finishType;
+    const neckFinishType = guitar?.construction?.neckFinishType;
+
+    // 1. Body tonewood description
+    let bodyDesc: string | undefined;
+    if (topWood && backWood && sidesWood) {
+      const backSides =
+        backWood === sidesWood
+          ? `${backWood} back & sides`
+          : `${backWood} back and ${sidesWood} sides`;
+      bodyDesc = `${topWood} top with ${backSides}`;
+    } else if (bodyWood && topWood) {
+      bodyDesc = `${bodyWood} body with ${topWood} top`;
+    } else if (bodyWood) {
+      bodyDesc = `${bodyWood} body`;
+    } else if (topWood) {
+      bodyDesc = `${topWood} top`;
+    }
+
+    // 2. Neck & fingerboard description
+    let neckDesc: string | undefined;
+    const attachment = boltOn === true ? 'Bolt-on ' : boltOn === false ? 'Set-neck ' : '';
+
+    if (neckWood && fretboardWood) {
+      if (neckWood.toLowerCase() === fretboardWood.toLowerCase()) {
+        neckDesc = `${attachment}1-piece ${neckWood} neck & fingerboard`;
+      } else {
+        neckDesc = `${attachment}${neckWood} neck with ${fretboardWood} fingerboard`;
+      }
+    } else if (neckWood) {
+      neckDesc = `${attachment}${neckWood} neck`;
+    } else if (fretboardWood) {
+      neckDesc = `${fretboardWood} fingerboard`;
+    }
+
+    // 3. Finish description
+    let finishDesc: string | undefined;
+    if (finishType && neckFinishType) {
+      if (finishType.toLowerCase() === neckFinishType.toLowerCase()) {
+        finishDesc = `${finishType} finish`;
+      } else {
+        finishDesc = `${finishType} body / ${neckFinishType} neck finish`;
+      }
+    } else if (finishType) {
+      finishDesc = `${finishType} finish`;
+    } else if (neckFinishType) {
+      finishDesc = `${neckFinishType} neck finish`;
+    }
+
+    // 4. Combine segments
+    const segments = [bodyDesc, neckDesc, finishDesc].filter(Boolean) as string[];
+    const fullText = segments.join(' • ');
+
+    return {
+      body: bodyDesc,
+      neck: neckDesc,
+      finish: finishDesc,
+      fullText,
+    };
+  },
 };
+
+export interface ConstructionSummary {
+  readonly body?: string;
+  readonly neck?: string;
+  readonly finish?: string;
+  readonly fullText: string;
+}
 
 /**
  * Domain resolver for Part-specific queries and media.

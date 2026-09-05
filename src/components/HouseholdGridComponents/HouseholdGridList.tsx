@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Guitar } from '../../interfaces/models/guitar';
 import { getGuitarPictureUrl } from '../../infrastructure/imageutils';
+import { GuitarResolver } from '../../domain/resolvers';
 
 type HouseholdGridListProps = {
   data: Guitar[];
@@ -16,6 +17,8 @@ const HouseholdGridList: React.FC<HouseholdGridListProps> = ({ data: guitars }) 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {guitars.map((guitar) => {
           const pictureUrl = getGuitarPictureUrl(guitar);
+          const swatch = GuitarResolver.colorSwatch(guitar);
+          const bodyStyle = GuitarResolver.bodyStyle(guitar);
 
           return (
             <Link
@@ -45,11 +48,19 @@ const HouseholdGridList: React.FC<HouseholdGridListProps> = ({ data: guitars }) 
 
               {/* Info Bar */}
               <div className="p-3 bg-white border-t border-neutral-100 flex flex-col justify-between flex-1">
-                <h3 className="font-semibold text-neutral-800 text-sm line-clamp-1 group-hover:text-brand-primary transition-colors">
-                  {guitar.name}
-                </h3>
+                <div className="flex items-center gap-1.5 min-w-0">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0 border"
+                    style={swatch.style}
+                    title={swatch.tooltip}
+                    aria-label={swatch.tooltip}
+                  />
+                  <h3 className="font-semibold text-neutral-800 text-sm line-clamp-1 group-hover:text-brand-primary transition-colors">
+                    {guitar.name}
+                  </h3>
+                </div>
                 <p className="text-xs text-neutral-500 mt-1 line-clamp-1">
-                  {[guitar.make, guitar.bodyStyle].filter(Boolean).join(' ')}
+                  {[guitar.make, bodyStyle].filter(Boolean).join(' ')}
                 </p>
               </div>
             </Link>

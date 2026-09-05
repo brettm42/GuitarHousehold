@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ChevronDown } from 'lucide-react';
 import CaseDetail from './CaseDetail';
+import ConstructionDetail from './ConstructionDetail';
 import PickupDetail from './PickupDetail';
 import ReverbDetail from './ReverbDetail';
 import StringsDetail from './StringsDetail';
@@ -75,11 +76,7 @@ const GuitarDetail: React.FC<GuitarDetailProps> = ({ item: guitar, isMobile }) =
             </p>
           )}
 
-          {guitar.construction && (
-            <div className="p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700 font-medium">
-              {GuitarUtils.summarizeConstruction(guitar)}
-            </div>
-          )}
+          <ConstructionDetail guitar={guitar} />
 
           {/* Attributes List */}
           <div className="space-y-1.5 text-sm text-neutral-700 bg-white p-4 rounded-xl border border-neutral-200 shadow-xs">

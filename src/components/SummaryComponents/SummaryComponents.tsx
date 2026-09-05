@@ -332,7 +332,7 @@ const TimelineComponent: React.FC<SummaryComponentsProps> = ({ data: guitars }) 
         ['Most Projects Finished', GuitarUtils.mostProjectsInAYear(guitars)],
         dividerPlaceholder,
         notYetDelivered > 0
-          ? ['Not Yet Delivered', `${notYetDelivered} instruments`]
+          ? ['Not Yet Delivered', `${notYetDelivered}`]
           : ['', ''],
         ['Average Delivery Time', GuitarUtils.averageDeliveryTime(guitars)],
         dividerPlaceholder,
