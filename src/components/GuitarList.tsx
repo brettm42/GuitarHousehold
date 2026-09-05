@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import { buildPageTitle, css } from '../components/viewutils';
 import { Guitar } from '../interfaces/models/guitar';
 import * as GuitarUtils from '../data/guitarservice/guitarutils';
+import { GuitarResolver } from '../domain/resolvers';
 import { Search } from 'lucide-react';
 
 type ProjectFilter = 'all' | 'in-progress' | 'completed';
@@ -56,9 +57,10 @@ const GuitarList: React.FC<GuitarListProps> = ({ items, pathname, isMobile, titl
       result = result.filter((item) => {
         const name = (item.name || '').toLowerCase();
         const make = (item.make || '').toLowerCase();
-        const body = (item.bodyStyle || '').toLowerCase();
+        const body = (GuitarResolver.bodyStyle(item) || item.bodyStyle || '').toLowerCase();
+        const color = (GuitarResolver.color(item) || item.color || '').toLowerCase();
         const store = (item.purchaseStore || '').toLowerCase();
-        return name.includes(q) || make.includes(q) || body.includes(q) || store.includes(q);
+        return name.includes(q) || make.includes(q) || body.includes(q) || color.includes(q) || store.includes(q);
       });
     }
 

@@ -18,8 +18,17 @@ const ArchivePage: NextPage<PageProps> = ({ items: initialItems, pathname }) => 
 
   const currentItems = React.useMemo(() => {
     if (accountData && accountData.account.id === activeAccount?.id) {
-      const guitars = accountData.guitars || [];
-      return guitars.filter((g) => isArchived(g) || hasSold(g));
+      const all = [
+        ...(accountData.guitars || []),
+        ...(accountData.projects || []),
+        ...(accountData.instruments || []),
+      ];
+      const filtered = all.filter((g) => isArchived(g) || hasSold(g));
+      const map = new Map<number | string, (typeof all)[0]>();
+      for (const item of filtered) {
+        map.set(item.id, item);
+      }
+      return Array.from(map.values());
     }
     return initialItems;
   }, [accountData, activeAccount?.id, initialItems]);
@@ -38,10 +47,14 @@ const ArchivePage: NextPage<PageProps> = ({ items: initialItems, pathname }) => 
 export const getStaticProps: GetStaticProps = async () => {
   const accounts = getAvailableAccounts();
   const defaultAccount = getDefaultAccount();
-  const data = [
-    ...(await findAllArchived(defaultAccount.id)),
-    ...(await findAllSold(defaultAccount.id)),
-  ];
+  const archived = await findAllArchived(defaultAccount.id);
+  const sold = await findAllSold(defaultAccount.id);
+
+  const map = new Map<number | string, (typeof archived)[0]>();
+  for (const item of [...archived, ...sold]) {
+    map.set(item.id, item);
+  }
+  const data = Array.from(map.values());
 
   return {
     props: {

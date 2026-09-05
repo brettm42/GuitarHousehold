@@ -62,7 +62,7 @@ export function isWishlisted(guitar: Guitar | Project): boolean {
 }
 
 export function isArchived(guitar: Guitar | Project): boolean {
-  return guitar && (guitar.archive ?? false);
+  return GuitarResolver.isArchived(guitar);
 }
 
 export function isDelivered(item: RetailItem): boolean {
@@ -105,14 +105,8 @@ export function isElectric(guitar: Guitar): boolean {
   return hasPickups(guitar) && !isAcoustic(guitar);
 }
 
-export function hasCase(guitar: Guitar): boolean {
-  if (guitar?.case && guitar.case.id !== undefined) {
-    return true;
-  }
-  if (guitar?.parts && guitar.parts.length > 0) {
-    return guitar.parts.some(p => (p.partType || '').toLowerCase() === 'case');
-  }
-  return false;
+export function hasCase(guitar: Guitar | Project): boolean {
+  return Boolean(GuitarResolver.getCase(guitar));
 }
 
 export function isFactoryCase(guitarCase: Case | Part): boolean {
@@ -121,14 +115,8 @@ export function isFactoryCase(guitarCase: Case | Part): boolean {
     : false;
 }
 
-export function hasPickups(guitar: Guitar): boolean {
-  if (guitar?.pickups && guitar.pickups.length > 0) {
-    return true;
-  }
-  if (guitar?.parts && guitar.parts.length > 0) {
-    return guitar.parts.some(p => (p.partType || '').toLowerCase() === 'pickup');
-  }
-  return false;
+export function hasPickups(guitar: Guitar | Project): boolean {
+  return GuitarResolver.pickupCount(guitar) > 0;
 }
 
 export function hasFactoryPickups(guitar: Guitar): boolean {
@@ -167,8 +155,7 @@ export function hasPurchasePrice(guitar: Guitar): boolean {
 }
 
 export function hasSold(guitar: Guitar): boolean {
-  return guitar
-    && (guitar.soldDate ? guitar.soldDate !== '' : false);
+  return GuitarResolver.hasSold(guitar);
 }
 
 export async function findGuitarCostToday(guitar: Guitar): Promise<string> {
@@ -218,12 +205,8 @@ export function mostCommonControlCount(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-export function getPickupCount(guitar: Guitar): number {
-  if (hasPickups(guitar)) {
-    return guitar.pickups?.length ?? 0;
-  }
-
-  return 0;
+export function getPickupCount(guitar: Guitar | Project): number {
+  return GuitarResolver.pickupCount(guitar);
 }
 
 export function mostPickups(guitars: ReadonlyArray<Guitar>): string {
@@ -429,18 +412,14 @@ export function averageDeliveryTime(guitars: ReadonlyArray<Guitar>): string {
     : defaultString;
 }
 
-export function getModificationCount(guitar: Guitar): number {
-  if (hasModifications(guitar)) {
-    return guitar.modifications?.length ?? 0;
-  }
-
-  return 0;
+export function getModificationCount(guitar: Guitar | Project): number {
+  const rootMods = guitar.modifications?.length ?? 0;
+  const partMods = guitar.parts?.reduce((sum, p) => sum + (p.modifications?.length ?? 0), 0) ?? 0;
+  return rootMods + partMods;
 }
 
-export function hasModifications(guitar: Guitar): boolean {
-  return guitar.modifications
-    ? guitar.modifications.length > 0
-    : false;
+export function hasModifications(guitar: Guitar | Project): boolean {
+  return getModificationCount(guitar) > 0;
 }
 
 export function mostModifications(guitars: ReadonlyArray<Guitar>): string {
@@ -2149,38 +2128,47 @@ export function summarizeHousehold(guitars: ReadonlyArray<Guitar>): string {
   return `Household has ${guitars.length} guitars...`;
 }
 
-export function summarizeGuitar(guitar: Guitar): string {
-  return `${guitar.name} is ${getGuitarAge(guitar, false, true) ?? ''}${guitar.bodyStyle?.toLocaleLowerCase() ?? ''} `
-    + `${isElectric(guitar) ? 'electric' : 'acoustic'}${isLeftHanded(guitar) ? ' left-handed ' : ' '}`
-    + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project ' : ''}${getGuitarOwnershipAge(guitar) ? '('+ getGuitarOwnershipAge(guitar) + ') ' : ''} with ${summarizePickups(guitar)}`
-    + `${guitar.numberOfFrets ? (', ' + guitar.numberOfFrets + ' frets') : ''}`
-    + `${guitar.scale ? ', ' + guitar.scale + ' scale length' : ''}`
-    + `${guitar.controls ? ', ' + getControlCount(guitar) + ' controls' : ''}`
-    + `${guitar.modifications ? ', ' + getModificationCount(guitar) + ' modifications' : ''}`
-    + `, ${(getColorMapping(guitar.color) ?? 'unfinished').toLocaleLowerCase()} finish`
-    + `${guitar.tremolo ? ', and tremolo' : ''}${isInProgress(guitar) ? '; guitar is not yet completed' : ''}`
-    + `${isWishlisted(guitar) ? ', and is on the wishlist.' : ''}`;
+export function summarizeGuitar(guitar: Guitar | Project): string {
+  const bodyStyle = GuitarResolver.bodyStyle(guitar);
+  const color = GuitarResolver.color(guitar);
+  const frets = GuitarResolver.numberOfFrets(guitar);
+  const scale = GuitarResolver.scale(guitar);
+  const tremolo = GuitarResolver.tremolo(guitar);
+
+  return `${guitar.name} is ${getGuitarAge(guitar as Guitar, false, true) ?? ''}${bodyStyle ? bodyStyle.toLocaleLowerCase() + ' ' : ''}`
+    + `${isElectric(guitar as Guitar) ? 'electric' : 'acoustic'}${isLeftHanded(guitar as Guitar) ? ' left-handed ' : ' '}`
+    + `${isGuitar(guitar) ? 'guitar' : 'instrument'} ${isProject(guitar) ? 'project ' : ''}${getGuitarOwnershipAge(guitar as Guitar) ? '('+ getGuitarOwnershipAge(guitar as Guitar) + ') ' : ''}with ${summarizePickups(guitar)}`
+    + `${frets ? (', ' + frets + ' frets') : ''}`
+    + `${scale ? ', ' + scale + ' scale length' : ''}`
+    + `${guitar.controls ? ', ' + getControlCount(guitar as Guitar) + ' controls' : ''}`
+    + `${getModificationCount(guitar) > 0 ? ', ' + getModificationCount(guitar) + ' modifications' : ''}`
+    + `, ${(getColorMapping(color) ?? 'unfinished').toLocaleLowerCase()} finish`
+    + `${tremolo ? ', and tremolo' : ''}${isInProgress(guitar as Guitar) ? '; guitar is not yet completed' : ''}`
+    + `${isWishlisted(guitar as Guitar) ? ', and is on the wishlist.' : ''}`;
 }
 
-export function summarizePickups(guitar: Guitar): string {
-  const pickupCount = getPickupCount(guitar);
-  if (!hasPickups(guitar) || pickupCount < 1) {
+export function summarizePickups(guitar: Guitar | Project): string {
+  const pickups = GuitarResolver.getPickups(guitar);
+  const pickupCount = pickups.length;
+  if (pickupCount < 1) {
     return 'no pickups';
   }
 
   const types = Array<string>();
-  for (const pickup of guitar.pickups ?? []) {
-    if (types.includes(pickup.type)) {
-      continue;
+  for (const pickup of pickups) {
+    const pType = (pickup as any).type || (pickup as any).brand;
+    if (pType && !types.includes(pType)) {
+      types.push(pType);
     }
-
-    types.push(pickup.type);
   }
 
   return types.length > 1
     ? `${pickupCount} ${getStringText('GuitarUtilsPickups')} - ${types.join(', ').toLocaleLowerCase()}`
-    : `${pickupCount} ${types.join(', ').toLocaleLowerCase()} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
+    : types.length === 1
+    ? `${pickupCount} ${types[0].toLocaleLowerCase()} ${pickupCount > 1 ? 'pickups' : 'pickup'}`
+    : `${pickupCount} ${pickupCount > 1 ? 'pickups' : 'pickup'}`;
 }
+
 
 
 

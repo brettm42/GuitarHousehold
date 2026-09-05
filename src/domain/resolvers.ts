@@ -18,6 +18,16 @@ import {
  * and falling back cleanly to composed Part items when absent.
  */
 export const GuitarResolver = {
+  /** Checks if an item is marked as archived */
+  isArchived(guitar: Guitar | Project | undefined | null): boolean {
+    return Boolean(guitar && (guitar as any).archive);
+  },
+
+  /** Checks if an item has been sold */
+  hasSold(guitar: Guitar | Project | undefined | null): boolean {
+    return Boolean(guitar && (guitar as any).soldDate && (guitar as any).soldDate !== '');
+  },
+
   /** Retrieves the body part from parts if present */
   getBodyPart(guitar: Guitar | Project): Part | undefined {
     return guitar?.parts?.find((p) => (p.partType || '').toLowerCase() === 'body');
@@ -55,6 +65,11 @@ export const GuitarResolver = {
       return guitar.parts.filter((p) => (p.partType || '').toLowerCase() === 'pickup');
     }
     return [];
+  },
+
+  /** Resolves total pickup count, checking explicit pickups then parts */
+  pickupCount(guitar: Guitar | Project): number {
+    return this.getPickups(guitar).length;
   },
 
   /** Resolves strings from the separate strings model */

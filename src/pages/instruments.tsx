@@ -4,6 +4,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { IsMobile } from '../components/viewutils';
 import { PageProps } from '../infrastructure/sharedprops';
 import { findAllInstruments } from '../data/guitarservice/guitarservice';
+import { isArchived } from '../data/guitarservice/guitarutils';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
 import { toListDTOs } from '../infrastructure/dto';
@@ -17,9 +18,9 @@ const InstrumentsPage: NextPage<PageProps> = ({ items: initialItems, pathname })
 
   const currentItems = React.useMemo(() => {
     if (accountData && accountData.account.id === activeAccount?.id) {
-      return accountData.instruments || [];
+      return (accountData.instruments || []).filter((g) => !isArchived(g));
     }
-    return initialItems;
+    return (initialItems || []).filter((g) => !isArchived(g));
   }, [accountData, activeAccount?.id, initialItems]);
 
   return (

@@ -103,7 +103,7 @@ export async function findEverything(accountId?: string): Promise<Guitar[]> {
 
 export async function findAllInstruments(accountId?: string): Promise<Guitar[]> {
   const { instruments } = getAccountDatabase(accountId);
-  return instruments || [];
+  return (instruments || []).filter((g) => !isArchived(g));
 }
 
 export async function findAllGuitars(accountId?: string): Promise<Guitar[]> {
@@ -117,13 +117,15 @@ export async function findAllProjects(accountId?: string): Promise<Project[]> {
 }
 
 export async function findAllArchived(accountId?: string): Promise<Guitar[]> {
-  const { guitars } = getAccountDatabase(accountId);
-  return (guitars || []).filter((g) => isArchived(g));
+  const { guitars, projects, instruments } = getAccountDatabase(accountId);
+  const all = [...(guitars || []), ...(projects || []), ...(instruments || [])];
+  return all.filter((g) => isArchived(g));
 }
 
 export async function findAllSold(accountId?: string): Promise<Guitar[]> {
-  const { guitars } = getAccountDatabase(accountId);
-  return (guitars || []).filter((g) => hasSold(g));
+  const { guitars, projects, instruments } = getAccountDatabase(accountId);
+  const all = [...(guitars || []), ...(projects || []), ...(instruments || [])];
+  return all.filter((g) => hasSold(g));
 }
 
 export async function findAllWishlist(accountId?: string): Promise<Guitar[]> {

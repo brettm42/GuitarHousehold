@@ -27,13 +27,13 @@ export const BaseColumns: ReadonlyArray<TableDataCell> = [
 ];
 
 export const GuitarColumns: ReadonlyArray<TableDataCell> = [
-  { id: 'bodyStyle', label: 'Type' },
-  { id: 'color', label: 'Color' },
+  { id: 'bodyStyle', label: 'Type', formatter: (g) => GuitarResolver.bodyStyle(g) ?? g.bodyStyle ?? '—' },
+  { id: 'color', label: 'Color', formatter: (g) => GuitarResolver.color(g) ?? g.color ?? '—' },
   { id: 'manufactureYear', label: 'Manufacture Year' },
   { id: 'pickups', label: 'Pickups', formatter: getPickupCount },
   { id: 'strings', label: 'Strings', formatter: getStringGauge },
-  { id: 'scale', label: 'Scale' },
-  { id: 'nutWidth', label: 'Nut Width' },
+  { id: 'scale', label: 'Scale', formatter: (g) => GuitarResolver.scale(g) ?? g.scale ?? '—' },
+  { id: 'nutWidth', label: 'Nut Width', formatter: (g) => GuitarResolver.nutWidth(g) ?? g.nutWidth ?? '—' },
   { id: 'controls', label: 'Controls', formatter: getControlCount },
   { id: 'case', label: 'Has Case', formatter: (i) => (hasCase(i) ? 'Yes' : 'No'), sortValue: (i) => hasCase(i) },
   { id: 'modifications', label: 'Modifications', formatter: getModificationCount }

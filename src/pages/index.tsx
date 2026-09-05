@@ -11,6 +11,7 @@ import {
   findAllInstruments,
   findAllProjects,
 } from '../data/guitarservice/guitarservice';
+import { isArchived } from '../data/guitarservice/guitarutils';
 import { getAvailableAccounts, getDefaultAccount } from '../data/accountservice/accountservice';
 import { useAccount } from '../contexts/AccountContext';
 import { toListDTOs } from '../infrastructure/dto';
@@ -20,14 +21,15 @@ const IndexPage: NextPage<PageProps> = ({ items: initialItems, pathname }) => {
   const { accountData, activeAccount } = useAccount();
 
   const currentItems = React.useMemo(() => {
-    if (accountData && accountData.account.id === activeAccount?.id) {
-      return [
-        ...(accountData.guitars || []),
-        ...(accountData.projects || []),
-        ...(accountData.instruments || []),
-      ];
-    }
-    return initialItems;
+    const items =
+      accountData && accountData.account.id === activeAccount?.id
+        ? [
+            ...(accountData.guitars || []),
+            ...(accountData.projects || []),
+            ...(accountData.instruments || []),
+          ]
+        : initialItems;
+    return (items || []).filter((item) => !isArchived(item));
   }, [accountData, activeAccount?.id, initialItems]);
 
   return (
