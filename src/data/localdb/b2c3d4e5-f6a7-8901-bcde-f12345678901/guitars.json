@@ -57,9 +57,10 @@
             "name": "TKL Artcore Case",
             "description": "",
             "purchaseDate": "",
-            "purchaseStore": "Guitar Center",
+            "purchaseStore": "Amazon",
             "purchasePrice": "",
-            "caseStyle": "Arched"
+            "caseStyle": "Arched",
+            "productUrl": "https://www.amazon.com/clp/B000EEJDPA"
         },
         "picture": "",
         "productUrl": "",

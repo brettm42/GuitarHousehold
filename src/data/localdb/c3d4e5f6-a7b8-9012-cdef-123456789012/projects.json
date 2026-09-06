@@ -3,8 +3,8 @@
     "id": 100000,
     "name": "Project #1",
     "description": "Double bound offset body with flamed maple veneer and vintage modified neck",
-    "projectStart": "12/6/2015",
-    "projectComplete": "1/8/2016",
+    "projectStart": "12/06/2015",
+    "projectComplete": "1/08/2016",
     "purchaseStore": "GuitarFetish",
     "serialNumber": "",
     "serialNumberLocation": "Body",
@@ -181,7 +181,13 @@
       "gauge": "13-56",
       "numberOfStrings": 6,
       "material": "Pure Nickel",
-      "lastChangeDate": "11/02/2019"
+      "lastChangeDate": "11/02/2029"
+    },
+    "case": {
+      "id": 110011,
+      "name": "ChromaCast Case",
+      "purchaseStore": "Amazon",
+      "productUrl": "https://www.amazon.com/clp/B00A270MZO"
     },
     "picture": "",
     "modifications": [],
