@@ -51,8 +51,9 @@ export interface Part extends RetailItem {
   // Case specific
   readonly caseStyle?: CaseStyle;
 
-  // Modifications and media
+  // Modifications, repairs, and media
   readonly modifications?: ReadonlyArray<string>;
+  readonly repairs?: ReadonlyArray<string>;
   readonly picture?: string;
   readonly pictures?: ReadonlyArray<string>;
   readonly additionalPictures?: ReadonlyArray<string>;

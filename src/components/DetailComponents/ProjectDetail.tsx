@@ -5,6 +5,7 @@ import ConstructionDetail from './ConstructionDetail';
 import PickupDetail from './PickupDetail';
 import StringsDetail from './StringsDetail';
 import PartDetail from './PartDetail';
+import ProjectTimeline from './ProjectTimeline';
 import ImageComponent from '../ImageComponent';
 import * as GuitarUtils from '../../data/guitarservice/guitarutils';
 import { GuitarResolver } from '../../domain/resolvers';
@@ -149,6 +150,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ item: guitar, isMobile })
 
       {/* Subcomponents & Sections */}
       <div className="space-y-6 pt-4 border-t border-neutral-200">
+        {/* Project Timeline */}
+        <ProjectTimeline project={guitar} isMobile={isMobile} />
+
         {/* Composable Parts Section */}
         {hasParts && (
           <div className="bg-white p-5 rounded-2xl border border-neutral-200 shadow-xs space-y-5">

@@ -284,6 +284,11 @@ export const PartResolver = {
   /** Indicates if a part has recorded modifications */
   hasModifications(part: Part): boolean {
     return Boolean(part.modifications && part.modifications.length > 0);
+  },
+
+  /** Indicates if a part has recorded repairs */
+  hasRepairs(part: Part): boolean {
+    return Boolean(part.repairs && part.repairs.length > 0);
   }
 };
 

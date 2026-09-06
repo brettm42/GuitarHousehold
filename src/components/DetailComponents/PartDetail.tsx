@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChevronDown, ExternalLink, Camera, Wrench } from 'lucide-react';
+import { ChevronDown, ExternalLink, Camera, Wrench, Hammer } from 'lucide-react';
 import { formatCurrencyStringToString } from '../../infrastructure/datautils';
 import { PartResolver } from '../../domain/resolvers';
 import { Part } from '../../interfaces/models/part';
@@ -68,12 +68,14 @@ const PartDetail: React.FC<PartDetailProps> = ({ item: part, isMobile, compact =
     part.caseStyle ? `Case Style: ${part.caseStyle}` : null,
     // General
     part.material ? `Material: ${part.material}` : null,
+    part.manufacturer ? `Manufacturer: ${part.manufacturer}` : null,
     part.serialNumber
       ? `s/n: ${part.serialNumber}${part.serialNumberLocation ? ` (${part.serialNumberLocation})` : ''}`
       : null,
     part.purchaseStore ? `Purchased from: ${part.purchaseStore}` : null,
     part.purchaseDate ? `Purchased: ${part.purchaseDate}` : null,
     part.deliveryDate ? `Delivered: ${part.deliveryDate}` : null,
+    part.soldDate ? `Sold: ${part.soldDate}` : null,
     part.currentPrice ? `Market Value: ${part.currentPrice}` : null,
   ].filter(Boolean);
 
@@ -133,6 +135,18 @@ const PartDetail: React.FC<PartDetailProps> = ({ item: part, isMobile, compact =
             {part.modifications.map((mod, idx) => (
               <span key={idx} className="bg-amber-50 border border-amber-200 text-amber-800 px-2 py-0.5 rounded-md text-2xs">
                 {mod}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {part.repairs && part.repairs.length > 0 && (
+          <div className="mt-2.5 pt-2.5 border-t border-neutral-100 flex items-center gap-1.5 flex-wrap text-xs text-rose-900">
+            <Hammer className="w-3 h-3 text-rose-600 shrink-0" />
+            <span className="font-semibold text-2xs uppercase tracking-wide text-neutral-500">Repairs:</span>
+            {part.repairs.map((repair, idx) => (
+              <span key={idx} className="bg-rose-50 border border-rose-200 text-rose-800 px-2 py-0.5 rounded-md text-2xs">
+                {repair}
               </span>
             ))}
           </div>
@@ -218,6 +232,20 @@ const PartDetail: React.FC<PartDetailProps> = ({ item: part, isMobile, compact =
           <ul className="list-disc list-inside text-xs text-amber-950 space-y-1">
             {part.modifications.map((mod, idx) => (
               <li key={idx}>{mod}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {part.repairs && part.repairs.length > 0 && (
+        <div className="space-y-2 p-3 bg-rose-50/70 rounded-xl border border-rose-200/80">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-rose-900">
+            <Hammer className="w-3.5 h-3.5 text-rose-700" />
+            <span>Component Repairs</span>
+          </div>
+          <ul className="list-disc list-inside text-xs text-rose-950 space-y-1">
+            {part.repairs.map((repair, idx) => (
+              <li key={idx}>{repair}</li>
             ))}
           </ul>
         </div>

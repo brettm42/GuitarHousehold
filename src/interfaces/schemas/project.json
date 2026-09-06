@@ -706,6 +706,12 @@
             "type": "string"
           }
         },
+        "repairs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "picture": {
           "type": "string"
         },
